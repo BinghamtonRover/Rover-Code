@@ -7,4 +7,4 @@ dartdoc:
   linkToSource: 
     root: lib
     uriTemplate: https://github.com/BinghamtonRover/Dart-Networking/blob/main/lib/%f%#L%l%
-  exclude: ["generated/**.dart"]
+  exclude: ["lib/generated/**.dart"]
