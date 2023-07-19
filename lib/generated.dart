@@ -20,13 +20,13 @@ typedef Message = proto.GeneratedMessage;
 
 /// Defines a friendlier method for getting the name of a message.
 extension MessageUtils on Message {
-	/// The name of the message as declared in the .proto file. 
-	String get messageName => info_.messageName;
+  /// The name of the message as declared in the .proto file. 
+  String get messageName => info_.messageName;
 
-	/// Returns a [WrappedMessage] representing this message with a timestamp
-	WrappedMessage wrap([DateTime? timestamp]) => WrappedMessage(
-		data: writeToBuffer(),
-		name: messageName,
-		timestamp: Timestamp.fromDateTime(timestamp ?? DateTime.now()),
-	);
+  /// Returns a [WrappedMessage] representing this message with a timestamp
+  WrappedMessage wrap([DateTime? timestamp]) => WrappedMessage(
+    data: writeToBuffer(),
+    name: messageName,
+    timestamp: Timestamp.fromDateTime(timestamp ?? DateTime.now()),
+  );
 }
