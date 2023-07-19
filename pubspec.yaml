@@ -8,6 +8,11 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
+  build_runner: ^2.4.6
+  logger: ^1.4.0
+  meta: ^1.9.1
+  protobuf: ^3.0.0
+  protoc_builder: ^0.4.0
   # path: ^1.8.0
 
 dev_dependencies:
