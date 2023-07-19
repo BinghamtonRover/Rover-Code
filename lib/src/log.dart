@@ -1,6 +1,5 @@
 import "dart:io";
 import "package:logger/logger.dart";
-export "package:logger/logger.dart";
 
 /// A filter to decide which messages get logged. Set [LogFilter.level] to change.
 final logFilter = ProductionFilter();
