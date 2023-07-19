@@ -1,3 +1,8 @@
+/// This library exports the generated Protobuf classes.
+/// 
+/// Nothing in this library is hand-written. See our [Protobuf repository](https://github.com/BinghamtonRover/Protobuf) for more details.
+library;
+
 export "src/generated/arm.pb.dart";
 export "src/generated/autonomy.pb.dart";
 export "src/generated/core.pb.dart";
