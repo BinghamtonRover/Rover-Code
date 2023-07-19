@@ -5,7 +5,7 @@ import "package:meta/meta.dart";
 import "package:burt_network/generated.dart";
 
 import "udp_socket.dart";
-import "socket.dart";
+import "socket_info.dart";
 import "log.dart";
 
 /// How often to check for heartbeats.

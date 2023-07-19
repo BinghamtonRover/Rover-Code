@@ -3,7 +3,7 @@ import "dart:async";
 
 import "package:meta/meta.dart";
 
-import "socket.dart";
+import "socket_info.dart";
 import "log.dart";
 
 /// Manages a UDP socket.

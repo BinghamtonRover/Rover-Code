@@ -3,7 +3,7 @@ import "package:meta/meta.dart";
 
 import "package:burt_network/generated.dart";
 
-import "socket.dart";
+import "socket_info.dart";
 import "proto_socket.dart";
 import "log.dart";
 
