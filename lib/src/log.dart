@@ -1,8 +1,11 @@
 import "dart:io";
 import "package:logger/logger.dart";
+export "package:logger/logger.dart";
 
+/// A filter to decide which messages get logged. Set [LogFilter.level] to change.
+final logFilter = ProductionFilter();
 /// The logger to use when running BURT programs. See [LoggerUtils] for usage.
-final logger = Logger(printer: SimplePrinter(colors: stdout.supportsAnsiEscapes));
+Logger logger = Logger(printer: SimplePrinter(colors: stdout.supportsAnsiEscapes), filter: logFilter);
 
 /// Helpful aliases for the [Logger] class.
 extension LoggerUtils on Logger {

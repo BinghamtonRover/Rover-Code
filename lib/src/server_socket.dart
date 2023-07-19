@@ -71,6 +71,7 @@ abstract class ServerSocket extends ProtoSocket {
   /// 4. If we are not connected to any dashboard, call [onConnect] and respond to it.
   @override
   void onHeartbeat(Connect heartbeat, SocketInfo source) {
+    logger.verbose("Received heartbeat from $source");
     if (heartbeat.receiver != device) {  // (1)
       logger.warning("Received a misaddressed heartbeat for ${heartbeat.receiver}");
     } else if (isConnected) {

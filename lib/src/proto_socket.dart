@@ -44,7 +44,7 @@ abstract class ProtoSocket extends UdpSocket {
   late Timer heartbeatTimer;
 
   /// A UDP socket that can send and receive Protobuf [Message]s.
-  ProtoSocket({required this.device, required super.port});
+  ProtoSocket({required this.device, required super.port, this.destination});
 
   /// The socket to send messages to.
   SocketInfo? destination;
