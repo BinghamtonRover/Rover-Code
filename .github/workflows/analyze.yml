@@ -3,7 +3,11 @@ name: Analyzer
 # Analyzes the project on every pull request. 
 # See analysis_options.yaml for lint configuration.
 
-on: [pull_request, merge_group]
+on:
+  pull_request:
+  merge_group:
+  push:
+    branches: [ main ]
 
 jobs: 
   analyze: 
@@ -41,3 +45,6 @@ jobs:
 
       - name: Analyze
         run: flutter analyze --dartdocs
+        
+      - name: Run tests
+        run: dart test
