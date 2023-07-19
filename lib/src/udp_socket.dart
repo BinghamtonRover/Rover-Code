@@ -15,7 +15,7 @@ import "log.dart";
 /// - Call [init] to open the socket on the given [port].
 /// - Call [sendData] to send raw data to another socket.
 /// - Override [onData] to handle incoming data.
-/// - Call [close] to close the socket. Messages can no longer be sent or received after this. 
+/// - Call [dispose] to close the socket. Messages can no longer be sent or received after this. 
 abstract class UdpSocket {
   /// The port this socket is listening on. See [RawDatagramSocket.bind].
   final int port;
@@ -25,12 +25,12 @@ abstract class UdpSocket {
 
   /// The UDP socket backed by `dart:io`.
   /// 
-  /// This socket must be closed in [close].
+  /// This socket must be closed in [dispose].
   late RawDatagramSocket _socket;
 
   /// The subscription that listens for incoming data.
   /// 
-  /// This must be cancelled in [close].
+  /// This must be cancelled in [dispose].
   late StreamSubscription<RawSocketEvent> _subscription;
 
   /// Initializes the socket.
@@ -43,7 +43,7 @@ abstract class UdpSocket {
 
   /// Closes the socket.
   @mustCallSuper
-  Future<void> close() async {
+  Future<void> dispose() async {
     logger.info("Closed the socket on port $port");
     await _subscription.cancel();
     _socket.close();

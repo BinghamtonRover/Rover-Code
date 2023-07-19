@@ -30,13 +30,12 @@ const heartbeatInterval = Duration(seconds: 2);
 /// 
 /// - Call [init] to open the socket. Override to add your own initialization code.
 /// - Call [sendMessage] to send a [Message].
-/// - Override [checkHeartbeats] to check for or send out heartbeats.
 /// - Override [onMessage] to handle incoming messages.
 /// - Override [updateSettings] to handle [UpdateSetting] requests.
+/// - Override [checkHeartbeats] to check for or send out heartbeats.
 /// - Override [onHeartbeat] to handle incoming heartbeats.
-/// - Call [close] to close the socket. Override to add your own cleanup code.
-/// 
-/// For convenience, set [destination] to avoid passing a socket to each call to [sendMessage].
+/// - Call [dispose] to close the socket. Override to add your own cleanup code.
+/// - For convenience, set [destination] to avoid passing a socket to each call to [sendMessage].
 abstract class ProtoSocket extends UdpSocket {
   /// The device using this socket. Used to fill [Connect.sender].
   final Device device;
@@ -57,9 +56,9 @@ abstract class ProtoSocket extends UdpSocket {
   }
 
   @override
-  Future<void> close() async {
+  Future<void> dispose() async {
     heartbeatTimer.cancel();
-    await super.close();
+    await super.dispose();
   }
 
   /// Handles incoming data as Protobuf messages. 
@@ -114,5 +113,5 @@ abstract class ProtoSocket extends UdpSocket {
   /// 
   /// The dashboard should send heartbeats to all devices, and the onboard computers should check
   /// if a heartbeat has been received recently and act accordingly.
-  void checkHeartbeats();
+  Future<void> checkHeartbeats();
 }

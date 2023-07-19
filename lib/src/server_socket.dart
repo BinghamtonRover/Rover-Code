@@ -17,7 +17,7 @@ import "log.dart";
 /// - Override [onDisconnect] to be notified when the dashboard disconnects.
 /// - Override [onMessage] to handle incoming messages.
 /// - Override [updateSettings] to handle [UpdateSetting] requests.
-/// - Call [close] to close the socket. Override to add your own cleanup.
+/// - Call [dispose] to close the socket. Override to add your own cleanup.
 abstract class ServerSocket extends ProtoSocket {
   /// A server that expects handshakes from the dashboard.
   ServerSocket({required super.device, required super.port});
@@ -54,7 +54,7 @@ abstract class ServerSocket extends ProtoSocket {
   /// 
   /// This function runs every [heartbeatInterval] seconds via [heartbeatTimer].
   @override
-  void checkHeartbeats() {
+  Future<void> checkHeartbeats() async {
     if (didReceivedHeartbeat) {
       didReceivedHeartbeat = false;
     } else if (isConnected) {
