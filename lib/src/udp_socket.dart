@@ -36,7 +36,7 @@ abstract class UdpSocket {
   /// Initializes the socket.
   @mustCallSuper
   Future<void> init() async {
-    logger.info("Listening on port $port");
+    logger.verbose("Listening on port $port");
     _socket = await RawDatagramSocket.bind(InternetAddress.anyIPv4, port);
     _subscription = _socket.listenForData(onData);
   }
@@ -44,7 +44,7 @@ abstract class UdpSocket {
   /// Closes the socket.
   @mustCallSuper
   Future<void> dispose() async {
-    logger.info("Closed the socket on port $port");
+    logger.verbose("Closed the socket on port $port");
     await _subscription.cancel();
     _socket.close();
   }

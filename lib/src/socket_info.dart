@@ -1,17 +1,19 @@
 import "dart:io";
+import "package:meta/meta.dart";
 
 /// JSON data as a map.
 typedef Json = Map<String, dynamic>;
 
 /// Information about a socket.
+@immutable
 class SocketInfo {
   /// The IP address of this socket.
-  InternetAddress address;
+  final InternetAddress address;
   /// The port that the socket is connected to.
-  int port;
+  final int port;
   
   /// A const constructor.
-  SocketInfo({required this.address, required this.port}); 
+  const SocketInfo({required this.address, required this.port}); 
 
   /// Use this constructor to pass in a raw String for the address.
   SocketInfo.raw(String host, this.port) : address = InternetAddress(host);
@@ -28,8 +30,19 @@ class SocketInfo {
   };
 
   /// A copy of this configuration, to avoid modifying the original.
-  SocketInfo copy() => SocketInfo(address: address, port: port);
+  SocketInfo copyWith({InternetAddress? address, int? port}) => SocketInfo(
+    address: address ?? this.address, 
+    port: port ?? this.port,
+  );
 
   @override
   String toString() => "${address.address}:$port";
+
+  @override
+  bool operator ==(Object other) => other is SocketInfo 
+    && address == other.address 
+    && port == other.port;
+
+  @override
+  int get hashCode => Object.hash(address, port);
 }
