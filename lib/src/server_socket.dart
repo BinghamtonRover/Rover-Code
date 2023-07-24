@@ -20,7 +20,8 @@ import "log.dart";
 /// - Call [dispose] to close the socket. Override to add your own cleanup.
 abstract class ServerSocket extends ProtoSocket {
   /// A server that expects handshakes from the dashboard.
-  ServerSocket({required super.device, required super.port});
+  ServerSocket({required super.device, required super.port}) : 
+    super(heartbeatInterval: const Duration(seconds: 2));
 
   /// Whether this socket is connected to the dashboard.
   bool get isConnected => destination != null;
@@ -71,7 +72,7 @@ abstract class ServerSocket extends ProtoSocket {
   /// 4. If we are not connected to any dashboard, call [onConnect] and respond to it.
   @override
   void onHeartbeat(Connect heartbeat, SocketInfo source) {
-    logger.verbose("Received heartbeat from $source");
+    logger.debug("Received heartbeat from $source");
     if (heartbeat.receiver != device) {  // (1)
       logger.warning("Received a misaddressed heartbeat for ${heartbeat.receiver}");
     } else if (isConnected) {

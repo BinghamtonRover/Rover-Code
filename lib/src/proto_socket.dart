@@ -8,9 +8,6 @@ import "udp_socket.dart";
 import "socket_info.dart";
 import "log.dart";
 
-/// How often to check for heartbeats.
-const heartbeatInterval = Duration(seconds: 2);
-
 /// A [UdpSocket] to send and receive Protobuf messages.
 /// 
 /// This class can handle all the structured data the dashboard may send:
@@ -43,8 +40,16 @@ abstract class ProtoSocket extends UdpSocket {
   /// A timer to call [checkHeartbeats] every [heartbeatInterval].
   late Timer heartbeatTimer;
 
+  /// How often to check for heartbeats.
+  final Duration heartbeatInterval;
+
   /// A UDP socket that can send and receive Protobuf [Message]s.
-  ProtoSocket({required this.device, required super.port, this.destination});
+  ProtoSocket({
+    required this.device, 
+    required super.port, 
+    required this.heartbeatInterval, 
+    this.destination,
+  });
 
   /// The socket to send messages to.
   SocketInfo? destination;
