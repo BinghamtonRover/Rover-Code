@@ -7,13 +7,13 @@ export "package:logger/logger.dart";
 typedef LogLevel = Level;
 
 /// Only logs messages at the given [level]. Set [level] to change at any time.
-class BurtFilter implements LogFilter {
+class BurtLogFilter implements LogFilter {
   LogLevel _level;
   @override LogLevel get level => _level;
   @override set level(LogLevel? value) => _level = value ?? LogLevel.info;
 
   /// Creates a [LogFilter] at the given level. Set [level] to change.
-  BurtFilter([this._level = LogLevel.info]);
+  BurtLogFilter([this._level = LogLevel.info]);
 
   @override
   bool shouldLog(LogEvent event) => event.level.index >= level.index;
@@ -25,8 +25,10 @@ class BurtFilter implements LogFilter {
   void destroy() { }
 }
 
+/// A filter to decide which messages get logged. Set [LogFilter.level] to change.
+final logFilter = BurtLogFilter();
 /// The logger to use when running BURT programs. See [LoggerUtils] for usage.
-Logger logger = Logger(printer: SimplePrinter(colors: stdout.supportsAnsiEscapes), filter: BurtFilter());
+Logger logger = Logger(printer: SimplePrinter(colors: stdout.supportsAnsiEscapes), filter: logFilter);
 
 /// Helpful aliases for the [Logger] class.
 extension LoggerUtils on Logger {
