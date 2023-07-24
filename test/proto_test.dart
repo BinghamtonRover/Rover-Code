@@ -8,6 +8,7 @@ final serverInfo = SocketInfo(address: address, port: 8000);
 final clientInfo = SocketInfo(address: address, port: 8001);
 
 void main() => group("ProtoSocket:", () {
+  Logger.level = LogLevel.debug;
   final server = TestServer(port: serverInfo.port, device: Device.SUBSYSTEMS);
   final client = TestClient(
     device: Device.DASHBOARD,
