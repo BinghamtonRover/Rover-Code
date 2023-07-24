@@ -10,7 +10,10 @@ typedef LogLevel = Level;
 class BurtLogFilter implements LogFilter {
   LogLevel _level;
   @override LogLevel get level => _level;
-  @override set level(LogLevel? value) => _level = value ?? LogLevel.info;
+  @override set level(LogLevel? value) {
+    Logger.level = value ?? LogLevel.info;
+    _level = value ?? LogLevel.info;
+  }
 
   /// Creates a [LogFilter] at the given level. Set [level] to change.
   BurtLogFilter([this._level = LogLevel.info]);

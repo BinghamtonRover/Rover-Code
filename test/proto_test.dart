@@ -1,6 +1,5 @@
 import "dart:io";
 import "package:burt_network/burt_network.dart";
-import "package:burt_network/generated.dart";
 import "package:test/test.dart";
 
 final address = InternetAddress.loopbackIPv4;
@@ -77,7 +76,7 @@ class TestServer extends ServerSocket {
 }
 
 class TestClient extends ProtoSocket {
-  TestClient({required super.port, required super.device, super.destination});
+  TestClient({required super.port, required super.device, super.destination}) : super(heartbeatInterval: const Duration(seconds: 1));
 
   bool isConnected = false;
   bool shouldSendHeartbeats = true;
