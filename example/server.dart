@@ -8,7 +8,6 @@ class BasicServer extends ServerSocket {
 }
 
 void main() async {
-	Logger.level = LogLevel.info;
 	final server = BasicServer(port: 8001, device: Device.SUBSYSTEMS);  // Registers as the Subsystems Server on the Dashboard
 	final server2 = BasicServer(port: 8002, device: Device.VIDEO);  // Registers as the Subsystems Server on the Dashboard
 	await server.init();

@@ -9,8 +9,6 @@ class TestSocket extends UdpSocket {
 }
 
 void main() async {
-	Logger.level = LogLevel.warning;
-	logger.warning("This should be seen");
 	final socket1 = TestSocket(port: 8001);
 	final socket2 = TestSocket(port: 8002);
 

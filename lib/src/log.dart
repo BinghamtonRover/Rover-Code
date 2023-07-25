@@ -1,13 +1,20 @@
 import "dart:io";
 import "package:logger/logger.dart";
 
-export "package:logger/logger.dart";
-
 /// An alias for [Level].
 typedef LogLevel = Level;
 
+class BurtLogger {
+  static LogLevel level = LogLevel.info;
+}
+
+class BurtFilter extends LogFilter {
+  @override 
+  bool shouldLog(LogEvent event) => event.level.index >= BurtLogger.level.index;
+}
+
 /// The logger to use when running BURT programs. See [LoggerUtils] for usage.
-Logger logger = Logger(printer: SimplePrinter(colors: stdout.supportsAnsiEscapes), filter: ProductionFilter());
+Logger logger = Logger(printer: SimplePrinter(colors: stdout.supportsAnsiEscapes), filter: BurtFilter());
 
 /// Helpful aliases for the [Logger] class.
 extension LoggerUtils on Logger {
