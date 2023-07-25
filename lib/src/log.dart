@@ -18,7 +18,9 @@ class BurtFilter extends LogFilter {
   bool shouldLog(LogEvent event) => event.level.index >= BurtLogger.level.index;
 }
 
-/// The logger to use when running BURT programs. See [LoggerUtils] for usage.
+/// The logger to use when running BURT programs. 
+/// 
+/// See [LoggerUtils] for usage. To change the minimum log level, use [BurtLogger.level].
 final logger = Logger(printer: SimplePrinter(colors: stdout.supportsAnsiEscapes), filter: BurtFilter());
 
 /// Helpful aliases for the [Logger] class.
