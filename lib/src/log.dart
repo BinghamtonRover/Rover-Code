@@ -4,17 +4,22 @@ import "package:logger/logger.dart";
 /// An alias for [Level].
 typedef LogLevel = Level;
 
+/// Holds the current [LogLevel] for [logger].
 class BurtLogger {
+  /// The current [LogLevel] for [logger].
   static LogLevel level = LogLevel.info;
 }
 
+/// A custom filter to work around a bug with `package:logger`.
+/// 
+/// See https://github.com/Bungeefan/logger/issues/38.
 class BurtFilter extends LogFilter {
   @override 
   bool shouldLog(LogEvent event) => event.level.index >= BurtLogger.level.index;
 }
 
 /// The logger to use when running BURT programs. See [LoggerUtils] for usage.
-Logger logger = Logger(printer: SimplePrinter(colors: stdout.supportsAnsiEscapes), filter: BurtFilter());
+final logger = Logger(printer: SimplePrinter(colors: stdout.supportsAnsiEscapes), filter: BurtFilter());
 
 /// Helpful aliases for the [Logger] class.
 extension LoggerUtils on Logger {
