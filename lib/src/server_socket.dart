@@ -2,10 +2,10 @@ import "dart:io";
 import "package:meta/meta.dart";
 
 import "package:burt_network/generated.dart";
+import "package:burt_network/logging.dart";
 
 import "socket_info.dart";
 import "proto_socket.dart";
-import "log.dart";
 
 /// A [ProtoSocket] that expects heartbeats from the dashboard.
 /// 

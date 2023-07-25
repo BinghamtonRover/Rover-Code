@@ -2,9 +2,9 @@ import "dart:io";
 import "dart:async";
 
 import "package:meta/meta.dart";
+import "package:burt_network/logging.dart";
 
 import "socket_info.dart";
-import "log.dart";
 
 /// Manages a UDP socket.
 /// 

@@ -1,3 +1,6 @@
+/// Configures the logging for BURT projects.
+library;
+
 import "dart:io";
 import "package:logger/logger.dart";
 

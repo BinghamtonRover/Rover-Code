@@ -19,10 +19,10 @@ import "src/proto_socket.dart";
 import "src/server_socket.dart";
 import "src/udp_socket.dart";
 
-export "src/log.dart";
 export "src/proto_socket.dart";
 export "src/server_socket.dart";
 export "src/socket_info.dart";
 export "src/udp_socket.dart";
 
 export "generated.dart";
+export "logging.dart";
