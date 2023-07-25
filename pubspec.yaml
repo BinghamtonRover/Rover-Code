@@ -1,0 +1,18 @@
+name: autonomy
+description: A sample command-line application.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.0.5
+
+# Add regular dependencies here.
+dependencies:
+  opencv_ffi: 
+    git: https://github.com/BinghamtonRover/OpenCV-FFI.git
+  burt_network: 
+    git: https://github.com/BinghamtonRover/Dart-Networking.git
+
+dev_dependencies:
+  test: ^1.21.0
+  very_good_analysis: ^5.0.0+1
