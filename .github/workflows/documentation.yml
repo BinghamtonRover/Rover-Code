@@ -1,9 +1,5 @@
 name: Generate Dart Documentation
 
-# Documents the Dart code within this project with the `dartdoc` tool.
-# Publishes the result to a separate branch, `documentation`, under the `docs` folder. 
-# Set GitHub pages to publish that target to get an online documentation site. 
-
 on:
   push:
     branches: [ "main" ]
