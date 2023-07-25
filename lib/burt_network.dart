@@ -15,14 +15,14 @@
 /// not have to use [UdpSocket] directly as it has no Protobuf support.
 library;
 
-export "src/server_socket.dart";
+import "src/proto_socket.dart";
+import "src/server_socket.dart";
+import "src/udp_socket.dart";
+
 export "src/log.dart";
 export "src/proto_socket.dart";
+export "src/server_socket.dart";
 export "src/socket_info.dart";
 export "src/udp_socket.dart";
 
 export "generated.dart";
-
-import "src/server_socket.dart";
-import "src/proto_socket.dart";
-import "src/udp_socket.dart";

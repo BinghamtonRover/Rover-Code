@@ -17,8 +17,11 @@ import "log.dart";
 /// - Override [onData] to handle incoming data.
 /// - Call [dispose] to close the socket. Messages can no longer be sent or received after this. 
 abstract class UdpSocket {
+  /// A collection of allowed [OSError] codes.
+  static const allowedErrors = {1234, 10054, 101, 10038, 9};
+
   /// The port this socket is listening on. See [RawDatagramSocket.bind].
-  final int port;
+  int? port;
 
   /// Opens a UDP socket on the given port that can send and receive data.
   UdpSocket({required this.port});
@@ -33,20 +36,35 @@ abstract class UdpSocket {
   /// This must be cancelled in [dispose].
   late StreamSubscription<RawSocketEvent> _subscription;
 
-  /// Initializes the socket.
+  /// Initializes the socket, and restarts it if a known "safe" error occurs (see [allowedErrors]).
   @mustCallSuper
-  Future<void> init() async {
-    logger.verbose("Listening on port $port");
-    _socket = await RawDatagramSocket.bind(InternetAddress.anyIPv4, port);
-    _subscription = _socket.listenForData(onData);
-  }
+  Future<void> init() async => runZonedGuarded<Future<void>>(
+    // This code cannot be a try/catch because the SocketException can be thrown at any time,
+    // even after this function has finished. It also cannot be caught by the caller of this function.
+    // Using [runZonedGuarded] ensures that the error is caught no matter when it is thrown.
+    () async {  // Initialize the socket
+      _socket = await RawDatagramSocket.bind(InternetAddress.anyIPv4, port ?? 0);
+      _subscription = _socket.listenForData(onData);
+      if (port == null || port == 0) port = _socket.port;
+      logger.info("Listening on port $port");
+    },
+    (Object error, StackTrace stack) async {  // Catch errors and restart the socket
+      if (error is SocketException && allowedErrors.contains(error.osError!.errorCode)) {
+        logger.warning("Socket error ${error.osError!.errorCode} on port $port. Restarting...");
+        await dispose();
+        await init();
+      } else {
+        Error.throwWithStackTrace(error, stack);
+      }
+    }
+  );
 
   /// Closes the socket.
   @mustCallSuper
   Future<void> dispose() async {
-    logger.verbose("Closed the socket on port $port");
     await _subscription.cancel();
     _socket.close();
+    logger.info("Closed the socket on port $port");
   }
 
   /// Sends data to the given destination.

@@ -6,7 +6,6 @@ import "package:burt_network/generated.dart";
 
 import "udp_socket.dart";
 import "socket_info.dart";
-import "log.dart";
 
 /// A [UdpSocket] to send and receive Protobuf messages.
 /// 
@@ -87,13 +86,21 @@ abstract class ProtoSocket extends UdpSocket {
   }
 
   /// Wraps a [Message] and sends it to the [destination], or the given [socketOverride] if specified.
+  /// 
+  /// If you have already wrapped a message yourself, use [sendWrapper].
   void sendMessage(Message message, {SocketInfo? socketOverride}) {
     final wrapper = message.wrap();
     final target = socketOverride ?? destination;
-    if (target == null) {
-      logger.critical("No destination or override was specificed");
-      throw ArgumentError.notNull("socketOverride");
-    }
+    if (target == null) return;
+    sendData(wrapper.writeToBuffer(), target);
+  }
+
+  /// Sends an already-wrapped [WrappedMessage] to the [destination], or the given [socketOverride].
+  /// 
+  /// Use this function instead of [sendMessage] if you need to manually wrap a message yourself.
+  void sendWrapper(WrappedMessage wrapper, {SocketInfo? socketOverride}) {
+    final target = socketOverride ?? destination;
+    if (target == null) return;
     sendData(wrapper.writeToBuffer(), target);
   }
 
