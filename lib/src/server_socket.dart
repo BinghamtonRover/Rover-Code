@@ -20,7 +20,7 @@ import "proto_socket.dart";
 /// - Call [dispose] to close the socket. Override to add your own cleanup.
 abstract class ServerSocket extends ProtoSocket {
   /// A server that expects handshakes from the dashboard.
-  ServerSocket({required super.device, required super.port}) : 
+  ServerSocket({required super.device, required super.port, super.quiet}) : 
     super(heartbeatInterval: const Duration(seconds: 2));
 
   /// Whether this socket is connected to the dashboard.

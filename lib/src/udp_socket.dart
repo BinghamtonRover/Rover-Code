@@ -23,8 +23,11 @@ abstract class UdpSocket {
   /// The port this socket is listening on. See [RawDatagramSocket.bind].
   int? port;
 
+  /// Whether to silence "normal" output, like opening/closing and resetting sockets.
+  bool quiet;
+
   /// Opens a UDP socket on the given port that can send and receive data.
-  UdpSocket({required this.port});
+  UdpSocket({required this.port, this.quiet = false});
 
   /// The UDP socket backed by `dart:io`.
   /// 
@@ -46,11 +49,11 @@ abstract class UdpSocket {
       _socket = await RawDatagramSocket.bind(InternetAddress.anyIPv4, port ?? 0);
       _subscription = _socket.listenForData(onData);
       if (port == null || port == 0) port = _socket.port;
-      logger.info("Listening on port $port");
+      if (!quiet) logger.info("Listening on port $port");
     },
     (Object error, StackTrace stack) async {  // Catch errors and restart the socket
       if (error is SocketException && allowedErrors.contains(error.osError!.errorCode)) {
-        logger.warning("Socket error ${error.osError!.errorCode} on port $port. Restarting...");
+        if (!quiet) logger.warning("Socket error ${error.osError!.errorCode} on port $port. Restarting...");
         await dispose();
         await init();
       } else {
@@ -64,7 +67,7 @@ abstract class UdpSocket {
   Future<void> dispose() async {
     await _subscription.cancel();
     _socket.close();
-    logger.info("Closed the socket on port $port");
+    if (!quiet) logger.info("Closed the socket on port $port");
   }
 
   /// Sends data to the given destination.

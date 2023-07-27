@@ -45,9 +45,10 @@ abstract class ProtoSocket extends UdpSocket {
   /// A UDP socket that can send and receive Protobuf [Message]s.
   ProtoSocket({
     required this.device, 
-    required super.port, 
     required this.heartbeatInterval, 
+    required super.port, 
     this.destination,
+    super.quiet,
   });
 
   /// The socket to send messages to.
