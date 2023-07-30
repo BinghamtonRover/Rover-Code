@@ -7,5 +7,3 @@ dartdoc:
   linkToSource: 
     root: lib
     uriTemplate: https://github.com/BinghamtonRover/Dart-Networking/blob/main/lib/%f%#L%l%
-  autoIncludeDependencies: true
-  includeExternal: ["burt_network"]
