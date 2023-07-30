@@ -259,6 +259,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
+  rpi_gpio:
+    dependency: "direct main"
+    description:
+      name: rpi_gpio
+      sha256: a4497e8f5a785ee3becc4be5c37ca015f669577a8c4f319e47d58f00208375d4
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.8.1"
   shelf:
     dependency: transitive
     description:
