@@ -51,6 +51,12 @@ abstract class ServerSocket extends ProtoSocket {
     destination = null;
   }
 
+  @override
+  Future<void> dispose() async {
+    onDisconnect();
+    await super.dispose();
+  }
+
   /// Checks if a heartbeat has been received. If not, calls [onDisconnect].
   /// 
   /// This function runs every [heartbeatInterval] seconds via [heartbeatTimer].
