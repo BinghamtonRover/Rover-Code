@@ -36,7 +36,7 @@ extension LoggerUtils on Logger {
   /// Logs a verbose message.
   /// 
   /// Use this to print status updates more often than [info].
-  void verbose(String message) => v(message);
+  void verbose(String message) => t(message);
 
   /// Logs an info message.
   /// 
@@ -51,10 +51,10 @@ extension LoggerUtils on Logger {
   /// Logs an error message.
   /// 
   /// Use this when an error occurs in a try/catch block. This is like a verbose [critical].
-  void error(String message, Object error, [StackTrace? stackTrace]) => e(message, error, stackTrace);
+  void error(String message, Object error, [StackTrace? stackTrace]) => e(message, error: error, stackTrace: stackTrace);
 
   /// Logs a critical message.
   /// 
   /// Use this to indicate that the program cannot recover and must terminate.
-  void critical(String message) => wtf(message);  
+  void critical(String message) => f(message);  
 }

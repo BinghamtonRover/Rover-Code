@@ -8,7 +8,7 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
-  logger: ^1.4.0
+  logger: ^2.0.2
   meta: ^1.9.1
   protobuf: ^3.0.0
 
