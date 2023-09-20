@@ -63,7 +63,6 @@ abstract class ProtoSocket extends UdpSocket {
   @override
   Future<void> dispose() async {
     heartbeatTimer.cancel();
-    destination = null;
     await super.dispose();
   }
 

@@ -32,7 +32,7 @@ abstract class UdpSocket {
   /// The UDP socket backed by `dart:io`.
   /// 
   /// This socket must be closed in [dispose].
-  late RawDatagramSocket _socket;
+  RawDatagramSocket? _socket;
 
   /// The subscription that listens for incoming data.
   /// 
@@ -47,8 +47,8 @@ abstract class UdpSocket {
     // Using [runZonedGuarded] ensures that the error is caught no matter when it is thrown.
     () async {  // Initialize the socket
       _socket = await RawDatagramSocket.bind(InternetAddress.anyIPv4, port ?? 0);
-      _subscription = _socket.listenForData(onData);
-      if (port == null || port == 0) port = _socket.port;
+      _subscription = _socket!.listenForData(onData);
+      if (port == null || port == 0) port = _socket!.port;
       if (!quiet) logger.info("Listening on port $port");
     },
     (Object error, StackTrace stack) async {  // Catch errors and restart the socket
@@ -66,7 +66,7 @@ abstract class UdpSocket {
   @mustCallSuper
   Future<void> dispose() async {
     await _subscription.cancel();
-    _socket.close();
+    _socket?.close();
     if (!quiet) logger.info("Closed the socket on port $port");
   }
 
@@ -75,7 +75,8 @@ abstract class UdpSocket {
   /// Being UDP, this function does not wait for a response or even confirmation of a
   /// successful send and is therefore very quick and non-blocking.
   void sendData(List<int> data, SocketInfo destination) {
-    _socket.send(data, destination.address, destination.port);
+    if (_socket == null) throw StateError("Cannot use a UdpSocket on port $port after it's been disposed");
+    _socket!.send(data, destination.address, destination.port);
   }
 
   /// Override this function to process incoming data, along with the source address and port.
