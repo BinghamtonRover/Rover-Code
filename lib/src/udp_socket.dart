@@ -54,6 +54,7 @@ abstract class UdpSocket {
     (Object error, StackTrace stack) async {  // Catch errors and restart the socket
       if (error is SocketException && allowedErrors.contains(error.osError!.errorCode)) {
         if (!quiet) logger.warning("Socket error ${error.osError!.errorCode} on port $port. Restarting...");
+        await Future<void>.delayed(const Duration(seconds: 1));
         await dispose();
         await init();
       } else {
