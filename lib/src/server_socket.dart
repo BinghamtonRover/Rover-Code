@@ -1,4 +1,5 @@
 import "dart:io";
+import "dart:async";
 import "package:meta/meta.dart";
 
 import "package:burt_network/generated.dart";
@@ -19,6 +20,11 @@ import "proto_socket.dart";
 /// - Override [updateSettings] to handle [UpdateSetting] requests.
 /// - Call [dispose] to close the socket. Override to add your own cleanup.
 abstract class ServerSocket extends ProtoSocket {
+  /// The error to send to the dashboard, if any.
+  BurtLog? _errorLog;
+
+  final _logger = BurtLogger();
+  
   /// A server that expects handshakes from the dashboard.
   ServerSocket({required super.device, required super.port, super.quiet}) : 
     super(heartbeatInterval: const Duration(seconds: 2));
@@ -36,7 +42,7 @@ abstract class ServerSocket extends ProtoSocket {
   @mustCallSuper
   void onConnect(SocketInfo source) {
     destination = source;
-    logger.info("Port $port is connected to $destination");
+    _logger.info("Port $port is connected to $destination");
   }
 
   /// Sends a [Disconnect] message to the dashboard and sets [destination] to `null`.
@@ -46,7 +52,7 @@ abstract class ServerSocket extends ProtoSocket {
   /// to prevent it from crashing when connection is lost.
   @mustCallSuper
   void onDisconnect() {
-    logger.info("Port $port is disconnected from $destination");
+    _logger.info("Port $port is disconnected from $destination");
     sendMessage(Disconnect(sender: device));
     destination = null;
   }
@@ -65,9 +71,10 @@ abstract class ServerSocket extends ProtoSocket {
     if (didReceivedHeartbeat) {
       didReceivedHeartbeat = false;
     } else if (isConnected) {
-      logger.warning("Heartbeat not received. Assuming the dashboard has disconnected");
+      _logger.warning("Heartbeat not received. Assuming the dashboard has disconnected");
       onDisconnect();
     }
+    if (_errorLog != null) sendMessage(_errorLog!);
   }
 
   /// Handles incoming heartbeats.
@@ -79,12 +86,12 @@ abstract class ServerSocket extends ProtoSocket {
   @override
   void onHeartbeat(Connect heartbeat, SocketInfo source) {
     if (heartbeat.receiver != device) {  // (1)
-      logger.warning("Received a misaddressed heartbeat for ${heartbeat.receiver}");
+      _logger.warning("Received a misaddressed heartbeat for ${heartbeat.receiver}");
     } else if (isConnected) {
       if (destination == source) {  // (2)
         sendResponse();
       } else {  // (3)
-        logger.warning("Port $port is connected to $destination but received a heartbeat from $source");
+        _logger.warning("Port $port is connected to $destination but received a heartbeat from $source");
       }
     } else {  // (4)
       onConnect(source);
@@ -107,8 +114,15 @@ abstract class ServerSocket extends ProtoSocket {
   void updateSettings(UpdateSetting settings) {
     sendMessage(settings);
     if (settings.status == RoverStatus.POWER_OFF) {
-      logger.critical("Shutting down...");
+      _logger.critical("Shutting down...");
       Process.run("sudo shutdown now", []);
     }
   }
+
+  /// Sets 
+  void setError(String? title, {String? body}) => _errorLog = title == null ? null : BurtLog(
+    level: BurtLogLevel.error, 
+    title: title, 
+    body: body,
+  );
 }

@@ -1,10 +1,13 @@
 import "dart:io";
 import "package:burt_network/burt_network.dart";
+import "package:burt_network/logging.dart";
 
 final destination = SocketInfo(
 	address: InternetAddress("192.168.47.223"),
 	port: 8001,
 );
+
+final logger = BurtLogger();
 
 class BasicServer extends ProtoSocket {
 	BasicServer({required super.port, required super.device}) : super(

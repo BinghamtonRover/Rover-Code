@@ -1,4 +1,7 @@
 import "package:burt_network/burt_network.dart";
+import "package:burt_network/logging.dart";
+
+final logger = BurtLogger();
 
 class BasicServer extends ServerSocket {
 	BasicServer({required super.port, required super.device});

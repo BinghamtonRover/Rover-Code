@@ -1,9 +1,13 @@
-///
+//
 //  Generated code. Do not modify.
 //  source: science.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
+
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
+// ignore_for_file: constant_identifier_names, library_prefixes
+// ignore_for_file: non_constant_identifier_names, prefer_final_fields
+// ignore_for_file: unnecessary_import, unnecessary_this, unused_import
 
 import 'dart:core' as $core;
 
@@ -14,27 +18,6 @@ import 'science.pbenum.dart';
 export 'science.pbenum.dart';
 
 class ScienceCommand extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ScienceCommand', createEmptyInstance: create)
-    ..a<$core.double>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'dirtCarousel', $pb.PbFieldType.OF)
-    ..a<$core.double>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'dirtLinear', $pb.PbFieldType.OF)
-    ..a<$core.double>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'scienceLinear', $pb.PbFieldType.OF)
-    ..a<$core.double>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'vacuumLinear', $pb.PbFieldType.OF)
-    ..e<PumpState>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'vacuum', $pb.PbFieldType.OE, defaultOrMaker: PumpState.PUMP_STATE_UNDEFINED, valueOf: PumpState.valueOf, enumValues: PumpState.values)
-    ..e<DirtReleaseState>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'dirtRelease', $pb.PbFieldType.OE, protoName: 'dirtRelease', defaultOrMaker: DirtReleaseState.DIRT_RELEASE_STATE_UNDEFINED, valueOf: DirtReleaseState.valueOf, enumValues: DirtReleaseState.values)
-    ..e<PumpState>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pump1', $pb.PbFieldType.OE, defaultOrMaker: PumpState.PUMP_STATE_UNDEFINED, valueOf: PumpState.valueOf, enumValues: PumpState.values)
-    ..e<PumpState>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pump2', $pb.PbFieldType.OE, defaultOrMaker: PumpState.PUMP_STATE_UNDEFINED, valueOf: PumpState.valueOf, enumValues: PumpState.values)
-    ..e<PumpState>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pump3', $pb.PbFieldType.OE, defaultOrMaker: PumpState.PUMP_STATE_UNDEFINED, valueOf: PumpState.valueOf, enumValues: PumpState.values)
-    ..e<PumpState>(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pump4', $pb.PbFieldType.OE, defaultOrMaker: PumpState.PUMP_STATE_UNDEFINED, valueOf: PumpState.valueOf, enumValues: PumpState.values)
-    ..aOB(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'calibrate')
-    ..aOB(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'stop')
-    ..aOB(14, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextTube')
-    ..aOB(15, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextSection')
-    ..a<$core.int>(16, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sample', $pb.PbFieldType.O3)
-    ..e<ScienceState>(17, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'state', $pb.PbFieldType.OE, defaultOrMaker: ScienceState.SCIENCE_STATE_UNDEFINED, valueOf: ScienceState.valueOf, enumValues: ScienceState.values)
-    ..hasRequiredFields = false
-  ;
-
-  ScienceCommand._() : super();
   factory ScienceCommand({
     $core.double? dirtCarousel,
     $core.double? dirtLinear,
@@ -53,59 +36,81 @@ class ScienceCommand extends $pb.GeneratedMessage {
     $core.int? sample,
     ScienceState? state,
   }) {
-    final _result = create();
+    final $result = create();
     if (dirtCarousel != null) {
-      _result.dirtCarousel = dirtCarousel;
+      $result.dirtCarousel = dirtCarousel;
     }
     if (dirtLinear != null) {
-      _result.dirtLinear = dirtLinear;
+      $result.dirtLinear = dirtLinear;
     }
     if (scienceLinear != null) {
-      _result.scienceLinear = scienceLinear;
+      $result.scienceLinear = scienceLinear;
     }
     if (vacuumLinear != null) {
-      _result.vacuumLinear = vacuumLinear;
+      $result.vacuumLinear = vacuumLinear;
     }
     if (vacuum != null) {
-      _result.vacuum = vacuum;
+      $result.vacuum = vacuum;
     }
     if (dirtRelease != null) {
-      _result.dirtRelease = dirtRelease;
+      $result.dirtRelease = dirtRelease;
     }
     if (pump1 != null) {
-      _result.pump1 = pump1;
+      $result.pump1 = pump1;
     }
     if (pump2 != null) {
-      _result.pump2 = pump2;
+      $result.pump2 = pump2;
     }
     if (pump3 != null) {
-      _result.pump3 = pump3;
+      $result.pump3 = pump3;
     }
     if (pump4 != null) {
-      _result.pump4 = pump4;
+      $result.pump4 = pump4;
     }
     if (calibrate != null) {
-      _result.calibrate = calibrate;
+      $result.calibrate = calibrate;
     }
     if (stop != null) {
-      _result.stop = stop;
+      $result.stop = stop;
     }
     if (nextTube != null) {
-      _result.nextTube = nextTube;
+      $result.nextTube = nextTube;
     }
     if (nextSection != null) {
-      _result.nextSection = nextSection;
+      $result.nextSection = nextSection;
     }
     if (sample != null) {
-      _result.sample = sample;
+      $result.sample = sample;
     }
     if (state != null) {
-      _result.state = state;
+      $result.state = state;
     }
-    return _result;
+    return $result;
   }
+  ScienceCommand._() : super();
   factory ScienceCommand.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ScienceCommand.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ScienceCommand', createEmptyInstance: create)
+    ..a<$core.double>(1, _omitFieldNames ? '' : 'dirtCarousel', $pb.PbFieldType.OF)
+    ..a<$core.double>(2, _omitFieldNames ? '' : 'dirtLinear', $pb.PbFieldType.OF)
+    ..a<$core.double>(3, _omitFieldNames ? '' : 'scienceLinear', $pb.PbFieldType.OF)
+    ..a<$core.double>(4, _omitFieldNames ? '' : 'vacuumLinear', $pb.PbFieldType.OF)
+    ..e<PumpState>(5, _omitFieldNames ? '' : 'vacuum', $pb.PbFieldType.OE, defaultOrMaker: PumpState.PUMP_STATE_UNDEFINED, valueOf: PumpState.valueOf, enumValues: PumpState.values)
+    ..e<DirtReleaseState>(7, _omitFieldNames ? '' : 'dirtRelease', $pb.PbFieldType.OE, protoName: 'dirtRelease', defaultOrMaker: DirtReleaseState.DIRT_RELEASE_STATE_UNDEFINED, valueOf: DirtReleaseState.valueOf, enumValues: DirtReleaseState.values)
+    ..e<PumpState>(8, _omitFieldNames ? '' : 'pump1', $pb.PbFieldType.OE, defaultOrMaker: PumpState.PUMP_STATE_UNDEFINED, valueOf: PumpState.valueOf, enumValues: PumpState.values)
+    ..e<PumpState>(9, _omitFieldNames ? '' : 'pump2', $pb.PbFieldType.OE, defaultOrMaker: PumpState.PUMP_STATE_UNDEFINED, valueOf: PumpState.valueOf, enumValues: PumpState.values)
+    ..e<PumpState>(10, _omitFieldNames ? '' : 'pump3', $pb.PbFieldType.OE, defaultOrMaker: PumpState.PUMP_STATE_UNDEFINED, valueOf: PumpState.valueOf, enumValues: PumpState.values)
+    ..e<PumpState>(11, _omitFieldNames ? '' : 'pump4', $pb.PbFieldType.OE, defaultOrMaker: PumpState.PUMP_STATE_UNDEFINED, valueOf: PumpState.valueOf, enumValues: PumpState.values)
+    ..aOB(12, _omitFieldNames ? '' : 'calibrate')
+    ..aOB(13, _omitFieldNames ? '' : 'stop')
+    ..aOB(14, _omitFieldNames ? '' : 'nextTube')
+    ..aOB(15, _omitFieldNames ? '' : 'nextSection')
+    ..a<$core.int>(16, _omitFieldNames ? '' : 'sample', $pb.PbFieldType.O3)
+    ..e<ScienceState>(17, _omitFieldNames ? '' : 'state', $pb.PbFieldType.OE, defaultOrMaker: ScienceState.SCIENCE_STATE_UNDEFINED, valueOf: ScienceState.valueOf, enumValues: ScienceState.values)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -115,8 +120,10 @@ class ScienceCommand extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ScienceCommand copyWith(void Function(ScienceCommand) updates) => super.copyWith((message) => updates(message as ScienceCommand)) as ScienceCommand; // ignore: deprecated_member_use
+  ScienceCommand copyWith(void Function(ScienceCommand) updates) => super.copyWith((message) => updates(message as ScienceCommand)) as ScienceCommand;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static ScienceCommand create() => ScienceCommand._();
   ScienceCommand createEmptyInstance() => create();
@@ -125,6 +132,7 @@ class ScienceCommand extends $pb.GeneratedMessage {
   static ScienceCommand getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ScienceCommand>(create);
   static ScienceCommand? _defaultInstance;
 
+  /// Individual control over each motor. Indicates steps to move
   @$pb.TagNumber(1)
   $core.double get dirtCarousel => $_getN(0);
   @$pb.TagNumber(1)
@@ -161,6 +169,7 @@ class ScienceCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   void clearVacuumLinear() => clearField(4);
 
+  /// Vacuum
   @$pb.TagNumber(5)
   PumpState get vacuum => $_getN(4);
   @$pb.TagNumber(5)
@@ -179,6 +188,7 @@ class ScienceCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(7)
   void clearDirtRelease() => clearField(7);
 
+  /// Pumps
   @$pb.TagNumber(8)
   PumpState get pump1 => $_getN(6);
   @$pb.TagNumber(8)
@@ -215,6 +225,7 @@ class ScienceCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(11)
   void clearPump4() => clearField(11);
 
+  /// High level commands
   @$pb.TagNumber(12)
   $core.bool get calibrate => $_getBF(10);
   @$pb.TagNumber(12)
@@ -271,18 +282,6 @@ class ScienceCommand extends $pb.GeneratedMessage {
 }
 
 class ScienceData extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ScienceData', createEmptyInstance: create)
-    ..a<$core.double>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'co2', $pb.PbFieldType.OF)
-    ..a<$core.double>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'humidity', $pb.PbFieldType.OF)
-    ..a<$core.double>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'methane', $pb.PbFieldType.OF)
-    ..a<$core.double>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pH', $pb.PbFieldType.OF, protoName: 'pH')
-    ..a<$core.double>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'temperature', $pb.PbFieldType.OF)
-    ..a<$core.int>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sample', $pb.PbFieldType.O3)
-    ..e<ScienceState>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'state', $pb.PbFieldType.OE, defaultOrMaker: ScienceState.SCIENCE_STATE_UNDEFINED, valueOf: ScienceState.valueOf, enumValues: ScienceState.values)
-    ..hasRequiredFields = false
-  ;
-
-  ScienceData._() : super();
   factory ScienceData({
     $core.double? co2,
     $core.double? humidity,
@@ -292,32 +291,45 @@ class ScienceData extends $pb.GeneratedMessage {
     $core.int? sample,
     ScienceState? state,
   }) {
-    final _result = create();
+    final $result = create();
     if (co2 != null) {
-      _result.co2 = co2;
+      $result.co2 = co2;
     }
     if (humidity != null) {
-      _result.humidity = humidity;
+      $result.humidity = humidity;
     }
     if (methane != null) {
-      _result.methane = methane;
+      $result.methane = methane;
     }
     if (pH != null) {
-      _result.pH = pH;
+      $result.pH = pH;
     }
     if (temperature != null) {
-      _result.temperature = temperature;
+      $result.temperature = temperature;
     }
     if (sample != null) {
-      _result.sample = sample;
+      $result.sample = sample;
     }
     if (state != null) {
-      _result.state = state;
+      $result.state = state;
     }
-    return _result;
+    return $result;
   }
+  ScienceData._() : super();
   factory ScienceData.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ScienceData.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ScienceData', createEmptyInstance: create)
+    ..a<$core.double>(1, _omitFieldNames ? '' : 'co2', $pb.PbFieldType.OF)
+    ..a<$core.double>(2, _omitFieldNames ? '' : 'humidity', $pb.PbFieldType.OF)
+    ..a<$core.double>(3, _omitFieldNames ? '' : 'methane', $pb.PbFieldType.OF)
+    ..a<$core.double>(4, _omitFieldNames ? '' : 'pH', $pb.PbFieldType.OF, protoName: 'pH')
+    ..a<$core.double>(5, _omitFieldNames ? '' : 'temperature', $pb.PbFieldType.OF)
+    ..a<$core.int>(6, _omitFieldNames ? '' : 'sample', $pb.PbFieldType.O3)
+    ..e<ScienceState>(7, _omitFieldNames ? '' : 'state', $pb.PbFieldType.OE, defaultOrMaker: ScienceState.SCIENCE_STATE_UNDEFINED, valueOf: ScienceState.valueOf, enumValues: ScienceState.values)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -327,8 +339,10 @@ class ScienceData extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ScienceData copyWith(void Function(ScienceData) updates) => super.copyWith((message) => updates(message as ScienceData)) as ScienceData; // ignore: deprecated_member_use
+  ScienceData copyWith(void Function(ScienceData) updates) => super.copyWith((message) => updates(message as ScienceData)) as ScienceData;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static ScienceData create() => ScienceData._();
   ScienceData createEmptyInstance() => create();
@@ -401,3 +415,6 @@ class ScienceData extends $pb.GeneratedMessage {
   void clearState() => clearField(7);
 }
 
+
+const _omitFieldNames = $core.bool.fromEnvironment('protobuf.omit_field_names');
+const _omitMessageNames = $core.bool.fromEnvironment('protobuf.omit_message_names');

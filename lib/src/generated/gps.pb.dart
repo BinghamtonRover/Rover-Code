@@ -1,42 +1,47 @@
-///
+//
 //  Generated code. Do not modify.
 //  source: gps.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
+
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
+// ignore_for_file: constant_identifier_names, library_prefixes
+// ignore_for_file: non_constant_identifier_names, prefer_final_fields
+// ignore_for_file: unnecessary_import, unnecessary_this, unused_import
 
 import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
 class GpsCoordinates extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GpsCoordinates', createEmptyInstance: create)
-    ..a<$core.double>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'latitude', $pb.PbFieldType.OF)
-    ..a<$core.double>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'longitude', $pb.PbFieldType.OF)
-    ..a<$core.double>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'altitude', $pb.PbFieldType.OF)
-    ..hasRequiredFields = false
-  ;
-
-  GpsCoordinates._() : super();
   factory GpsCoordinates({
     $core.double? latitude,
     $core.double? longitude,
     $core.double? altitude,
   }) {
-    final _result = create();
+    final $result = create();
     if (latitude != null) {
-      _result.latitude = latitude;
+      $result.latitude = latitude;
     }
     if (longitude != null) {
-      _result.longitude = longitude;
+      $result.longitude = longitude;
     }
     if (altitude != null) {
-      _result.altitude = altitude;
+      $result.altitude = altitude;
     }
-    return _result;
+    return $result;
   }
+  GpsCoordinates._() : super();
   factory GpsCoordinates.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GpsCoordinates.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GpsCoordinates', createEmptyInstance: create)
+    ..a<$core.double>(1, _omitFieldNames ? '' : 'latitude', $pb.PbFieldType.OF)
+    ..a<$core.double>(2, _omitFieldNames ? '' : 'longitude', $pb.PbFieldType.OF)
+    ..a<$core.double>(3, _omitFieldNames ? '' : 'altitude', $pb.PbFieldType.OF)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -46,8 +51,10 @@ class GpsCoordinates extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  GpsCoordinates copyWith(void Function(GpsCoordinates) updates) => super.copyWith((message) => updates(message as GpsCoordinates)) as GpsCoordinates; // ignore: deprecated_member_use
+  GpsCoordinates copyWith(void Function(GpsCoordinates) updates) => super.copyWith((message) => updates(message as GpsCoordinates)) as GpsCoordinates;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static GpsCoordinates create() => GpsCoordinates._();
   GpsCoordinates createEmptyInstance() => create();
@@ -85,33 +92,34 @@ class GpsCoordinates extends $pb.GeneratedMessage {
 }
 
 class Orientation extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Orientation', createEmptyInstance: create)
-    ..a<$core.double>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'x', $pb.PbFieldType.OF)
-    ..a<$core.double>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'y', $pb.PbFieldType.OF)
-    ..a<$core.double>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'z', $pb.PbFieldType.OF)
-    ..hasRequiredFields = false
-  ;
-
-  Orientation._() : super();
   factory Orientation({
     $core.double? x,
     $core.double? y,
     $core.double? z,
   }) {
-    final _result = create();
+    final $result = create();
     if (x != null) {
-      _result.x = x;
+      $result.x = x;
     }
     if (y != null) {
-      _result.y = y;
+      $result.y = y;
     }
     if (z != null) {
-      _result.z = z;
+      $result.z = z;
     }
-    return _result;
+    return $result;
   }
+  Orientation._() : super();
   factory Orientation.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Orientation.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Orientation', createEmptyInstance: create)
+    ..a<$core.double>(1, _omitFieldNames ? '' : 'x', $pb.PbFieldType.OF)
+    ..a<$core.double>(2, _omitFieldNames ? '' : 'y', $pb.PbFieldType.OF)
+    ..a<$core.double>(3, _omitFieldNames ? '' : 'z', $pb.PbFieldType.OF)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -121,8 +129,10 @@ class Orientation extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Orientation copyWith(void Function(Orientation) updates) => super.copyWith((message) => updates(message as Orientation)) as Orientation; // ignore: deprecated_member_use
+  Orientation copyWith(void Function(Orientation) updates) => super.copyWith((message) => updates(message as Orientation)) as Orientation;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static Orientation create() => Orientation._();
   Orientation createEmptyInstance() => create();
@@ -160,28 +170,29 @@ class Orientation extends $pb.GeneratedMessage {
 }
 
 class RoverPosition extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RoverPosition', createEmptyInstance: create)
-    ..aOM<GpsCoordinates>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'gps', subBuilder: GpsCoordinates.create)
-    ..aOM<Orientation>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'orientation', subBuilder: Orientation.create)
-    ..hasRequiredFields = false
-  ;
-
-  RoverPosition._() : super();
   factory RoverPosition({
     GpsCoordinates? gps,
     Orientation? orientation,
   }) {
-    final _result = create();
+    final $result = create();
     if (gps != null) {
-      _result.gps = gps;
+      $result.gps = gps;
     }
     if (orientation != null) {
-      _result.orientation = orientation;
+      $result.orientation = orientation;
     }
-    return _result;
+    return $result;
   }
+  RoverPosition._() : super();
   factory RoverPosition.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory RoverPosition.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'RoverPosition', createEmptyInstance: create)
+    ..aOM<GpsCoordinates>(1, _omitFieldNames ? '' : 'gps', subBuilder: GpsCoordinates.create)
+    ..aOM<Orientation>(2, _omitFieldNames ? '' : 'orientation', subBuilder: Orientation.create)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -191,8 +202,10 @@ class RoverPosition extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  RoverPosition copyWith(void Function(RoverPosition) updates) => super.copyWith((message) => updates(message as RoverPosition)) as RoverPosition; // ignore: deprecated_member_use
+  RoverPosition copyWith(void Function(RoverPosition) updates) => super.copyWith((message) => updates(message as RoverPosition)) as RoverPosition;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static RoverPosition create() => RoverPosition._();
   RoverPosition createEmptyInstance() => create();
@@ -224,3 +237,6 @@ class RoverPosition extends $pb.GeneratedMessage {
   Orientation ensureOrientation() => $_ensure(1);
 }
 
+
+const _omitFieldNames = $core.bool.fromEnvironment('protobuf.omit_field_names');
+const _omitMessageNames = $core.bool.fromEnvironment('protobuf.omit_message_names');

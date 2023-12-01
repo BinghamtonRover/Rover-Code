@@ -1,5 +1,6 @@
 import "dart:io";
 import "package:burt_network/burt_network.dart";
+import "package:burt_network/logging.dart";
 import "package:test/test.dart";
 
 final address = InternetAddress.loopbackIPv4;
@@ -7,8 +8,10 @@ final address = InternetAddress.loopbackIPv4;
 final serverInfo = SocketInfo(address: address, port: 8000);
 final clientInfo = SocketInfo(address: address, port: 8001);
 
+final logger = BurtLogger();
+
 void main() => group("ProtoSocket:", () {
-  BurtLogger.level = LogLevel.debug;
+  Logger.level = LogLevel.debug;
   final server = TestServer(port: serverInfo.port, device: Device.SUBSYSTEMS);
   final client = TestClient(
     device: Device.DASHBOARD,
@@ -71,7 +74,7 @@ class TestServer extends ServerSocket {
 
   @override
   void onHeartbeat(Connect heartbeat, SocketInfo source) {
-    logger.verbose("$device received a heartbeat from ${heartbeat.sender}"); 
+    logger.debug("$device received a heartbeat from ${heartbeat.sender}"); 
     super.onHeartbeat(heartbeat, source);
   }
 }
@@ -91,7 +94,7 @@ class TestClient extends ProtoSocket {
 
   @override
   void onHeartbeat(Connect heartbeat, SocketInfo source) {
-    logger.verbose("$device received a heartbeat from ${heartbeat.sender}"); 
+    logger.debug("$device received a heartbeat from ${heartbeat.sender}"); 
     isConnected = true;
   }
 

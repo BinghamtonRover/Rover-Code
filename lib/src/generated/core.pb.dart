@@ -1,9 +1,13 @@
-///
+//
 //  Generated code. Do not modify.
 //  source: core.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
+
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
+// ignore_for_file: constant_identifier_names, library_prefixes
+// ignore_for_file: non_constant_identifier_names, prefer_final_fields
+// ignore_for_file: unnecessary_import, unnecessary_this, unused_import
 
 import 'dart:core' as $core;
 
@@ -13,29 +17,31 @@ import 'core.pbenum.dart';
 
 export 'core.pbenum.dart';
 
+/// Used for a simple handshake between devices.
 class Connect extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Connect', createEmptyInstance: create)
-    ..e<Device>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sender', $pb.PbFieldType.OE, defaultOrMaker: Device.DEVICE_UNDEFINED, valueOf: Device.valueOf, enumValues: Device.values)
-    ..e<Device>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'receiver', $pb.PbFieldType.OE, defaultOrMaker: Device.DEVICE_UNDEFINED, valueOf: Device.valueOf, enumValues: Device.values)
-    ..hasRequiredFields = false
-  ;
-
-  Connect._() : super();
   factory Connect({
     Device? sender,
     Device? receiver,
   }) {
-    final _result = create();
+    final $result = create();
     if (sender != null) {
-      _result.sender = sender;
+      $result.sender = sender;
     }
     if (receiver != null) {
-      _result.receiver = receiver;
+      $result.receiver = receiver;
     }
-    return _result;
+    return $result;
   }
+  Connect._() : super();
   factory Connect.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Connect.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Connect', createEmptyInstance: create)
+    ..e<Device>(1, _omitFieldNames ? '' : 'sender', $pb.PbFieldType.OE, defaultOrMaker: Device.DEVICE_UNDEFINED, valueOf: Device.valueOf, enumValues: Device.values)
+    ..e<Device>(2, _omitFieldNames ? '' : 'receiver', $pb.PbFieldType.OE, defaultOrMaker: Device.DEVICE_UNDEFINED, valueOf: Device.valueOf, enumValues: Device.values)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -45,8 +51,10 @@ class Connect extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Connect copyWith(void Function(Connect) updates) => super.copyWith((message) => updates(message as Connect)) as Connect; // ignore: deprecated_member_use
+  Connect copyWith(void Function(Connect) updates) => super.copyWith((message) => updates(message as Connect)) as Connect;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static Connect create() => Connect._();
   Connect createEmptyInstance() => create();
@@ -74,24 +82,26 @@ class Connect extends $pb.GeneratedMessage {
   void clearReceiver() => clearField(2);
 }
 
+/// Notifies the recipient that the sender will no longer be connected.
 class Disconnect extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Disconnect', createEmptyInstance: create)
-    ..e<Device>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sender', $pb.PbFieldType.OE, defaultOrMaker: Device.DEVICE_UNDEFINED, valueOf: Device.valueOf, enumValues: Device.values)
-    ..hasRequiredFields = false
-  ;
-
-  Disconnect._() : super();
   factory Disconnect({
     Device? sender,
   }) {
-    final _result = create();
+    final $result = create();
     if (sender != null) {
-      _result.sender = sender;
+      $result.sender = sender;
     }
-    return _result;
+    return $result;
   }
+  Disconnect._() : super();
   factory Disconnect.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Disconnect.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Disconnect', createEmptyInstance: create)
+    ..e<Device>(1, _omitFieldNames ? '' : 'sender', $pb.PbFieldType.OE, defaultOrMaker: Device.DEVICE_UNDEFINED, valueOf: Device.valueOf, enumValues: Device.values)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -101,8 +111,10 @@ class Disconnect extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Disconnect copyWith(void Function(Disconnect) updates) => super.copyWith((message) => updates(message as Disconnect)) as Disconnect; // ignore: deprecated_member_use
+  Disconnect copyWith(void Function(Disconnect) updates) => super.copyWith((message) => updates(message as Disconnect)) as Disconnect;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static Disconnect create() => Disconnect._();
   Disconnect createEmptyInstance() => create();
@@ -121,29 +133,34 @@ class Disconnect extends $pb.GeneratedMessage {
   void clearSender() => clearField(1);
 }
 
+/// / Update a sensitive setting, such as the rover's status.
+/// /
+/// / This message must be triggered manually and the recipient (usually the subsystems Pi)
+/// / must respond with the exact same message to confirm its receipt.
 class UpdateSetting extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UpdateSetting', createEmptyInstance: create)
-    ..e<RoverStatus>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'status', $pb.PbFieldType.OE, defaultOrMaker: RoverStatus.DISCONNECTED, valueOf: RoverStatus.valueOf, enumValues: RoverStatus.values)
-    ..aOM<ProtoColor>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'color', subBuilder: ProtoColor.create)
-    ..hasRequiredFields = false
-  ;
-
-  UpdateSetting._() : super();
   factory UpdateSetting({
     RoverStatus? status,
     ProtoColor? color,
   }) {
-    final _result = create();
+    final $result = create();
     if (status != null) {
-      _result.status = status;
+      $result.status = status;
     }
     if (color != null) {
-      _result.color = color;
+      $result.color = color;
     }
-    return _result;
+    return $result;
   }
+  UpdateSetting._() : super();
   factory UpdateSetting.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory UpdateSetting.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'UpdateSetting', createEmptyInstance: create)
+    ..e<RoverStatus>(1, _omitFieldNames ? '' : 'status', $pb.PbFieldType.OE, defaultOrMaker: RoverStatus.DISCONNECTED, valueOf: RoverStatus.valueOf, enumValues: RoverStatus.values)
+    ..aOM<ProtoColor>(2, _omitFieldNames ? '' : 'color', subBuilder: ProtoColor.create)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -153,8 +170,10 @@ class UpdateSetting extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  UpdateSetting copyWith(void Function(UpdateSetting) updates) => super.copyWith((message) => updates(message as UpdateSetting)) as UpdateSetting; // ignore: deprecated_member_use
+  UpdateSetting copyWith(void Function(UpdateSetting) updates) => super.copyWith((message) => updates(message as UpdateSetting)) as UpdateSetting;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static UpdateSetting create() => UpdateSetting._();
   UpdateSetting createEmptyInstance() => create();
@@ -185,33 +204,34 @@ class UpdateSetting extends $pb.GeneratedMessage {
 }
 
 class ProtoColor extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ProtoColor', createEmptyInstance: create)
-    ..a<$core.double>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'red', $pb.PbFieldType.OF)
-    ..a<$core.double>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'green', $pb.PbFieldType.OF)
-    ..a<$core.double>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'blue', $pb.PbFieldType.OF)
-    ..hasRequiredFields = false
-  ;
-
-  ProtoColor._() : super();
   factory ProtoColor({
     $core.double? red,
     $core.double? green,
     $core.double? blue,
   }) {
-    final _result = create();
+    final $result = create();
     if (red != null) {
-      _result.red = red;
+      $result.red = red;
     }
     if (green != null) {
-      _result.green = green;
+      $result.green = green;
     }
     if (blue != null) {
-      _result.blue = blue;
+      $result.blue = blue;
     }
-    return _result;
+    return $result;
   }
+  ProtoColor._() : super();
   factory ProtoColor.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ProtoColor.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ProtoColor', createEmptyInstance: create)
+    ..a<$core.double>(1, _omitFieldNames ? '' : 'red', $pb.PbFieldType.OF)
+    ..a<$core.double>(2, _omitFieldNames ? '' : 'green', $pb.PbFieldType.OF)
+    ..a<$core.double>(3, _omitFieldNames ? '' : 'blue', $pb.PbFieldType.OF)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -221,8 +241,10 @@ class ProtoColor extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ProtoColor copyWith(void Function(ProtoColor) updates) => super.copyWith((message) => updates(message as ProtoColor)) as ProtoColor; // ignore: deprecated_member_use
+  ProtoColor copyWith(void Function(ProtoColor) updates) => super.copyWith((message) => updates(message as ProtoColor)) as ProtoColor;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static ProtoColor create() => ProtoColor._();
   ProtoColor createEmptyInstance() => create();
@@ -259,3 +281,6 @@ class ProtoColor extends $pb.GeneratedMessage {
   void clearBlue() => clearField(3);
 }
 
+
+const _omitFieldNames = $core.bool.fromEnvironment('protobuf.omit_field_names');
+const _omitMessageNames = $core.bool.fromEnvironment('protobuf.omit_message_names');

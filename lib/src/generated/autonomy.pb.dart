@@ -1,32 +1,24 @@
-///
+//
 //  Generated code. Do not modify.
 //  source: autonomy.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
+
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
+// ignore_for_file: constant_identifier_names, library_prefixes
+// ignore_for_file: non_constant_identifier_names, prefer_final_fields
+// ignore_for_file: unnecessary_import, unnecessary_this, unused_import
 
 import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'gps.pb.dart' as $0;
-
 import 'autonomy.pbenum.dart';
+import 'gps.pb.dart' as $0;
 
 export 'autonomy.pbenum.dart';
 
 class AutonomyData extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'AutonomyData', createEmptyInstance: create)
-    ..e<AutonomyState>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'state', $pb.PbFieldType.OE, defaultOrMaker: AutonomyState.AUTONOMY_STATE_UNDEFINED, valueOf: AutonomyState.valueOf, enumValues: AutonomyState.values)
-    ..aOM<$0.GpsCoordinates>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'destination', subBuilder: $0.GpsCoordinates.create)
-    ..pc<$0.GpsCoordinates>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'obstacles', $pb.PbFieldType.PM, subBuilder: $0.GpsCoordinates.create)
-    ..pc<$0.GpsCoordinates>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'path', $pb.PbFieldType.PM, subBuilder: $0.GpsCoordinates.create)
-    ..e<AutonomyTask>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'task', $pb.PbFieldType.OE, defaultOrMaker: AutonomyTask.AUTONOMY_TASK_UNDEFINED, valueOf: AutonomyTask.valueOf, enumValues: AutonomyTask.values)
-    ..aOB(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'crash')
-    ..hasRequiredFields = false
-  ;
-
-  AutonomyData._() : super();
   factory AutonomyData({
     AutonomyState? state,
     $0.GpsCoordinates? destination,
@@ -35,29 +27,41 @@ class AutonomyData extends $pb.GeneratedMessage {
     AutonomyTask? task,
     $core.bool? crash,
   }) {
-    final _result = create();
+    final $result = create();
     if (state != null) {
-      _result.state = state;
+      $result.state = state;
     }
     if (destination != null) {
-      _result.destination = destination;
+      $result.destination = destination;
     }
     if (obstacles != null) {
-      _result.obstacles.addAll(obstacles);
+      $result.obstacles.addAll(obstacles);
     }
     if (path != null) {
-      _result.path.addAll(path);
+      $result.path.addAll(path);
     }
     if (task != null) {
-      _result.task = task;
+      $result.task = task;
     }
     if (crash != null) {
-      _result.crash = crash;
+      $result.crash = crash;
     }
-    return _result;
+    return $result;
   }
+  AutonomyData._() : super();
   factory AutonomyData.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory AutonomyData.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AutonomyData', createEmptyInstance: create)
+    ..e<AutonomyState>(1, _omitFieldNames ? '' : 'state', $pb.PbFieldType.OE, defaultOrMaker: AutonomyState.AUTONOMY_STATE_UNDEFINED, valueOf: AutonomyState.valueOf, enumValues: AutonomyState.values)
+    ..aOM<$0.GpsCoordinates>(2, _omitFieldNames ? '' : 'destination', subBuilder: $0.GpsCoordinates.create)
+    ..pc<$0.GpsCoordinates>(3, _omitFieldNames ? '' : 'obstacles', $pb.PbFieldType.PM, subBuilder: $0.GpsCoordinates.create)
+    ..pc<$0.GpsCoordinates>(4, _omitFieldNames ? '' : 'path', $pb.PbFieldType.PM, subBuilder: $0.GpsCoordinates.create)
+    ..e<AutonomyTask>(5, _omitFieldNames ? '' : 'task', $pb.PbFieldType.OE, defaultOrMaker: AutonomyTask.AUTONOMY_TASK_UNDEFINED, valueOf: AutonomyTask.valueOf, enumValues: AutonomyTask.values)
+    ..aOB(6, _omitFieldNames ? '' : 'crash')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -67,8 +71,10 @@ class AutonomyData extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  AutonomyData copyWith(void Function(AutonomyData) updates) => super.copyWith((message) => updates(message as AutonomyData)) as AutonomyData; // ignore: deprecated_member_use
+  AutonomyData copyWith(void Function(AutonomyData) updates) => super.copyWith((message) => updates(message as AutonomyData)) as AutonomyData;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static AutonomyData create() => AutonomyData._();
   AutonomyData createEmptyInstance() => create();
@@ -123,38 +129,39 @@ class AutonomyData extends $pb.GeneratedMessage {
 }
 
 class AutonomyCommand extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'AutonomyCommand', createEmptyInstance: create)
-    ..aOM<$0.GpsCoordinates>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'destination', subBuilder: $0.GpsCoordinates.create)
-    ..e<AutonomyTask>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'task', $pb.PbFieldType.OE, defaultOrMaker: AutonomyTask.AUTONOMY_TASK_UNDEFINED, valueOf: AutonomyTask.valueOf, enumValues: AutonomyTask.values)
-    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'arucoId', $pb.PbFieldType.O3)
-    ..aOB(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'abort')
-    ..hasRequiredFields = false
-  ;
-
-  AutonomyCommand._() : super();
   factory AutonomyCommand({
     $0.GpsCoordinates? destination,
     AutonomyTask? task,
     $core.int? arucoId,
     $core.bool? abort,
   }) {
-    final _result = create();
+    final $result = create();
     if (destination != null) {
-      _result.destination = destination;
+      $result.destination = destination;
     }
     if (task != null) {
-      _result.task = task;
+      $result.task = task;
     }
     if (arucoId != null) {
-      _result.arucoId = arucoId;
+      $result.arucoId = arucoId;
     }
     if (abort != null) {
-      _result.abort = abort;
+      $result.abort = abort;
     }
-    return _result;
+    return $result;
   }
+  AutonomyCommand._() : super();
   factory AutonomyCommand.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory AutonomyCommand.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AutonomyCommand', createEmptyInstance: create)
+    ..aOM<$0.GpsCoordinates>(1, _omitFieldNames ? '' : 'destination', subBuilder: $0.GpsCoordinates.create)
+    ..e<AutonomyTask>(2, _omitFieldNames ? '' : 'task', $pb.PbFieldType.OE, defaultOrMaker: AutonomyTask.AUTONOMY_TASK_UNDEFINED, valueOf: AutonomyTask.valueOf, enumValues: AutonomyTask.values)
+    ..a<$core.int>(3, _omitFieldNames ? '' : 'arucoId', $pb.PbFieldType.O3)
+    ..aOB(4, _omitFieldNames ? '' : 'abort')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -164,8 +171,10 @@ class AutonomyCommand extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  AutonomyCommand copyWith(void Function(AutonomyCommand) updates) => super.copyWith((message) => updates(message as AutonomyCommand)) as AutonomyCommand; // ignore: deprecated_member_use
+  AutonomyCommand copyWith(void Function(AutonomyCommand) updates) => super.copyWith((message) => updates(message as AutonomyCommand)) as AutonomyCommand;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static AutonomyCommand create() => AutonomyCommand._();
   AutonomyCommand createEmptyInstance() => create();
@@ -213,3 +222,6 @@ class AutonomyCommand extends $pb.GeneratedMessage {
   void clearAbort() => clearField(4);
 }
 
+
+const _omitFieldNames = $core.bool.fromEnvironment('protobuf.omit_field_names');
+const _omitMessageNames = $core.bool.fromEnvironment('protobuf.omit_message_names');

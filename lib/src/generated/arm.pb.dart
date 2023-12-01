@@ -1,9 +1,13 @@
-///
+//
 //  Generated code. Do not modify.
 //  source: arm.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
+
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
+// ignore_for_file: constant_identifier_names, library_prefixes
+// ignore_for_file: non_constant_identifier_names, prefer_final_fields
+// ignore_for_file: unnecessary_import, unnecessary_this, unused_import
 
 import 'dart:core' as $core;
 
@@ -14,33 +18,34 @@ import 'arm.pbenum.dart';
 export 'arm.pbenum.dart';
 
 class Coordinates extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Coordinates', createEmptyInstance: create)
-    ..a<$core.double>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'x', $pb.PbFieldType.OF)
-    ..a<$core.double>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'y', $pb.PbFieldType.OF)
-    ..a<$core.double>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'z', $pb.PbFieldType.OF)
-    ..hasRequiredFields = false
-  ;
-
-  Coordinates._() : super();
   factory Coordinates({
     $core.double? x,
     $core.double? y,
     $core.double? z,
   }) {
-    final _result = create();
+    final $result = create();
     if (x != null) {
-      _result.x = x;
+      $result.x = x;
     }
     if (y != null) {
-      _result.y = y;
+      $result.y = y;
     }
     if (z != null) {
-      _result.z = z;
+      $result.z = z;
     }
-    return _result;
+    return $result;
   }
+  Coordinates._() : super();
   factory Coordinates.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Coordinates.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Coordinates', createEmptyInstance: create)
+    ..a<$core.double>(1, _omitFieldNames ? '' : 'x', $pb.PbFieldType.OF)
+    ..a<$core.double>(2, _omitFieldNames ? '' : 'y', $pb.PbFieldType.OF)
+    ..a<$core.double>(3, _omitFieldNames ? '' : 'z', $pb.PbFieldType.OF)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -50,8 +55,10 @@ class Coordinates extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Coordinates copyWith(void Function(Coordinates) updates) => super.copyWith((message) => updates(message as Coordinates)) as Coordinates; // ignore: deprecated_member_use
+  Coordinates copyWith(void Function(Coordinates) updates) => super.copyWith((message) => updates(message as Coordinates)) as Coordinates;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static Coordinates create() => Coordinates._();
   Coordinates createEmptyInstance() => create();
@@ -89,17 +96,6 @@ class Coordinates extends $pb.GeneratedMessage {
 }
 
 class MotorData extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'MotorData', createEmptyInstance: create)
-    ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'isMoving')
-    ..aOB(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'isLimitSwitchPressed')
-    ..e<MotorDirection>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'direction', $pb.PbFieldType.OE, defaultOrMaker: MotorDirection.MOTOR_DIRECTION_UNDEFINED, valueOf: MotorDirection.valueOf, enumValues: MotorDirection.values)
-    ..a<$core.int>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'currentStep', $pb.PbFieldType.O3)
-    ..a<$core.int>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'targetStep', $pb.PbFieldType.O3)
-    ..a<$core.double>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'angle', $pb.PbFieldType.OF)
-    ..hasRequiredFields = false
-  ;
-
-  MotorData._() : super();
   factory MotorData({
     $core.bool? isMoving,
     $core.bool? isLimitSwitchPressed,
@@ -108,29 +104,41 @@ class MotorData extends $pb.GeneratedMessage {
     $core.int? targetStep,
     $core.double? angle,
   }) {
-    final _result = create();
+    final $result = create();
     if (isMoving != null) {
-      _result.isMoving = isMoving;
+      $result.isMoving = isMoving;
     }
     if (isLimitSwitchPressed != null) {
-      _result.isLimitSwitchPressed = isLimitSwitchPressed;
+      $result.isLimitSwitchPressed = isLimitSwitchPressed;
     }
     if (direction != null) {
-      _result.direction = direction;
+      $result.direction = direction;
     }
     if (currentStep != null) {
-      _result.currentStep = currentStep;
+      $result.currentStep = currentStep;
     }
     if (targetStep != null) {
-      _result.targetStep = targetStep;
+      $result.targetStep = targetStep;
     }
     if (angle != null) {
-      _result.angle = angle;
+      $result.angle = angle;
     }
-    return _result;
+    return $result;
   }
+  MotorData._() : super();
   factory MotorData.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MotorData.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'MotorData', createEmptyInstance: create)
+    ..aOB(1, _omitFieldNames ? '' : 'isMoving')
+    ..aOB(2, _omitFieldNames ? '' : 'isLimitSwitchPressed')
+    ..e<MotorDirection>(3, _omitFieldNames ? '' : 'direction', $pb.PbFieldType.OE, defaultOrMaker: MotorDirection.MOTOR_DIRECTION_UNDEFINED, valueOf: MotorDirection.valueOf, enumValues: MotorDirection.values)
+    ..a<$core.int>(4, _omitFieldNames ? '' : 'currentStep', $pb.PbFieldType.O3)
+    ..a<$core.int>(5, _omitFieldNames ? '' : 'targetStep', $pb.PbFieldType.O3)
+    ..a<$core.double>(6, _omitFieldNames ? '' : 'angle', $pb.PbFieldType.OF)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -140,8 +148,10 @@ class MotorData extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MotorData copyWith(void Function(MotorData) updates) => super.copyWith((message) => updates(message as MotorData)) as MotorData; // ignore: deprecated_member_use
+  MotorData copyWith(void Function(MotorData) updates) => super.copyWith((message) => updates(message as MotorData)) as MotorData;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static MotorData create() => MotorData._();
   MotorData createEmptyInstance() => create();
@@ -206,28 +216,29 @@ class MotorData extends $pb.GeneratedMessage {
 }
 
 class MotorCommand extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'MotorCommand', createEmptyInstance: create)
-    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'moveSteps', $pb.PbFieldType.O3)
-    ..a<$core.double>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'moveRadians', $pb.PbFieldType.OF)
-    ..hasRequiredFields = false
-  ;
-
-  MotorCommand._() : super();
   factory MotorCommand({
     $core.int? moveSteps,
     $core.double? moveRadians,
   }) {
-    final _result = create();
+    final $result = create();
     if (moveSteps != null) {
-      _result.moveSteps = moveSteps;
+      $result.moveSteps = moveSteps;
     }
     if (moveRadians != null) {
-      _result.moveRadians = moveRadians;
+      $result.moveRadians = moveRadians;
     }
-    return _result;
+    return $result;
   }
+  MotorCommand._() : super();
   factory MotorCommand.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MotorCommand.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'MotorCommand', createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'moveSteps', $pb.PbFieldType.O3)
+    ..a<$core.double>(2, _omitFieldNames ? '' : 'moveRadians', $pb.PbFieldType.OF)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -237,8 +248,10 @@ class MotorCommand extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MotorCommand copyWith(void Function(MotorCommand) updates) => super.copyWith((message) => updates(message as MotorCommand)) as MotorCommand; // ignore: deprecated_member_use
+  MotorCommand copyWith(void Function(MotorCommand) updates) => super.copyWith((message) => updates(message as MotorCommand)) as MotorCommand;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static MotorCommand create() => MotorCommand._();
   MotorCommand createEmptyInstance() => create();
@@ -247,6 +260,7 @@ class MotorCommand extends $pb.GeneratedMessage {
   static MotorCommand getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MotorCommand>(create);
   static MotorCommand? _defaultInstance;
 
+  /// Debug control: Move by individual steps
   @$pb.TagNumber(1)
   $core.int get moveSteps => $_getIZ(0);
   @$pb.TagNumber(1)
@@ -256,6 +270,7 @@ class MotorCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   void clearMoveSteps() => clearField(1);
 
+  /// Precise control: Move by radians
   @$pb.TagNumber(2)
   $core.double get moveRadians => $_getN(1);
   @$pb.TagNumber(2)
@@ -267,16 +282,6 @@ class MotorCommand extends $pb.GeneratedMessage {
 }
 
 class ArmData extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ArmData', createEmptyInstance: create)
-    ..aOM<Coordinates>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'currentPosition', protoName: 'currentPosition', subBuilder: Coordinates.create)
-    ..aOM<Coordinates>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'targetPosition', protoName: 'targetPosition', subBuilder: Coordinates.create)
-    ..aOM<MotorData>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'base', subBuilder: MotorData.create)
-    ..aOM<MotorData>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'shoulder', subBuilder: MotorData.create)
-    ..aOM<MotorData>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'elbow', subBuilder: MotorData.create)
-    ..hasRequiredFields = false
-  ;
-
-  ArmData._() : super();
   factory ArmData({
     Coordinates? currentPosition,
     Coordinates? targetPosition,
@@ -284,26 +289,37 @@ class ArmData extends $pb.GeneratedMessage {
     MotorData? shoulder,
     MotorData? elbow,
   }) {
-    final _result = create();
+    final $result = create();
     if (currentPosition != null) {
-      _result.currentPosition = currentPosition;
+      $result.currentPosition = currentPosition;
     }
     if (targetPosition != null) {
-      _result.targetPosition = targetPosition;
+      $result.targetPosition = targetPosition;
     }
     if (base != null) {
-      _result.base = base;
+      $result.base = base;
     }
     if (shoulder != null) {
-      _result.shoulder = shoulder;
+      $result.shoulder = shoulder;
     }
     if (elbow != null) {
-      _result.elbow = elbow;
+      $result.elbow = elbow;
     }
-    return _result;
+    return $result;
   }
+  ArmData._() : super();
   factory ArmData.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ArmData.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ArmData', createEmptyInstance: create)
+    ..aOM<Coordinates>(1, _omitFieldNames ? '' : 'currentPosition', protoName: 'currentPosition', subBuilder: Coordinates.create)
+    ..aOM<Coordinates>(2, _omitFieldNames ? '' : 'targetPosition', protoName: 'targetPosition', subBuilder: Coordinates.create)
+    ..aOM<MotorData>(3, _omitFieldNames ? '' : 'base', subBuilder: MotorData.create)
+    ..aOM<MotorData>(4, _omitFieldNames ? '' : 'shoulder', subBuilder: MotorData.create)
+    ..aOM<MotorData>(5, _omitFieldNames ? '' : 'elbow', subBuilder: MotorData.create)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -313,8 +329,10 @@ class ArmData extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ArmData copyWith(void Function(ArmData) updates) => super.copyWith((message) => updates(message as ArmData)) as ArmData; // ignore: deprecated_member_use
+  ArmData copyWith(void Function(ArmData) updates) => super.copyWith((message) => updates(message as ArmData)) as ArmData;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static ArmData create() => ArmData._();
   ArmData createEmptyInstance() => create();
@@ -380,21 +398,6 @@ class ArmData extends $pb.GeneratedMessage {
 }
 
 class ArmCommand extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ArmCommand', createEmptyInstance: create)
-    ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'stop')
-    ..aOB(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'calibrate')
-    ..aOM<MotorCommand>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'swivel', subBuilder: MotorCommand.create)
-    ..aOM<MotorCommand>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'shoulder', subBuilder: MotorCommand.create)
-    ..aOM<MotorCommand>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'elbow', subBuilder: MotorCommand.create)
-    ..aOM<MotorCommand>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'gripperLift', subBuilder: MotorCommand.create)
-    ..a<$core.double>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ikX', $pb.PbFieldType.OF)
-    ..a<$core.double>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ikY', $pb.PbFieldType.OF)
-    ..a<$core.double>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ikZ', $pb.PbFieldType.OF)
-    ..aOB(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'jab')
-    ..hasRequiredFields = false
-  ;
-
-  ArmCommand._() : super();
   factory ArmCommand({
     $core.bool? stop,
     $core.bool? calibrate,
@@ -407,41 +410,57 @@ class ArmCommand extends $pb.GeneratedMessage {
     $core.double? ikZ,
     $core.bool? jab,
   }) {
-    final _result = create();
+    final $result = create();
     if (stop != null) {
-      _result.stop = stop;
+      $result.stop = stop;
     }
     if (calibrate != null) {
-      _result.calibrate = calibrate;
+      $result.calibrate = calibrate;
     }
     if (swivel != null) {
-      _result.swivel = swivel;
+      $result.swivel = swivel;
     }
     if (shoulder != null) {
-      _result.shoulder = shoulder;
+      $result.shoulder = shoulder;
     }
     if (elbow != null) {
-      _result.elbow = elbow;
+      $result.elbow = elbow;
     }
     if (gripperLift != null) {
-      _result.gripperLift = gripperLift;
+      $result.gripperLift = gripperLift;
     }
     if (ikX != null) {
-      _result.ikX = ikX;
+      $result.ikX = ikX;
     }
     if (ikY != null) {
-      _result.ikY = ikY;
+      $result.ikY = ikY;
     }
     if (ikZ != null) {
-      _result.ikZ = ikZ;
+      $result.ikZ = ikZ;
     }
     if (jab != null) {
-      _result.jab = jab;
+      $result.jab = jab;
     }
-    return _result;
+    return $result;
   }
+  ArmCommand._() : super();
   factory ArmCommand.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ArmCommand.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'ArmCommand', createEmptyInstance: create)
+    ..aOB(1, _omitFieldNames ? '' : 'stop')
+    ..aOB(2, _omitFieldNames ? '' : 'calibrate')
+    ..aOM<MotorCommand>(3, _omitFieldNames ? '' : 'swivel', subBuilder: MotorCommand.create)
+    ..aOM<MotorCommand>(4, _omitFieldNames ? '' : 'shoulder', subBuilder: MotorCommand.create)
+    ..aOM<MotorCommand>(5, _omitFieldNames ? '' : 'elbow', subBuilder: MotorCommand.create)
+    ..aOM<MotorCommand>(6, _omitFieldNames ? '' : 'gripperLift', subBuilder: MotorCommand.create)
+    ..a<$core.double>(7, _omitFieldNames ? '' : 'ikX', $pb.PbFieldType.OF)
+    ..a<$core.double>(8, _omitFieldNames ? '' : 'ikY', $pb.PbFieldType.OF)
+    ..a<$core.double>(9, _omitFieldNames ? '' : 'ikZ', $pb.PbFieldType.OF)
+    ..aOB(10, _omitFieldNames ? '' : 'jab')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -451,8 +470,10 @@ class ArmCommand extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ArmCommand copyWith(void Function(ArmCommand) updates) => super.copyWith((message) => updates(message as ArmCommand)) as ArmCommand; // ignore: deprecated_member_use
+  ArmCommand copyWith(void Function(ArmCommand) updates) => super.copyWith((message) => updates(message as ArmCommand)) as ArmCommand;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static ArmCommand create() => ArmCommand._();
   ArmCommand createEmptyInstance() => create();
@@ -461,6 +482,7 @@ class ArmCommand extends $pb.GeneratedMessage {
   static ArmCommand getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ArmCommand>(create);
   static ArmCommand? _defaultInstance;
 
+  /// General commands
   @$pb.TagNumber(1)
   $core.bool get stop => $_getBF(0);
   @$pb.TagNumber(1)
@@ -479,6 +501,7 @@ class ArmCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   void clearCalibrate() => clearField(2);
 
+  /// Move individual motors
   @$pb.TagNumber(3)
   MotorCommand get swivel => $_getN(2);
   @$pb.TagNumber(3)
@@ -512,6 +535,8 @@ class ArmCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   MotorCommand ensureElbow() => $_ensure(4);
 
+  /// Needed for IK: If the wrist-lift moves, we need to re-calculate IK to keep the end-effector
+  /// stationary. See /Arm/src/ik/README.md in the Arm-Firmware repository.
   @$pb.TagNumber(6)
   MotorCommand get gripperLift => $_getN(5);
   @$pb.TagNumber(6)
@@ -550,6 +575,7 @@ class ArmCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(9)
   void clearIkZ() => clearField(9);
 
+  /// Custom actions
   @$pb.TagNumber(10)
   $core.bool get jab => $_getBF(9);
   @$pb.TagNumber(10)
@@ -561,33 +587,34 @@ class ArmCommand extends $pb.GeneratedMessage {
 }
 
 class GripperData extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GripperData', createEmptyInstance: create)
-    ..aOM<MotorData>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lift', subBuilder: MotorData.create)
-    ..aOM<MotorData>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'rotate', subBuilder: MotorData.create)
-    ..aOM<MotorData>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pinch', subBuilder: MotorData.create)
-    ..hasRequiredFields = false
-  ;
-
-  GripperData._() : super();
   factory GripperData({
     MotorData? lift,
     MotorData? rotate,
     MotorData? pinch,
   }) {
-    final _result = create();
+    final $result = create();
     if (lift != null) {
-      _result.lift = lift;
+      $result.lift = lift;
     }
     if (rotate != null) {
-      _result.rotate = rotate;
+      $result.rotate = rotate;
     }
     if (pinch != null) {
-      _result.pinch = pinch;
+      $result.pinch = pinch;
     }
-    return _result;
+    return $result;
   }
+  GripperData._() : super();
   factory GripperData.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GripperData.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GripperData', createEmptyInstance: create)
+    ..aOM<MotorData>(1, _omitFieldNames ? '' : 'lift', subBuilder: MotorData.create)
+    ..aOM<MotorData>(2, _omitFieldNames ? '' : 'rotate', subBuilder: MotorData.create)
+    ..aOM<MotorData>(3, _omitFieldNames ? '' : 'pinch', subBuilder: MotorData.create)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -597,8 +624,10 @@ class GripperData extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  GripperData copyWith(void Function(GripperData) updates) => super.copyWith((message) => updates(message as GripperData)) as GripperData; // ignore: deprecated_member_use
+  GripperData copyWith(void Function(GripperData) updates) => super.copyWith((message) => updates(message as GripperData)) as GripperData;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static GripperData create() => GripperData._();
   GripperData createEmptyInstance() => create();
@@ -642,19 +671,6 @@ class GripperData extends $pb.GeneratedMessage {
 }
 
 class GripperCommand extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GripperCommand', createEmptyInstance: create)
-    ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'stop')
-    ..aOB(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'calibrate')
-    ..aOM<MotorCommand>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lift', subBuilder: MotorCommand.create)
-    ..aOM<MotorCommand>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'rotate', subBuilder: MotorCommand.create)
-    ..aOM<MotorCommand>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pinch', subBuilder: MotorCommand.create)
-    ..aOB(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'open')
-    ..aOB(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'close')
-    ..aOB(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'spin')
-    ..hasRequiredFields = false
-  ;
-
-  GripperCommand._() : super();
   factory GripperCommand({
     $core.bool? stop,
     $core.bool? calibrate,
@@ -665,35 +681,49 @@ class GripperCommand extends $pb.GeneratedMessage {
     $core.bool? close,
     $core.bool? spin,
   }) {
-    final _result = create();
+    final $result = create();
     if (stop != null) {
-      _result.stop = stop;
+      $result.stop = stop;
     }
     if (calibrate != null) {
-      _result.calibrate = calibrate;
+      $result.calibrate = calibrate;
     }
     if (lift != null) {
-      _result.lift = lift;
+      $result.lift = lift;
     }
     if (rotate != null) {
-      _result.rotate = rotate;
+      $result.rotate = rotate;
     }
     if (pinch != null) {
-      _result.pinch = pinch;
+      $result.pinch = pinch;
     }
     if (open != null) {
-      _result.open = open;
+      $result.open = open;
     }
     if (close != null) {
-      _result.close = close;
+      $result.close = close;
     }
     if (spin != null) {
-      _result.spin = spin;
+      $result.spin = spin;
     }
-    return _result;
+    return $result;
   }
+  GripperCommand._() : super();
   factory GripperCommand.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GripperCommand.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GripperCommand', createEmptyInstance: create)
+    ..aOB(1, _omitFieldNames ? '' : 'stop')
+    ..aOB(2, _omitFieldNames ? '' : 'calibrate')
+    ..aOM<MotorCommand>(3, _omitFieldNames ? '' : 'lift', subBuilder: MotorCommand.create)
+    ..aOM<MotorCommand>(4, _omitFieldNames ? '' : 'rotate', subBuilder: MotorCommand.create)
+    ..aOM<MotorCommand>(5, _omitFieldNames ? '' : 'pinch', subBuilder: MotorCommand.create)
+    ..aOB(6, _omitFieldNames ? '' : 'open')
+    ..aOB(7, _omitFieldNames ? '' : 'close')
+    ..aOB(8, _omitFieldNames ? '' : 'spin')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -703,8 +733,10 @@ class GripperCommand extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  GripperCommand copyWith(void Function(GripperCommand) updates) => super.copyWith((message) => updates(message as GripperCommand)) as GripperCommand; // ignore: deprecated_member_use
+  GripperCommand copyWith(void Function(GripperCommand) updates) => super.copyWith((message) => updates(message as GripperCommand)) as GripperCommand;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static GripperCommand create() => GripperCommand._();
   GripperCommand createEmptyInstance() => create();
@@ -713,6 +745,7 @@ class GripperCommand extends $pb.GeneratedMessage {
   static GripperCommand getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GripperCommand>(create);
   static GripperCommand? _defaultInstance;
 
+  /// General commands
   @$pb.TagNumber(1)
   $core.bool get stop => $_getBF(0);
   @$pb.TagNumber(1)
@@ -731,6 +764,7 @@ class GripperCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   void clearCalibrate() => clearField(2);
 
+  /// Move individual motors
   @$pb.TagNumber(3)
   MotorCommand get lift => $_getN(2);
   @$pb.TagNumber(3)
@@ -764,6 +798,7 @@ class GripperCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   MotorCommand ensurePinch() => $_ensure(4);
 
+  /// Custom actions
   @$pb.TagNumber(6)
   $core.bool get open => $_getBF(5);
   @$pb.TagNumber(6)
@@ -792,3 +827,6 @@ class GripperCommand extends $pb.GeneratedMessage {
   void clearSpin() => clearField(8);
 }
 
+
+const _omitFieldNames = $core.bool.fromEnvironment('protobuf.omit_field_names');
+const _omitMessageNames = $core.bool.fromEnvironment('protobuf.omit_message_names');

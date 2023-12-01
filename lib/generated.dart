@@ -9,6 +9,7 @@ export "src/generated/core.pb.dart";
 export "src/generated/drive.pb.dart";
 export "src/generated/electrical.pb.dart";
 export "src/generated/gps.pb.dart";
+export "src/generated/logs.pb.dart";
 export "src/generated/mars.pb.dart";
 export "src/generated/science.pb.dart";
 export "src/generated/video.pb.dart";

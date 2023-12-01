@@ -1,6 +1,6 @@
 //
 //  Generated code. Do not modify.
-//  source: drive.proto
+//  source: logs.proto
 //
 // @dart = 2.12
 
@@ -10,5 +10,5 @@
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
 
-export 'drive.pb.dart';
+export 'logs.pb.dart';
 

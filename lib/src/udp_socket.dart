@@ -20,6 +20,8 @@ abstract class UdpSocket {
   /// A collection of allowed [OSError] codes.
   static const allowedErrors = {1234, 10054, 101, 10038, 9};
 
+  final _logger = BurtLogger();
+
   /// The port this socket is listening on. See [RawDatagramSocket.bind].
   int? port;
 
@@ -49,11 +51,11 @@ abstract class UdpSocket {
       _socket = await RawDatagramSocket.bind(InternetAddress.anyIPv4, port ?? 0);
       _subscription = _socket!.listenForData(onData);
       if (port == null || port == 0) port = _socket!.port;
-      if (!quiet) logger.info("Listening on port $port");
+      if (!quiet) _logger.info("Listening on port $port");
     },
     (Object error, StackTrace stack) async {  // Catch errors and restart the socket
       if (error is SocketException && allowedErrors.contains(error.osError!.errorCode)) {
-        if (!quiet) logger.warning("Socket error ${error.osError!.errorCode} on port $port. Restarting...");
+        if (!quiet) _logger.warning("Socket error ${error.osError!.errorCode} on port $port. Restarting...");
         await Future<void>.delayed(const Duration(seconds: 1));
         await dispose();
         await init();
@@ -68,7 +70,7 @@ abstract class UdpSocket {
   Future<void> dispose() async {
     await _subscription.cancel();
     _socket?.close();
-    if (!quiet) logger.info("Closed the socket on port $port");
+    if (!quiet) _logger.info("Closed the socket on port $port");
   }
 
   /// Sends data to the given destination.
