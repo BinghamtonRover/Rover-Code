@@ -61,6 +61,7 @@ class RoverStatus extends $pb.ProtobufEnum {
   static const RoverStatus MANUAL = RoverStatus._(2, _omitEnumNames ? '' : 'MANUAL');
   static const RoverStatus AUTONOMOUS = RoverStatus._(3, _omitEnumNames ? '' : 'AUTONOMOUS');
   static const RoverStatus POWER_OFF = RoverStatus._(4, _omitEnumNames ? '' : 'POWER_OFF');
+  static const RoverStatus RESTART = RoverStatus._(5, _omitEnumNames ? '' : 'RESTART');
 
   static const $core.List<RoverStatus> values = <RoverStatus> [
     DISCONNECTED,
@@ -68,6 +69,7 @@ class RoverStatus extends $pb.ProtobufEnum {
     MANUAL,
     AUTONOMOUS,
     POWER_OFF,
+    RESTART,
   ];
 
   static final $core.Map<$core.int, RoverStatus> _byValue = $pb.ProtobufEnum.initByValue(values);

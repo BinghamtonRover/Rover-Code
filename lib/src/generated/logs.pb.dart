@@ -13,6 +13,7 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
+import 'core.pbenum.dart' as $1;
 import 'logs.pbenum.dart';
 
 export 'logs.pbenum.dart';
@@ -20,18 +21,22 @@ export 'logs.pbenum.dart';
 class BurtLog extends $pb.GeneratedMessage {
   factory BurtLog({
     BurtLogLevel? level,
-    $core.String? body,
     $core.String? title,
+    $core.String? body,
+    $1.Device? device,
   }) {
     final $result = create();
     if (level != null) {
       $result.level = level;
     }
+    if (title != null) {
+      $result.title = title;
+    }
     if (body != null) {
       $result.body = body;
     }
-    if (title != null) {
-      $result.title = title;
+    if (device != null) {
+      $result.device = device;
     }
     return $result;
   }
@@ -41,8 +46,9 @@ class BurtLog extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'BurtLog', createEmptyInstance: create)
     ..e<BurtLogLevel>(1, _omitFieldNames ? '' : 'level', $pb.PbFieldType.OE, defaultOrMaker: BurtLogLevel.BURT_LOG_LEVEL_UNDEFINED, valueOf: BurtLogLevel.valueOf, enumValues: BurtLogLevel.values)
-    ..aOS(2, _omitFieldNames ? '' : 'body')
-    ..aOS(3, _omitFieldNames ? '' : 'title')
+    ..aOS(2, _omitFieldNames ? '' : 'title')
+    ..aOS(3, _omitFieldNames ? '' : 'body')
+    ..e<$1.Device>(4, _omitFieldNames ? '' : 'device', $pb.PbFieldType.OE, defaultOrMaker: $1.Device.DEVICE_UNDEFINED, valueOf: $1.Device.valueOf, enumValues: $1.Device.values)
     ..hasRequiredFields = false
   ;
 
@@ -77,22 +83,31 @@ class BurtLog extends $pb.GeneratedMessage {
   void clearLevel() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.String get body => $_getSZ(1);
+  $core.String get title => $_getSZ(1);
   @$pb.TagNumber(2)
-  set body($core.String v) { $_setString(1, v); }
+  set title($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasBody() => $_has(1);
+  $core.bool hasTitle() => $_has(1);
   @$pb.TagNumber(2)
-  void clearBody() => clearField(2);
+  void clearTitle() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get title => $_getSZ(2);
+  $core.String get body => $_getSZ(2);
   @$pb.TagNumber(3)
-  set title($core.String v) { $_setString(2, v); }
+  set body($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasTitle() => $_has(2);
+  $core.bool hasBody() => $_has(2);
   @$pb.TagNumber(3)
-  void clearTitle() => clearField(3);
+  void clearBody() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $1.Device get device => $_getN(3);
+  @$pb.TagNumber(4)
+  set device($1.Device v) { setField(4, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasDevice() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearDevice() => clearField(4);
 }
 
 

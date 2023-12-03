@@ -49,13 +49,14 @@ const RoverStatus$json = {
     {'1': 'MANUAL', '2': 2},
     {'1': 'AUTONOMOUS', '2': 3},
     {'1': 'POWER_OFF', '2': 4},
+    {'1': 'RESTART', '2': 5},
   ],
 };
 
 /// Descriptor for `RoverStatus`. Decode as a `google.protobuf.EnumDescriptorProto`.
 final $typed_data.Uint8List roverStatusDescriptor = $convert.base64Decode(
     'CgtSb3ZlclN0YXR1cxIQCgxESVNDT05ORUNURUQQABIICgRJRExFEAESCgoGTUFOVUFMEAISDg'
-    'oKQVVUT05PTU9VUxADEg0KCVBPV0VSX09GRhAE');
+    'oKQVVUT05PTU9VUxADEg0KCVBPV0VSX09GRhAEEgsKB1JFU1RBUlQQBQ==');
 
 @$core.Deprecated('Use connectDescriptor instead')
 const Connect$json = {
