@@ -11,13 +11,13 @@ final clientInfo = SocketInfo(address: address, port: 8001);
 final logger = BurtLogger();
 
 void main() => group("ProtoSocket:", () {
-  Logger.level = LogLevel.debug;
+  Logger.level = LogLevel.off;
   final server = TestServer(port: serverInfo.port, device: Device.SUBSYSTEMS);
   final client = TestClient(
     device: Device.DASHBOARD,
-    destination: serverInfo, 
     port: clientInfo.port,
   );
+  client.destination = serverInfo;
 
   setUpAll(() async {
     await server.init();
@@ -50,7 +50,7 @@ void main() => group("ProtoSocket:", () {
   });
 });
 
-class TestServer extends ServerSocket {
+class TestServer extends BurtUdpProtocol with RoverHeartbeats {
   ScienceData? data;
   bool onConnectCalled = false;
   bool onDisconnectCalled = false;
@@ -71,17 +71,15 @@ class TestServer extends ServerSocket {
     super.onDisconnect();
     onDisconnectCalled = true;
   }
-
-  @override
-  void onHeartbeat(Connect heartbeat, SocketInfo source) {
-    logger.debug("$device received a heartbeat from ${heartbeat.sender}"); 
-    super.onHeartbeat(heartbeat, source);
-  }
 }
 
-class TestClient extends ProtoSocket {
-  TestClient({required super.port, required super.device, super.destination}) : super(heartbeatInterval: const Duration(seconds: 1));
+class TestClient extends BurtUdpProtocol {
+  @override
+  Duration get heartbeatInterval => const Duration(seconds: 1);
+  
+  TestClient({required super.port, required super.device});
 
+  @override
   bool isConnected = false;
   bool shouldSendHeartbeats = true;
 
@@ -100,7 +98,4 @@ class TestClient extends ProtoSocket {
 
   @override 
   void onMessage(Message message) { }
-
-  @override 
-  void updateSettings(UpdateSetting message) { }  
 }

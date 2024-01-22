@@ -20,16 +20,18 @@ abstract class UdpSocket {
   /// A collection of allowed [OSError] codes.
   static const allowedErrors = {1234, 10054, 101, 10038, 9};
 
-  final _logger = BurtLogger();
+  final logger = BurtLogger();
+
+  /// Whether to silence "normal" output, like opening/closing and resetting sockets.
+  final bool quiet;
 
   /// The port this socket is listening on. See [RawDatagramSocket.bind].
   int? port;
 
-  /// Whether to silence "normal" output, like opening/closing and resetting sockets.
-  bool quiet;
+  SocketInfo? destination;
 
   /// Opens a UDP socket on the given port that can send and receive data.
-  UdpSocket({required this.port, this.quiet = false});
+  UdpSocket({required this.port, this.quiet = false, this.destination});
 
   /// The UDP socket backed by `dart:io`.
   /// 
@@ -39,7 +41,7 @@ abstract class UdpSocket {
   /// The subscription that listens for incoming data.
   /// 
   /// This must be cancelled in [dispose].
-  late StreamSubscription<RawSocketEvent> _subscription;
+  StreamSubscription<RawSocketEvent>? _subscription;
 
   /// Initializes the socket, and restarts it if a known "safe" error occurs (see [allowedErrors]).
   @mustCallSuper
@@ -50,12 +52,12 @@ abstract class UdpSocket {
     () async {  // Initialize the socket
       _socket = await RawDatagramSocket.bind(InternetAddress.anyIPv4, port ?? 0);
       _subscription = _socket!.listenForData(onData);
-      if (port == null || port == 0) port = _socket!.port;
-      if (!quiet) _logger.info("Listening on port $port");
+      port ??= _socket!.port;
+      if (!quiet) logger.info("Listening on port $port");
     },
     (Object error, StackTrace stack) async {  // Catch errors and restart the socket
       if (error is SocketException && allowedErrors.contains(error.osError!.errorCode)) {
-        if (!quiet) _logger.warning("Socket error ${error.osError!.errorCode} on port $port. Restarting...");
+        if (!quiet) logger.warning("Socket error ${error.osError!.errorCode} on port $port. Restarting...");
         await Future<void>.delayed(const Duration(seconds: 1));
         await dispose();
         await init();
@@ -68,18 +70,21 @@ abstract class UdpSocket {
   /// Closes the socket.
   @mustCallSuper
   Future<void> dispose() async {
-    await _subscription.cancel();
+    await _subscription?.cancel();
     _socket?.close();
-    if (!quiet) _logger.info("Closed the socket on port $port");
+    destination = null;
+    if (!quiet) logger.info("Closed the socket on port $port");
   }
 
   /// Sends data to the given destination.
   /// 
   /// Being UDP, this function does not wait for a response or even confirmation of a
   /// successful send and is therefore very quick and non-blocking.
-  void sendData(List<int> data, SocketInfo destination) {
+  void sendData(List<int> data, {SocketInfo? destinationOverride}) {
+    final target = destination ?? destinationOverride;
+    if (target == null) return;
     if (_socket == null) throw StateError("Cannot use a UdpSocket on port $port after it's been disposed");
-    _socket!.send(data, destination.address, destination.port);
+    _socket!.send(data, target.address, target.port);
   }
 
   /// Override this function to process incoming data, along with the source address and port.

@@ -2,11 +2,14 @@ import "package:burt_network/burt_network.dart";
 import "package:burt_network/logging.dart";
 
 // 1. Define a new socket on port 8001 that doesn't do anything
-class LogsServer extends ServerSocket {
+class LogsServer extends RoverServer {
   LogsServer() : super(port: 8001, device: Device.SUBSYSTEMS);
 
   @override
-  void onMessage(_) { }  
+  void onMessage(_) { }
+
+  @override
+  void restart() { }
 }
 
 // 2. Create that socket and make a logger that uses it.

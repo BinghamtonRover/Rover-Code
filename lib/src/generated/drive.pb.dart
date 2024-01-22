@@ -13,6 +13,10 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
+import 'drive.pbenum.dart';
+
+export 'drive.pbenum.dart';
+
 class DriveCommand extends $pb.GeneratedMessage {
   factory DriveCommand({
     $core.double? throttle,
@@ -25,6 +29,7 @@ class DriveCommand extends $pb.GeneratedMessage {
     $core.double? frontTilt,
     $core.double? rearSwivel,
     $core.double? rearTilt,
+    DriveDirection? direction,
   }) {
     final $result = create();
     if (throttle != null) {
@@ -57,6 +62,9 @@ class DriveCommand extends $pb.GeneratedMessage {
     if (rearTilt != null) {
       $result.rearTilt = rearTilt;
     }
+    if (direction != null) {
+      $result.direction = direction;
+    }
     return $result;
   }
   DriveCommand._() : super();
@@ -74,6 +82,7 @@ class DriveCommand extends $pb.GeneratedMessage {
     ..a<$core.double>(8, _omitFieldNames ? '' : 'frontTilt', $pb.PbFieldType.OF)
     ..a<$core.double>(9, _omitFieldNames ? '' : 'rearSwivel', $pb.PbFieldType.OF)
     ..a<$core.double>(10, _omitFieldNames ? '' : 'rearTilt', $pb.PbFieldType.OF)
+    ..e<DriveDirection>(11, _omitFieldNames ? '' : 'direction', $pb.PbFieldType.OE, defaultOrMaker: DriveDirection.DRIVE_DIRECTION_UNDEFINED, valueOf: DriveDirection.valueOf, enumValues: DriveDirection.values)
     ..hasRequiredFields = false
   ;
 
@@ -193,6 +202,15 @@ class DriveCommand extends $pb.GeneratedMessage {
   $core.bool hasRearTilt() => $_has(9);
   @$pb.TagNumber(10)
   void clearRearTilt() => clearField(10);
+
+  @$pb.TagNumber(11)
+  DriveDirection get direction => $_getN(10);
+  @$pb.TagNumber(11)
+  set direction(DriveDirection v) { setField(11, v); }
+  @$pb.TagNumber(11)
+  $core.bool hasDirection() => $_has(10);
+  @$pb.TagNumber(11)
+  void clearDirection() => clearField(11);
 }
 
 class DriveData extends $pb.GeneratedMessage {

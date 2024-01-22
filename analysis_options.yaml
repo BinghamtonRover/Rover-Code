@@ -47,4 +47,4 @@ linter:
     cascade_invocations: false  # sometimes, multi-line code is more readable
     
     # Temporarily disabled until we are ready to document
-    # public_member_api_docs: false
+    public_member_api_docs: false

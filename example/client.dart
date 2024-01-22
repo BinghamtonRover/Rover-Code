@@ -1,36 +1,27 @@
 import "dart:io";
 import "package:burt_network/burt_network.dart";
-import "package:burt_network/logging.dart";
 
 final destination = SocketInfo(
-	address: InternetAddress("192.168.47.223"),
+	// address: InternetAddress("192.168.47.223"),
+	address: InternetAddress.loopbackIPv4,
 	port: 8001,
 );
 
-final logger = BurtLogger();
-
 class BasicServer extends ProtoSocket {
-	BasicServer({required super.port, required super.device}) : super(
-		destination: destination,
-		heartbeatInterval: const Duration(seconds: 1),
-	);
+	BasicServer({required super.port, required super.device});
 
-	@override
-	void onMessage(WrappedMessage wrapper) => logger.info("Received ${wrapper.name} message: ${wrapper.data}");
-
-	@override
-	void onHeartbeat(Connect heartbeat, SocketInfo source) { }
-
-	@override
-	Future<void> checkHeartbeats() async { }
-
-	@override
-	void updateSettings(UpdateSetting setting) { }
+  @override
+  void onWrapper(WrappedMessage wrapper, SocketInfo source) => 
+    logger.info("Received ${wrapper.name} message: ${wrapper.data}");
 }
 
 void main() async {
 	final client = BasicServer(port: 8000, device: Device.DASHBOARD);
 	await client.init();
+  client.destination = destination;
 	final message = ScienceData(methane: 1, co2: 2);
-	client.sendMessage(message);
+  while (true) {
+    client.sendMessage(message);
+    await Future<void>.delayed(const Duration(seconds: 1));
+  }
 }

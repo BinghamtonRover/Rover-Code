@@ -19,8 +19,7 @@ class BurtLogger {
 
   /// The device that's sending these logs.
   final Device? device;
-  /// The [ServerSocket] that will be used to send the log to the Dashboard.
-  final ServerSocket? socket;
+  final RoverServer? socket;
   /// Creates a logger capable of sending network messages over the given socket.
   BurtLogger({this.socket}) : device = socket?.device;
 

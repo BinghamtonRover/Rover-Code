@@ -3,11 +3,14 @@ import "package:burt_network/logging.dart";
 
 final logger = BurtLogger();
 
-class BasicServer extends ServerSocket {
+class BasicServer extends ProtoSocket {
 	BasicServer({required super.port, required super.device});
 
 	@override
-	void onMessage(WrappedMessage wrapper) => logger.info("Received ${wrapper.name} message: ${wrapper.data}");
+	void onWrapper(WrappedMessage wrapper, SocketInfo source) {
+    final message = ScienceData.fromBuffer(wrapper.data); 
+    logger.info("Received ${wrapper.name} message: ${message.co2} & ${message.methane}");
+  }
 }
 
 void main() async {
