@@ -1,13 +1,14 @@
 import "package:burt_network/generated.dart";
 
-import "burt_protocol.dart";
+import "rover_heartbeats.dart";
+import "socket_info.dart";
 
-mixin RoverLogger on BurtUdpProtocol {
+mixin RoverLogger on RoverHeartbeats {
   /// A list of important logs that need to be sent when the dashboard connects.
   final List<BurtLog> _logBuffer = [];
 
   /// Sends all the logs in [_logBuffer].
-  Future<void> flushLogBuffer() async {
+  Future<void> _flushLogBuffer() async {
     final temp = List<BurtLog>.from(_logBuffer);
     if (temp.isEmpty) return;
     for (final log in temp) {
@@ -15,7 +16,7 @@ mixin RoverLogger on BurtUdpProtocol {
       sendMessage(log);
     }
     _logBuffer.clear();
-  } 
+  }
 
   /// Sends a log message or saves it until a Dashboard is connected.
   /// 
@@ -26,5 +27,11 @@ mixin RoverLogger on BurtUdpProtocol {
     } else {
       _logBuffer.add(log);
     }
+  }
+
+  @override
+  void onConnect(SocketInfo source) {
+    super.onConnect(source);
+    _flushLogBuffer();
   }
 }
