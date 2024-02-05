@@ -81,7 +81,7 @@ abstract class UdpSocket {
   /// Being UDP, this function does not wait for a response or even confirmation of a
   /// successful send and is therefore very quick and non-blocking.
   void sendData(List<int> data, {SocketInfo? destinationOverride}) {
-    final target = destination ?? destinationOverride;
+    final target = destinationOverride ?? destination;
     if (target == null) return;
     if (_socket == null) throw StateError("Cannot use a UdpSocket on port $port after it's been disposed");
     _socket!.send(data, target.address, target.port);
