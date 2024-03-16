@@ -38,6 +38,7 @@ class BurtFirmwareSerial extends Service {
   @override
   Future<bool> init() async {
     // Open the port
+	logger.debug("Opening $port");
     _serial = SerialDevice(portName: port, readInterval: readInterval, logger: logger);
     if (!await _serial!.init()) {
       logger.warning("Could not open firmware device on port $port");
@@ -86,6 +87,7 @@ class BurtFirmwareSerial extends Service {
     _serial?.write(resetCode);
     await Future<void>.delayed(const Duration(milliseconds: 100));
     final response = _serial?.readBytes();
+	logger.trace("Response from device: $response");
     // The response should end with [1, 1, 1, 1], but may have elements before that
     if (response == null) return false;
     if (response.length < 4) return false;
