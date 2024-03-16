@@ -33,6 +33,7 @@ class SerialDevice extends Service {
     required this.logger,
 	}) : _port = SerialPortInterface.factory(portName);
 
+
 	/// Whether the port is open (ie, the device is connected).
 	bool get isOpen => _port.isOpen;
 
@@ -43,6 +44,7 @@ class SerialDevice extends Service {
       _controller = StreamController<Uint8List>.broadcast();
       return result;
     } catch (error) {
+	logger.warning("Could not open port $portName", body: "$error");
       return false;
     }
   }

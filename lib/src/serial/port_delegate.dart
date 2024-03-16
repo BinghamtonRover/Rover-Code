@@ -7,7 +7,7 @@ import "port_interface.dart";
 /// A serial port implementation that delegates to [`package:libserialport`](https://pub.dev/packages/libserialport)
 class DelegateSerialPort extends SerialPortInterface {
 	/// A list of all available ports on the device.
-	static List<String> allPorts = SerialPort.availablePorts;
+	static List<String> get allPorts => SerialPort.availablePorts;
   
   SerialPort? _delegate;
 
@@ -23,6 +23,7 @@ class DelegateSerialPort extends SerialPortInterface {
       _delegate = SerialPort(portName);
       return _delegate!.openReadWrite();
     } catch (error) {
+	print("Delegate failed to open port $portName\n  $error");
       return false;
     }
   }
