@@ -3,6 +3,10 @@ import "package:burt_network/generated.dart";
 import "rover_heartbeats.dart";
 import "socket_info.dart";
 
+/// A socket that can log messages using [sendLog].
+/// 
+/// If connected, this socket will send log messages immediately. If not, it will hold onto
+/// messages and send them when the device finally connects.
 mixin RoverLogger on RoverHeartbeats {
   /// A list of important logs that need to be sent when the dashboard connects.
   final List<BurtLog> _logBuffer = [];

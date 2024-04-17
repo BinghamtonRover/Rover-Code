@@ -3,7 +3,7 @@ library;
 
 import "dart:io";
 import "package:burt_network/burt_network.dart";
-import "package:logger/logger.dart";
+
 export "package:logger/logger.dart";
 
 /// An alias for [Level].
@@ -19,7 +19,15 @@ class BurtLogger {
 
   /// The device that's sending these logs.
   final Device? device;
-  final RoverServer? socket;
+
+  /// The socket to send messages over. 
+  /// 
+  /// If this is not null, logs of type [Level.info] or more severe will be queued up. Once this
+  /// socket connects, the messages will send to the connected device (ie, the Dashboard).
+  /// 
+  /// If the device is already connected, all messages are sent to it immediately.
+  RoverServer? socket;
+
   /// Creates a logger capable of sending network messages over the given socket.
   BurtLogger({this.socket}) : device = socket?.device;
 

@@ -5,6 +5,7 @@ import "package:burt_network/generated.dart";
 import "burt_protocol.dart";
 import "socket_info.dart";
 
+/// A mixin that automatically handles rover-side heartbeats.
 mixin RoverHeartbeats on BurtUdpProtocol {
   /// Whether this socket received a heartbeat since the last call to [checkHeartbeats].
   bool didReceivedHeartbeat = false;
@@ -50,6 +51,7 @@ mixin RoverHeartbeats on BurtUdpProtocol {
     }
   }
 
+  /// Responds to an incoming heartbeat.
   void sendHeartbeatResponse() {
     final response = Connect(sender: device, receiver: Device.DASHBOARD);
     sendMessage(response);

@@ -19,18 +19,26 @@
 library;
 
 // For doc comments:
-import "src/burt_protocol.dart";
-import "src/proto_socket.dart";
-import "src/rover_heartbeats.dart";
-import "src/rover_logger.dart";
-import "src/rover_server.dart";
-import "src/udp_socket.dart";
+import "src/udp/burt_protocol.dart";
+import "src/udp/proto_socket.dart";
+import "src/udp/rover_heartbeats.dart";
+import "src/udp/rover_logger.dart";
+import "src/udp/rover_server.dart";
+import "src/udp/udp_socket.dart";
 
-export "src/proto_socket.dart";
-export "src/rover_server.dart";
-export "src/burt_protocol.dart";
-export "src/rover_heartbeats.dart";
-export "src/socket_info.dart";
-export "src/udp_socket.dart";
+export "src/udp/proto_socket.dart";
+export "src/udp/rover_server.dart";
+export "src/udp/burt_protocol.dart";
+export "src/udp/rover_heartbeats.dart";
+export "src/udp/socket_info.dart";
+export "src/udp/udp_socket.dart";
+
+export "src/serial/device.dart";
+export "src/serial/firmware.dart";
+export "src/serial/port_delegate.dart";
+export "src/serial/port_interface.dart";
+
+export "src/service.dart";
 
 export "generated.dart";
+export "logging.dart";

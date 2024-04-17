@@ -20,6 +20,7 @@ abstract class UdpSocket {
   /// A collection of allowed [OSError] codes.
   static const allowedErrors = {1234, 10054, 101, 10038, 9};
 
+  /// A logger to capture important events during operation.
   final logger = BurtLogger();
 
   /// Whether to silence "normal" output, like opening/closing and resetting sockets.
@@ -28,6 +29,10 @@ abstract class UdpSocket {
   /// The port this socket is listening on. See [RawDatagramSocket.bind].
   int? port;
 
+  /// The destination port to send to.
+  /// 
+  /// All the `send*` functions allow you to send to a specific [SocketInfo]. This field
+  /// is the default destination if those parameters are omitted.
   SocketInfo? destination;
 
   /// Opens a UDP socket on the given port that can send and receive data.
