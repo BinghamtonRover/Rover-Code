@@ -26,6 +26,11 @@ class CameraDetails extends $pb.GeneratedMessage {
     $core.int? quality,
     $core.int? fps,
     CameraStatus? status,
+    $core.bool? autofocus,
+    $core.int? zoom,
+    $core.int? pan,
+    $core.int? tilt,
+    $core.int? focus,
   }) {
     final $result = create();
     if (name != null) {
@@ -46,6 +51,21 @@ class CameraDetails extends $pb.GeneratedMessage {
     if (status != null) {
       $result.status = status;
     }
+    if (autofocus != null) {
+      $result.autofocus = autofocus;
+    }
+    if (zoom != null) {
+      $result.zoom = zoom;
+    }
+    if (pan != null) {
+      $result.pan = pan;
+    }
+    if (tilt != null) {
+      $result.tilt = tilt;
+    }
+    if (focus != null) {
+      $result.focus = focus;
+    }
     return $result;
   }
   CameraDetails._() : super();
@@ -59,6 +79,11 @@ class CameraDetails extends $pb.GeneratedMessage {
     ..a<$core.int>(4, _omitFieldNames ? '' : 'quality', $pb.PbFieldType.O3)
     ..a<$core.int>(5, _omitFieldNames ? '' : 'fps', $pb.PbFieldType.O3)
     ..e<CameraStatus>(6, _omitFieldNames ? '' : 'status', $pb.PbFieldType.OE, defaultOrMaker: CameraStatus.CAMERA_STATUS_UNDEFINED, valueOf: CameraStatus.valueOf, enumValues: CameraStatus.values)
+    ..aOB(7, _omitFieldNames ? '' : 'autofocus')
+    ..a<$core.int>(8, _omitFieldNames ? '' : 'zoom', $pb.PbFieldType.O3)
+    ..a<$core.int>(9, _omitFieldNames ? '' : 'pan', $pb.PbFieldType.O3)
+    ..a<$core.int>(10, _omitFieldNames ? '' : 'tilt', $pb.PbFieldType.O3)
+    ..a<$core.int>(11, _omitFieldNames ? '' : 'focus', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
   ;
 
@@ -141,6 +166,51 @@ class CameraDetails extends $pb.GeneratedMessage {
   $core.bool hasStatus() => $_has(5);
   @$pb.TagNumber(6)
   void clearStatus() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.bool get autofocus => $_getBF(6);
+  @$pb.TagNumber(7)
+  set autofocus($core.bool v) { $_setBool(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasAutofocus() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearAutofocus() => clearField(7);
+
+  @$pb.TagNumber(8)
+  $core.int get zoom => $_getIZ(7);
+  @$pb.TagNumber(8)
+  set zoom($core.int v) { $_setSignedInt32(7, v); }
+  @$pb.TagNumber(8)
+  $core.bool hasZoom() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearZoom() => clearField(8);
+
+  @$pb.TagNumber(9)
+  $core.int get pan => $_getIZ(8);
+  @$pb.TagNumber(9)
+  set pan($core.int v) { $_setSignedInt32(8, v); }
+  @$pb.TagNumber(9)
+  $core.bool hasPan() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearPan() => clearField(9);
+
+  @$pb.TagNumber(10)
+  $core.int get tilt => $_getIZ(9);
+  @$pb.TagNumber(10)
+  set tilt($core.int v) { $_setSignedInt32(9, v); }
+  @$pb.TagNumber(10)
+  $core.bool hasTilt() => $_has(9);
+  @$pb.TagNumber(10)
+  void clearTilt() => clearField(10);
+
+  @$pb.TagNumber(11)
+  $core.int get focus => $_getIZ(10);
+  @$pb.TagNumber(11)
+  set focus($core.int v) { $_setSignedInt32(10, v); }
+  @$pb.TagNumber(11)
+  $core.bool hasFocus() => $_has(10);
+  @$pb.TagNumber(11)
+  void clearFocus() => clearField(11);
 }
 
 /// / Reports data about a camera.
@@ -227,7 +297,7 @@ class VideoData extends $pb.GeneratedMessage {
   void clearFrame() => clearField(3);
 }
 
-/// / Make changes to a camera feeed.
+/// / Make changes to a camera feed.
 class VideoCommand extends $pb.GeneratedMessage {
   factory VideoCommand({
     $core.String? id,

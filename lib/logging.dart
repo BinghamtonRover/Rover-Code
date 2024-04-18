@@ -18,7 +18,7 @@ class BurtLogger {
   );
 
   /// The device that's sending these logs.
-  final Device? device;
+  Device? get device => socket?.device;
 
   /// The socket to send messages over. 
   /// 
@@ -29,7 +29,7 @@ class BurtLogger {
   RoverServer? socket;
 
   /// Creates a logger capable of sending network messages over the given socket.
-  BurtLogger({this.socket}) : device = socket?.device;
+  BurtLogger({this.socket});
 
   /// Formats a message with an optional body for more info.
   String getMessage(String title, String? body) => body == null

@@ -13,9 +13,7 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'drive.pbenum.dart';
-
-export 'drive.pbenum.dart';
+import 'core.pbenum.dart' as $1;
 
 class DriveCommand extends $pb.GeneratedMessage {
   factory DriveCommand({
@@ -29,7 +27,7 @@ class DriveCommand extends $pb.GeneratedMessage {
     $core.double? frontTilt,
     $core.double? rearSwivel,
     $core.double? rearTilt,
-    DriveDirection? direction,
+    $1.RoverStatus? status,
   }) {
     final $result = create();
     if (throttle != null) {
@@ -62,8 +60,8 @@ class DriveCommand extends $pb.GeneratedMessage {
     if (rearTilt != null) {
       $result.rearTilt = rearTilt;
     }
-    if (direction != null) {
-      $result.direction = direction;
+    if (status != null) {
+      $result.status = status;
     }
     return $result;
   }
@@ -82,7 +80,7 @@ class DriveCommand extends $pb.GeneratedMessage {
     ..a<$core.double>(8, _omitFieldNames ? '' : 'frontTilt', $pb.PbFieldType.OF)
     ..a<$core.double>(9, _omitFieldNames ? '' : 'rearSwivel', $pb.PbFieldType.OF)
     ..a<$core.double>(10, _omitFieldNames ? '' : 'rearTilt', $pb.PbFieldType.OF)
-    ..e<DriveDirection>(11, _omitFieldNames ? '' : 'direction', $pb.PbFieldType.OE, defaultOrMaker: DriveDirection.DRIVE_DIRECTION_UNDEFINED, valueOf: DriveDirection.valueOf, enumValues: DriveDirection.values)
+    ..e<$1.RoverStatus>(11, _omitFieldNames ? '' : 'status', $pb.PbFieldType.OE, defaultOrMaker: $1.RoverStatus.DISCONNECTED, valueOf: $1.RoverStatus.valueOf, enumValues: $1.RoverStatus.values)
     ..hasRequiredFields = false
   ;
 
@@ -204,13 +202,13 @@ class DriveCommand extends $pb.GeneratedMessage {
   void clearRearTilt() => clearField(10);
 
   @$pb.TagNumber(11)
-  DriveDirection get direction => $_getN(10);
+  $1.RoverStatus get status => $_getN(10);
   @$pb.TagNumber(11)
-  set direction(DriveDirection v) { setField(11, v); }
+  set status($1.RoverStatus v) { setField(11, v); }
   @$pb.TagNumber(11)
-  $core.bool hasDirection() => $_has(10);
+  $core.bool hasStatus() => $_has(10);
   @$pb.TagNumber(11)
-  void clearDirection() => clearField(11);
+  void clearStatus() => clearField(11);
 }
 
 class DriveData extends $pb.GeneratedMessage {
@@ -225,8 +223,9 @@ class DriveData extends $pb.GeneratedMessage {
     $core.double? frontTilt,
     $core.double? rearSwivel,
     $core.double? rearTilt,
-    $core.double? leftSensorValue,
-    $core.double? rightSensorValue,
+    $core.double? batteryVoltage,
+    $core.double? batteryCurrent,
+    $core.double? batteryTemperature,
   }) {
     final $result = create();
     if (throttle != null) {
@@ -259,11 +258,14 @@ class DriveData extends $pb.GeneratedMessage {
     if (rearTilt != null) {
       $result.rearTilt = rearTilt;
     }
-    if (leftSensorValue != null) {
-      $result.leftSensorValue = leftSensorValue;
+    if (batteryVoltage != null) {
+      $result.batteryVoltage = batteryVoltage;
     }
-    if (rightSensorValue != null) {
-      $result.rightSensorValue = rightSensorValue;
+    if (batteryCurrent != null) {
+      $result.batteryCurrent = batteryCurrent;
+    }
+    if (batteryTemperature != null) {
+      $result.batteryTemperature = batteryTemperature;
     }
     return $result;
   }
@@ -282,8 +284,9 @@ class DriveData extends $pb.GeneratedMessage {
     ..a<$core.double>(8, _omitFieldNames ? '' : 'frontTilt', $pb.PbFieldType.OF)
     ..a<$core.double>(9, _omitFieldNames ? '' : 'rearSwivel', $pb.PbFieldType.OF)
     ..a<$core.double>(10, _omitFieldNames ? '' : 'rearTilt', $pb.PbFieldType.OF)
-    ..a<$core.double>(11, _omitFieldNames ? '' : 'leftSensorValue', $pb.PbFieldType.OF, protoName: 'leftSensorValue')
-    ..a<$core.double>(12, _omitFieldNames ? '' : 'rightSensorValue', $pb.PbFieldType.OF, protoName: 'rightSensorValue')
+    ..a<$core.double>(11, _omitFieldNames ? '' : 'batteryVoltage', $pb.PbFieldType.OF)
+    ..a<$core.double>(12, _omitFieldNames ? '' : 'batteryCurrent', $pb.PbFieldType.OF)
+    ..a<$core.double>(13, _omitFieldNames ? '' : 'batteryTemperature', $pb.PbFieldType.OF)
     ..hasRequiredFields = false
   ;
 
@@ -404,23 +407,33 @@ class DriveData extends $pb.GeneratedMessage {
   @$pb.TagNumber(10)
   void clearRearTilt() => clearField(10);
 
+  /// Vitals for the whole rover
   @$pb.TagNumber(11)
-  $core.double get leftSensorValue => $_getN(10);
+  $core.double get batteryVoltage => $_getN(10);
   @$pb.TagNumber(11)
-  set leftSensorValue($core.double v) { $_setFloat(10, v); }
+  set batteryVoltage($core.double v) { $_setFloat(10, v); }
   @$pb.TagNumber(11)
-  $core.bool hasLeftSensorValue() => $_has(10);
+  $core.bool hasBatteryVoltage() => $_has(10);
   @$pb.TagNumber(11)
-  void clearLeftSensorValue() => clearField(11);
+  void clearBatteryVoltage() => clearField(11);
 
   @$pb.TagNumber(12)
-  $core.double get rightSensorValue => $_getN(11);
+  $core.double get batteryCurrent => $_getN(11);
   @$pb.TagNumber(12)
-  set rightSensorValue($core.double v) { $_setFloat(11, v); }
+  set batteryCurrent($core.double v) { $_setFloat(11, v); }
   @$pb.TagNumber(12)
-  $core.bool hasRightSensorValue() => $_has(11);
+  $core.bool hasBatteryCurrent() => $_has(11);
   @$pb.TagNumber(12)
-  void clearRightSensorValue() => clearField(12);
+  void clearBatteryCurrent() => clearField(12);
+
+  @$pb.TagNumber(13)
+  $core.double get batteryTemperature => $_getN(12);
+  @$pb.TagNumber(13)
+  set batteryTemperature($core.double v) { $_setFloat(12, v); }
+  @$pb.TagNumber(13)
+  $core.bool hasBatteryTemperature() => $_has(12);
+  @$pb.TagNumber(13)
+  void clearBatteryTemperature() => clearField(13);
 }
 
 

@@ -65,6 +65,11 @@ const CameraDetails$json = {
     {'1': 'quality', '3': 4, '4': 1, '5': 5, '10': 'quality'},
     {'1': 'fps', '3': 5, '4': 1, '5': 5, '10': 'fps'},
     {'1': 'status', '3': 6, '4': 1, '5': 14, '6': '.CameraStatus', '10': 'status'},
+    {'1': 'autofocus', '3': 7, '4': 1, '5': 8, '10': 'autofocus'},
+    {'1': 'zoom', '3': 8, '4': 1, '5': 5, '10': 'zoom'},
+    {'1': 'pan', '3': 9, '4': 1, '5': 5, '10': 'pan'},
+    {'1': 'tilt', '3': 10, '4': 1, '5': 5, '10': 'tilt'},
+    {'1': 'focus', '3': 11, '4': 1, '5': 5, '10': 'focus'},
   ],
 };
 
@@ -73,7 +78,9 @@ final $typed_data.Uint8List cameraDetailsDescriptor = $convert.base64Decode(
     'Cg1DYW1lcmFEZXRhaWxzEh8KBG5hbWUYASABKA4yCy5DYW1lcmFOYW1lUgRuYW1lEikKEHJlc2'
     '9sdXRpb25fd2lkdGgYAiABKAVSD3Jlc29sdXRpb25XaWR0aBIrChFyZXNvbHV0aW9uX2hlaWdo'
     'dBgDIAEoBVIQcmVzb2x1dGlvbkhlaWdodBIYCgdxdWFsaXR5GAQgASgFUgdxdWFsaXR5EhAKA2'
-    'ZwcxgFIAEoBVIDZnBzEiUKBnN0YXR1cxgGIAEoDjINLkNhbWVyYVN0YXR1c1IGc3RhdHVz');
+    'ZwcxgFIAEoBVIDZnBzEiUKBnN0YXR1cxgGIAEoDjINLkNhbWVyYVN0YXR1c1IGc3RhdHVzEhwK'
+    'CWF1dG9mb2N1cxgHIAEoCFIJYXV0b2ZvY3VzEhIKBHpvb20YCCABKAVSBHpvb20SEAoDcGFuGA'
+    'kgASgFUgNwYW4SEgoEdGlsdBgKIAEoBVIEdGlsdBIUCgVmb2N1cxgLIAEoBVIFZm9jdXM=');
 
 @$core.Deprecated('Use videoDataDescriptor instead')
 const VideoData$json = {

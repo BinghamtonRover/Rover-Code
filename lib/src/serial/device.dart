@@ -24,7 +24,7 @@ class SerialDevice extends Service {
 	Timer? _timer;
   
 	/// The controller for [stream].
-	final _controller = StreamController<Uint8List>.broadcast();
+	StreamController<Uint8List>? _controller;
 
 	/// Manages a connection to a serial device.
 	SerialDevice({
@@ -39,7 +39,9 @@ class SerialDevice extends Service {
   @override
 	Future<bool> init() async {
     try {
-      return _port.init();
+      final result = await _port.init();
+      _controller = StreamController<Uint8List>.broadcast();
+      return result;
     } catch (error) {
       return false;
     }
@@ -66,7 +68,7 @@ class SerialDevice extends Service {
 		try {
       final bytes = readBytes();
       if (bytes.isEmpty) return;
-      _controller.add(bytes);
+      _controller?.add(bytes);
 		} catch (error) {
       logger.critical("Could not read $portName", body: error.toString());
       dispose();
@@ -77,7 +79,8 @@ class SerialDevice extends Service {
 	Future<void> dispose() async {
     _timer?.cancel();
 		await _port.dispose();
-    await _controller.close();
+    await _controller?.close();
+    _controller = null;
 	}
 
 	/// Writes data to the port.
@@ -91,5 +94,5 @@ class SerialDevice extends Service {
   }
 
 	/// All incoming bytes coming from the port.
-	Stream<Uint8List> get stream => _controller.stream;
+	Stream<Uint8List> get stream => _controller?.stream ?? const Stream.empty();
 }
