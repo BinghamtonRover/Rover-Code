@@ -74,7 +74,9 @@ class BurtFirmwareSerial extends Service {
       device = message.sender;
       return true;
     } on InvalidProtocolBufferException {
-      logger.trace("Device responded with malformed data: $response");
+      final extra = _serial!.readBytes();
+      final full = response + extra;
+      logger.trace("Device responded with malformed data: $full");
       return false;
     }
   }
