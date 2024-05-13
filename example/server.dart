@@ -8,7 +8,7 @@ class BasicServer extends ProtoSocket {
 	@override
 	void onWrapper(WrappedMessage wrapper, SocketInfo source) {
     final message = ScienceData.fromBuffer(wrapper.data); 
-    logger.info("Received ${wrapper.name} message: ${message.co2} & ${message.methane}");
+    logger.info("Received ${wrapper.name} message: ${message.toProto3Json()}");
   }
 }
 

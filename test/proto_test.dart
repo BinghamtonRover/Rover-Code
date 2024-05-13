@@ -48,7 +48,7 @@ void main() => group("ProtoSocket:", () {
   });
 
   test("Data makes it across", () async {
-    final data = ScienceData(methane: 3);
+    final data = ScienceData(co2: 3);
     client.sendMessage(data);
     await Future<void>.delayed(const Duration(milliseconds: 50));
     expect(server.data, equals(data));

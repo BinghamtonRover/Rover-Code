@@ -19,7 +19,7 @@ void main() async {
 	final client = BasicServer(port: 8000, device: Device.DASHBOARD);
 	await client.init();
   client.destination = destination;
-	final message = ScienceData(methane: 1, co2: 2);
+	final message = ScienceData(temperature: 1, co2: 2);
   while (true) {
     client.sendMessage(message);
     await Future<void>.delayed(const Duration(seconds: 1));
