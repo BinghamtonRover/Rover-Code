@@ -89,13 +89,15 @@ const VideoData$json = {
     {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
     {'1': 'details', '3': 2, '4': 1, '5': 11, '6': '.CameraDetails', '10': 'details'},
     {'1': 'frame', '3': 3, '4': 1, '5': 12, '10': 'frame'},
+    {'1': 'version', '3': 4, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
   ],
 };
 
 /// Descriptor for `VideoData`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List videoDataDescriptor = $convert.base64Decode(
     'CglWaWRlb0RhdGESDgoCaWQYASABKAlSAmlkEigKB2RldGFpbHMYAiABKAsyDi5DYW1lcmFEZX'
-    'RhaWxzUgdkZXRhaWxzEhQKBWZyYW1lGAMgASgMUgVmcmFtZQ==');
+    'RhaWxzUgdkZXRhaWxzEhQKBWZyYW1lGAMgASgMUgVmcmFtZRIiCgd2ZXJzaW9uGAQgASgLMggu'
+    'VmVyc2lvblIHdmVyc2lvbg==');
 
 @$core.Deprecated('Use videoCommandDescriptor instead')
 const VideoCommand$json = {
@@ -103,11 +105,12 @@ const VideoCommand$json = {
   '2': [
     {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
     {'1': 'details', '3': 2, '4': 1, '5': 11, '6': '.CameraDetails', '10': 'details'},
+    {'1': 'version', '3': 3, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
   ],
 };
 
 /// Descriptor for `VideoCommand`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List videoCommandDescriptor = $convert.base64Decode(
     'CgxWaWRlb0NvbW1hbmQSDgoCaWQYASABKAlSAmlkEigKB2RldGFpbHMYAiABKAsyDi5DYW1lcm'
-    'FEZXRhaWxzUgdkZXRhaWxz');
+    'FEZXRhaWxzUgdkZXRhaWxzEiIKB3ZlcnNpb24YAyABKAsyCC5WZXJzaW9uUgd2ZXJzaW9u');
 

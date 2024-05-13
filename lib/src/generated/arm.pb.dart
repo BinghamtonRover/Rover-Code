@@ -14,6 +14,7 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'arm.pbenum.dart';
+import 'version.pb.dart' as $0;
 
 export 'arm.pbenum.dart';
 
@@ -288,6 +289,7 @@ class ArmData extends $pb.GeneratedMessage {
     MotorData? base,
     MotorData? shoulder,
     MotorData? elbow,
+    $0.Version? version,
   }) {
     final $result = create();
     if (currentPosition != null) {
@@ -305,6 +307,9 @@ class ArmData extends $pb.GeneratedMessage {
     if (elbow != null) {
       $result.elbow = elbow;
     }
+    if (version != null) {
+      $result.version = version;
+    }
     return $result;
   }
   ArmData._() : super();
@@ -317,6 +322,7 @@ class ArmData extends $pb.GeneratedMessage {
     ..aOM<MotorData>(3, _omitFieldNames ? '' : 'base', subBuilder: MotorData.create)
     ..aOM<MotorData>(4, _omitFieldNames ? '' : 'shoulder', subBuilder: MotorData.create)
     ..aOM<MotorData>(5, _omitFieldNames ? '' : 'elbow', subBuilder: MotorData.create)
+    ..aOM<$0.Version>(6, _omitFieldNames ? '' : 'version', subBuilder: $0.Version.create)
     ..hasRequiredFields = false
   ;
 
@@ -395,6 +401,17 @@ class ArmData extends $pb.GeneratedMessage {
   void clearElbow() => clearField(5);
   @$pb.TagNumber(5)
   MotorData ensureElbow() => $_ensure(4);
+
+  @$pb.TagNumber(6)
+  $0.Version get version => $_getN(5);
+  @$pb.TagNumber(6)
+  set version($0.Version v) { setField(6, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasVersion() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearVersion() => clearField(6);
+  @$pb.TagNumber(6)
+  $0.Version ensureVersion() => $_ensure(5);
 }
 
 class ArmCommand extends $pb.GeneratedMessage {
@@ -409,6 +426,7 @@ class ArmCommand extends $pb.GeneratedMessage {
     $core.double? ikY,
     $core.double? ikZ,
     $core.bool? jab,
+    $0.Version? version,
   }) {
     final $result = create();
     if (stop != null) {
@@ -441,6 +459,9 @@ class ArmCommand extends $pb.GeneratedMessage {
     if (jab != null) {
       $result.jab = jab;
     }
+    if (version != null) {
+      $result.version = version;
+    }
     return $result;
   }
   ArmCommand._() : super();
@@ -458,6 +479,7 @@ class ArmCommand extends $pb.GeneratedMessage {
     ..a<$core.double>(8, _omitFieldNames ? '' : 'ikY', $pb.PbFieldType.OF)
     ..a<$core.double>(9, _omitFieldNames ? '' : 'ikZ', $pb.PbFieldType.OF)
     ..aOB(10, _omitFieldNames ? '' : 'jab')
+    ..aOM<$0.Version>(11, _omitFieldNames ? '' : 'version', subBuilder: $0.Version.create)
     ..hasRequiredFields = false
   ;
 
@@ -584,6 +606,17 @@ class ArmCommand extends $pb.GeneratedMessage {
   $core.bool hasJab() => $_has(9);
   @$pb.TagNumber(10)
   void clearJab() => clearField(10);
+
+  @$pb.TagNumber(11)
+  $0.Version get version => $_getN(10);
+  @$pb.TagNumber(11)
+  set version($0.Version v) { setField(11, v); }
+  @$pb.TagNumber(11)
+  $core.bool hasVersion() => $_has(10);
+  @$pb.TagNumber(11)
+  void clearVersion() => clearField(11);
+  @$pb.TagNumber(11)
+  $0.Version ensureVersion() => $_ensure(10);
 }
 
 class GripperData extends $pb.GeneratedMessage {
@@ -591,6 +624,7 @@ class GripperData extends $pb.GeneratedMessage {
     MotorData? lift,
     MotorData? rotate,
     MotorData? pinch,
+    $0.Version? version,
   }) {
     final $result = create();
     if (lift != null) {
@@ -602,6 +636,9 @@ class GripperData extends $pb.GeneratedMessage {
     if (pinch != null) {
       $result.pinch = pinch;
     }
+    if (version != null) {
+      $result.version = version;
+    }
     return $result;
   }
   GripperData._() : super();
@@ -612,6 +649,7 @@ class GripperData extends $pb.GeneratedMessage {
     ..aOM<MotorData>(1, _omitFieldNames ? '' : 'lift', subBuilder: MotorData.create)
     ..aOM<MotorData>(2, _omitFieldNames ? '' : 'rotate', subBuilder: MotorData.create)
     ..aOM<MotorData>(3, _omitFieldNames ? '' : 'pinch', subBuilder: MotorData.create)
+    ..aOM<$0.Version>(4, _omitFieldNames ? '' : 'version', subBuilder: $0.Version.create)
     ..hasRequiredFields = false
   ;
 
@@ -668,6 +706,17 @@ class GripperData extends $pb.GeneratedMessage {
   void clearPinch() => clearField(3);
   @$pb.TagNumber(3)
   MotorData ensurePinch() => $_ensure(2);
+
+  @$pb.TagNumber(4)
+  $0.Version get version => $_getN(3);
+  @$pb.TagNumber(4)
+  set version($0.Version v) { setField(4, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasVersion() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearVersion() => clearField(4);
+  @$pb.TagNumber(4)
+  $0.Version ensureVersion() => $_ensure(3);
 }
 
 class GripperCommand extends $pb.GeneratedMessage {
@@ -680,6 +729,7 @@ class GripperCommand extends $pb.GeneratedMessage {
     $core.bool? open,
     $core.bool? close,
     $core.bool? spin,
+    $0.Version? version,
   }) {
     final $result = create();
     if (stop != null) {
@@ -706,6 +756,9 @@ class GripperCommand extends $pb.GeneratedMessage {
     if (spin != null) {
       $result.spin = spin;
     }
+    if (version != null) {
+      $result.version = version;
+    }
     return $result;
   }
   GripperCommand._() : super();
@@ -721,6 +774,7 @@ class GripperCommand extends $pb.GeneratedMessage {
     ..aOB(6, _omitFieldNames ? '' : 'open')
     ..aOB(7, _omitFieldNames ? '' : 'close')
     ..aOB(8, _omitFieldNames ? '' : 'spin')
+    ..aOM<$0.Version>(9, _omitFieldNames ? '' : 'version', subBuilder: $0.Version.create)
     ..hasRequiredFields = false
   ;
 
@@ -825,6 +879,17 @@ class GripperCommand extends $pb.GeneratedMessage {
   $core.bool hasSpin() => $_has(7);
   @$pb.TagNumber(8)
   void clearSpin() => clearField(8);
+
+  @$pb.TagNumber(9)
+  $0.Version get version => $_getN(8);
+  @$pb.TagNumber(9)
+  set version($0.Version v) { setField(9, v); }
+  @$pb.TagNumber(9)
+  $core.bool hasVersion() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearVersion() => clearField(9);
+  @$pb.TagNumber(9)
+  $0.Version ensureVersion() => $_ensure(8);
 }
 
 

@@ -49,11 +49,13 @@ const RoverPosition$json = {
   '2': [
     {'1': 'gps', '3': 1, '4': 1, '5': 11, '6': '.GpsCoordinates', '10': 'gps'},
     {'1': 'orientation', '3': 2, '4': 1, '5': 11, '6': '.Orientation', '10': 'orientation'},
+    {'1': 'version', '3': 3, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
   ],
 };
 
 /// Descriptor for `RoverPosition`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List roverPositionDescriptor = $convert.base64Decode(
     'Cg1Sb3ZlclBvc2l0aW9uEiEKA2dwcxgBIAEoCzIPLkdwc0Nvb3JkaW5hdGVzUgNncHMSLgoLb3'
-    'JpZW50YXRpb24YAiABKAsyDC5PcmllbnRhdGlvblILb3JpZW50YXRpb24=');
+    'JpZW50YXRpb24YAiABKAsyDC5PcmllbnRhdGlvblILb3JpZW50YXRpb24SIgoHdmVyc2lvbhgD'
+    'IAEoCzIILlZlcnNpb25SB3ZlcnNpb24=');
 

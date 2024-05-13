@@ -94,6 +94,7 @@ const ScienceCommand$json = {
     {'1': 'stop', '3': 9, '4': 1, '5': 8, '10': 'stop'},
     {'1': 'sample', '3': 10, '4': 1, '5': 5, '10': 'sample'},
     {'1': 'state', '3': 11, '4': 1, '5': 14, '6': '.ScienceState', '10': 'state'},
+    {'1': 'version', '3': 12, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
   ],
 };
 
@@ -106,7 +107,7 @@ final $typed_data.Uint8List scienceCommandDescriptor = $convert.base64Decode(
     'cnZvU3RhdGVSBXNjb29wEiwKCGNhcm91c2VsGAcgASgOMhAuQ2Fyb3VzZWxDb21tYW5kUghjYX'
     'JvdXNlbBIcCgljYWxpYnJhdGUYCCABKAhSCWNhbGlicmF0ZRISCgRzdG9wGAkgASgIUgRzdG9w'
     'EhYKBnNhbXBsZRgKIAEoBVIGc2FtcGxlEiMKBXN0YXRlGAsgASgOMg0uU2NpZW5jZVN0YXRlUg'
-    'VzdGF0ZQ==');
+    'VzdGF0ZRIiCgd2ZXJzaW9uGAwgASgLMgguVmVyc2lvblIHdmVyc2lvbg==');
 
 @$core.Deprecated('Use scienceDataDescriptor instead')
 const ScienceData$json = {
@@ -117,6 +118,7 @@ const ScienceData$json = {
     {'1': 'co2', '3': 3, '4': 1, '5': 2, '10': 'co2'},
     {'1': 'humidity', '3': 4, '4': 1, '5': 2, '10': 'humidity'},
     {'1': 'temperature', '3': 5, '4': 1, '5': 2, '10': 'temperature'},
+    {'1': 'version', '3': 6, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
   ],
 };
 
@@ -124,5 +126,6 @@ const ScienceData$json = {
 final $typed_data.Uint8List scienceDataDescriptor = $convert.base64Decode(
     'CgtTY2llbmNlRGF0YRIWCgZzYW1wbGUYASABKAVSBnNhbXBsZRIjCgVzdGF0ZRgCIAEoDjINLl'
     'NjaWVuY2VTdGF0ZVIFc3RhdGUSEAoDY28yGAMgASgCUgNjbzISGgoIaHVtaWRpdHkYBCABKAJS'
-    'CGh1bWlkaXR5EiAKC3RlbXBlcmF0dXJlGAUgASgCUgt0ZW1wZXJhdHVyZQ==');
+    'CGh1bWlkaXR5EiAKC3RlbXBlcmF0dXJlGAUgASgCUgt0ZW1wZXJhdHVyZRIiCgd2ZXJzaW9uGA'
+    'YgASgLMgguVmVyc2lvblIHdmVyc2lvbg==');
 

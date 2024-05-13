@@ -96,6 +96,7 @@ const ArmData$json = {
     {'1': 'base', '3': 3, '4': 1, '5': 11, '6': '.MotorData', '10': 'base'},
     {'1': 'shoulder', '3': 4, '4': 1, '5': 11, '6': '.MotorData', '10': 'shoulder'},
     {'1': 'elbow', '3': 5, '4': 1, '5': 11, '6': '.MotorData', '10': 'elbow'},
+    {'1': 'version', '3': 6, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
   ],
 };
 
@@ -105,7 +106,7 @@ final $typed_data.Uint8List armDataDescriptor = $convert.base64Decode(
     '50UG9zaXRpb24SNAoOdGFyZ2V0UG9zaXRpb24YAiABKAsyDC5Db29yZGluYXRlc1IOdGFyZ2V0'
     'UG9zaXRpb24SHgoEYmFzZRgDIAEoCzIKLk1vdG9yRGF0YVIEYmFzZRImCghzaG91bGRlchgEIA'
     'EoCzIKLk1vdG9yRGF0YVIIc2hvdWxkZXISIAoFZWxib3cYBSABKAsyCi5Nb3RvckRhdGFSBWVs'
-    'Ym93');
+    'Ym93EiIKB3ZlcnNpb24YBiABKAsyCC5WZXJzaW9uUgd2ZXJzaW9u');
 
 @$core.Deprecated('Use armCommandDescriptor instead')
 const ArmCommand$json = {
@@ -121,6 +122,7 @@ const ArmCommand$json = {
     {'1': 'ik_y', '3': 8, '4': 1, '5': 2, '10': 'ikY'},
     {'1': 'ik_z', '3': 9, '4': 1, '5': 2, '10': 'ikZ'},
     {'1': 'jab', '3': 10, '4': 1, '5': 8, '10': 'jab'},
+    {'1': 'version', '3': 11, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
   ],
 };
 
@@ -131,7 +133,8 @@ final $typed_data.Uint8List armCommandDescriptor = $convert.base64Decode(
     'ZXIYBCABKAsyDS5Nb3RvckNvbW1hbmRSCHNob3VsZGVyEiMKBWVsYm93GAUgASgLMg0uTW90b3'
     'JDb21tYW5kUgVlbGJvdxIwCgxncmlwcGVyX2xpZnQYBiABKAsyDS5Nb3RvckNvbW1hbmRSC2dy'
     'aXBwZXJMaWZ0EhEKBGlrX3gYByABKAJSA2lrWBIRCgRpa195GAggASgCUgNpa1kSEQoEaWtfeh'
-    'gJIAEoAlIDaWtaEhAKA2phYhgKIAEoCFIDamFi');
+    'gJIAEoAlIDaWtaEhAKA2phYhgKIAEoCFIDamFiEiIKB3ZlcnNpb24YCyABKAsyCC5WZXJzaW9u'
+    'Ugd2ZXJzaW9u');
 
 @$core.Deprecated('Use gripperDataDescriptor instead')
 const GripperData$json = {
@@ -140,6 +143,7 @@ const GripperData$json = {
     {'1': 'lift', '3': 1, '4': 1, '5': 11, '6': '.MotorData', '10': 'lift'},
     {'1': 'rotate', '3': 2, '4': 1, '5': 11, '6': '.MotorData', '10': 'rotate'},
     {'1': 'pinch', '3': 3, '4': 1, '5': 11, '6': '.MotorData', '10': 'pinch'},
+    {'1': 'version', '3': 4, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
   ],
 };
 
@@ -147,7 +151,7 @@ const GripperData$json = {
 final $typed_data.Uint8List gripperDataDescriptor = $convert.base64Decode(
     'CgtHcmlwcGVyRGF0YRIeCgRsaWZ0GAEgASgLMgouTW90b3JEYXRhUgRsaWZ0EiIKBnJvdGF0ZR'
     'gCIAEoCzIKLk1vdG9yRGF0YVIGcm90YXRlEiAKBXBpbmNoGAMgASgLMgouTW90b3JEYXRhUgVw'
-    'aW5jaA==');
+    'aW5jaBIiCgd2ZXJzaW9uGAQgASgLMgguVmVyc2lvblIHdmVyc2lvbg==');
 
 @$core.Deprecated('Use gripperCommandDescriptor instead')
 const GripperCommand$json = {
@@ -161,6 +165,7 @@ const GripperCommand$json = {
     {'1': 'open', '3': 6, '4': 1, '5': 8, '10': 'open'},
     {'1': 'close', '3': 7, '4': 1, '5': 8, '10': 'close'},
     {'1': 'spin', '3': 8, '4': 1, '5': 8, '10': 'spin'},
+    {'1': 'version', '3': 9, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
   ],
 };
 
@@ -170,5 +175,5 @@ final $typed_data.Uint8List gripperCommandDescriptor = $convert.base64Decode(
     'IJY2FsaWJyYXRlEiEKBGxpZnQYAyABKAsyDS5Nb3RvckNvbW1hbmRSBGxpZnQSJQoGcm90YXRl'
     'GAQgASgLMg0uTW90b3JDb21tYW5kUgZyb3RhdGUSIwoFcGluY2gYBSABKAsyDS5Nb3RvckNvbW'
     '1hbmRSBXBpbmNoEhIKBG9wZW4YBiABKAhSBG9wZW4SFAoFY2xvc2UYByABKAhSBWNsb3NlEhIK'
-    'BHNwaW4YCCABKAhSBHNwaW4=');
+    'BHNwaW4YCCABKAhSBHNwaW4SIgoHdmVyc2lvbhgJIAEoCzIILlZlcnNpb25SB3ZlcnNpb24=');
 

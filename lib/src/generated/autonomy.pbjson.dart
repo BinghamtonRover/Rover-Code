@@ -60,6 +60,7 @@ const AutonomyData$json = {
     {'1': 'path', '3': 4, '4': 3, '5': 11, '6': '.GpsCoordinates', '10': 'path'},
     {'1': 'task', '3': 5, '4': 1, '5': 14, '6': '.AutonomyTask', '10': 'task'},
     {'1': 'crash', '3': 6, '4': 1, '5': 8, '10': 'crash'},
+    {'1': 'version', '3': 7, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
   ],
 };
 
@@ -69,7 +70,8 @@ final $typed_data.Uint8List autonomyDataDescriptor = $convert.base64Decode(
     'tkZXN0aW5hdGlvbhgCIAEoCzIPLkdwc0Nvb3JkaW5hdGVzUgtkZXN0aW5hdGlvbhItCglvYnN0'
     'YWNsZXMYAyADKAsyDy5HcHNDb29yZGluYXRlc1IJb2JzdGFjbGVzEiMKBHBhdGgYBCADKAsyDy'
     '5HcHNDb29yZGluYXRlc1IEcGF0aBIhCgR0YXNrGAUgASgOMg0uQXV0b25vbXlUYXNrUgR0YXNr'
-    'EhQKBWNyYXNoGAYgASgIUgVjcmFzaA==');
+    'EhQKBWNyYXNoGAYgASgIUgVjcmFzaBIiCgd2ZXJzaW9uGAcgASgLMgguVmVyc2lvblIHdmVyc2'
+    'lvbg==');
 
 @$core.Deprecated('Use autonomyCommandDescriptor instead')
 const AutonomyCommand$json = {
@@ -79,6 +81,7 @@ const AutonomyCommand$json = {
     {'1': 'task', '3': 2, '4': 1, '5': 14, '6': '.AutonomyTask', '10': 'task'},
     {'1': 'aruco_id', '3': 3, '4': 1, '5': 5, '10': 'arucoId'},
     {'1': 'abort', '3': 4, '4': 1, '5': 8, '10': 'abort'},
+    {'1': 'version', '3': 5, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
   ],
 };
 
@@ -86,5 +89,6 @@ const AutonomyCommand$json = {
 final $typed_data.Uint8List autonomyCommandDescriptor = $convert.base64Decode(
     'Cg9BdXRvbm9teUNvbW1hbmQSMQoLZGVzdGluYXRpb24YASABKAsyDy5HcHNDb29yZGluYXRlc1'
     'ILZGVzdGluYXRpb24SIQoEdGFzaxgCIAEoDjINLkF1dG9ub215VGFza1IEdGFzaxIZCghhcnVj'
-    'b19pZBgDIAEoBVIHYXJ1Y29JZBIUCgVhYm9ydBgEIAEoCFIFYWJvcnQ=');
+    'b19pZBgDIAEoBVIHYXJ1Y29JZBIUCgVhYm9ydBgEIAEoCFIFYWJvcnQSIgoHdmVyc2lvbhgFIA'
+    'EoCzIILlZlcnNpb25SB3ZlcnNpb24=');
 

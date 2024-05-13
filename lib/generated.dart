@@ -11,6 +11,7 @@ export "src/generated/gps.pb.dart";
 export "src/generated/logs.pb.dart";
 export "src/generated/mars.pb.dart";
 export "src/generated/science.pb.dart";
+export "src/generated/version.pb.dart";
 export "src/generated/video.pb.dart";
 export "src/generated/wrapper.pb.dart";
 export "src/generated/google/protobuf/timestamp.pb.dart";

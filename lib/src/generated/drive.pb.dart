@@ -13,7 +13,8 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'core.pbenum.dart' as $1;
+import 'core.pbenum.dart' as $2;
+import 'version.pb.dart' as $0;
 
 class DriveCommand extends $pb.GeneratedMessage {
   factory DriveCommand({
@@ -27,7 +28,8 @@ class DriveCommand extends $pb.GeneratedMessage {
     $core.double? frontTilt,
     $core.double? rearSwivel,
     $core.double? rearTilt,
-    $1.RoverStatus? status,
+    $2.RoverStatus? status,
+    $0.Version? version,
   }) {
     final $result = create();
     if (throttle != null) {
@@ -63,6 +65,9 @@ class DriveCommand extends $pb.GeneratedMessage {
     if (status != null) {
       $result.status = status;
     }
+    if (version != null) {
+      $result.version = version;
+    }
     return $result;
   }
   DriveCommand._() : super();
@@ -80,7 +85,8 @@ class DriveCommand extends $pb.GeneratedMessage {
     ..a<$core.double>(8, _omitFieldNames ? '' : 'frontTilt', $pb.PbFieldType.OF)
     ..a<$core.double>(9, _omitFieldNames ? '' : 'rearSwivel', $pb.PbFieldType.OF)
     ..a<$core.double>(10, _omitFieldNames ? '' : 'rearTilt', $pb.PbFieldType.OF)
-    ..e<$1.RoverStatus>(11, _omitFieldNames ? '' : 'status', $pb.PbFieldType.OE, defaultOrMaker: $1.RoverStatus.DISCONNECTED, valueOf: $1.RoverStatus.valueOf, enumValues: $1.RoverStatus.values)
+    ..e<$2.RoverStatus>(11, _omitFieldNames ? '' : 'status', $pb.PbFieldType.OE, defaultOrMaker: $2.RoverStatus.DISCONNECTED, valueOf: $2.RoverStatus.valueOf, enumValues: $2.RoverStatus.values)
+    ..aOM<$0.Version>(12, _omitFieldNames ? '' : 'version', subBuilder: $0.Version.create)
     ..hasRequiredFields = false
   ;
 
@@ -202,13 +208,24 @@ class DriveCommand extends $pb.GeneratedMessage {
   void clearRearTilt() => clearField(10);
 
   @$pb.TagNumber(11)
-  $1.RoverStatus get status => $_getN(10);
+  $2.RoverStatus get status => $_getN(10);
   @$pb.TagNumber(11)
-  set status($1.RoverStatus v) { setField(11, v); }
+  set status($2.RoverStatus v) { setField(11, v); }
   @$pb.TagNumber(11)
   $core.bool hasStatus() => $_has(10);
   @$pb.TagNumber(11)
   void clearStatus() => clearField(11);
+
+  @$pb.TagNumber(12)
+  $0.Version get version => $_getN(11);
+  @$pb.TagNumber(12)
+  set version($0.Version v) { setField(12, v); }
+  @$pb.TagNumber(12)
+  $core.bool hasVersion() => $_has(11);
+  @$pb.TagNumber(12)
+  void clearVersion() => clearField(12);
+  @$pb.TagNumber(12)
+  $0.Version ensureVersion() => $_ensure(11);
 }
 
 class DriveData extends $pb.GeneratedMessage {
@@ -226,6 +243,7 @@ class DriveData extends $pb.GeneratedMessage {
     $core.double? batteryVoltage,
     $core.double? batteryCurrent,
     $core.double? batteryTemperature,
+    $0.Version? version,
   }) {
     final $result = create();
     if (throttle != null) {
@@ -267,6 +285,9 @@ class DriveData extends $pb.GeneratedMessage {
     if (batteryTemperature != null) {
       $result.batteryTemperature = batteryTemperature;
     }
+    if (version != null) {
+      $result.version = version;
+    }
     return $result;
   }
   DriveData._() : super();
@@ -287,6 +308,7 @@ class DriveData extends $pb.GeneratedMessage {
     ..a<$core.double>(11, _omitFieldNames ? '' : 'batteryVoltage', $pb.PbFieldType.OF)
     ..a<$core.double>(12, _omitFieldNames ? '' : 'batteryCurrent', $pb.PbFieldType.OF)
     ..a<$core.double>(13, _omitFieldNames ? '' : 'batteryTemperature', $pb.PbFieldType.OF)
+    ..aOM<$0.Version>(14, _omitFieldNames ? '' : 'version', subBuilder: $0.Version.create)
     ..hasRequiredFields = false
   ;
 
@@ -434,6 +456,17 @@ class DriveData extends $pb.GeneratedMessage {
   $core.bool hasBatteryTemperature() => $_has(12);
   @$pb.TagNumber(13)
   void clearBatteryTemperature() => clearField(13);
+
+  @$pb.TagNumber(14)
+  $0.Version get version => $_getN(13);
+  @$pb.TagNumber(14)
+  set version($0.Version v) { setField(14, v); }
+  @$pb.TagNumber(14)
+  $core.bool hasVersion() => $_has(13);
+  @$pb.TagNumber(14)
+  void clearVersion() => clearField(14);
+  @$pb.TagNumber(14)
+  $0.Version ensureVersion() => $_ensure(13);
 }
 
 

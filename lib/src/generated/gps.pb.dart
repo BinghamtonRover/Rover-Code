@@ -13,6 +13,8 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
+import 'version.pb.dart' as $0;
+
 class GpsCoordinates extends $pb.GeneratedMessage {
   factory GpsCoordinates({
     $core.double? latitude,
@@ -173,6 +175,7 @@ class RoverPosition extends $pb.GeneratedMessage {
   factory RoverPosition({
     GpsCoordinates? gps,
     Orientation? orientation,
+    $0.Version? version,
   }) {
     final $result = create();
     if (gps != null) {
@@ -180,6 +183,9 @@ class RoverPosition extends $pb.GeneratedMessage {
     }
     if (orientation != null) {
       $result.orientation = orientation;
+    }
+    if (version != null) {
+      $result.version = version;
     }
     return $result;
   }
@@ -190,6 +196,7 @@ class RoverPosition extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'RoverPosition', createEmptyInstance: create)
     ..aOM<GpsCoordinates>(1, _omitFieldNames ? '' : 'gps', subBuilder: GpsCoordinates.create)
     ..aOM<Orientation>(2, _omitFieldNames ? '' : 'orientation', subBuilder: Orientation.create)
+    ..aOM<$0.Version>(3, _omitFieldNames ? '' : 'version', subBuilder: $0.Version.create)
     ..hasRequiredFields = false
   ;
 
@@ -235,6 +242,17 @@ class RoverPosition extends $pb.GeneratedMessage {
   void clearOrientation() => clearField(2);
   @$pb.TagNumber(2)
   Orientation ensureOrientation() => $_ensure(1);
+
+  @$pb.TagNumber(3)
+  $0.Version get version => $_getN(2);
+  @$pb.TagNumber(3)
+  set version($0.Version v) { setField(3, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasVersion() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearVersion() => clearField(3);
+  @$pb.TagNumber(3)
+  $0.Version ensureVersion() => $_ensure(2);
 }
 
 

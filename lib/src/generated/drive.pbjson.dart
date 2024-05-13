@@ -28,6 +28,7 @@ const DriveCommand$json = {
     {'1': 'rear_swivel', '3': 9, '4': 1, '5': 2, '10': 'rearSwivel'},
     {'1': 'rear_tilt', '3': 10, '4': 1, '5': 2, '10': 'rearTilt'},
     {'1': 'status', '3': 11, '4': 1, '5': 14, '6': '.RoverStatus', '10': 'status'},
+    {'1': 'version', '3': 12, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
   ],
 };
 
@@ -39,7 +40,7 @@ final $typed_data.Uint8List driveCommandDescriptor = $convert.base64Decode(
     'RUaHJvdHRsZRIhCgxmcm9udF9zd2l2ZWwYByABKAJSC2Zyb250U3dpdmVsEh0KCmZyb250X3Rp'
     'bHQYCCABKAJSCWZyb250VGlsdBIfCgtyZWFyX3N3aXZlbBgJIAEoAlIKcmVhclN3aXZlbBIbCg'
     'lyZWFyX3RpbHQYCiABKAJSCHJlYXJUaWx0EiQKBnN0YXR1cxgLIAEoDjIMLlJvdmVyU3RhdHVz'
-    'UgZzdGF0dXM=');
+    'UgZzdGF0dXMSIgoHdmVyc2lvbhgMIAEoCzIILlZlcnNpb25SB3ZlcnNpb24=');
 
 @$core.Deprecated('Use driveDataDescriptor instead')
 const DriveData$json = {
@@ -58,6 +59,7 @@ const DriveData$json = {
     {'1': 'battery_voltage', '3': 11, '4': 1, '5': 2, '10': 'batteryVoltage'},
     {'1': 'battery_current', '3': 12, '4': 1, '5': 2, '10': 'batteryCurrent'},
     {'1': 'battery_temperature', '3': 13, '4': 1, '5': 2, '10': 'batteryTemperature'},
+    {'1': 'version', '3': 14, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
   ],
 };
 
@@ -70,5 +72,6 @@ final $typed_data.Uint8List driveDataDescriptor = $convert.base64Decode(
     'CCABKAJSCWZyb250VGlsdBIfCgtyZWFyX3N3aXZlbBgJIAEoAlIKcmVhclN3aXZlbBIbCglyZW'
     'FyX3RpbHQYCiABKAJSCHJlYXJUaWx0EicKD2JhdHRlcnlfdm9sdGFnZRgLIAEoAlIOYmF0dGVy'
     'eVZvbHRhZ2USJwoPYmF0dGVyeV9jdXJyZW50GAwgASgCUg5iYXR0ZXJ5Q3VycmVudBIvChNiYX'
-    'R0ZXJ5X3RlbXBlcmF0dXJlGA0gASgCUhJiYXR0ZXJ5VGVtcGVyYXR1cmU=');
+    'R0ZXJ5X3RlbXBlcmF0dXJlGA0gASgCUhJiYXR0ZXJ5VGVtcGVyYXR1cmUSIgoHdmVyc2lvbhgO'
+    'IAEoCzIILlZlcnNpb25SB3ZlcnNpb24=');
 

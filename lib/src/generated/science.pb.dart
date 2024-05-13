@@ -14,6 +14,7 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'science.pbenum.dart';
+import 'version.pb.dart' as $0;
 
 export 'science.pbenum.dart';
 
@@ -31,6 +32,7 @@ class ScienceCommand extends $pb.GeneratedMessage {
     $core.bool? stop,
     $core.int? sample,
     ScienceState? state,
+    $0.Version? version,
   }) {
     final $result = create();
     if (carouselMotor != null) {
@@ -66,6 +68,9 @@ class ScienceCommand extends $pb.GeneratedMessage {
     if (state != null) {
       $result.state = state;
     }
+    if (version != null) {
+      $result.version = version;
+    }
     return $result;
   }
   ScienceCommand._() : super();
@@ -84,6 +89,7 @@ class ScienceCommand extends $pb.GeneratedMessage {
     ..aOB(9, _omitFieldNames ? '' : 'stop')
     ..a<$core.int>(10, _omitFieldNames ? '' : 'sample', $pb.PbFieldType.O3)
     ..e<ScienceState>(11, _omitFieldNames ? '' : 'state', $pb.PbFieldType.OE, defaultOrMaker: ScienceState.SCIENCE_STATE_UNDEFINED, valueOf: ScienceState.valueOf, enumValues: ScienceState.values)
+    ..aOM<$0.Version>(12, _omitFieldNames ? '' : 'version', subBuilder: $0.Version.create)
     ..hasRequiredFields = false
   ;
 
@@ -209,6 +215,17 @@ class ScienceCommand extends $pb.GeneratedMessage {
   $core.bool hasState() => $_has(10);
   @$pb.TagNumber(11)
   void clearState() => clearField(11);
+
+  @$pb.TagNumber(12)
+  $0.Version get version => $_getN(11);
+  @$pb.TagNumber(12)
+  set version($0.Version v) { setField(12, v); }
+  @$pb.TagNumber(12)
+  $core.bool hasVersion() => $_has(11);
+  @$pb.TagNumber(12)
+  void clearVersion() => clearField(12);
+  @$pb.TagNumber(12)
+  $0.Version ensureVersion() => $_ensure(11);
 }
 
 /// / Data coming from the science subsystem.
@@ -219,6 +236,7 @@ class ScienceData extends $pb.GeneratedMessage {
     $core.double? co2,
     $core.double? humidity,
     $core.double? temperature,
+    $0.Version? version,
   }) {
     final $result = create();
     if (sample != null) {
@@ -236,6 +254,9 @@ class ScienceData extends $pb.GeneratedMessage {
     if (temperature != null) {
       $result.temperature = temperature;
     }
+    if (version != null) {
+      $result.version = version;
+    }
     return $result;
   }
   ScienceData._() : super();
@@ -248,6 +269,7 @@ class ScienceData extends $pb.GeneratedMessage {
     ..a<$core.double>(3, _omitFieldNames ? '' : 'co2', $pb.PbFieldType.OF)
     ..a<$core.double>(4, _omitFieldNames ? '' : 'humidity', $pb.PbFieldType.OF)
     ..a<$core.double>(5, _omitFieldNames ? '' : 'temperature', $pb.PbFieldType.OF)
+    ..aOM<$0.Version>(6, _omitFieldNames ? '' : 'version', subBuilder: $0.Version.create)
     ..hasRequiredFields = false
   ;
 
@@ -318,6 +340,17 @@ class ScienceData extends $pb.GeneratedMessage {
   $core.bool hasTemperature() => $_has(4);
   @$pb.TagNumber(5)
   void clearTemperature() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $0.Version get version => $_getN(5);
+  @$pb.TagNumber(6)
+  set version($0.Version v) { setField(6, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasVersion() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearVersion() => clearField(6);
+  @$pb.TagNumber(6)
+  $0.Version ensureVersion() => $_ensure(5);
 }
 
 
