@@ -26,7 +26,6 @@ analyzer:
     strict-raw-types: true
 
   exclude: 
-    - test/**.dart
 
 linter:
   rules:
@@ -44,6 +43,8 @@ linter:
     always_use_package_imports: false  # not when importing sibling files
     sort_constructors_first: false  # final properties, then constructor
     avoid_dynamic_calls: false  # this lint takes over errors in the IDE
+    cascade_invocations: false  # cascades are often less readable
     
-    # Temporarily disabled until we are ready to document
-    # public_member_api_docs: false
+    # Temporarily disabled lints
+    public_member_api_docs: false  # until we are ready to document
+    flutter_style_todos: false  # until we are ready to address them

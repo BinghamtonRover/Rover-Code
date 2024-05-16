@@ -1,3 +1,6 @@
+# These tell your computer or the rover to fetch from the parent folder and not GitHub
+pubspec_overrides.yaml
+
 # https://dart.dev/guides/libraries/private-files
 # Created by `dart pub`
 .dart_tool/

@@ -23,6 +23,8 @@ jobs:
 
       - name: Install Dart
         uses: dart-lang/setup-dart@v1
+        with: 
+          sdk: 3.2.2
 
       - name: Install dependencies
         run: dart pub get
@@ -36,6 +38,12 @@ jobs:
 
       - name: Generate documentation
         run: dart doc --output=docs
+
+      # Your project will need to have tests in test/ and a dependency on
+      # package:test for this step to succeed. Note that Flutter projects will
+      # want to change this to 'flutter test'.
+      - name: Run tests
+        run: dart test
 
       - name: Commit and push files
         run: |

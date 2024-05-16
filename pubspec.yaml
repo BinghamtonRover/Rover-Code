@@ -4,7 +4,7 @@ version: 1.0.0
 publish_to: none
 
 environment:
-  sdk: ^3.0.5
+  sdk: 3.2.2
 
 # Add regular dependencies here.
 dependencies:
@@ -12,17 +12,9 @@ dependencies:
     git: https://github.com/BinghamtonRover/OpenCV-FFI.git
   burt_network: 
     git: https://github.com/BinghamtonRover/Dart-Networking.git
-  rpi_gpio: ^0.8.1
+  a_star: ^2.0.0
+  meta: ^1.11.0
 
 dev_dependencies:
   test: ^1.21.0
   very_good_analysis: ^5.0.0+1
-
-# This section is for the rover only. On your own system, comment this out.
-# (This tells Pub/Dart to find these packages in nearby folders, rather than
-# from GitHub, so that we can run without Internet access).
-dependency_overrides: 
-  opencv_ffi: 
-    path: ../opencv_ffi
-  burt_network: 
-    path: ../burt_network
