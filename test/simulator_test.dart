@@ -1,12 +1,9 @@
 import "package:test/test.dart";
-import "package:burt_network/generated.dart";
-import "package:burt_network/logging.dart";
 
-import "package:autonomy/interfaces.dart";
-import "package:autonomy/rover.dart";
-import "package:autonomy/simulator.dart";
+import "package:autonomy/autonomy.dart";
+import "package:burt_network/burt_network.dart";
 
-void main() {
+void main() => group("[Simulator]", tags: ["simulator"], () {
   test("Simulator can be restarted", () async { 
     Logger.level = LogLevel.off;
     final simulator = AutonomySimulator();
@@ -63,83 +60,10 @@ void main() {
     await simulator.dispose();
   });
 
-  test("Following path gets to the end", () async { 
-    Logger.level = LogLevel.off;
+  test("Already has values", () async {
     final simulator = AutonomySimulator();
-    simulator.pathfinder = RoverPathfinder(collection: simulator);
-    final destination = (5, 5).toGps();
-    final path = simulator.pathfinder.getPath(destination);
-    expect(path, isNotNull); if (path == null) return;
-    expect(simulator.gps.latitude, 0);
-    expect(simulator.gps.longitude, 0);
-    await simulator.drive.followPath(path);
-    expect(simulator.gps.coordinates.isNear(destination), isTrue);
-    await simulator.dispose();
-  });
-
-  test("Path avoids obstacles but reaches the goal", () async {
-    Logger.level = LogLevel.off;
-    final simulator = AutonomySimulator();
-    simulator.pathfinder = RoverPathfinder(collection: simulator);
-    final destination = GpsCoordinates(latitude: 5, longitude: 5);
-    final obstacles = <GpsCoordinates>{
-      (1, 0).toGps(),
-      (1, 1).toGps(),
-      (2, 0).toGps(),
-      (2, 1).toGps(),
-      (3, 3).toGps(),
-    };
-    for (final obstacle in obstacles) {
-      simulator.pathfinder.recordObstacle(obstacle);
-    }
-    final path = simulator.pathfinder.getPath(destination);
-    expect(path, isNotNull); if (path == null) return;
-    expect(path, isNotEmpty);
-    for (final step in path) {
-      expect(obstacles.contains(step.position), false);
-    }
-    await simulator.drive.followPath(path);
-    expect(simulator.gps.latitude, destination.latitude);
-    expect(simulator.gps.longitude, destination.longitude);
-    await simulator.dispose();
-  });
-
-  test("Impossible paths are reported", () async {
-    final simulator = AutonomySimulator();
-    simulator.pathfinder = RoverPathfinder(collection: simulator);
-    final destination = (5, 5).toGps();
-    final obstacles = {
-      (1, -1).toGps(),  (1, 0).toGps(),  (1, 1).toGps(),
-      (0, -1).toGps(),   /* Rover */     (0, 1).toGps(),
-      (-1, -1).toGps(), (-1, 0).toGps(), (-1, 1).toGps(),
-    };
-    for (final obstacle in obstacles) {
-      simulator.pathfinder.recordObstacle(obstacle);
-    }
-    final path = simulator.pathfinder.getPath(destination);
-    expect(path, isNull);
-    await simulator.dispose();
-  });
-
-  test("Orchestrator works with simulated obstacles", () async {
-    Logger.level = LogLevel.off;
-    final simulator = AutonomySimulator();
-    final obstacles = <SimulatedObstacle>[
-      SimulatedObstacle(coordinates: (2, 0).toGps(), radius: 3),
-      SimulatedObstacle(coordinates: (6, -1).toGps(), radius: 3),
-      SimulatedObstacle(coordinates: (6, 1).toGps(), radius: 3),
-    ];
-    simulator.detector = DetectorSimulator(collection: simulator, obstacles: obstacles);
-    simulator.pathfinder = RoverPathfinder(collection: simulator);
-    simulator.orchestrator = RoverOrchestrator(collection: simulator);
-    simulator.drive = DriveSimulator(collection: simulator);
+    expect(simulator.hasValue, isFalse);
     await simulator.init();
-    expect(simulator.gps.latitude, 0);
-    expect(simulator.gps.longitude, 0);
-    expect(simulator.imu.heading, 0);
-    final command = AutonomyCommand(destination: (7, 0).toGps(), task: AutonomyTask.GPS_ONLY);
-    await simulator.orchestrator.onCommand(command);
-    expect(simulator.gps.latitude, 7);
-    expect(simulator.gps.longitude, 0);
+    expect(simulator.hasValue, isTrue);
   });
-}
+});

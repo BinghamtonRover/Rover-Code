@@ -2,7 +2,7 @@ import "package:burt_network/logging.dart";
 
 import "package:autonomy/interfaces.dart";
 
-abstract class AutonomyInterface extends Service {
+abstract class AutonomyInterface extends Service with Receiver {
   BurtLogger get logger;
   GpsInterface get gps;
   ImuInterface get imu;
@@ -49,4 +49,15 @@ abstract class AutonomyInterface extends Service {
     await dispose();
     await init();
   }
+  
+  @override
+  Future<void> waitForValue() async {
+    logger.info("Waiting for readings...");
+    await gps.waitForValue();
+    await imu.waitForValue();
+    await realsense.waitForValue();
+  }
+
+  @override
+  bool get hasValue => gps.hasValue && imu.hasValue && realsense.hasValue;
 }

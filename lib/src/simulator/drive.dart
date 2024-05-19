@@ -17,10 +17,10 @@ class DriveSimulator extends DriveInterface {
   Future<void> goForward() async {
     final position = collection.gps.coordinates;
     final orientation = collection.imu.orientation;
-    final newPosition = position.goForward(orientation);
+    final newPosition = position.goForward(orientation!);
     collection.logger.debug("Going forward");
     collection.logger.trace("  Old position: ${position.prettyPrint()}");
-    collection.logger.trace("  Orientation: ${orientation.heading}");
+    collection.logger.trace("  Orientation: $orientation");
     collection.logger.trace("  New position: ${newPosition.prettyPrint()}");
     collection.gps.update(newPosition);
     if (shouldDelay) await Future<void>.delayed(const Duration(milliseconds: 500));

@@ -12,7 +12,7 @@ bool verbose = false;
 bool test() {
   final error = RandomError(maxError);
   final corrector = ErrorCorrector(maxSamples: maxSamples);
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < 100; i++) {
     final value = error.value;
     corrector.addValue(value);
     if (verbose) {

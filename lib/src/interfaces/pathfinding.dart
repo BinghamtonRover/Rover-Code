@@ -5,11 +5,11 @@ abstract class PathfindingInterface extends Service {
   final AutonomyInterface collection;
   PathfindingInterface({required this.collection});
 
-  List<AutonomyAStarState>? getPath(GpsCoordinates destination);
+  List<AutonomyAStarState>? getPath(GpsCoordinates destination, {bool verbose = false});
 
-  final Set<GpsCoordinates> obstacles = {};
+  Set<GpsCoordinates> obstacles = {};
   void recordObstacle(GpsCoordinates coordinates) => obstacles.add(coordinates);
-  bool isObstacle(GpsCoordinates coordinates) => obstacles.contains(coordinates);
+  bool isObstacle(GpsCoordinates coordinates) => obstacles.any((obstacle) => obstacle.isNear(coordinates));
 
   @override
   Future<void> dispose() async {

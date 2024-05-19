@@ -5,67 +5,62 @@ import "package:autonomy/interfaces.dart";
 
 class AutonomyAStarState extends AStarState<AutonomyAStarState> {
   final DriveDirection direction;
+  final DriveOrientation orientation;
   final GpsCoordinates position;
   final GpsCoordinates goal;
-  final Orientation orientation;
   final AutonomyInterface collection;
+
   AutonomyAStarState({
     required this.position, 
     required this.goal, 
-    required this.orientation,
     required this.collection,
     required this.direction,
+    required this.orientation,
+    required super.depth,
   });
+
+  factory AutonomyAStarState.start({
+    required AutonomyInterface collection,
+    required GpsCoordinates goal,
+  }) => AutonomyAStarState(
+    position: collection.gps.coordinates, 
+    goal: goal, 
+    collection: collection, 
+    direction: DriveDirection.stop, 
+    orientation: collection.imu.orientation!, 
+    depth: 0,
+  );
 
   @override
   String toString() => switch(direction) {
     DriveDirection.forward => "Go forward to ${position.prettyPrint()}",
-    DriveDirection.left => "Turn left to face ${orientation.heading}",
-    DriveDirection.right => "Turn right to face ${orientation.heading}",
+    DriveDirection.left => "Turn left to face $direction",
+    DriveDirection.right => "Turn right to face $direction",
     DriveDirection.stop => "Start/Stop at ${position.prettyPrint()}",
   };
 
   @override
-  double heuristic() {
-    var result = (position.latitude - goal.latitude).abs() + (position.longitude - goal.longitude).abs();
-    if (goal.latitude > position.latitude) {
-      result += switch (orientation.heading) {
-        0 => 0,
-        90 => 1, 
-        270 => 1,
-        180 => 2,
-        _ => throw StateError("Unrecognized orientation: ${orientation.heading}"),
-      };
-    } else if (goal.latitude < position.latitude) {
-      result += switch (orientation.heading) {
-        0 => 2,
-        90 => 1, 
-        270 => 1,
-        180 => 0,
-        _ => throw StateError("Unrecognized orientation: ${orientation.heading}"),
-      };
-    }
-    return result;
-  }
+  double heuristic() => position.manhattanDistance(goal);
 
   @override
-  String hash() => "${position.latitude},${position.longitude}-${orientation.z}";
+  String hash() => "${position.prettyPrint()} ($orientation)";
 
   @override
   bool isGoal() => position.isNear(goal);
 
-  AutonomyAStarState copyWith(DriveDirection direction, {GpsCoordinates? position, Orientation? orientation}) => AutonomyAStarState(
-    position: position ?? this.position, 
-    orientation: orientation ?? this.orientation,
+  AutonomyAStarState copyWith({required DriveDirection direction, required DriveOrientation orientation, required GpsCoordinates position}) => AutonomyAStarState(
     collection: collection,
+    position: position,
+    orientation: orientation, 
     direction: direction,
     goal: goal, 
+    depth: direction == DriveDirection.forward ? depth + 1 : depth + 2,
   );
 
   @override
   Iterable<AutonomyAStarState> expand() => [
-    copyWith(DriveDirection.left, orientation: orientation.turnLeft()),
-    copyWith(DriveDirection.right, orientation: orientation.turnRight()),
-    copyWith(DriveDirection.forward, position: position.goForward(orientation)),
+    copyWith(direction: DriveDirection.forward, orientation: orientation, position: position.goForward(orientation)),
+    copyWith(direction: DriveDirection.left, orientation: orientation.turnLeft(), position: position),
+    copyWith(direction: DriveDirection.right, orientation: orientation.turnRight(), position: position),    
   ].where((state) => !collection.pathfinder.isObstacle(state.position));
 }

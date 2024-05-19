@@ -7,12 +7,12 @@ class ImuSimulator extends ImuInterface with ValueReporter {
     _error = RandomError(maxError);
   
   @override
-  RoverPosition getMessage() => RoverPosition(orientation: orientation);
+  RoverPosition getMessage() => RoverPosition(orientation: raw);
 
   Orientation _orientation = Orientation();
 
   @override
-  Orientation get orientation => Orientation(
+  Orientation get raw => Orientation(
     x: _orientation.x + _error.value,
     y: _orientation.y + _error.value,
     z: _orientation.z + _error.value,
@@ -20,4 +20,10 @@ class ImuSimulator extends ImuInterface with ValueReporter {
 
   @override
   void update(Orientation newValue) => _orientation = newValue.clampHeading();
+
+  @override
+  Future<bool> init() async {
+    hasValue = true;
+    return super.init();
+  }
 }

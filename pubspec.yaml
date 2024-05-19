@@ -12,7 +12,7 @@ dependencies:
     git: https://github.com/BinghamtonRover/OpenCV-FFI.git
   burt_network: 
     git: https://github.com/BinghamtonRover/Dart-Networking.git
-  a_star: ^2.0.0
+  a_star: ^3.0.0
   meta: ^1.11.0
 
 dev_dependencies:

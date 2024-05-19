@@ -29,21 +29,21 @@ class SensorDrive extends DriveInterface with RoverMotors {
   Future<void> goForward() async {
     final orientation = collection.imu.orientation;
     final currentCoordinates = collection.gps.coordinates;
-    final destination = currentCoordinates.goForward(orientation);
+    final destination = currentCoordinates.goForward(orientation!);
     
     setThrottle(maxThrottle);
     setSpeeds(left: 1, right: 1);
-    await waitFor(() => collection.gps.coordinates.isPast(destination, orientation));
+    await waitFor(() => collection.gps.coordinates.isNear(destination));
     await stop();
   }
 
   @override
   Future<void> turnLeft() async {
-    final orientation = collection.imu.orientation;
-    final destination = orientation.heading + 90;  // do NOT clamp!
+    final orientation = collection.imu.orientation!;
+    final destination = orientation.turnLeft();  // do NOT clamp!
     setThrottle(maxThrottle);
     setSpeeds(left: -1, right: 1);
-    await waitFor(() => collection.imu.heading >= destination); 
+    await waitFor(() => collection.imu.orientation == destination); 
     await stop();
   }
 
@@ -51,10 +51,10 @@ class SensorDrive extends DriveInterface with RoverMotors {
   Future<void> turnRight() async {
     // TODO: Allow corrective turns
     final orientation = collection.imu.orientation;
-    final destination = orientation.heading - 90;  // do NOT clamp!
+    final destination = orientation!.turnRight();  // do NOT clamp!
     setThrottle(maxThrottle);
     setSpeeds(left: -1, right: 1);
-    await waitFor(() => collection.imu.heading <= destination); 
+    await waitFor(() => collection.imu.orientation == destination); 
     await stop();
   }
 }

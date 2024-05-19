@@ -19,4 +19,10 @@ class GpsSimulator extends GpsInterface with ValueReporter {
 
   @override
   void update(GpsCoordinates newValue) => _coordinates = newValue;
+
+  @override
+  Future<bool> init() async {
+    hasValue = true;
+    return super.init();
+  }
 }

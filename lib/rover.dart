@@ -13,6 +13,7 @@ import "src/rover/drive.dart";
 import "src/rover/gps.dart";
 import "src/rover/imu.dart";
 import "src/rover/orchestrator.dart";
+import "src/rover/realsense.dart";
 
 /// A collection of all the different services used by the autonomy program.
 class RoverAutonomy extends AutonomyInterface {
@@ -25,6 +26,6 @@ class RoverAutonomy extends AutonomyInterface {
   @override late final logger = BurtLogger(socket: server);
   @override late final pathfinder = RoverPathfinder(collection: this);
   @override late final detector = DetectorSimulator(collection: this, obstacles: []);
-  @override late final realsense = RealSenseSimulator(collection: this);
+  @override late final realsense = RoverRealsense(collection: this);
   @override late final orchestrator = RoverOrchestrator(collection: this); 
 }
