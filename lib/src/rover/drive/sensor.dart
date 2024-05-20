@@ -38,6 +38,14 @@ class SensorDrive extends DriveInterface with RoverMotors {
   }
 
   @override
+  Future<void> faceNorth() async {
+    setThrottle(maxThrottle);
+    setSpeeds(left: -1, right: 1);
+    await waitFor(() => collection.imu.raw.isNear(0));
+    await stop();
+  }
+
+  @override
   Future<void> turnLeft() async {
     final orientation = collection.imu.orientation!;
     final destination = orientation.turnLeft();  // do NOT clamp!

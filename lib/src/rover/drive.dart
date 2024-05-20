@@ -37,6 +37,9 @@ class RoverDrive extends DriveInterface {
     await timedDrive.stop();
   }
 
+  @override
+  Future<void> faceNorth() => useImu ? sensorDrive.faceNorth() : timedDrive.faceNorth();
+
   @override 
   Future<void> goForward() => useGps ? sensorDrive.goForward() : timedDrive.goForward();
 

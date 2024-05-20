@@ -27,6 +27,11 @@ class DriveSimulator extends DriveInterface {
   }
 
   @override
+  Future<void> faceNorth() async {
+    collection.imu.update(OrientationUtils.north);
+  }
+
+  @override
   Future<void> turnLeft() async  {
     collection.logger.debug("Turning left");
     final heading = collection.imu.heading;

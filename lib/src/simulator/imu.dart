@@ -26,4 +26,10 @@ class ImuSimulator extends ImuInterface with ValueReporter {
     hasValue = true;
     return super.init();
   }
+
+  @override
+  Future<void> dispose() async {
+    _orientation = Orientation();
+    await super.dispose();
+  }
 }

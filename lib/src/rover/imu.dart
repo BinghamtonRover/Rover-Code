@@ -11,7 +11,9 @@ class RoverImu extends ImuInterface {
   Future<bool> init() async => true;
 
   @override
-  Future<void> dispose() async { }
+  Future<void> dispose() async {
+    _zCorrector.clear();
+  }
 
   @override
   void update(Orientation newValue) {

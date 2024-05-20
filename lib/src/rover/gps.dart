@@ -12,7 +12,10 @@ class RoverGps extends GpsInterface {
   Future<bool> init() async => true;
 
   @override
-  Future<void> dispose() async { }
+  Future<void> dispose() async {
+    _latitudeCorrector.clear();
+    _longitudeCorrector.clear();
+  }
 
   @override
   void update(GpsCoordinates newValue) {

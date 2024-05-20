@@ -22,6 +22,9 @@ class TimedDrive extends DriveInterface with RoverMotors {
     setSpeeds(left: 0, right: 0);
   }
 
+  @override
+  Future<void> faceNorth() async { /* Assume already facing north */ }
+
   @override 
   Future<void> goForward() async {
     setThrottle(maxThrottle);

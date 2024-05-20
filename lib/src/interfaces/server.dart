@@ -4,12 +4,12 @@ import "package:autonomy/interfaces.dart";
 import "package:burt_network/burt_network.dart";
 import "package:meta/meta.dart";
 
-final subsystemsDestination = SocketInfo(
-  address: InternetAddress("192.168.1.20"),
-  port: 8001,
-);
-
 abstract class ServerInterface extends RoverServer implements Service {
+  static SocketInfo subsystemsDestination = SocketInfo(
+    address: InternetAddress("192.168.1.20"),
+    port: 8001,
+  );
+  
   final AutonomyInterface collection;
   ServerInterface({required this.collection, super.quiet = false}) : super(device: Device.AUTONOMY, port: 8003);
 

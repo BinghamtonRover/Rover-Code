@@ -37,6 +37,12 @@ class SensorlessDrive extends DriveInterface {
   }
 
   @override
+  Future<void> faceNorth() async {
+    await simulatedDrive.faceNorth();
+    await realDrive.faceNorth();
+  }
+
+  @override
   Future<void> turnLeft() async {
     await simulatedDrive.turnLeft();
     await realDrive.turnLeft();

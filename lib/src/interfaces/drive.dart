@@ -50,6 +50,8 @@ abstract class DriveInterface extends Service {
     DriveDirection.right => await turnRight(),
     DriveDirection.stop => await stop(),
   };
+
+  Future<void> faceNorth();
   
   Future<void> goForward();
   Future<void> turnLeft();

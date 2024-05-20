@@ -20,6 +20,11 @@ class ErrorCorrector {  // non-nullable
     recentSamples.addFirst(value);
     calibratedValue = recentSamples.weightedAverage();
   }
+
+  void clear() {
+    calibratedValue = 0;
+    recentSamples.clear();
+  }
 }
 
 extension on Iterable<num> {
