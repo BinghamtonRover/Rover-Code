@@ -144,6 +144,8 @@ const GripperData$json = {
     {'1': 'rotate', '3': 2, '4': 1, '5': 11, '6': '.MotorData', '10': 'rotate'},
     {'1': 'pinch', '3': 3, '4': 1, '5': 11, '6': '.MotorData', '10': 'pinch'},
     {'1': 'version', '3': 4, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
+    {'1': 'servoAngle', '3': 5, '4': 1, '5': 5, '10': 'servoAngle'},
+    {'1': 'laserState', '3': 6, '4': 1, '5': 14, '6': '.BoolState', '10': 'laserState'},
   ],
 };
 
@@ -151,7 +153,9 @@ const GripperData$json = {
 final $typed_data.Uint8List gripperDataDescriptor = $convert.base64Decode(
     'CgtHcmlwcGVyRGF0YRIeCgRsaWZ0GAEgASgLMgouTW90b3JEYXRhUgRsaWZ0EiIKBnJvdGF0ZR'
     'gCIAEoCzIKLk1vdG9yRGF0YVIGcm90YXRlEiAKBXBpbmNoGAMgASgLMgouTW90b3JEYXRhUgVw'
-    'aW5jaBIiCgd2ZXJzaW9uGAQgASgLMgguVmVyc2lvblIHdmVyc2lvbg==');
+    'aW5jaBIiCgd2ZXJzaW9uGAQgASgLMgguVmVyc2lvblIHdmVyc2lvbhIeCgpzZXJ2b0FuZ2xlGA'
+    'UgASgFUgpzZXJ2b0FuZ2xlEioKCmxhc2VyU3RhdGUYBiABKA4yCi5Cb29sU3RhdGVSCmxhc2Vy'
+    'U3RhdGU=');
 
 @$core.Deprecated('Use gripperCommandDescriptor instead')
 const GripperCommand$json = {
@@ -166,6 +170,8 @@ const GripperCommand$json = {
     {'1': 'close', '3': 7, '4': 1, '5': 8, '10': 'close'},
     {'1': 'spin', '3': 8, '4': 1, '5': 8, '10': 'spin'},
     {'1': 'version', '3': 9, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
+    {'1': 'servoAngle', '3': 10, '4': 1, '5': 5, '10': 'servoAngle'},
+    {'1': 'laserState', '3': 11, '4': 1, '5': 14, '6': '.BoolState', '10': 'laserState'},
   ],
 };
 
@@ -175,5 +181,7 @@ final $typed_data.Uint8List gripperCommandDescriptor = $convert.base64Decode(
     'IJY2FsaWJyYXRlEiEKBGxpZnQYAyABKAsyDS5Nb3RvckNvbW1hbmRSBGxpZnQSJQoGcm90YXRl'
     'GAQgASgLMg0uTW90b3JDb21tYW5kUgZyb3RhdGUSIwoFcGluY2gYBSABKAsyDS5Nb3RvckNvbW'
     '1hbmRSBXBpbmNoEhIKBG9wZW4YBiABKAhSBG9wZW4SFAoFY2xvc2UYByABKAhSBWNsb3NlEhIK'
-    'BHNwaW4YCCABKAhSBHNwaW4SIgoHdmVyc2lvbhgJIAEoCzIILlZlcnNpb25SB3ZlcnNpb24=');
+    'BHNwaW4YCCABKAhSBHNwaW4SIgoHdmVyc2lvbhgJIAEoCzIILlZlcnNpb25SB3ZlcnNpb24SHg'
+    'oKc2Vydm9BbmdsZRgKIAEoBVIKc2Vydm9BbmdsZRIqCgpsYXNlclN0YXRlGAsgASgOMgouQm9v'
+    'bFN0YXRlUgpsYXNlclN0YXRl');
 

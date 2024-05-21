@@ -48,6 +48,8 @@ class CameraName extends $pb.ProtobufEnum {
   static const CameraName SUBSYSTEM1 = CameraName._(4, _omitEnumNames ? '' : 'SUBSYSTEM1');
   static const CameraName SUBSYSTEM2 = CameraName._(5, _omitEnumNames ? '' : 'SUBSYSTEM2');
   static const CameraName SUBSYSTEM3 = CameraName._(6, _omitEnumNames ? '' : 'SUBSYSTEM3');
+  static const CameraName BOTTOM_LEFT = CameraName._(7, _omitEnumNames ? '' : 'BOTTOM_LEFT');
+  static const CameraName BOTTOM_RIGHT = CameraName._(8, _omitEnumNames ? '' : 'BOTTOM_RIGHT');
 
   static const $core.List<CameraName> values = <CameraName> [
     CAMERA_NAME_UNDEFINED,
@@ -57,6 +59,8 @@ class CameraName extends $pb.ProtobufEnum {
     SUBSYSTEM1,
     SUBSYSTEM2,
     SUBSYSTEM3,
+    BOTTOM_LEFT,
+    BOTTOM_RIGHT,
   ];
 
   static final $core.Map<$core.int, CameraName> _byValue = $pb.ProtobufEnum.initByValue(values);

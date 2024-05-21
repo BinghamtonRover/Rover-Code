@@ -36,24 +36,6 @@ final $typed_data.Uint8List deviceDescriptor = $convert.base64Decode(
     'RFTVMQAhIJCgVWSURFTxADEgwKCEFVVE9OT01ZEAQSDAoIRklSTVdBUkUQBRIHCgNBUk0QBhIL'
     'CgdHUklQUEVSEAcSCwoHU0NJRU5DRRAIEgkKBURSSVZFEAk=');
 
-@$core.Deprecated('Use roverStatusDescriptor instead')
-const RoverStatus$json = {
-  '1': 'RoverStatus',
-  '2': [
-    {'1': 'DISCONNECTED', '2': 0},
-    {'1': 'IDLE', '2': 1},
-    {'1': 'MANUAL', '2': 2},
-    {'1': 'AUTONOMOUS', '2': 3},
-    {'1': 'POWER_OFF', '2': 4},
-    {'1': 'RESTART', '2': 5},
-  ],
-};
-
-/// Descriptor for `RoverStatus`. Decode as a `google.protobuf.EnumDescriptorProto`.
-final $typed_data.Uint8List roverStatusDescriptor = $convert.base64Decode(
-    'CgtSb3ZlclN0YXR1cxIQCgxESVNDT05ORUNURUQQABIICgRJRExFEAESCgoGTUFOVUFMEAISDg'
-    'oKQVVUT05PTU9VUxADEg0KCVBPV0VSX09GRhAEEgsKB1JFU1RBUlQQBQ==');
-
 @$core.Deprecated('Use connectDescriptor instead')
 const Connect$json = {
   '1': 'Connect',
@@ -79,33 +61,4 @@ const Disconnect$json = {
 /// Descriptor for `Disconnect`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List disconnectDescriptor = $convert.base64Decode(
     'CgpEaXNjb25uZWN0Eh8KBnNlbmRlchgBIAEoDjIHLkRldmljZVIGc2VuZGVy');
-
-@$core.Deprecated('Use updateSettingDescriptor instead')
-const UpdateSetting$json = {
-  '1': 'UpdateSetting',
-  '2': [
-    {'1': 'status', '3': 1, '4': 1, '5': 14, '6': '.RoverStatus', '10': 'status'},
-    {'1': 'color', '3': 2, '4': 1, '5': 11, '6': '.ProtoColor', '10': 'color'},
-  ],
-};
-
-/// Descriptor for `UpdateSetting`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List updateSettingDescriptor = $convert.base64Decode(
-    'Cg1VcGRhdGVTZXR0aW5nEiQKBnN0YXR1cxgBIAEoDjIMLlJvdmVyU3RhdHVzUgZzdGF0dXMSIQ'
-    'oFY29sb3IYAiABKAsyCy5Qcm90b0NvbG9yUgVjb2xvcg==');
-
-@$core.Deprecated('Use protoColorDescriptor instead')
-const ProtoColor$json = {
-  '1': 'ProtoColor',
-  '2': [
-    {'1': 'red', '3': 1, '4': 1, '5': 2, '10': 'red'},
-    {'1': 'green', '3': 2, '4': 1, '5': 2, '10': 'green'},
-    {'1': 'blue', '3': 3, '4': 1, '5': 2, '10': 'blue'},
-  ],
-};
-
-/// Descriptor for `ProtoColor`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List protoColorDescriptor = $convert.base64Decode(
-    'CgpQcm90b0NvbG9yEhAKA3JlZBgBIAEoAlIDcmVkEhQKBWdyZWVuGAIgASgCUgVncmVlbhISCg'
-    'RibHVlGAMgASgCUgRibHVl');
 

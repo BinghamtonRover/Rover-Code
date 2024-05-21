@@ -221,6 +221,7 @@ class VideoData extends $pb.GeneratedMessage {
     CameraDetails? details,
     $core.List<$core.int>? frame,
     $0.Version? version,
+    $core.String? imagePath,
   }) {
     final $result = create();
     if (id != null) {
@@ -235,6 +236,9 @@ class VideoData extends $pb.GeneratedMessage {
     if (version != null) {
       $result.version = version;
     }
+    if (imagePath != null) {
+      $result.imagePath = imagePath;
+    }
     return $result;
   }
   VideoData._() : super();
@@ -246,6 +250,7 @@ class VideoData extends $pb.GeneratedMessage {
     ..aOM<CameraDetails>(2, _omitFieldNames ? '' : 'details', subBuilder: CameraDetails.create)
     ..a<$core.List<$core.int>>(3, _omitFieldNames ? '' : 'frame', $pb.PbFieldType.OY)
     ..aOM<$0.Version>(4, _omitFieldNames ? '' : 'version', subBuilder: $0.Version.create)
+    ..aOS(5, _omitFieldNames ? '' : 'imagePath', protoName: 'imagePath')
     ..hasRequiredFields = false
   ;
 
@@ -312,6 +317,15 @@ class VideoData extends $pb.GeneratedMessage {
   void clearVersion() => clearField(4);
   @$pb.TagNumber(4)
   $0.Version ensureVersion() => $_ensure(3);
+
+  @$pb.TagNumber(5)
+  $core.String get imagePath => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set imagePath($core.String v) { $_setString(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasImagePath() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearImagePath() => clearField(5);
 }
 
 /// / Make changes to a camera feed.
@@ -320,6 +334,7 @@ class VideoCommand extends $pb.GeneratedMessage {
     $core.String? id,
     CameraDetails? details,
     $0.Version? version,
+    $core.bool? takeSnapshot,
   }) {
     final $result = create();
     if (id != null) {
@@ -331,6 +346,9 @@ class VideoCommand extends $pb.GeneratedMessage {
     if (version != null) {
       $result.version = version;
     }
+    if (takeSnapshot != null) {
+      $result.takeSnapshot = takeSnapshot;
+    }
     return $result;
   }
   VideoCommand._() : super();
@@ -341,6 +359,7 @@ class VideoCommand extends $pb.GeneratedMessage {
     ..aOS(1, _omitFieldNames ? '' : 'id')
     ..aOM<CameraDetails>(2, _omitFieldNames ? '' : 'details', subBuilder: CameraDetails.create)
     ..aOM<$0.Version>(3, _omitFieldNames ? '' : 'version', subBuilder: $0.Version.create)
+    ..aOB(4, _omitFieldNames ? '' : 'takeSnapshot', protoName: 'takeSnapshot')
     ..hasRequiredFields = false
   ;
 
@@ -399,6 +418,15 @@ class VideoCommand extends $pb.GeneratedMessage {
   void clearVersion() => clearField(3);
   @$pb.TagNumber(3)
   $0.Version ensureVersion() => $_ensure(2);
+
+  @$pb.TagNumber(4)
+  $core.bool get takeSnapshot => $_getBF(3);
+  @$pb.TagNumber(4)
+  set takeSnapshot($core.bool v) { $_setBool(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasTakeSnapshot() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearTakeSnapshot() => clearField(4);
 }
 
 

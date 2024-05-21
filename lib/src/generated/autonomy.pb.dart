@@ -14,7 +14,7 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'autonomy.pbenum.dart';
-import 'gps.pb.dart' as $1;
+import 'gps.pb.dart' as $2;
 import 'version.pb.dart' as $0;
 
 export 'autonomy.pbenum.dart';
@@ -22,9 +22,9 @@ export 'autonomy.pbenum.dart';
 class AutonomyData extends $pb.GeneratedMessage {
   factory AutonomyData({
     AutonomyState? state,
-    $1.GpsCoordinates? destination,
-    $core.Iterable<$1.GpsCoordinates>? obstacles,
-    $core.Iterable<$1.GpsCoordinates>? path,
+    $2.GpsCoordinates? destination,
+    $core.Iterable<$2.GpsCoordinates>? obstacles,
+    $core.Iterable<$2.GpsCoordinates>? path,
     AutonomyTask? task,
     $core.bool? crash,
     $0.Version? version,
@@ -59,9 +59,9 @@ class AutonomyData extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AutonomyData', createEmptyInstance: create)
     ..e<AutonomyState>(1, _omitFieldNames ? '' : 'state', $pb.PbFieldType.OE, defaultOrMaker: AutonomyState.AUTONOMY_STATE_UNDEFINED, valueOf: AutonomyState.valueOf, enumValues: AutonomyState.values)
-    ..aOM<$1.GpsCoordinates>(2, _omitFieldNames ? '' : 'destination', subBuilder: $1.GpsCoordinates.create)
-    ..pc<$1.GpsCoordinates>(3, _omitFieldNames ? '' : 'obstacles', $pb.PbFieldType.PM, subBuilder: $1.GpsCoordinates.create)
-    ..pc<$1.GpsCoordinates>(4, _omitFieldNames ? '' : 'path', $pb.PbFieldType.PM, subBuilder: $1.GpsCoordinates.create)
+    ..aOM<$2.GpsCoordinates>(2, _omitFieldNames ? '' : 'destination', subBuilder: $2.GpsCoordinates.create)
+    ..pc<$2.GpsCoordinates>(3, _omitFieldNames ? '' : 'obstacles', $pb.PbFieldType.PM, subBuilder: $2.GpsCoordinates.create)
+    ..pc<$2.GpsCoordinates>(4, _omitFieldNames ? '' : 'path', $pb.PbFieldType.PM, subBuilder: $2.GpsCoordinates.create)
     ..e<AutonomyTask>(5, _omitFieldNames ? '' : 'task', $pb.PbFieldType.OE, defaultOrMaker: AutonomyTask.AUTONOMY_TASK_UNDEFINED, valueOf: AutonomyTask.valueOf, enumValues: AutonomyTask.values)
     ..aOB(6, _omitFieldNames ? '' : 'crash')
     ..aOM<$0.Version>(7, _omitFieldNames ? '' : 'version', subBuilder: $0.Version.create)
@@ -99,21 +99,21 @@ class AutonomyData extends $pb.GeneratedMessage {
   void clearState() => clearField(1);
 
   @$pb.TagNumber(2)
-  $1.GpsCoordinates get destination => $_getN(1);
+  $2.GpsCoordinates get destination => $_getN(1);
   @$pb.TagNumber(2)
-  set destination($1.GpsCoordinates v) { setField(2, v); }
+  set destination($2.GpsCoordinates v) { setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasDestination() => $_has(1);
   @$pb.TagNumber(2)
   void clearDestination() => clearField(2);
   @$pb.TagNumber(2)
-  $1.GpsCoordinates ensureDestination() => $_ensure(1);
+  $2.GpsCoordinates ensureDestination() => $_ensure(1);
 
   @$pb.TagNumber(3)
-  $core.List<$1.GpsCoordinates> get obstacles => $_getList(2);
+  $core.List<$2.GpsCoordinates> get obstacles => $_getList(2);
 
   @$pb.TagNumber(4)
-  $core.List<$1.GpsCoordinates> get path => $_getList(3);
+  $core.List<$2.GpsCoordinates> get path => $_getList(3);
 
   @$pb.TagNumber(5)
   AutonomyTask get task => $_getN(4);
@@ -147,7 +147,7 @@ class AutonomyData extends $pb.GeneratedMessage {
 
 class AutonomyCommand extends $pb.GeneratedMessage {
   factory AutonomyCommand({
-    $1.GpsCoordinates? destination,
+    $2.GpsCoordinates? destination,
     AutonomyTask? task,
     $core.int? arucoId,
     $core.bool? abort,
@@ -176,7 +176,7 @@ class AutonomyCommand extends $pb.GeneratedMessage {
   factory AutonomyCommand.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AutonomyCommand', createEmptyInstance: create)
-    ..aOM<$1.GpsCoordinates>(1, _omitFieldNames ? '' : 'destination', subBuilder: $1.GpsCoordinates.create)
+    ..aOM<$2.GpsCoordinates>(1, _omitFieldNames ? '' : 'destination', subBuilder: $2.GpsCoordinates.create)
     ..e<AutonomyTask>(2, _omitFieldNames ? '' : 'task', $pb.PbFieldType.OE, defaultOrMaker: AutonomyTask.AUTONOMY_TASK_UNDEFINED, valueOf: AutonomyTask.valueOf, enumValues: AutonomyTask.values)
     ..a<$core.int>(3, _omitFieldNames ? '' : 'arucoId', $pb.PbFieldType.O3)
     ..aOB(4, _omitFieldNames ? '' : 'abort')
@@ -206,15 +206,15 @@ class AutonomyCommand extends $pb.GeneratedMessage {
   static AutonomyCommand? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $1.GpsCoordinates get destination => $_getN(0);
+  $2.GpsCoordinates get destination => $_getN(0);
   @$pb.TagNumber(1)
-  set destination($1.GpsCoordinates v) { setField(1, v); }
+  set destination($2.GpsCoordinates v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasDestination() => $_has(0);
   @$pb.TagNumber(1)
   void clearDestination() => clearField(1);
   @$pb.TagNumber(1)
-  $1.GpsCoordinates ensureDestination() => $_ensure(0);
+  $2.GpsCoordinates ensureDestination() => $_ensure(0);
 
   @$pb.TagNumber(2)
   AutonomyTask get task => $_getN(1);

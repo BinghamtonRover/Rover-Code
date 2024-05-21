@@ -13,13 +13,13 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'google/protobuf/timestamp.pb.dart' as $3;
+import 'google/protobuf/timestamp.pb.dart' as $5;
 
 class WrappedMessage extends $pb.GeneratedMessage {
   factory WrappedMessage({
     $core.List<$core.int>? data,
     $core.String? name,
-    $3.Timestamp? timestamp,
+    $5.Timestamp? timestamp,
   }) {
     final $result = create();
     if (data != null) {
@@ -40,7 +40,7 @@ class WrappedMessage extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'WrappedMessage', createEmptyInstance: create)
     ..a<$core.List<$core.int>>(1, _omitFieldNames ? '' : 'data', $pb.PbFieldType.OY)
     ..aOS(2, _omitFieldNames ? '' : 'name')
-    ..aOM<$3.Timestamp>(3, _omitFieldNames ? '' : 'timestamp', subBuilder: $3.Timestamp.create)
+    ..aOM<$5.Timestamp>(3, _omitFieldNames ? '' : 'timestamp', subBuilder: $5.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -84,15 +84,15 @@ class WrappedMessage extends $pb.GeneratedMessage {
   void clearName() => clearField(2);
 
   @$pb.TagNumber(3)
-  $3.Timestamp get timestamp => $_getN(2);
+  $5.Timestamp get timestamp => $_getN(2);
   @$pb.TagNumber(3)
-  set timestamp($3.Timestamp v) { setField(3, v); }
+  set timestamp($5.Timestamp v) { setField(3, v); }
   @$pb.TagNumber(3)
   $core.bool hasTimestamp() => $_has(2);
   @$pb.TagNumber(3)
   void clearTimestamp() => clearField(3);
   @$pb.TagNumber(3)
-  $3.Timestamp ensureTimestamp() => $_ensure(2);
+  $5.Timestamp ensureTimestamp() => $_ensure(2);
 }
 
 

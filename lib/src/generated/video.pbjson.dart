@@ -46,6 +46,8 @@ const CameraName$json = {
     {'1': 'SUBSYSTEM1', '2': 4},
     {'1': 'SUBSYSTEM2', '2': 5},
     {'1': 'SUBSYSTEM3', '2': 6},
+    {'1': 'BOTTOM_LEFT', '2': 7},
+    {'1': 'BOTTOM_RIGHT', '2': 8},
   ],
 };
 
@@ -53,7 +55,8 @@ const CameraName$json = {
 final $typed_data.Uint8List cameraNameDescriptor = $convert.base64Decode(
     'CgpDYW1lcmFOYW1lEhkKFUNBTUVSQV9OQU1FX1VOREVGSU5FRBAAEg8KC1JPVkVSX0ZST05UEA'
     'ESDgoKUk9WRVJfUkVBUhACEhIKDkFVVE9OT01ZX0RFUFRIEAMSDgoKU1VCU1lTVEVNMRAEEg4K'
-    'ClNVQlNZU1RFTTIQBRIOCgpTVUJTWVNURU0zEAY=');
+    'ClNVQlNZU1RFTTIQBRIOCgpTVUJTWVNURU0zEAYSDwoLQk9UVE9NX0xFRlQQBxIQCgxCT1RUT0'
+    '1fUklHSFQQCA==');
 
 @$core.Deprecated('Use cameraDetailsDescriptor instead')
 const CameraDetails$json = {
@@ -90,6 +93,7 @@ const VideoData$json = {
     {'1': 'details', '3': 2, '4': 1, '5': 11, '6': '.CameraDetails', '10': 'details'},
     {'1': 'frame', '3': 3, '4': 1, '5': 12, '10': 'frame'},
     {'1': 'version', '3': 4, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
+    {'1': 'imagePath', '3': 5, '4': 1, '5': 9, '10': 'imagePath'},
   ],
 };
 
@@ -97,7 +101,7 @@ const VideoData$json = {
 final $typed_data.Uint8List videoDataDescriptor = $convert.base64Decode(
     'CglWaWRlb0RhdGESDgoCaWQYASABKAlSAmlkEigKB2RldGFpbHMYAiABKAsyDi5DYW1lcmFEZX'
     'RhaWxzUgdkZXRhaWxzEhQKBWZyYW1lGAMgASgMUgVmcmFtZRIiCgd2ZXJzaW9uGAQgASgLMggu'
-    'VmVyc2lvblIHdmVyc2lvbg==');
+    'VmVyc2lvblIHdmVyc2lvbhIcCglpbWFnZVBhdGgYBSABKAlSCWltYWdlUGF0aA==');
 
 @$core.Deprecated('Use videoCommandDescriptor instead')
 const VideoCommand$json = {
@@ -106,11 +110,13 @@ const VideoCommand$json = {
     {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
     {'1': 'details', '3': 2, '4': 1, '5': 11, '6': '.CameraDetails', '10': 'details'},
     {'1': 'version', '3': 3, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
+    {'1': 'takeSnapshot', '3': 4, '4': 1, '5': 8, '10': 'takeSnapshot'},
   ],
 };
 
 /// Descriptor for `VideoCommand`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List videoCommandDescriptor = $convert.base64Decode(
     'CgxWaWRlb0NvbW1hbmQSDgoCaWQYASABKAlSAmlkEigKB2RldGFpbHMYAiABKAsyDi5DYW1lcm'
-    'FEZXRhaWxzUgdkZXRhaWxzEiIKB3ZlcnNpb24YAyABKAsyCC5WZXJzaW9uUgd2ZXJzaW9u');
+    'FEZXRhaWxzUgdkZXRhaWxzEiIKB3ZlcnNpb24YAyABKAsyCC5WZXJzaW9uUgd2ZXJzaW9uEiIK'
+    'DHRha2VTbmFwc2hvdBgEIAEoCFIMdGFrZVNuYXBzaG90');
 

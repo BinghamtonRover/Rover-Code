@@ -14,6 +14,7 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'arm.pbenum.dart';
+import 'utils.pbenum.dart' as $1;
 import 'version.pb.dart' as $0;
 
 export 'arm.pbenum.dart';
@@ -625,6 +626,8 @@ class GripperData extends $pb.GeneratedMessage {
     MotorData? rotate,
     MotorData? pinch,
     $0.Version? version,
+    $core.int? servoAngle,
+    $1.BoolState? laserState,
   }) {
     final $result = create();
     if (lift != null) {
@@ -639,6 +642,12 @@ class GripperData extends $pb.GeneratedMessage {
     if (version != null) {
       $result.version = version;
     }
+    if (servoAngle != null) {
+      $result.servoAngle = servoAngle;
+    }
+    if (laserState != null) {
+      $result.laserState = laserState;
+    }
     return $result;
   }
   GripperData._() : super();
@@ -650,6 +659,8 @@ class GripperData extends $pb.GeneratedMessage {
     ..aOM<MotorData>(2, _omitFieldNames ? '' : 'rotate', subBuilder: MotorData.create)
     ..aOM<MotorData>(3, _omitFieldNames ? '' : 'pinch', subBuilder: MotorData.create)
     ..aOM<$0.Version>(4, _omitFieldNames ? '' : 'version', subBuilder: $0.Version.create)
+    ..a<$core.int>(5, _omitFieldNames ? '' : 'servoAngle', $pb.PbFieldType.O3, protoName: 'servoAngle')
+    ..e<$1.BoolState>(6, _omitFieldNames ? '' : 'laserState', $pb.PbFieldType.OE, protoName: 'laserState', defaultOrMaker: $1.BoolState.BOOL_UNDEFINED, valueOf: $1.BoolState.valueOf, enumValues: $1.BoolState.values)
     ..hasRequiredFields = false
   ;
 
@@ -717,6 +728,24 @@ class GripperData extends $pb.GeneratedMessage {
   void clearVersion() => clearField(4);
   @$pb.TagNumber(4)
   $0.Version ensureVersion() => $_ensure(3);
+
+  @$pb.TagNumber(5)
+  $core.int get servoAngle => $_getIZ(4);
+  @$pb.TagNumber(5)
+  set servoAngle($core.int v) { $_setSignedInt32(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasServoAngle() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearServoAngle() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $1.BoolState get laserState => $_getN(5);
+  @$pb.TagNumber(6)
+  set laserState($1.BoolState v) { setField(6, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasLaserState() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearLaserState() => clearField(6);
 }
 
 class GripperCommand extends $pb.GeneratedMessage {
@@ -730,6 +759,8 @@ class GripperCommand extends $pb.GeneratedMessage {
     $core.bool? close,
     $core.bool? spin,
     $0.Version? version,
+    $core.int? servoAngle,
+    $1.BoolState? laserState,
   }) {
     final $result = create();
     if (stop != null) {
@@ -759,6 +790,12 @@ class GripperCommand extends $pb.GeneratedMessage {
     if (version != null) {
       $result.version = version;
     }
+    if (servoAngle != null) {
+      $result.servoAngle = servoAngle;
+    }
+    if (laserState != null) {
+      $result.laserState = laserState;
+    }
     return $result;
   }
   GripperCommand._() : super();
@@ -775,6 +812,8 @@ class GripperCommand extends $pb.GeneratedMessage {
     ..aOB(7, _omitFieldNames ? '' : 'close')
     ..aOB(8, _omitFieldNames ? '' : 'spin')
     ..aOM<$0.Version>(9, _omitFieldNames ? '' : 'version', subBuilder: $0.Version.create)
+    ..a<$core.int>(10, _omitFieldNames ? '' : 'servoAngle', $pb.PbFieldType.O3, protoName: 'servoAngle')
+    ..e<$1.BoolState>(11, _omitFieldNames ? '' : 'laserState', $pb.PbFieldType.OE, protoName: 'laserState', defaultOrMaker: $1.BoolState.BOOL_UNDEFINED, valueOf: $1.BoolState.valueOf, enumValues: $1.BoolState.values)
     ..hasRequiredFields = false
   ;
 
@@ -890,6 +929,24 @@ class GripperCommand extends $pb.GeneratedMessage {
   void clearVersion() => clearField(9);
   @$pb.TagNumber(9)
   $0.Version ensureVersion() => $_ensure(8);
+
+  @$pb.TagNumber(10)
+  $core.int get servoAngle => $_getIZ(9);
+  @$pb.TagNumber(10)
+  set servoAngle($core.int v) { $_setSignedInt32(9, v); }
+  @$pb.TagNumber(10)
+  $core.bool hasServoAngle() => $_has(9);
+  @$pb.TagNumber(10)
+  void clearServoAngle() => clearField(10);
+
+  @$pb.TagNumber(11)
+  $1.BoolState get laserState => $_getN(10);
+  @$pb.TagNumber(11)
+  set laserState($1.BoolState v) { setField(11, v); }
+  @$pb.TagNumber(11)
+  $core.bool hasLaserState() => $_has(10);
+  @$pb.TagNumber(11)
+  void clearLaserState() => clearField(11);
 }
 
 
