@@ -11,7 +11,7 @@ import "package:burt_network/burt_network.dart";
 /// reset the device and close the connection.
 class BurtFirmwareSerial extends Service {
   /// The interval to read serial data at.
-  static const readInterval = Duration(milliseconds: 100);
+  static const readInterval = Duration(milliseconds: 10);
   /// How long it should take for a firmware device to respond to a handshake.
   static const handshakeDelay = Duration(milliseconds: 200);
   /// The reset code to send to a firmware device.

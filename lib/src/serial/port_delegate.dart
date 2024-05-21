@@ -23,7 +23,6 @@ class DelegateSerialPort extends SerialPortInterface {
       _delegate = SerialPort(portName);
       return _delegate!.openReadWrite();
     } catch (error) {
-	print("Delegate failed to open port $portName\n  $error");
       return false;
     }
   }

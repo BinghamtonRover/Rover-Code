@@ -56,8 +56,8 @@ final $typed_data.Uint8List coordinatesDescriptor = $convert.base64Decode(
 const MotorData$json = {
   '1': 'MotorData',
   '2': [
-    {'1': 'is_moving', '3': 1, '4': 1, '5': 8, '10': 'isMoving'},
-    {'1': 'is_limit_switch_pressed', '3': 2, '4': 1, '5': 8, '10': 'isLimitSwitchPressed'},
+    {'1': 'is_moving', '3': 1, '4': 1, '5': 14, '6': '.BoolState', '10': 'isMoving'},
+    {'1': 'is_limit_switch_pressed', '3': 2, '4': 1, '5': 14, '6': '.BoolState', '10': 'isLimitSwitchPressed'},
     {'1': 'direction', '3': 3, '4': 1, '5': 14, '6': '.MotorDirection', '10': 'direction'},
     {'1': 'current_step', '3': 4, '4': 1, '5': 5, '10': 'currentStep'},
     {'1': 'target_step', '3': 5, '4': 1, '5': 5, '10': 'targetStep'},
@@ -67,11 +67,11 @@ const MotorData$json = {
 
 /// Descriptor for `MotorData`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List motorDataDescriptor = $convert.base64Decode(
-    'CglNb3RvckRhdGESGwoJaXNfbW92aW5nGAEgASgIUghpc01vdmluZxI1Chdpc19saW1pdF9zd2'
-    'l0Y2hfcHJlc3NlZBgCIAEoCFIUaXNMaW1pdFN3aXRjaFByZXNzZWQSLQoJZGlyZWN0aW9uGAMg'
-    'ASgOMg8uTW90b3JEaXJlY3Rpb25SCWRpcmVjdGlvbhIhCgxjdXJyZW50X3N0ZXAYBCABKAVSC2'
-    'N1cnJlbnRTdGVwEh8KC3RhcmdldF9zdGVwGAUgASgFUgp0YXJnZXRTdGVwEhQKBWFuZ2xlGAYg'
-    'ASgCUgVhbmdsZQ==');
+    'CglNb3RvckRhdGESJwoJaXNfbW92aW5nGAEgASgOMgouQm9vbFN0YXRlUghpc01vdmluZxJBCh'
+    'dpc19saW1pdF9zd2l0Y2hfcHJlc3NlZBgCIAEoDjIKLkJvb2xTdGF0ZVIUaXNMaW1pdFN3aXRj'
+    'aFByZXNzZWQSLQoJZGlyZWN0aW9uGAMgASgOMg8uTW90b3JEaXJlY3Rpb25SCWRpcmVjdGlvbh'
+    'IhCgxjdXJyZW50X3N0ZXAYBCABKAVSC2N1cnJlbnRTdGVwEh8KC3RhcmdldF9zdGVwGAUgASgF'
+    'Ugp0YXJnZXRTdGVwEhQKBWFuZ2xlGAYgASgCUgVhbmdsZQ==');
 
 @$core.Deprecated('Use motorCommandDescriptor instead')
 const MotorCommand$json = {

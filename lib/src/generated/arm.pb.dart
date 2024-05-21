@@ -99,8 +99,8 @@ class Coordinates extends $pb.GeneratedMessage {
 
 class MotorData extends $pb.GeneratedMessage {
   factory MotorData({
-    $core.bool? isMoving,
-    $core.bool? isLimitSwitchPressed,
+    $1.BoolState? isMoving,
+    $1.BoolState? isLimitSwitchPressed,
     MotorDirection? direction,
     $core.int? currentStep,
     $core.int? targetStep,
@@ -132,8 +132,8 @@ class MotorData extends $pb.GeneratedMessage {
   factory MotorData.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'MotorData', createEmptyInstance: create)
-    ..aOB(1, _omitFieldNames ? '' : 'isMoving')
-    ..aOB(2, _omitFieldNames ? '' : 'isLimitSwitchPressed')
+    ..e<$1.BoolState>(1, _omitFieldNames ? '' : 'isMoving', $pb.PbFieldType.OE, defaultOrMaker: $1.BoolState.BOOL_UNDEFINED, valueOf: $1.BoolState.valueOf, enumValues: $1.BoolState.values)
+    ..e<$1.BoolState>(2, _omitFieldNames ? '' : 'isLimitSwitchPressed', $pb.PbFieldType.OE, defaultOrMaker: $1.BoolState.BOOL_UNDEFINED, valueOf: $1.BoolState.valueOf, enumValues: $1.BoolState.values)
     ..e<MotorDirection>(3, _omitFieldNames ? '' : 'direction', $pb.PbFieldType.OE, defaultOrMaker: MotorDirection.MOTOR_DIRECTION_UNDEFINED, valueOf: MotorDirection.valueOf, enumValues: MotorDirection.values)
     ..a<$core.int>(4, _omitFieldNames ? '' : 'currentStep', $pb.PbFieldType.O3)
     ..a<$core.int>(5, _omitFieldNames ? '' : 'targetStep', $pb.PbFieldType.O3)
@@ -163,18 +163,18 @@ class MotorData extends $pb.GeneratedMessage {
   static MotorData? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.bool get isMoving => $_getBF(0);
+  $1.BoolState get isMoving => $_getN(0);
   @$pb.TagNumber(1)
-  set isMoving($core.bool v) { $_setBool(0, v); }
+  set isMoving($1.BoolState v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasIsMoving() => $_has(0);
   @$pb.TagNumber(1)
   void clearIsMoving() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.bool get isLimitSwitchPressed => $_getBF(1);
+  $1.BoolState get isLimitSwitchPressed => $_getN(1);
   @$pb.TagNumber(2)
-  set isLimitSwitchPressed($core.bool v) { $_setBool(1, v); }
+  set isLimitSwitchPressed($1.BoolState v) { setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasIsLimitSwitchPressed() => $_has(1);
   @$pb.TagNumber(2)
