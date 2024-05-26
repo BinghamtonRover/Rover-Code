@@ -79,13 +79,14 @@ const MotorCommand$json = {
   '2': [
     {'1': 'move_steps', '3': 1, '4': 1, '5': 5, '10': 'moveSteps'},
     {'1': 'move_radians', '3': 2, '4': 1, '5': 2, '10': 'moveRadians'},
+    {'1': 'angle', '3': 3, '4': 1, '5': 2, '10': 'angle'},
   ],
 };
 
 /// Descriptor for `MotorCommand`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List motorCommandDescriptor = $convert.base64Decode(
     'CgxNb3RvckNvbW1hbmQSHQoKbW92ZV9zdGVwcxgBIAEoBVIJbW92ZVN0ZXBzEiEKDG1vdmVfcm'
-    'FkaWFucxgCIAEoAlILbW92ZVJhZGlhbnM=');
+    'FkaWFucxgCIAEoAlILbW92ZVJhZGlhbnMSFAoFYW5nbGUYAyABKAJSBWFuZ2xl');
 
 @$core.Deprecated('Use armDataDescriptor instead')
 const ArmData$json = {

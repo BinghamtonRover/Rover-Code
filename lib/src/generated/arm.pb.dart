@@ -221,6 +221,7 @@ class MotorCommand extends $pb.GeneratedMessage {
   factory MotorCommand({
     $core.int? moveSteps,
     $core.double? moveRadians,
+    $core.double? angle,
   }) {
     final $result = create();
     if (moveSteps != null) {
@@ -228,6 +229,9 @@ class MotorCommand extends $pb.GeneratedMessage {
     }
     if (moveRadians != null) {
       $result.moveRadians = moveRadians;
+    }
+    if (angle != null) {
+      $result.angle = angle;
     }
     return $result;
   }
@@ -238,6 +242,7 @@ class MotorCommand extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'MotorCommand', createEmptyInstance: create)
     ..a<$core.int>(1, _omitFieldNames ? '' : 'moveSteps', $pb.PbFieldType.O3)
     ..a<$core.double>(2, _omitFieldNames ? '' : 'moveRadians', $pb.PbFieldType.OF)
+    ..a<$core.double>(3, _omitFieldNames ? '' : 'angle', $pb.PbFieldType.OF)
     ..hasRequiredFields = false
   ;
 
@@ -281,6 +286,16 @@ class MotorCommand extends $pb.GeneratedMessage {
   $core.bool hasMoveRadians() => $_has(1);
   @$pb.TagNumber(2)
   void clearMoveRadians() => clearField(2);
+
+  /// / An angle to go to. Useful in IK.
+  @$pb.TagNumber(3)
+  $core.double get angle => $_getN(2);
+  @$pb.TagNumber(3)
+  set angle($core.double v) { $_setFloat(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasAngle() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearAngle() => clearField(3);
 }
 
 class ArmData extends $pb.GeneratedMessage {
@@ -571,6 +586,7 @@ class ArmCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(6)
   MotorCommand ensureGripperLift() => $_ensure(5);
 
+  /// Can be removed in future versions
   @$pb.TagNumber(7)
   $core.double get ikX => $_getN(6);
   @$pb.TagNumber(7)
