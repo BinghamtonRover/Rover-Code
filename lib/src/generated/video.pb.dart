@@ -13,6 +13,7 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
+import 'utils.pbenum.dart' as $1;
 import 'version.pb.dart' as $0;
 import 'video.pbenum.dart';
 
@@ -222,6 +223,15 @@ class VideoData extends $pb.GeneratedMessage {
     $core.List<$core.int>? frame,
     $0.Version? version,
     $core.String? imagePath,
+    $1.BoolState? leftObstacle,
+    $1.BoolState? centerObstacle,
+    $1.BoolState? rightObstacle,
+    $1.BoolState? bottomObstacle,
+    $1.BoolState? arucoDetected,
+    $core.int? arucoX1,
+    $core.int? arucoY1,
+    $core.int? arucoX2,
+    $core.int? arucoY2,
   }) {
     final $result = create();
     if (id != null) {
@@ -239,6 +249,33 @@ class VideoData extends $pb.GeneratedMessage {
     if (imagePath != null) {
       $result.imagePath = imagePath;
     }
+    if (leftObstacle != null) {
+      $result.leftObstacle = leftObstacle;
+    }
+    if (centerObstacle != null) {
+      $result.centerObstacle = centerObstacle;
+    }
+    if (rightObstacle != null) {
+      $result.rightObstacle = rightObstacle;
+    }
+    if (bottomObstacle != null) {
+      $result.bottomObstacle = bottomObstacle;
+    }
+    if (arucoDetected != null) {
+      $result.arucoDetected = arucoDetected;
+    }
+    if (arucoX1 != null) {
+      $result.arucoX1 = arucoX1;
+    }
+    if (arucoY1 != null) {
+      $result.arucoY1 = arucoY1;
+    }
+    if (arucoX2 != null) {
+      $result.arucoX2 = arucoX2;
+    }
+    if (arucoY2 != null) {
+      $result.arucoY2 = arucoY2;
+    }
     return $result;
   }
   VideoData._() : super();
@@ -251,6 +288,15 @@ class VideoData extends $pb.GeneratedMessage {
     ..a<$core.List<$core.int>>(3, _omitFieldNames ? '' : 'frame', $pb.PbFieldType.OY)
     ..aOM<$0.Version>(4, _omitFieldNames ? '' : 'version', subBuilder: $0.Version.create)
     ..aOS(5, _omitFieldNames ? '' : 'imagePath', protoName: 'imagePath')
+    ..e<$1.BoolState>(6, _omitFieldNames ? '' : 'leftObstacle', $pb.PbFieldType.OE, protoName: 'leftObstacle', defaultOrMaker: $1.BoolState.BOOL_UNDEFINED, valueOf: $1.BoolState.valueOf, enumValues: $1.BoolState.values)
+    ..e<$1.BoolState>(7, _omitFieldNames ? '' : 'centerObstacle', $pb.PbFieldType.OE, protoName: 'centerObstacle', defaultOrMaker: $1.BoolState.BOOL_UNDEFINED, valueOf: $1.BoolState.valueOf, enumValues: $1.BoolState.values)
+    ..e<$1.BoolState>(8, _omitFieldNames ? '' : 'rightObstacle', $pb.PbFieldType.OE, protoName: 'rightObstacle', defaultOrMaker: $1.BoolState.BOOL_UNDEFINED, valueOf: $1.BoolState.valueOf, enumValues: $1.BoolState.values)
+    ..e<$1.BoolState>(9, _omitFieldNames ? '' : 'bottomObstacle', $pb.PbFieldType.OE, protoName: 'bottomObstacle', defaultOrMaker: $1.BoolState.BOOL_UNDEFINED, valueOf: $1.BoolState.valueOf, enumValues: $1.BoolState.values)
+    ..e<$1.BoolState>(10, _omitFieldNames ? '' : 'arucoDetected', $pb.PbFieldType.OE, protoName: 'arucoDetected', defaultOrMaker: $1.BoolState.BOOL_UNDEFINED, valueOf: $1.BoolState.valueOf, enumValues: $1.BoolState.values)
+    ..a<$core.int>(11, _omitFieldNames ? '' : 'arucoX1', $pb.PbFieldType.O3, protoName: 'arucoX_1')
+    ..a<$core.int>(12, _omitFieldNames ? '' : 'arucoY1', $pb.PbFieldType.O3, protoName: 'arucoY_1')
+    ..a<$core.int>(13, _omitFieldNames ? '' : 'arucoX2', $pb.PbFieldType.O3, protoName: 'arucoX_2')
+    ..a<$core.int>(14, _omitFieldNames ? '' : 'arucoY2', $pb.PbFieldType.O3, protoName: 'arucoY_2')
     ..hasRequiredFields = false
   ;
 
@@ -326,6 +372,91 @@ class VideoData extends $pb.GeneratedMessage {
   $core.bool hasImagePath() => $_has(4);
   @$pb.TagNumber(5)
   void clearImagePath() => clearField(5);
+
+  /// / Data for autonomy to make decisions
+  /// / Is there an obstacle in the way? Yes or No.
+  @$pb.TagNumber(6)
+  $1.BoolState get leftObstacle => $_getN(5);
+  @$pb.TagNumber(6)
+  set leftObstacle($1.BoolState v) { setField(6, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasLeftObstacle() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearLeftObstacle() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $1.BoolState get centerObstacle => $_getN(6);
+  @$pb.TagNumber(7)
+  set centerObstacle($1.BoolState v) { setField(7, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasCenterObstacle() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearCenterObstacle() => clearField(7);
+
+  @$pb.TagNumber(8)
+  $1.BoolState get rightObstacle => $_getN(7);
+  @$pb.TagNumber(8)
+  set rightObstacle($1.BoolState v) { setField(8, v); }
+  @$pb.TagNumber(8)
+  $core.bool hasRightObstacle() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearRightObstacle() => clearField(8);
+
+  @$pb.TagNumber(9)
+  $1.BoolState get bottomObstacle => $_getN(8);
+  @$pb.TagNumber(9)
+  set bottomObstacle($1.BoolState v) { setField(9, v); }
+  @$pb.TagNumber(9)
+  $core.bool hasBottomObstacle() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearBottomObstacle() => clearField(9);
+
+  /// Aruco detection state
+  @$pb.TagNumber(10)
+  $1.BoolState get arucoDetected => $_getN(9);
+  @$pb.TagNumber(10)
+  set arucoDetected($1.BoolState v) { setField(10, v); }
+  @$pb.TagNumber(10)
+  $core.bool hasArucoDetected() => $_has(9);
+  @$pb.TagNumber(10)
+  void clearArucoDetected() => clearField(10);
+
+  /// Can infer size and distance based on
+  @$pb.TagNumber(11)
+  $core.int get arucoX1 => $_getIZ(10);
+  @$pb.TagNumber(11)
+  set arucoX1($core.int v) { $_setSignedInt32(10, v); }
+  @$pb.TagNumber(11)
+  $core.bool hasArucoX1() => $_has(10);
+  @$pb.TagNumber(11)
+  void clearArucoX1() => clearField(11);
+
+  @$pb.TagNumber(12)
+  $core.int get arucoY1 => $_getIZ(11);
+  @$pb.TagNumber(12)
+  set arucoY1($core.int v) { $_setSignedInt32(11, v); }
+  @$pb.TagNumber(12)
+  $core.bool hasArucoY1() => $_has(11);
+  @$pb.TagNumber(12)
+  void clearArucoY1() => clearField(12);
+
+  @$pb.TagNumber(13)
+  $core.int get arucoX2 => $_getIZ(12);
+  @$pb.TagNumber(13)
+  set arucoX2($core.int v) { $_setSignedInt32(12, v); }
+  @$pb.TagNumber(13)
+  $core.bool hasArucoX2() => $_has(12);
+  @$pb.TagNumber(13)
+  void clearArucoX2() => clearField(13);
+
+  @$pb.TagNumber(14)
+  $core.int get arucoY2 => $_getIZ(13);
+  @$pb.TagNumber(14)
+  set arucoY2($core.int v) { $_setSignedInt32(13, v); }
+  @$pb.TagNumber(14)
+  $core.bool hasArucoY2() => $_has(13);
+  @$pb.TagNumber(14)
+  void clearArucoY2() => clearField(14);
 }
 
 /// / Make changes to a camera feed.

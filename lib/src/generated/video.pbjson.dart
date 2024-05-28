@@ -94,6 +94,15 @@ const VideoData$json = {
     {'1': 'frame', '3': 3, '4': 1, '5': 12, '10': 'frame'},
     {'1': 'version', '3': 4, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
     {'1': 'imagePath', '3': 5, '4': 1, '5': 9, '10': 'imagePath'},
+    {'1': 'leftObstacle', '3': 6, '4': 1, '5': 14, '6': '.BoolState', '10': 'leftObstacle'},
+    {'1': 'centerObstacle', '3': 7, '4': 1, '5': 14, '6': '.BoolState', '10': 'centerObstacle'},
+    {'1': 'rightObstacle', '3': 8, '4': 1, '5': 14, '6': '.BoolState', '10': 'rightObstacle'},
+    {'1': 'bottomObstacle', '3': 9, '4': 1, '5': 14, '6': '.BoolState', '10': 'bottomObstacle'},
+    {'1': 'arucoDetected', '3': 10, '4': 1, '5': 14, '6': '.BoolState', '10': 'arucoDetected'},
+    {'1': 'arucoX_1', '3': 11, '4': 1, '5': 5, '10': 'arucoX1'},
+    {'1': 'arucoY_1', '3': 12, '4': 1, '5': 5, '10': 'arucoY1'},
+    {'1': 'arucoX_2', '3': 13, '4': 1, '5': 5, '10': 'arucoX2'},
+    {'1': 'arucoY_2', '3': 14, '4': 1, '5': 5, '10': 'arucoY2'},
   ],
 };
 
@@ -101,7 +110,14 @@ const VideoData$json = {
 final $typed_data.Uint8List videoDataDescriptor = $convert.base64Decode(
     'CglWaWRlb0RhdGESDgoCaWQYASABKAlSAmlkEigKB2RldGFpbHMYAiABKAsyDi5DYW1lcmFEZX'
     'RhaWxzUgdkZXRhaWxzEhQKBWZyYW1lGAMgASgMUgVmcmFtZRIiCgd2ZXJzaW9uGAQgASgLMggu'
-    'VmVyc2lvblIHdmVyc2lvbhIcCglpbWFnZVBhdGgYBSABKAlSCWltYWdlUGF0aA==');
+    'VmVyc2lvblIHdmVyc2lvbhIcCglpbWFnZVBhdGgYBSABKAlSCWltYWdlUGF0aBIuCgxsZWZ0T2'
+    'JzdGFjbGUYBiABKA4yCi5Cb29sU3RhdGVSDGxlZnRPYnN0YWNsZRIyCg5jZW50ZXJPYnN0YWNs'
+    'ZRgHIAEoDjIKLkJvb2xTdGF0ZVIOY2VudGVyT2JzdGFjbGUSMAoNcmlnaHRPYnN0YWNsZRgIIA'
+    'EoDjIKLkJvb2xTdGF0ZVINcmlnaHRPYnN0YWNsZRIyCg5ib3R0b21PYnN0YWNsZRgJIAEoDjIK'
+    'LkJvb2xTdGF0ZVIOYm90dG9tT2JzdGFjbGUSMAoNYXJ1Y29EZXRlY3RlZBgKIAEoDjIKLkJvb2'
+    'xTdGF0ZVINYXJ1Y29EZXRlY3RlZBIZCghhcnVjb1hfMRgLIAEoBVIHYXJ1Y29YMRIZCghhcnVj'
+    'b1lfMRgMIAEoBVIHYXJ1Y29ZMRIZCghhcnVjb1hfMhgNIAEoBVIHYXJ1Y29YMhIZCghhcnVjb1'
+    'lfMhgOIAEoBVIHYXJ1Y29ZMg==');
 
 @$core.Deprecated('Use videoCommandDescriptor instead')
 const VideoCommand$json = {
