@@ -228,10 +228,8 @@ class VideoData extends $pb.GeneratedMessage {
     $1.BoolState? rightObstacle,
     $1.BoolState? bottomObstacle,
     $1.BoolState? arucoDetected,
-    $core.int? arucoX1,
-    $core.int? arucoY1,
-    $core.int? arucoX2,
-    $core.int? arucoY2,
+    $core.double? arucoSize,
+    $core.double? arucoPosition,
   }) {
     final $result = create();
     if (id != null) {
@@ -264,17 +262,11 @@ class VideoData extends $pb.GeneratedMessage {
     if (arucoDetected != null) {
       $result.arucoDetected = arucoDetected;
     }
-    if (arucoX1 != null) {
-      $result.arucoX1 = arucoX1;
+    if (arucoSize != null) {
+      $result.arucoSize = arucoSize;
     }
-    if (arucoY1 != null) {
-      $result.arucoY1 = arucoY1;
-    }
-    if (arucoX2 != null) {
-      $result.arucoX2 = arucoX2;
-    }
-    if (arucoY2 != null) {
-      $result.arucoY2 = arucoY2;
+    if (arucoPosition != null) {
+      $result.arucoPosition = arucoPosition;
     }
     return $result;
   }
@@ -293,10 +285,8 @@ class VideoData extends $pb.GeneratedMessage {
     ..e<$1.BoolState>(8, _omitFieldNames ? '' : 'rightObstacle', $pb.PbFieldType.OE, protoName: 'rightObstacle', defaultOrMaker: $1.BoolState.BOOL_UNDEFINED, valueOf: $1.BoolState.valueOf, enumValues: $1.BoolState.values)
     ..e<$1.BoolState>(9, _omitFieldNames ? '' : 'bottomObstacle', $pb.PbFieldType.OE, protoName: 'bottomObstacle', defaultOrMaker: $1.BoolState.BOOL_UNDEFINED, valueOf: $1.BoolState.valueOf, enumValues: $1.BoolState.values)
     ..e<$1.BoolState>(10, _omitFieldNames ? '' : 'arucoDetected', $pb.PbFieldType.OE, protoName: 'arucoDetected', defaultOrMaker: $1.BoolState.BOOL_UNDEFINED, valueOf: $1.BoolState.valueOf, enumValues: $1.BoolState.values)
-    ..a<$core.int>(11, _omitFieldNames ? '' : 'arucoX1', $pb.PbFieldType.O3, protoName: 'arucoX_1')
-    ..a<$core.int>(12, _omitFieldNames ? '' : 'arucoY1', $pb.PbFieldType.O3, protoName: 'arucoY_1')
-    ..a<$core.int>(13, _omitFieldNames ? '' : 'arucoX2', $pb.PbFieldType.O3, protoName: 'arucoX_2')
-    ..a<$core.int>(14, _omitFieldNames ? '' : 'arucoY2', $pb.PbFieldType.O3, protoName: 'arucoY_2')
+    ..a<$core.double>(11, _omitFieldNames ? '' : 'arucoSize', $pb.PbFieldType.OF, protoName: 'arucoSize')
+    ..a<$core.double>(12, _omitFieldNames ? '' : 'arucoPosition', $pb.PbFieldType.OF, protoName: 'arucoPosition')
     ..hasRequiredFields = false
   ;
 
@@ -421,42 +411,25 @@ class VideoData extends $pb.GeneratedMessage {
   @$pb.TagNumber(10)
   void clearArucoDetected() => clearField(10);
 
-  /// Can infer size and distance based on
+  /// If arucoSize is larger than a certain size (pixels) we have reach it, otherwise head towards it
   @$pb.TagNumber(11)
-  $core.int get arucoX1 => $_getIZ(10);
+  $core.double get arucoSize => $_getN(10);
   @$pb.TagNumber(11)
-  set arucoX1($core.int v) { $_setSignedInt32(10, v); }
+  set arucoSize($core.double v) { $_setFloat(10, v); }
   @$pb.TagNumber(11)
-  $core.bool hasArucoX1() => $_has(10);
+  $core.bool hasArucoSize() => $_has(10);
   @$pb.TagNumber(11)
-  void clearArucoX1() => clearField(11);
+  void clearArucoSize() => clearField(11);
 
+  /// / Normalized value: -1 to 1, -1 is furthest left, 1 is furthest right
   @$pb.TagNumber(12)
-  $core.int get arucoY1 => $_getIZ(11);
+  $core.double get arucoPosition => $_getN(11);
   @$pb.TagNumber(12)
-  set arucoY1($core.int v) { $_setSignedInt32(11, v); }
+  set arucoPosition($core.double v) { $_setFloat(11, v); }
   @$pb.TagNumber(12)
-  $core.bool hasArucoY1() => $_has(11);
+  $core.bool hasArucoPosition() => $_has(11);
   @$pb.TagNumber(12)
-  void clearArucoY1() => clearField(12);
-
-  @$pb.TagNumber(13)
-  $core.int get arucoX2 => $_getIZ(12);
-  @$pb.TagNumber(13)
-  set arucoX2($core.int v) { $_setSignedInt32(12, v); }
-  @$pb.TagNumber(13)
-  $core.bool hasArucoX2() => $_has(12);
-  @$pb.TagNumber(13)
-  void clearArucoX2() => clearField(13);
-
-  @$pb.TagNumber(14)
-  $core.int get arucoY2 => $_getIZ(13);
-  @$pb.TagNumber(14)
-  set arucoY2($core.int v) { $_setSignedInt32(13, v); }
-  @$pb.TagNumber(14)
-  $core.bool hasArucoY2() => $_has(13);
-  @$pb.TagNumber(14)
-  void clearArucoY2() => clearField(14);
+  void clearArucoPosition() => clearField(12);
 }
 
 /// / Make changes to a camera feed.

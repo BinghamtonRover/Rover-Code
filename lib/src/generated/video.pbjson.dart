@@ -99,10 +99,8 @@ const VideoData$json = {
     {'1': 'rightObstacle', '3': 8, '4': 1, '5': 14, '6': '.BoolState', '10': 'rightObstacle'},
     {'1': 'bottomObstacle', '3': 9, '4': 1, '5': 14, '6': '.BoolState', '10': 'bottomObstacle'},
     {'1': 'arucoDetected', '3': 10, '4': 1, '5': 14, '6': '.BoolState', '10': 'arucoDetected'},
-    {'1': 'arucoX_1', '3': 11, '4': 1, '5': 5, '10': 'arucoX1'},
-    {'1': 'arucoY_1', '3': 12, '4': 1, '5': 5, '10': 'arucoY1'},
-    {'1': 'arucoX_2', '3': 13, '4': 1, '5': 5, '10': 'arucoX2'},
-    {'1': 'arucoY_2', '3': 14, '4': 1, '5': 5, '10': 'arucoY2'},
+    {'1': 'arucoSize', '3': 11, '4': 1, '5': 2, '10': 'arucoSize'},
+    {'1': 'arucoPosition', '3': 12, '4': 1, '5': 2, '10': 'arucoPosition'},
   ],
 };
 
@@ -115,9 +113,8 @@ final $typed_data.Uint8List videoDataDescriptor = $convert.base64Decode(
     'ZRgHIAEoDjIKLkJvb2xTdGF0ZVIOY2VudGVyT2JzdGFjbGUSMAoNcmlnaHRPYnN0YWNsZRgIIA'
     'EoDjIKLkJvb2xTdGF0ZVINcmlnaHRPYnN0YWNsZRIyCg5ib3R0b21PYnN0YWNsZRgJIAEoDjIK'
     'LkJvb2xTdGF0ZVIOYm90dG9tT2JzdGFjbGUSMAoNYXJ1Y29EZXRlY3RlZBgKIAEoDjIKLkJvb2'
-    'xTdGF0ZVINYXJ1Y29EZXRlY3RlZBIZCghhcnVjb1hfMRgLIAEoBVIHYXJ1Y29YMRIZCghhcnVj'
-    'b1lfMRgMIAEoBVIHYXJ1Y29ZMRIZCghhcnVjb1hfMhgNIAEoBVIHYXJ1Y29YMhIZCghhcnVjb1'
-    'lfMhgOIAEoBVIHYXJ1Y29ZMg==');
+    'xTdGF0ZVINYXJ1Y29EZXRlY3RlZBIcCglhcnVjb1NpemUYCyABKAJSCWFydWNvU2l6ZRIkCg1h'
+    'cnVjb1Bvc2l0aW9uGAwgASgCUg1hcnVjb1Bvc2l0aW9u');
 
 @$core.Deprecated('Use videoCommandDescriptor instead')
 const VideoCommand$json = {
