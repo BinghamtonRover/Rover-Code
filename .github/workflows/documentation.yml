@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-        with: 
+        with:
           fetch-depth: 0
 
       - name: Git Setup
@@ -23,15 +23,15 @@ jobs:
 
       - name: Install Dart
         uses: dart-lang/setup-dart@v1
-        with: 
-          sdk: 3.2.2
+        with:
+          sdk: 3.5.2
 
       - name: Install dependencies
         run: dart pub get
 
       - name: Analyze Dart code
         run: dart analyze --fatal-infos
-        
+
       - name: Output error
         if: failure()
         run: echo "::error The code or is missing documentation. Run flutter analyze --dartdocs"
@@ -52,4 +52,4 @@ jobs:
           git status
           git stage --force docs
           git commit -a -m "Generated documentation"
-          git push --force      
+          git push --force
