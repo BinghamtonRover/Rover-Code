@@ -1,8 +1,7 @@
 import "dart:io";
 import "package:meta/meta.dart";
 
-/// JSON data as a map.
-typedef Json = Map<String, dynamic>;
+import "../utils.dart";
 
 /// Information about a socket.
 @immutable
@@ -11,15 +10,15 @@ class SocketInfo {
   final InternetAddress address;
   /// The port that the socket is connected to.
   final int port;
-  
+
   /// A const constructor.
-  const SocketInfo({required this.address, required this.port}); 
+  const SocketInfo({required this.address, required this.port});
 
   /// Use this constructor to pass in a raw String for the address.
   SocketInfo.raw(String host, this.port) : address = InternetAddress(host);
 
   /// Parses the socket data from a YAML map.
-  SocketInfo.fromJson(Json yaml) : 
+  SocketInfo.fromJson(Json yaml) :
     address = InternetAddress(yaml["host"]),
     port = yaml["port"];
 
@@ -31,7 +30,7 @@ class SocketInfo {
 
   /// A copy of this configuration, to avoid modifying the original.
   SocketInfo copyWith({InternetAddress? address, int? port}) => SocketInfo(
-    address: address ?? this.address, 
+    address: address ?? this.address,
     port: port ?? this.port,
   );
 
@@ -39,8 +38,8 @@ class SocketInfo {
   String toString() => "${address.address}:$port";
 
   @override
-  bool operator ==(Object other) => other is SocketInfo 
-    && address == other.address 
+  bool operator ==(Object other) => other is SocketInfo
+    && address == other.address
     && port == other.port;
 
   @override

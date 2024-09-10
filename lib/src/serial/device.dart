@@ -4,14 +4,14 @@ import "dart:typed_data";
 import "package:burt_network/burt_network.dart";
 
 /// A wrapper around the `package:libserialport` library.
-/// 
+///
 /// - Check [DelegateSerialPort.allPorts] for a list of all available ports.
 /// - Call [init] to open the port
 /// - Use [write] to write bytes to the port. Strings are not supported
 /// - Listen to [stream] to get incoming data
 /// - Call [dispose] to close the port
 class SerialDevice extends Service {
-  /// The port to connect to. 
+  /// The port to connect to.
 	final String portName;
 	/// How often to read from the port.
 	final Duration readInterval;
@@ -19,12 +19,12 @@ class SerialDevice extends Service {
 	final SerialPortInterface _port;
   /// The logger to use
   final BurtLogger logger;
-  
+
 	/// A timer to periodically read from the port (see [readBytes]).
 	Timer? _timer;
-  
+
 	/// The controller for [stream].
-	StreamController<Uint8List>? _controller;
+	final _controller = StreamController<Uint8List>.broadcast();
 
 	/// Manages a connection to a serial device.
 	SerialDevice({
@@ -40,17 +40,15 @@ class SerialDevice extends Service {
   @override
 	Future<bool> init() async {
     try {
-      final result = await _port.init();
-      _controller = StreamController<Uint8List>.broadcast();
-      return result;
+      return await _port.init();
     } catch (error) {
-	logger.warning("Could not open port $portName", body: "$error");
+      logger.warning("Could not open port $portName", body: "$error");
       return false;
     }
   }
 
   /// Starts listening to data sent over the serial port via [stream].
-  void startListening() => _timer = Timer.periodic(readInterval, _listenForBytes);
+  void startListening() => _timer = Timer.periodic(readInterval, _checkForBytes);
 
   /// Stops listening to the serial port.
   void stopListening() => _timer?.cancel();
@@ -66,11 +64,11 @@ class SerialDevice extends Service {
   }
 
 	/// Reads any data from the port and adds it to the [stream].
-	void _listenForBytes(_) {
+	void _checkForBytes(_) {
 		try {
       final bytes = readBytes();
       if (bytes.isEmpty) return;
-      _controller?.add(bytes);
+      _controller.add(bytes);
 		} catch (error) {
       logger.critical("Could not read $portName", body: error.toString());
       dispose();
@@ -80,15 +78,14 @@ class SerialDevice extends Service {
   @override
 	Future<void> dispose() async {
     _timer?.cancel();
+    await _controller.close();
 		await _port.dispose();
-    await _controller?.close();
-    _controller = null;
 	}
 
 	/// Writes data to the port.
 	void write(Uint8List data) {
     if (!_port.isOpen) return;
-    try { 
+    try {
       _port.write(data);
     } catch (error) {
       logger.warning("Could not write data to port $portName");
@@ -96,5 +93,5 @@ class SerialDevice extends Service {
   }
 
 	/// All incoming bytes coming from the port.
-	Stream<Uint8List> get stream => _controller?.stream ?? const Stream.empty();
+	Stream<Uint8List> get stream => _controller.stream;
 }

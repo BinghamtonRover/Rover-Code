@@ -1,25 +1,13 @@
 import "package:burt_network/burt_network.dart";
 
-// 1. Define a new socket on port 8001 that doesn't do anything
-class LogsServer extends RoverServer {
-  LogsServer() : super(port: 8001, device: Device.SUBSYSTEMS);
+// Run this program using `dart run :logs` and connect the Dashboard.
 
-  @override
-  void onMessage(_) { }
-
-  @override
-  Future<void> restart() async { }
-
-  @override
-  Future<void> onShutdown() async { }
-}
-
-// 2. Create that socket and make a logger that uses it.
-final server = LogsServer();
+// Create that socket and make a logger that uses it.
+final server = RoverSocket(port: 8001, device: Device.SUBSYSTEMS);
 final logger = BurtLogger(socket: server);
 
 void main() async {
-  // 3. Initialize the socket and start sending messages
+  // Initialize the socket and start sending messages
   await server.init();
   while (true) {
     logger.critical("This is a message");

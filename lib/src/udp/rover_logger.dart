@@ -1,13 +1,13 @@
 import "package:burt_network/generated.dart";
 
-import "rover_heartbeats.dart";
+import "burt_socket.dart";
 import "socket_info.dart";
 
 /// A socket that can log messages using [sendLog].
-/// 
+///
 /// If connected, this socket will send log messages immediately. If not, it will hold onto
 /// messages and send them when the device finally connects.
-mixin RoverLogger on RoverHeartbeats {
+mixin RoverLogger on BurtSocket {
   /// A list of important logs that need to be sent when the dashboard connects.
   final List<BurtLog> _logBuffer = [];
 
@@ -23,15 +23,10 @@ mixin RoverLogger on RoverHeartbeats {
   }
 
   /// Sends a log message or saves it until a Dashboard is connected.
-  /// 
+  ///
   /// Use this for logs that need to make it to the Dashboard, such as errors or warnings.
-  void sendLog(BurtLog log) {
-    if (isConnected) {
-      sendMessage(log);
-    } else {
-      _logBuffer.add(log);
-    }
-  }
+  void sendLog(BurtLog log) => isConnected
+    ? sendMessage(log) : _logBuffer.add(log);
 
   @override
   void onConnect(SocketInfo source) {

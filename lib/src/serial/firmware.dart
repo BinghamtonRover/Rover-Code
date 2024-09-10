@@ -4,8 +4,9 @@ import "package:protobuf/protobuf.dart";
 
 import "package:burt_network/burt_network.dart";
 
+
 /// Represents a firmware device connected over Serial.
-/// 
+///
 /// This device starts with an unknown [device]. Calling [init] starts a handshake with the device
 /// that identifies it. If the handshake fails, [isReady] will be false. Calling [dispose] will
 /// reset the device and close the connection.
@@ -20,17 +21,27 @@ class BurtFirmwareSerial extends Service {
   /// The name of this device.
   Device device = Device.FIRMWARE;
 
-  SerialDevice? _serial;
+  late final _serial = SerialDevice(
+    portName: port,
+    readInterval: readInterval,
+    logger: logger,
+  );
 
   /// The port this device is attached to.
   final String port;
+
   /// The logger to use.
   final BurtLogger logger;
+
   /// Creates a firmware device at the given serial port.
   BurtFirmwareSerial({required this.port, required this.logger});
 
-  /// The stream of incoming data.
-  Stream<Uint8List>? get stream => _serial?.stream;
+  /// The stream of raw data coming from this device.
+  Stream<Uint8List> get rawStream => _serial.stream;
+
+  /// The stream of incoming messages, wrapped into [WrappedMessage]s.
+  Stream<WrappedMessage>? get messages => _serial.stream
+    .map((packet) => WrappedMessage(data: packet, name: deviceToDataName(device)));
 
   /// Whether this device has passed the handshake.
 	bool get isReady => device != Device.FIRMWARE;
@@ -38,9 +49,8 @@ class BurtFirmwareSerial extends Service {
   @override
   Future<bool> init() async {
     // Open the port
-	logger.debug("Opening $port");
-    _serial = SerialDevice(portName: port, readInterval: readInterval, logger: logger);
-    if (!await _serial!.init()) {
+    logger.debug("Opening $port");
+    if (!await _serial.init()) {
       logger.warning("Could not open firmware device on port $port");
       return false;
     }
@@ -53,17 +63,17 @@ class BurtFirmwareSerial extends Service {
     }
 
     logger.info("Connected to the ${device.name} Teensy on port $port");
-    _serial!.startListening();
+    _serial.startListening();
     return true;
   }
 
   /// Sends the handshake to the device and returns whether it was successful.
   Future<bool> _sendHandshake() async {
     logger.debug("Sending handshake to port $port...");
-    final handshake = Connect(sender: Device.SUBSYSTEMS, receiver: Device.FIRMWARE); 
-    _serial!.write(handshake.writeToBuffer());
+    final handshake = Connect(sender: Device.SUBSYSTEMS, receiver: Device.FIRMWARE);
+    _serial.write(handshake.writeToBuffer());
     await Future<void>.delayed(handshakeDelay);
-    final response = _serial!.readBytes(4);
+    final response = _serial.readBytes(4);
     if (response.isEmpty) {
       logger.trace("Device did not respond");
       return false;
@@ -75,7 +85,7 @@ class BurtFirmwareSerial extends Service {
       device = message.sender;
       return true;
     } on InvalidProtocolBufferException {
-      final extra = _serial!.readBytes();
+      final extra = _serial.readBytes();
       final full = response + extra;
       logger.trace("Device responded with malformed data: $full");
       return false;
@@ -84,25 +94,23 @@ class BurtFirmwareSerial extends Service {
 
   /// Sends the reset code and returns whether the device confirmed its reset.
   Future<bool> _reset() async {
-    _serial?.write(resetCode);
+    _serial.write(resetCode);
     await Future<void>.delayed(const Duration(milliseconds: 100));
-    final response = _serial?.readBytes();
-	logger.trace("Response from device: $response");
+    final response = _serial.readBytes();
     // The response should end with [1, 1, 1, 1], but may have elements before that
-    if (response == null) return false;
     if (response.length < 4) return false;
     if (response.sublist(response.length - 4).any((x) => x != 1)) return false;
-    logger.info("The ${device.name} Teensy has been reset");
+    logger.debug("The ${device.name} Teensy has been reset");
     return true;
   }
 
   /// Sends bytes to the device via Serial.
-  void sendBytes(List<int> bytes) => _serial?.write(Uint8List.fromList(bytes));
+  void sendBytes(List<int> bytes) => _serial.write(Uint8List.fromList(bytes));
 
   /// Resets the device and closes the port.
   @override
   Future<void> dispose() async {
     if (!await _reset()) logger.warning("The $device device on port $port did not reset");
-    await _serial?.dispose();
+    await _serial.dispose();
   }
 }

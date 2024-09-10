@@ -9,7 +9,7 @@ bool ascii = false;
 Future<void> listenToDevice(String port) async {
   logger.info("Connecting to $port...");
   final device = SerialDevice(
-    portName: port, 
+    portName: port,
     readInterval: const Duration(milliseconds: 100),
     logger: logger,
   );
@@ -25,7 +25,7 @@ Future<void> listenToDevice(String port) async {
 Future<void> listenToFirmware(String port) async {
   logger.info("Connecting to $port...");
   final device = BurtFirmwareSerial(
-    port: port, 
+    port: port,
     logger: logger,
   );
   if (!await device.init()) {
@@ -33,7 +33,7 @@ Future<void> listenToFirmware(String port) async {
     return;
   }
   logger.info("Connected? ${device.isReady}. Listening...");
-  device.stream?.listen(process);
+  device.rawStream.listen(process);
 }
 
 void main(List<String> args) async {
@@ -41,7 +41,9 @@ void main(List<String> args) async {
     logger.info("Ports: ${SerialPort.availablePorts}");
     return;
   } else if (args.contains("-h") || args.contains("--help")) {
-    logger.info("Usage: dart run -r :serial [port] [-a | --ascii]");
+    logger.info("Usage: dart run -r :serial [port] [-a | --ascii] [-f | --firmware]");
+    logger.info("  -a --ascii:    Print data in plain text instead of hex");
+    logger.info("  -f --firmware: Perform the firmware handshake first");
     return;
   }
   var port = args.first;
@@ -60,7 +62,7 @@ void main(List<String> args) async {
 void process(Uint8List buffer) {
   if (ascii) {
     final s = String.fromCharCodes(buffer).trim();
-    logger.debug("Got string: $s");	
+    logger.debug("Got string: $s");
   } else {
     try {
       final data = DriveData.fromBuffer(buffer);

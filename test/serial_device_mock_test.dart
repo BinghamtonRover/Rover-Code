@@ -11,7 +11,7 @@ void main() {
     const readInterval = Duration(milliseconds: 100);
     final device = SerialDevice(logger: logger, portName: "port", readInterval: readInterval);
     setUp(device.init);
-    tearDownAll(device.dispose);
+    tearDown(device.dispose);
 
     test("reports when a device is not connected", () async {
       final device2 = SerialDevice(logger: logger, portName: "port", readInterval: readInterval);
@@ -41,7 +41,7 @@ void main() {
     });
 
     test("only closes its stream on dispose", () async {
-      // Someone may call [stopListening] at any time. 
+      // Someone may call [stopListening] at any time.
       // This will detach any other listeners, if there are any.
       var count = 0;
       device.stream.listen(neverCalled, onDone: () => count++);

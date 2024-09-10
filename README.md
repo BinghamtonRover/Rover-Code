@@ -6,28 +6,17 @@ See the [docs](https://binghamtonrover.github.io/Dart-Networking/burt_network/bu
 
 ## Usage
 
-Extends the `ProtoSocket` or `ServerSocket` classes to handle different types of events. Import the `generated` library for access to all our Protobuf data.
+Use the `RoverSocket` class to handle messages, heartbeats, and logs from the rover. On the Dashboard, subclass `BurtSocket`.
 
 ```dart
 import "package:burt_network/burt_network.dart";
-import "package:burt_network/generated.dart";
 
-class MyServer extends ServerSocket {
-  MyServer({required super.port, required super.device});
-
-  @override
-  void onMessage(WrappedMessage wrapper) => print(wrapper.data);
-
-  @override
-  void onConnect(SocketInfo info) {
-    super.onConnect(info);
-    print("Dashboard is connected");
-  }
-
-  @override
-  void onDisconnect() {
-    super.onDisconnect();
-    print("Dashboard is disconnected");
-  }
+void main() async {
+  final socket = RoverSocket(port: 8001, device: Device.SUBSYSTEMS);
+  socket.messages.onMessage(
+    name: ScienceData().messageName,
+    constructor: ScienceData.fromBuffer,
+    callback: (data) => print(data.co2),
+  );
 }
 ```
