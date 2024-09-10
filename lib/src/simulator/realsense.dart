@@ -1,9 +1,10 @@
 import "dart:typed_data";
 
 import "package:autonomy/interfaces.dart";
+import "package:burt_network/generated.dart";
 
-class RealSenseSimulator extends RealSenseInterface {
-  RealSenseSimulator({required super.collection});
+class VideoSimulator extends VideoInterface {
+  VideoSimulator({required super.collection});
   
   @override
   Future<bool> init() async {
@@ -17,5 +18,5 @@ class RealSenseSimulator extends RealSenseInterface {
   Uint16List depthFrame = Uint16List.fromList([]);
 
   @override
-  void updateFrame(Uint16List newFrame) => depthFrame = newFrame;
+  void updateFrame(VideoData newData) { }
 }

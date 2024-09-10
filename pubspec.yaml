@@ -4,17 +4,17 @@ version: 1.0.0
 publish_to: none
 
 environment:
-  sdk: 3.2.2
+  sdk: ^3.5.0
 
-# Add regular dependencies here.
+# Try not to edit this section by hand. Use `dart pub add my_package`
 dependencies:
-  opencv_ffi: 
+  opencv_ffi:
     git: https://github.com/BinghamtonRover/OpenCV-FFI.git
-  burt_network: 
+  burt_network:
     git: https://github.com/BinghamtonRover/Dart-Networking.git
   a_star: ^3.0.0
   meta: ^1.11.0
 
 dev_dependencies:
   test: ^1.21.0
-  very_good_analysis: ^5.0.0+1
+  very_good_analysis: ^6.0.0

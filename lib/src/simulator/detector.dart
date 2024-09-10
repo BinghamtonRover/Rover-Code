@@ -16,8 +16,7 @@ class DetectorSimulator extends DetectorInterface {
 
   final List<SimulatedObstacle> obstacles;
 
-  final AutonomyInterface collection;
-  DetectorSimulator({required this.collection, required this.obstacles});
+  DetectorSimulator({required super.collection, required this.obstacles});
 
   @override
   Future<bool> init() async => true;

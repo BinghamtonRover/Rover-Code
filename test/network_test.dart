@@ -4,29 +4,33 @@ import "package:autonomy/autonomy.dart";
 import "package:burt_network/burt_network.dart";
 import "package:test/test.dart";
 
-class MockSubsystems extends RoverServer {
+class MockSubsystems extends Service {
+  final socket = RoverSocket(
+    device: Device.AUTONOMY,
+    port: 8001,
+    destination: SocketInfo(address: InternetAddress.loopbackIPv4, port: 8003),
+    quiet: true,
+  );
+
   double throttle = 0;
   double left = 0;
   double right = 0;
-
+  bool throttleFlag = false;
   bool enabled = false;
 
-  bool throttleFlag = false;
-  
-  MockSubsystems({required super.port}) : 
-    super(device: Device.SUBSYSTEMS, quiet: true);
-  
   @override
-  Future<void> init() async {
-    destination = SocketInfo(address: InternetAddress.loopbackIPv4, port: 8003);
-    await super.init();
+  Future<bool> init() async {
+    await socket.init();
+    socket.messages.onMessage(
+      name: DriveCommand().messageName,
+      constructor: DriveCommand.fromBuffer,
+      callback: onDriveCommand,
+    );
+    return true;
   }
-  
-  @override
-  void onMessage(WrappedMessage wrapper) {
+
+  void onDriveCommand(DriveCommand command) {
     if (!enabled) return;
-    if (wrapper.name != DriveCommand().messageName) return;
-    final command = DriveCommand.fromBuffer(wrapper.data);
     if (command.setLeft) left = command.left;
     if (command.setRight) right = command.right;
     if (command.setThrottle) throttle = command.throttle;
@@ -34,23 +38,15 @@ class MockSubsystems extends RoverServer {
   }
 
   @override
-  Future<void> onShutdown() async {  }
-
-  @override
-  Future<void> restart() async {  }
-
-  @override
   Future<void> dispose() async {
-    left = 0;
-    right = 0;
-    throttle = 0;
-    throttleFlag = false;
-    await super.dispose();
+    left = 0; right = 0;
+    throttle = 0; throttleFlag = false;
+    await socket.dispose();
   }
 }
 
 void main() => group("[Network]", tags: ["network"], () {
-  final subsystems = MockSubsystems(port: 8001);
+  final subsystems = MockSubsystems();
   final rover = RoverAutonomy();
   rover.drive = SensorlessDrive(collection: rover, useGps: false, useImu: false);
 
@@ -74,33 +70,33 @@ void main() => group("[Network]", tags: ["network"], () {
     expect(rover.hasValue, isFalse);
     expect(rover.gps.hasValue, isFalse);
     expect(rover.imu.hasValue, isFalse);
-    expect(rover.realsense.hasValue, isFalse);
+    expect(rover.video.hasValue, isFalse);
 
-    subsystems.sendMessage(posGps);
+    subsystems.socket.sendMessage(posGps);
     await Future<void>.delayed(networkDelay);
     expect(rover.hasValue, isFalse);
     expect(rover.gps.hasValue, isTrue);
     expect(rover.imu.hasValue, isFalse);
-    expect(rover.realsense.hasValue, isFalse);
+    expect(rover.video.hasValue, isFalse);
 
-    subsystems.sendMessage(posImu);
+    subsystems.socket.sendMessage(posImu);
     await Future<void>.delayed(networkDelay);
     expect(rover.hasValue, isFalse);
     expect(rover.gps.hasValue, isTrue);
     expect(rover.imu.hasValue, isTrue);
-    expect(rover.realsense.hasValue, isFalse);
+    expect(rover.video.hasValue, isFalse);
 
-    subsystems.sendMessage(depth);
+    subsystems.socket.sendMessage(depth);
     await Future<void>.delayed(networkDelay);
     expect(rover.gps.hasValue, isTrue);
     expect(rover.imu.hasValue, isTrue);
-    expect(rover.realsense.hasValue, isTrue);
+    expect(rover.video.hasValue, isTrue);
     expect(rover.hasValue, isTrue);
   });
 
   test("Rover can drive", () async {
     subsystems.enabled = true;
-    ServerInterface.subsystemsDestination = SocketInfo(
+    ServerUtils.subsystemsDestination = SocketInfo(
       address: InternetAddress.loopbackIPv4,
       port: 8001,
     );
@@ -112,7 +108,7 @@ void main() => group("[Network]", tags: ["network"], () {
 
     await simulator.drive.faceNorth();
     expect(simulator.imu.orientation, DriveOrientation.north);
-    
+
     final origin = GpsCoordinates(latitude: 0, longitude: 0);
     final oneMeter = (1, 0).toGps();
     expect(subsystems.throttle, 0);

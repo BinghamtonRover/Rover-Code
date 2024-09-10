@@ -1,3 +1,4 @@
+import "package:autonomy/src/rover/gps.dart";
 import "package:test/test.dart";
 import "package:autonomy/autonomy.dart";
 import "package:burt_network/burt_network.dart";
@@ -9,10 +10,11 @@ void main() => group("[Orchestrator]", tags: ["orchestrator"], () {
   test("Fails for invalid destinations", () async {
     Logger.level = LogLevel.off;  // this test can log critical messages
     final simulator = AutonomySimulator();
+    await simulator.init();
     simulator.pathfinder = RoverPathfinder(collection: simulator);
     simulator.orchestrator = RoverOrchestrator(collection: simulator);
     simulator.pathfinder.recordObstacle((2, 0).toGps());
-    // Test blocked command: 
+    // Test blocked command:
     final command = AutonomyCommand(destination: (2, 0).toGps(), task: AutonomyTask.GPS_ONLY);
     expect(simulator.gps.latitude, 0);
     expect(simulator.gps.longitude, 0);
@@ -40,7 +42,7 @@ void main() => group("[Orchestrator]", tags: ["orchestrator"], () {
       (4, 1).toGps(),
     ]);
     await simulator.init();
-    // Test normal command: 
+    // Test normal command:
     final destination = (4, 0).toGps();
     final command = AutonomyCommand(destination: destination, task: AutonomyTask.GPS_ONLY);
     expect(simulator.gps.latitude, 0);
@@ -92,9 +94,13 @@ void main() => group("[Orchestrator]", tags: ["orchestrator"], () {
     final command = AutonomyCommand(destination: destination, task: AutonomyTask.GPS_ONLY);
     simulator.orchestrator = RoverOrchestrator(collection: simulator);
     simulator.pathfinder = RoverPathfinder(collection: simulator);
-    
+    simulator.gps = RoverGps(collection: simulator);
+    await simulator.init();
+
+    expect(simulator.gps.hasValue, isFalse);
+
     await simulator.orchestrator.onCommand(command);
-    expect(simulator.hasValue, isFalse);
+    expect(simulator.gps.hasValue, isFalse);
     expect(GpsInterface.currentLatitude, 0);
     expect(simulator.orchestrator.statusMessage.state, AutonomyState.NO_SOLUTION);
 

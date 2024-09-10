@@ -1,7 +1,7 @@
 import "package:burt_network/generated.dart";
 
 extension OrientationUtils on Orientation {
-  static const double epsilon = 15;
+  static const double epsilon = 10;
   
   static final north = Orientation(z: 0);
   static final west = Orientation(z: 90);

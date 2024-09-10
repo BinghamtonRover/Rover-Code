@@ -5,9 +5,6 @@ class OrchestratorSimulator extends OrchestratorInterface {
   OrchestratorSimulator({required super.collection});
 
   @override
-  Future<bool> init() async => true;
-
-  @override
   Future<void> dispose() async { }
 
   @override

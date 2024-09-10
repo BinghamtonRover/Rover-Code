@@ -18,6 +18,7 @@ mixin RoverMotors {
 	/// 
 	/// These values are percentages of the max speed allowed by the rover. See [setThrottle].
 	void setSpeeds({required double left, required double right}) {
+		right *= -1;
 		collection.logger.trace("Setting speeds to $left and $right");
 		collection.server.sendCommand(DriveCommand(left: left, setLeft: true));
 		collection.server.sendCommand(DriveCommand(right: right, setRight: true));

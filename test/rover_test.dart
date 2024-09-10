@@ -1,5 +1,3 @@
-import "dart:typed_data";
-
 import "package:test/test.dart";
 
 import "package:burt_network/generated.dart";
@@ -33,7 +31,7 @@ void main() => group("[Rover]", tags: ["rover"], () {
     final rover = RoverAutonomy();
     final position = (5, 5).toGps();
     final orientation = Orientation();
-    final frame = Uint16List.fromList([]);
+    final data = VideoData();
 
     await rover.init();
 
@@ -50,9 +48,9 @@ void main() => group("[Rover]", tags: ["rover"], () {
     expect(rover.hasValue, isFalse);
 
     expect(rover.hasValue, isFalse);
-    expect(rover.realsense.hasValue, isFalse);
-    rover.realsense.updateFrame(frame);
-    expect(rover.realsense.hasValue, isTrue);
+    expect(rover.video.hasValue, isFalse);
+    rover.video.updateFrame(data);
+    expect(rover.video.hasValue, isTrue);
     expect(rover.hasValue, isTrue);
 
     await rover.dispose();

@@ -16,12 +16,12 @@ jobs:
       # You can specify other versions if desired, see documentation here:
       # https://github.com/dart-lang/setup-dart/blob/main/README.md
       - uses: dart-lang/setup-dart@v1
-        with: 
-          sdk: 3.2.2
+        with:
+          sdk: 3.5.2
 
       - name: Install dependencies
         run: dart pub get
-        
+
       - name: Analyze project source
         run: dart analyze --fatal-infos
 

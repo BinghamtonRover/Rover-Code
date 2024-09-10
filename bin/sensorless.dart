@@ -1,6 +1,7 @@
 import "package:burt_network/logging.dart";
 import "package:burt_network/generated.dart";
 
+import "package:autonomy/interfaces.dart";
 import "package:autonomy/simulator.dart";
 import "package:autonomy/rover.dart";
 

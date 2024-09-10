@@ -4,25 +4,25 @@ import "package:autonomy/interfaces.dart";
 import "drive/timed.dart";
 import "drive/sensor.dart";
 
-/// A helper class to send drive commands to the rover with a simpler API. 
+/// A helper class to send drive commands to the rover with a simpler API.
 class RoverDrive extends DriveInterface {
   final bool useGps;
   final bool useImu;
-  
+
   final SensorDrive sensorDrive;
   final TimedDrive timedDrive;
-  
+
   // TODO: Calibrate these
-  RoverDrive({required super.collection, this.useGps = true, this.useImu = true}) : 
+  RoverDrive({required super.collection, this.useGps = true, this.useImu = true}) :
     sensorDrive = SensorDrive(collection: collection),
     timedDrive = TimedDrive(collection: collection);
 
 	/// Initializes the rover's drive subsystems.
-	@override 
+	@override
   Future<bool> init() async => true;
 
 	/// Stops the rover from driving.
-	@override 
+	@override
   Future<void> dispose() => stop();
 
 	/// Sets the angle of the front camera.
@@ -32,7 +32,7 @@ class RoverDrive extends DriveInterface {
 		collection.server.sendCommand(command);
 	}
 
-  @override 
+  @override
   Future<void> stop() async {
     await timedDrive.stop();
   }
@@ -40,7 +40,23 @@ class RoverDrive extends DriveInterface {
   @override
   Future<void> faceNorth() => useImu ? sensorDrive.faceNorth() : timedDrive.faceNorth();
 
-  @override 
+  @override
+  Future<bool> spinForAruco() => sensorDrive.spinForAruco();
+  @override
+  Future<void> approachAruco() => sensorDrive.approachAruco();
+
+
+  @override
+  Future<void> faceDirection(DriveOrientation orientation) async {
+    if (useImu) {
+      await sensorDrive.faceDirection(orientation);
+    } else {
+      await timedDrive.faceDirection(orientation);
+    }
+    await super.faceDirection(orientation);
+  }
+
+  @override
   Future<void> goForward() => useGps ? sensorDrive.goForward() : timedDrive.goForward();
 
   @override

@@ -1,7 +1,7 @@
 import "dart:io";
 
-import "package:burt_network/generated.dart";
 import "package:autonomy/interfaces.dart";
+import "package:burt_network/burt_network.dart";
 import "package:meta/meta.dart";
 
 abstract class OrchestratorInterface extends Service {
@@ -11,6 +11,13 @@ abstract class OrchestratorInterface extends Service {
   AutonomyCommand? currentCommand;
   AutonomyState currentState = AutonomyState.AUTONOMY_STATE_UNDEFINED;
   Future<void> onCommand(AutonomyCommand command) async {
+    collection.server.sendMessage(command);
+    if (command.abort) return abort();
+    if (currentCommand != null) {
+      collection.logger.error("Already executing a command", body: "Abort first if you want to switch tasks");
+      return;
+    }
+
     if (!collection.hasValue) {
       collection.logger.error("Sensors haven't gotten any readings yet!");
       currentState = AutonomyState.NO_SOLUTION;
@@ -21,9 +28,19 @@ abstract class OrchestratorInterface extends Service {
     switch (command.task) {
       case AutonomyTask.GPS_ONLY: await handleGpsTask(command);
       case AutonomyTask.VISUAL_MARKER: await handleArucoTask(command);
-      // TODO: Add more tasks 
+      // TODO: Add more tasks
       default: collection.logger.error("Unrecognized task: ${command.task}");  // ignore: no_default_cases
     }
+  }
+
+  @override
+  Future<bool> init() async {
+    collection.server.messages.onMessage(
+      name: AutonomyCommand().messageName,
+      constructor: AutonomyCommand.fromBuffer,
+      callback: onCommand,
+    );
+    return true;
   }
 
   @mustCallSuper
@@ -35,7 +52,7 @@ abstract class OrchestratorInterface extends Service {
     await collection.dispose();
     exit(1);
   }
-  
+
   Future<void> handleGpsTask(AutonomyCommand command);
   Future<void> handleArucoTask(AutonomyCommand command);
   Future<void> handleHammerTask(AutonomyCommand command);

@@ -42,6 +42,7 @@ enum DriveOrientation {
 
 abstract class DriveInterface extends Service {
   AutonomyInterface collection;
+  DriveOrientation orientation = DriveOrientation.north;
   DriveInterface({required this.collection});
 
   Future<void> goDirection(DriveDirection direction) async => switch (direction) {
@@ -58,9 +59,21 @@ abstract class DriveInterface extends Service {
   Future<void> turnRight();
   Future<void> stop();
 
+  Future<void> faceDirection(DriveOrientation orientation) async {
+    this.orientation = orientation;
+  }
+
   Future<void> followPath(List<AutonomyAStarState> path) async {
     for (final state in path) {
       await goDirection(state.direction);
     }
   }
+
+  void setLedStrip(ProtoColor color, {bool blink = false}) {
+    final command = DriveCommand(color: color, blink: blink ? BoolState.YES : BoolState.NO);
+    collection.server.sendCommand(command);
+  }
+
+  Future<bool> spinForAruco() async => false;
+  Future<void> approachAruco() async { }
 }

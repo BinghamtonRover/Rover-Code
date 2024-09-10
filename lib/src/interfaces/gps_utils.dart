@@ -49,7 +49,8 @@ extension GpsUtils on GpsCoordinates {
     longitude: longitude + other.longitude,
   );
 
-  String prettyPrint() => "(lat=${(latitude * GpsUtils.metersPerLatitude).toStringAsFixed(2)}, long=${(longitude * GpsUtils.metersPerLongitude).toStringAsFixed(2)})";
+//  String prettyPrint() => "(lat=${(latitude * GpsUtils.metersPerLatitude).toStringAsFixed(2)}, long=${(longitude * GpsUtils.metersPerLongitude).toStringAsFixed(2)})";
+  String prettyPrint() => toProto3Json().toString();
 
   GpsCoordinates goForward(DriveOrientation orientation) => this + switch(orientation) {
     DriveOrientation.north => GpsUtils.north,
