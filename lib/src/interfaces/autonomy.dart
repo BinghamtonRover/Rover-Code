@@ -23,15 +23,16 @@ abstract class AutonomyInterface extends Service with Receiver {
     result &= await pathfinder.init();
     result &= await detector.init();
     result &= await video.init();
-    result &= await orchestrator.init();
+    logger.info("Init orchestrator");
+    print("Orchestrator init 1");
+    await orchestrator.init();
+    logger.info("Init orchestrator done");
     if (result) {
       logger.info("Autonomy initialized");
     } else {
       logger.warning("Autonomy could not initialize");
     }
-//    await waitForValue();
     return result;
-
   }
 
   @override

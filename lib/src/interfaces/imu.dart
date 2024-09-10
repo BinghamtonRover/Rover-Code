@@ -13,4 +13,7 @@ abstract class ImuInterface extends Service with Receiver {
   }
   void update(Orientation newValue);
   bool isNear(double angle) => raw.isNear(angle);
+
+  @override
+  Future<bool> init() async => true;
 }

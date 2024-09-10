@@ -7,7 +7,7 @@ abstract class GpsInterface extends Service with Receiver {
 
   final AutonomyInterface collection;
   GpsInterface({required this.collection});
-  
+
   double get longitude => coordinates.longitude;
   double get latitude => coordinates.latitude;
 
@@ -21,4 +21,7 @@ abstract class GpsInterface extends Service with Receiver {
     await super.waitForValue();
     currentLatitude = coordinates.latitude;
   }
+
+  @override
+  Future<bool> init() async => true;
 }

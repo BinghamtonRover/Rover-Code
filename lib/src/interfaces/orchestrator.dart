@@ -35,6 +35,7 @@ abstract class OrchestratorInterface extends Service {
 
   @override
   Future<bool> init() async {
+    print("Orchestrator init 2");
     collection.server.messages.onMessage(
       name: AutonomyCommand().messageName,
       constructor: AutonomyCommand.fromBuffer,

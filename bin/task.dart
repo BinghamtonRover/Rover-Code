@@ -17,10 +17,9 @@ void main() async {
   simulator.detector = DetectorSimulator(collection: simulator, obstacles: obstacles);
   simulator.pathfinder = RoverPathfinder(collection: simulator);
   simulator.orchestrator = RoverOrchestrator(collection: simulator);
-//  simulator.drive = SensorlessDrive(collection: simulator, useImu: true, useGps: true);
+  simulator.drive = SensorlessDrive(collection: simulator, useImu: false, useGps: false);
   await simulator.init();
-	await simulator.waitForValue();
+  // await simulator.waitForValue();
 	await simulator.drive.faceNorth();
-//	await simulator.drive.goForward();
-//  await simulator.server.waitForConnection();
+  await simulator.server.waitForConnection();
 }

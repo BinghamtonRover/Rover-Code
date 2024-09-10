@@ -3,9 +3,9 @@ import "package:autonomy/interfaces.dart";
 
 class GpsSimulator extends GpsInterface with ValueReporter {
   final RandomError _error;
-  GpsSimulator({required super.collection, double maxError = 0}) : 
+  GpsSimulator({required super.collection, double maxError = 0}) :
     _error = RandomError(maxError);
-  
+
   @override
   RoverPosition getMessage() => RoverPosition(gps: coordinates);
 

@@ -83,7 +83,7 @@ class RoverOrchestrator extends OrchestratorInterface with ValueReporter {
 
   @override
   Future<void> handleArucoTask(AutonomyCommand command) async {
-collection.drive.setLedStrip(ProtoColor.RED);
+    collection.drive.setLedStrip(ProtoColor.RED);
 
     // Go to GPS coordinates
     // await handleGpsTask(command);
@@ -91,14 +91,14 @@ collection.drive.setLedStrip(ProtoColor.RED);
 
     currentState = AutonomyState.SEARCHING;
     collection.logger.info("Searching for ArUco tag");
-final didSeeAruco = await collection.drive.spinForAruco();
-  if (didSeeAruco) {
-    collection.logger.info("Found aruco");
-	currentState = AutonomyState.APPROACHING;
-    await collection.drive.approachAruco();
-	collection.drive.setLedStrip(ProtoColor.GREEN, blink: true);
-	currentState = AutonomyState.AT_DESTINATION;
-  }
+    final didSeeAruco = await collection.drive.spinForAruco();
+    if (didSeeAruco) {
+      collection.logger.info("Found aruco");
+      currentState = AutonomyState.APPROACHING;
+      await collection.drive.approachAruco();
+      collection.drive.setLedStrip(ProtoColor.GREEN, blink: true);
+      currentState = AutonomyState.AT_DESTINATION;
+    }
   }
 
   @override

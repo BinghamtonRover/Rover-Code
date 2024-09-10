@@ -18,7 +18,7 @@ class RoverImu extends ImuInterface {
         if (pos.hasOrientation()) update(pos.orientation);
       },
     );
-    return true;
+    return super.init();
   }
 
   @override

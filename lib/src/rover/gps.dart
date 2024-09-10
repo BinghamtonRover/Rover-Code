@@ -17,7 +17,7 @@ class RoverGps extends GpsInterface {
         if (pos.hasGps()) update(pos.gps);
       },
     );
-    return true;
+    return super.init();
   }
 
   @override
