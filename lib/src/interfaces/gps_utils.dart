@@ -23,10 +23,11 @@ extension GpsUtils on GpsCoordinates {
     GpsCoordinates(latitude: -1 * latitudePerMeter);
 
   // Taken from https://stackoverflow.com/a/39540339/9392211
-  static const metersPerLatitude = 111.32 * 1000;  // 111.32 km
+  // static const metersPerLatitude = 111.32 * 1000;  // 111.32 km
+  static const metersPerLatitude = 1;
   static const radiansPerDegree = pi / 180;
-  static double get metersPerLongitude => 
-    40075 * cos( GpsInterface.currentLatitude * radiansPerDegree ) / 360 * 1000;
+  static double get metersPerLongitude => 1;
+//    40075 * cos( GpsInterface.currentLatitude * radiansPerDegree ) / 360 * 1000;
   
   static double get latitudePerMeter => 1 / metersPerLatitude;
   static double get longitudePerMeter => 1 / metersPerLongitude;

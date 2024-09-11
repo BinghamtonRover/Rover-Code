@@ -19,17 +19,8 @@ class SensorDrive extends DriveInterface with RoverMotors {
 
   Future<void> waitFor(bool Function() predicate) async {
     while (!predicate()) {
-//	collection.logger.debug("Next turning loop");
-//      collection.imu.hasValue = false;
-//      setThrottle(maxThrottle);
-//      setSpeeds(left: -1, right: 1);
       await Future<void>.delayed(predicateDelay);
-//	if (!collection.imu.hasValue) {
-//	collection.logger.trace("IMU has value: ${collection.imu.hasValue}");
-//	  await stop();
-//		collection.logger.warning("Checked for IMU value but didn't find it");
-//	}
-//      await collection.imu.waitForValue();
+      await collection.imu.waitForValue();
     }
   }
 
@@ -41,7 +32,7 @@ class SensorDrive extends DriveInterface with RoverMotors {
 
   @override
   Future<void> goForward() async {
-    final orientation = collection.imu.orientation;
+   final orientation = collection.imu.orientation;
     final currentCoordinates = collection.gps.coordinates;
     final destination = currentCoordinates.goForward(orientation!);
 
@@ -78,27 +69,32 @@ class SensorDrive extends DriveInterface with RoverMotors {
 
   @override
   Future<void> turnLeft() async {
+      await collection.imu.waitForValue();
+
 	if (collection.imu.orientation == null) {
 		await faceNorth();
 		await faceDirection(this.orientation);
 	}
+      await collection.imu.waitForValue();
+
     final orientation = collection.imu.orientation;
     final destination = orientation!.turnLeft();  // do NOT clamp!
+    print("Going from ${orientation} to ${destination}");
     setThrottle(maxThrottle);
     setSpeeds(left: -1, right: 1);
     await waitFor(() => collection.imu.orientation == destination);
     await stop();
-	this.orientation = this.orientation.turnLeft();
-
+    this.orientation = this.orientation.turnLeft();
   }
 
   @override
   Future<void> turnRight() async {
-    // TODO: Allow corrective turns
+      await collection.imu.waitForValue();
         if (collection.imu.orientation == null) {
                 await faceNorth();
                 await faceDirection(this.orientation);
         }
+      await collection.imu.waitForValue();
     final orientation = collection.imu.orientation;
     final destination = orientation!.turnRight();  // do NOT clamp!
     setThrottle(maxThrottle);

@@ -15,6 +15,7 @@ class DetectorSimulator extends DetectorInterface {
   static const slopedLatitude = -5;
 
   final List<SimulatedObstacle> obstacles;
+  final Set<GpsCoordinates> found = {};
 
   DetectorSimulator({required super.collection, required this.obstacles});
 
@@ -29,8 +30,9 @@ class DetectorSimulator extends DetectorInterface {
     final coordinates = collection.gps.coordinates;
     var result = false;
     for (final obstacle in obstacles) {
-      if (!obstacle.isNear(coordinates)) continue;
+      if (!obstacle.isNear(coordinates) || found.contains(obstacle.coordinates)) continue;
       result = true;
+      found.add(obstacle.coordinates);
       collection.pathfinder.recordObstacle(obstacle.coordinates);
     }
     return result;

@@ -57,7 +57,7 @@ packages:
   burt_network:
     dependency: "direct main"
     description:
-      path: "../../burt_network"
+      path: "../burt_network"
       relative: true
     source: path
     version: "2.0.0"
@@ -240,11 +240,9 @@ packages:
   opencv_ffi:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: fb721ce518faa62b470c73ae58edfe825a5f9052
-      url: "https://github.com/BinghamtonRover/OpenCV-FFI.git"
-    source: git
+      path: "../opencv_ffi"
+      relative: true
+    source: path
     version: "1.2.0"
   package_config:
     dependency: transitive

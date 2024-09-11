@@ -18,7 +18,7 @@ abstract class OrchestratorInterface extends Service {
       return;
     }
 
-    if (!collection.hasValue) {
+    if (!collection.hasValue && false) {
       collection.logger.error("Sensors haven't gotten any readings yet!");
       currentState = AutonomyState.NO_SOLUTION;
       return;

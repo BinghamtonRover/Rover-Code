@@ -25,8 +25,8 @@ class RoverVideo extends VideoInterface {
     if (data.arucoDetected == BoolState.YES) {
       flag = true;
       Timer(const Duration(seconds: 3), () => flag = false);
+      collection.logger.info("Is ArUco detected: ${data.arucoDetected}");
     }
-    collection.logger.info("Is ArUco detected: ${data.arucoDetected}");
     hasValue  = true;
   }
 }

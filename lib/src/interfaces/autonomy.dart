@@ -44,8 +44,8 @@ abstract class AutonomyInterface extends Service with Receiver {
     await detector.dispose();
     await video.dispose();
     await orchestrator.dispose();
-    await server.dispose();
     logger.info("Autonomy disposed");
+    await server.dispose();
   }
 
   Future<void> restart() async {
