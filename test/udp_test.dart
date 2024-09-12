@@ -156,6 +156,7 @@ void main() => group("ProtoSocket:", () {
     expect(service.onDisconnectCalled, false);
 
     // Ensure the client and server are connected
+    RoverSettings.isTest = true;
     await server.init();
     await client.init();
     await Future<void>.delayed(heartbeatDelay * 5);
@@ -182,6 +183,7 @@ void main() => group("ProtoSocket:", () {
     expect(server.onDisconnectCalled, true);
     expect(service.onDisconnectCalled, true);
 
+    RoverSettings.isTest = false;
     await client.dispose();
     await server.dispose();
   });

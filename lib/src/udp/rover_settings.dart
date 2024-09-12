@@ -6,6 +6,9 @@ import "burt_socket.dart";
 
 /// A mixin that handles [UpdateSetting] commands.
 mixin RoverSettings on BurtSocket {
+  /// Whether this code is being run in a test environment. 
+  static bool isTest = false;
+
   /// Handles an [UpdateSetting] command and updates the appropriate setting.
   ///
   /// Also sends a handshake response to indicate the message was received.
@@ -19,7 +22,7 @@ mixin RoverSettings on BurtSocket {
       } catch (error) {
         logger.critical("Error when shutting down: $error");
       }
-      if (!Platform.isLinux || Platform.environment["IS_TEST"] != null) return;
+      if (!Platform.isLinux || isTest) return;
       await Process.run("sudo", ["shutdown", "now"]);
     } else if (settings.status == RoverStatus.RESTART) {
       await restart();
