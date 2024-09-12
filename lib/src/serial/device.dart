@@ -39,6 +39,7 @@ class SerialDevice extends Service {
 
   @override
 	Future<bool> init() async {
+    if (_controller.isClosed) throw StateError("A SerialDevice cannot be used after shutdown() is called");
     try {
       return await _port.init();
     } catch (error) {
@@ -78,9 +79,15 @@ class SerialDevice extends Service {
   @override
 	Future<void> dispose() async {
     _timer?.cancel();
-    await _controller.close();
 		await _port.dispose();
 	}
+
+  /// Closes the [stream] so it cannot be listened to.
+  ///
+  /// Calling [init] after this is an error.
+  Future<void> closeStream() async {
+    await _controller.close();
+  }
 
 	/// Writes data to the port.
 	void write(Uint8List data) {

@@ -40,7 +40,7 @@ void main() {
       expect(func, returnsNormally);
     });
 
-    test("only closes its stream on dispose", () async {
+    test("only closes its stream when asked to", () async {
       // Someone may call [stopListening] at any time.
       // This will detach any other listeners, if there are any.
       var count = 0;
@@ -48,6 +48,8 @@ void main() {
       device.startListening();
       device.stopListening();
       await device.dispose();
+      expect(count, 0);
+      await device.closeStream();
       expect(device.stream, emitsDone);
       expect(count, 1);
     });
