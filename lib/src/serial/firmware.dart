@@ -4,7 +4,6 @@ import "package:protobuf/protobuf.dart";
 
 import "package:burt_network/burt_network.dart";
 
-
 /// Represents a firmware device connected over Serial.
 ///
 /// This device starts with an unknown [device]. Calling [init] starts a handshake with the device
@@ -104,8 +103,11 @@ class BurtFirmwareSerial extends Service {
     return true;
   }
 
-  /// Sends bytes to the device via Serial.
+  /// Sends bytes to the device.
   void sendBytes(List<int> bytes) => _serial.write(Uint8List.fromList(bytes));
+
+  /// Sends a Protobuf message to the device.
+  void sendMessage(Message message) => _serial.write(message.writeToBuffer());
 
   /// Resets the device and closes the port.
   @override
