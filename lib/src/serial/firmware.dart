@@ -39,7 +39,7 @@ class BurtFirmwareSerial extends Service {
   Stream<Uint8List> get rawStream => _serial.stream;
 
   /// The stream of incoming messages, wrapped into [WrappedMessage]s.
-  Stream<WrappedMessage>? get messages => _serial.stream
+  Stream<WrappedMessage> get messages => _serial.stream
     .map((packet) => WrappedMessage(data: packet, name: deviceToDataName(device)));
 
   /// Whether this device has passed the handshake.
