@@ -103,6 +103,7 @@ class UdpSocket extends Service {
     if (!quiet) logger.info("Closing the socket on port $port");
     await _subscription?.cancel(); _subscription = null;
     _socket?.close(); _socket = null;
+    destination = null;
   }
 
   /// Sends data to the given destination.
