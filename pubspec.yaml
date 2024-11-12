@@ -1,0 +1,17 @@
+name: lidar
+description: A small program to read Lidar data
+version: 1.0.0
+repository: https://github.com/BinghamtonRover/Lidar
+publish_to: none
+
+environment:
+  sdk: ^3.5.4
+
+# Add regular dependencies here.
+dependencies:
+  burt_network:
+    git: https://github.com/BinghamtonRover/Networking
+
+dev_dependencies:
+  very_good_analysis: ^6.0.0
+
