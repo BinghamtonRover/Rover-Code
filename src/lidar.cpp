@@ -44,6 +44,7 @@
 #include "lidar.h"
 #include <cassert>
 
+
 Image image;
 
 SickScanApiHandle handle;
@@ -83,13 +84,13 @@ FFI_PLUGIN_EXPORT void updateLatestImage(SickScanApiHandle apiHandle, const Sick
   if (image.data == nullptr) {
     image.data = new uint8_t[image.height * image.width * 3];
   }
-  // make_matrix(pointCloudMsg);
-  // addCross(pointCloudMsg);
+  make_matrix(pointCloudMsg);
+  addCross(pointCloudMsg);
   addHiddenArea();
   mutex = 1;
 }
 
-FFI_PLUGIN_EXPORT void make_matrix(SickScanPointCloudMsg* imageData){
+FFI_PLUGIN_EXPORT void make_matrix(const SickScanPointCloudMsg* imageData){
   SickScanPointFieldMsg* imageData_fields_buffer = (SickScanPointFieldMsg*)imageData->fields.buffer;
   int field_offset_x = -1, field_offset_y = -1;
   for(int n = 0; n < imageData->fields.size; n++)
@@ -124,7 +125,7 @@ FFI_PLUGIN_EXPORT void make_matrix(SickScanPointCloudMsg* imageData){
  
 }
 
-FFI_PLUGIN_EXPORT void addCross(SickScanPointCloudMsg* pixels) {
+FFI_PLUGIN_EXPORT void addCross(const SickScanPointCloudMsg* pixels) {
     int thickness = 1;
     int midx = image.width / 2;
     int midy = image.height / 2;
