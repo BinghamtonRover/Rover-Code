@@ -23,5 +23,5 @@ FFI_PLUGIN_EXPORT void dispose();
 FFI_PLUGIN_EXPORT void updateLatestImage(SickScanApiHandle apiHandle, const SickScanPointCloudMsg* pointCloudMsg);
 FFI_PLUGIN_EXPORT Image getLatestImage();
 FFI_PLUGIN_EXPORT void addHiddenArea();
-FFI_PLUGIN_EXPORT void addCross(SickScanPointCloudMsg* pixels);
-FFI_PLUGIN_EXPORT void make_matrix(SickScanPointCloudMsg* imageData);
+FFI_PLUGIN_EXPORT void addCross(const SickScanPointCloudMsg* pixels);
+FFI_PLUGIN_EXPORT void make_matrix(const SickScanPointCloudMsg* imageData);
