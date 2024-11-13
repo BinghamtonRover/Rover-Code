@@ -1,3 +1,5 @@
+import "dart:io";
+
 import "package:burt_network/burt_network.dart";
 
 import "lidar_stub.dart";
@@ -19,7 +21,7 @@ class LidarCollection extends Service {
   void run() async {
     while(true){
       final data = await lidar.readFrame();
-      server.sendMessage(data);
+      server.sendMessage(data, destination: SocketInfo(address: InternetAddress("127.0.0.1"), port: 8002));
       print("sending message ${data}");
       await Future<void>.delayed(const Duration(seconds: 1));
     }
