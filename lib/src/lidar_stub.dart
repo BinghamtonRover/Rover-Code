@@ -33,7 +33,7 @@ class LidarStub extends Lidar {
     return VideoData(
       // TODO: Add CameraName.LIDAR
       frame: image.data.asTypedList(3 * image.height * image.width),
-      details: CameraDetails(name: CameraName.AUTONOMY_DEPTH, status: CameraStatus.CAMERA_DISCONNECTED),
+      details: CameraDetails(name: CameraName.AUTONOMY_DEPTH, status: CameraStatus.CAMERA_ENABLED),
     );
   }
   
