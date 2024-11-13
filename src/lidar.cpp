@@ -1,58 +1,19 @@
-// #include <chrono>
 #include <iostream>
-// #include <thread>
-
-// #include "lidar.h"
-
-// Image* ReturnLatestImage(void* msg){
-//     ReturnLatestImage * latestImage;
-//     latestImage->buffer = msg->data;
-//     latestImage->size = msg->height;
-//     latestImage->capacity  = msg->width;
-
-//     return latestImage;
-// }
-// static void exitOnError(const char* msg, int32_t error_code)
-// {
-//     printf("## ERROR sick_scan_xd_api_test: %s, error code %d\n", msg, error_code);
-//     exit(EXIT_FAILURE);
-// }
-
-// static void apiTestCartesianPointCloudMsgCallback(SickScanApiHandle apiHandle, const SickScanPointCloudMsg* msg)
-// {
-//     printf("[Info]: apiTestCartesianPointCloudMsgCallback(apiHandle:%p): %dx%d pointcloud callback...\n", apiHandle, msg->width, msg->height);
-// }
-
-// int main(int argc, char** argv, const std::string& sick_scan_args, bool polling){
-//   int32_t ret = SICK_SCAN_API_SUCCESS;
-//   SickScanApiHandle apiHandle = 0;
-
-//   if ((apiHandle = SickScanApiCreate(argc, argv)) == 0)
-//     exitOnError("SickScanApiCreate failed", -1);
-
-//   // Initialize a lidar and starts message receiving and processing
-// #if __ROS_VERSION == 1
-//   if ((ret = SickScanApiInitByLaunchfile(apiHandle, sick_scan_args.c_str())) != SICK_SCAN_API_SUCCESS)
-//     exitOnError("SickScanApiInitByLaunchfile failed", ret);
-// #else
-//   if ((ret = SickScanApiInitByCli(apiHandle, argc, argv)) != SICK_SCAN_API_SUCCESS)
-//     exitOnError("SickScanApiInitByCli failed", ret);
-// #endif
-
-// }
-
-#include "lidar.h"
+#include <windows.h> // For sleep fucntion on windows
+// #include <unistd.h> // For sleep function on unix
 #include <cassert>
 
+#include "lidar.h"
 
 Image image;
 
 SickScanApiHandle handle;
 
-int mutex;
+int mutex = 0;
 
 FFI_PLUGIN_EXPORT void init() {
   image.data = (uint8_t*)malloc(image.width*image.height*3*sizeof(uint8_t));
+  image.pointCloudMsg = new SickScanPointCloudMsg;
   handle = SickScanApiCreate(0, nullptr);
   SickScanApiRegisterCartesianPointCloudMsg(handle, updateLatestImage);
   SickScanApiSetVerboseLevel(handle, 0); // 0 = DEBUG
@@ -70,24 +31,30 @@ FFI_PLUGIN_EXPORT void dispose() {
 
 FFI_PLUGIN_EXPORT void updateLatestImage(SickScanApiHandle apiHandle, const SickScanPointCloudMsg* pointCloudMsg) {
   std::cout << "Image height: " << (int) pointCloudMsg->height << ", Width: " << (int) pointCloudMsg->width << std::endl;
-  // return;
-  if(mutex == 0) return;
-  mutex = 0;
+  std::cout << pointCloudMsg << std::endl;
+  // void* msgptr = pointCloudMsg;
+  //memcpy(msgptr, image.pointCloudMsg, 100);
+  // if(mutex == 0) return;
+  // mutex = 0;
+  
+
   // Change to if: assert(pointCloudMsg->height >= 0 && (int)pointCloudMsg->width >=0);
-  if((int)pointCloudMsg->height == 0 && (int)pointCloudMsg->width ==0){
+  if(pointCloudMsg->height == 0 && pointCloudMsg->width ==0){
     image.height = pointCloudMsg->height;
     image.width = pointCloudMsg->width;
     return;
   }
+  std::cout << "Made it here" << std::endl;
   image.height = pointCloudMsg->height;
   image.width = pointCloudMsg->width;
   if (image.data == nullptr) {
     image.data = new uint8_t[image.height * image.width * 3];
   }
-  make_matrix(pointCloudMsg);
-  addCross(pointCloudMsg);
-  addHiddenArea();
-  mutex = 1;
+  // make_matrix(pointCloudMsg);
+  // addCross(pointCloudMsg);
+  // addHiddenArea();
+  // mutex = 1;
+  std::cout << "Done updating upate" << std::endl;
 }
 
 FFI_PLUGIN_EXPORT void make_matrix(const SickScanPointCloudMsg* imageData){
@@ -161,5 +128,10 @@ FFI_PLUGIN_EXPORT void addHiddenArea() {
 
 
 FFI_PLUGIN_EXPORT Image getLatestImage() { 
+  // while(mutex == 0){
+  //   std::cout << "Mutex locked" << std::endl;
+  //   Sleep(100);
+  // }
+  std::cout << "Latest Image: " << image.height << std::endl;
   return image;
 }

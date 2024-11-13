@@ -1,6 +1,6 @@
 
 #if defined(_WIN32) && defined(__cplusplus)
-#define FFI_PLUGIN_EXPORT __declspec(dllexport) extern "C" 
+#define FFI_PLUGIN_EXPORT extern "C" __declspec(dllexport) 
 #else
 #define FFI_PLUGIN_EXPORT
 #endif
@@ -16,6 +16,7 @@ typedef struct Image{
   // uint64_t capacity;
   // SickScanUint8Array buffer;
   uint8_t* data;
+  SickScanPointCloudMsg* pointCloudMsg;
 } Image;
 
 FFI_PLUGIN_EXPORT void init();

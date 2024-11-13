@@ -17,6 +17,7 @@ class LidarStub extends Lidar {
     /// init will return bool
     /// return bindings.init();
     bindings.init();
+    await Future<void>.delayed(const Duration(seconds: 5));
     return true;
   }
 
@@ -28,6 +29,7 @@ class LidarStub extends Lidar {
   @override
   Future<VideoData> readFrame() async {
     final image = bindings.getLatestImage();
+    print("image height: ${image.height}, image width ${image.width}");
     return VideoData(
       // TODO: Add CameraName.LIDAR
       frame: image.data.asTypedList(3 * image.height * image.width),
