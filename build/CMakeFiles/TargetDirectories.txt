@@ -1,0 +1,10 @@
+C:/Users/aidan/dev/MarsRover/Lidar/build/CMakeFiles/lidar_ffi.dir
+C:/Users/aidan/dev/MarsRover/Lidar/build/CMakeFiles/INSTALL.dir
+C:/Users/aidan/dev/MarsRover/Lidar/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/aidan/dev/MarsRover/Lidar/build/CMakeFiles/ZERO_CHECK.dir
+C:/Users/aidan/dev/MarsRover/Lidar/build/sick_scan_xd/CMakeFiles/sick_scan_xd_lib.dir
+C:/Users/aidan/dev/MarsRover/Lidar/build/sick_scan_xd/CMakeFiles/sick_scan_xd_shared_lib.dir
+C:/Users/aidan/dev/MarsRover/Lidar/build/sick_scan_xd/CMakeFiles/sick_generic_caller.dir
+C:/Users/aidan/dev/MarsRover/Lidar/build/sick_scan_xd/CMakeFiles/sick_scan_xd_api_test.dir
+C:/Users/aidan/dev/MarsRover/Lidar/build/sick_scan_xd/CMakeFiles/INSTALL.dir
+C:/Users/aidan/dev/MarsRover/Lidar/build/sick_scan_xd/CMakeFiles/ALL_BUILD.dir

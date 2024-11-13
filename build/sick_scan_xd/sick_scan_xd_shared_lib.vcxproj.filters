@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\abstract_parser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\binPrintf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\binScanf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\dataDumper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\helper\angle_compensator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_cloud_transform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_generic_callback.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_generic_field_mon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_generic_imu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_nav_scandata_parser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_generic_laser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_generic_monitoring.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_generic_parser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_generic_radar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_lmd_scandata_parser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_scan_common.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_scan_common_nw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_scan_common_tcp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_scan_marker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_scan_messages.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_scan_parse_util.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_scan_services.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_tf_publisher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_scan_xd_api\api_impl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_scan_xd_api\sick_scan_api_converter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\softwarePLL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\tcp\Mutex.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\tcp\SickThread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\tcp\Time.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\tcp\colaa.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\tcp\colab.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\tcp\errorhandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\tcp\tcp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\tcp\toolbox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\tcp\wsa_init.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\tinyxml\tinystr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\tinyxml\tinyxml.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\tinyxml\tinyxmlerror.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\tinyxml\tinyxmlparser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\roswrap\src\getopt\getopt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\roswrap\src\launchparser\launchparser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\roswrap\src\toojpeg\toojpeg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_scansegment_xd\compact_parser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_scansegment_xd\config.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_scansegment_xd\msgpack11\msgpack11.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_scansegment_xd\msgpack_converter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_scansegment_xd\msgpack_exporter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_scansegment_xd\msgpack_parser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_scansegment_xd\msgpack_validator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_scansegment_xd\ros_msgpack_publisher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_scansegment_xd\scansegment_parser_output.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_scansegment_xd\scansegment_threads.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_scansegment_xd\udp_poster.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\driver\src\sick_scansegment_xd\udp_receiver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\roswrap\src\cfgsimu\sick_scan\time_modi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\roswrap\src\rossimu\kinetic\src\duration.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\roswrap\src\rossimu\kinetic\src\rate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\roswrap\src\rossimu\kinetic\src\rossimu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\roswrap\src\tools\sick_scan\pointcloud_utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\roswrap\helper_win\usleep\usleep.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\aidan\dev\MarsRover\Lidar\src\sick_scan_xd\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{AD8A302A-3FE0-3318-9E97-3FD4E77C7BBC}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

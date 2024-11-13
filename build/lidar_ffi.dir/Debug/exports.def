@@ -1,0 +1,23 @@
+EXPORTS 
+	?handle@@3PEAXEA 	 DATA
+	?image@@3UImage@@A 	 DATA
+	?mutex@@3HA 	 DATA
+	??$?6U?$char_traits@D@std@@@std@@YAAEAV?$basic_ostream@DU?$char_traits@D@std@@@0@AEAV10@PEBD@Z
+	??$endl@DU?$char_traits@D@std@@@std@@YAAEAV?$basic_ostream@DU?$char_traits@D@std@@@0@AEAV10@@Z
+	??0_Sentry_base@?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAA@AEAV12@@Z
+	??0sentry@?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAA@AEAV12@@Z
+	??1_Sentry_base@?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAA@XZ
+	??1sentry@?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAA@XZ
+	??Bsentry@?$basic_ostream@DU?$char_traits@D@std@@@std@@QEBA_NXZ
+	?__empty_global_delete@@YAXPEAX@Z
+	?__empty_global_delete@@YAXPEAX_K@Z
+	?eof@?$_Narrow_char_traits@DH@std@@SAHXZ
+	?eq_int_type@?$_Narrow_char_traits@DH@std@@SA_NHH@Z
+	?length@?$_Narrow_char_traits@DH@std@@SA_KQEBD@Z
+	addCross
+	addHiddenArea
+	dispose
+	getLatestImage
+	init
+	make_matrix
+	updateLatestImage

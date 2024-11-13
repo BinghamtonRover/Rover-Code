@@ -5,12 +5,13 @@ repository: https://github.com/BinghamtonRover/Lidar
 publish_to: none
 
 environment:
-  sdk: ^3.5.4
+  sdk: ^3.5.0
 
 # Add regular dependencies here.
 dependencies:
   burt_network:
     git: https://github.com/BinghamtonRover/Networking
+  ffigen: ^15.0.0
 
 dev_dependencies:
   very_good_analysis: ^6.0.0
