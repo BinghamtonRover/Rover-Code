@@ -29,6 +29,9 @@ class LidarStub extends Lidar {
     details: CameraDetails(name: CameraName.AUTONOMY_DEPTH, status: CameraStatus.CAMERA_DISCONNECTED),
   );
 
+  void sendFrame() {
+    
+  }
   // final mat = getMatrix(imgHeight, imgWidth, pixels);
   // final jpeg = encodeJpg(mat);
 }
