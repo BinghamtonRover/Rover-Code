@@ -138,6 +138,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.16.0"
+  opencv_ffi:
+    dependency: "direct main"
+    description:
+      name: opencv_ffi
+      sha256: "68b1ac58a6c3f6d8db4d015ca015e80bf3a88f8156d1eedfaaa4a7b2a75784eb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
   package_config:
     dependency: transitive
     description:

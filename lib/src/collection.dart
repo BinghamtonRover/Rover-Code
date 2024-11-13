@@ -14,7 +14,16 @@ class LidarCollection extends Service {
   Future<void> dispose() async {
     await lidar.dispose();
     await server.dispose();
-  }
+  } 
 
-  
+  void run() async {
+    while(true){
+      final data = await lidar.readFrame();
+      server.sendMessage(data);
+      print("sending message ${data}");
+      await Future<void>.delayed(const Duration(seconds: 1));
+    }
+  }
 }
+
+final collection = LidarCollection();
