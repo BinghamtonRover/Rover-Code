@@ -1,19 +1,4 @@
 
-
-# # add_library(sick_scan_xd SHARED IMPORTED)
-# # set_target_properties(sick_scan_xd PROPERTIES IMPORTED_LOCATION lidar.dll)
-# # Config for SICK_SCAN_XD_ffi_library
-# add_library(lidar_ffi SHARED "lidar.cpp")
-# set_target_properties(lidar_ffi PROPERTIES
-#   PUBLIC_HEADER lidar.h
-#   PUBLIC_HEADER sick_scan_xd.h
-#   OUTPUT_NAME "lidar_ffi"
-# )
-
-# Compile lidar_ffi
-# target_compile_definitions(lidar_ffi PUBLIC DART_SHARED_LIB)
-#target_link_libraries(lidar_ffi sick_scan_xd_shared_lib)
-
 # Config for CMake
 cmake_minimum_required(VERSION 3.10)
 project(lidar_ffi VERSION 1.0 LANGUAGES CXX)

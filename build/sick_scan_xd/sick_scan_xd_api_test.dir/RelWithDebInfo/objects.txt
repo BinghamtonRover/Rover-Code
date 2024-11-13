@@ -1,4 +1,0 @@
-C:/Users/aidan/dev/MarsRover/Lidar/build/sick_scan_xd/sick_scan_xd_api_test.dir/RelWithDebInfo/sick_scan_api_converter.obj
-C:/Users/aidan/dev/MarsRover/Lidar/build/sick_scan_xd/sick_scan_xd_api_test.dir/RelWithDebInfo/sick_scan_xd_api_test.obj
-C:/Users/aidan/dev/MarsRover/Lidar/build/sick_scan_xd/sick_scan_xd_api_test.dir/RelWithDebInfo/sick_scan_xd_api_wrapper.obj
-C:/Users/aidan/dev/MarsRover/Lidar/build/sick_scan_xd/sick_scan_xd_api_test.dir/RelWithDebInfo/toojpeg.obj
