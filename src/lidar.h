@@ -1,6 +1,7 @@
 
 #if defined(_WIN32) && defined(__cplusplus)
 #define FFI_PLUGIN_EXPORT extern "C" __declspec(dllexport) 
+#define NON_FFI __declspec(dllexport)
 #else
 #define FFI_PLUGIN_EXPORT
 #endif
@@ -25,4 +26,4 @@ FFI_PLUGIN_EXPORT void updateLatestImage(SickScanApiHandle apiHandle, const Sick
 FFI_PLUGIN_EXPORT Image getLatestImage();
 FFI_PLUGIN_EXPORT void addHiddenArea();
 FFI_PLUGIN_EXPORT void addCross(const SickScanPointCloudMsg* pixels);
-FFI_PLUGIN_EXPORT void make_matrix(const SickScanPointCloudMsg* imageData);
+FFI_PLUGIN_EXPORT void make_matrix(const SickScanPointCloudMsg* msg);

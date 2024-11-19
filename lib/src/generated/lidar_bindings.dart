@@ -1104,10 +1104,10 @@ class LidarBindings {
       .asFunction<void Function(ffi.Pointer<SickScanPointCloudMsg>)>();
 
   void make_matrix(
-    ffi.Pointer<SickScanPointCloudMsg> imageData,
+    ffi.Pointer<SickScanPointCloudMsg> msg,
   ) {
     return _make_matrix(
-      imageData,
+      msg,
     );
   }
 
@@ -2111,4 +2111,6 @@ final class Image extends ffi.Struct {
   /// uint64_t capacity;
   /// SickScanUint8Array buffer;
   external ffi.Pointer<ffi.Uint8> data;
+
+  external ffi.Pointer<SickScanPointCloudMsg> pointCloudMsg;
 }
