@@ -1,5 +1,5 @@
-import 'package:cv/cv.dart' as cv;
+import "package:cv/cv.dart";
 
-void main(List<String> arguments) {
-  print('Hello world: ${cv.calculate()}!');
+void main() async {
+  await collection.init();
 }
