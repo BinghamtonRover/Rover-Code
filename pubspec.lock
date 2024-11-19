@@ -34,6 +34,14 @@ packages:
       url: "https://github.com/BinghamtonRover/Networking"
     source: git
     version: "2.0.0"
+  cli_config:
+    dependency: transitive
+    description:
+      name: cli_config
+      sha256: ac20a183a07002b700f0c25e61b7ee46b23c309d76ab7b7640a028f18e4d99ec
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
   cli_util:
     dependency: transitive
     description:
@@ -50,6 +58,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.19.1"
+  crypto:
+    dependency: transitive
+    description:
+      name: crypto
+      sha256: "1e445881f28f22d6140f181e07737b22f1e099a5e1ff94b0af2f9e4a463f4855"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.6"
   dylib:
     dependency: transitive
     description:
@@ -138,6 +154,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.16.0"
+  native_assets_cli:
+    dependency: transitive
+    description:
+      name: native_assets_cli
+      sha256: "3da9bdd4beb2ed059dae7fd93baa62c5f6c3cdf630bbb88334303dfa92d6da26"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.2"
+  opencv_dart:
+    dependency: "direct main"
+    description:
+      name: opencv_dart
+      sha256: "2b657c9cce157a6bcfec9763906a2ebafafcc13cf90c83c4675a4f9c5272c663"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0-dev.0"
   opencv_ffi:
     dependency: "direct main"
     description:
@@ -242,6 +274,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.3"
+  typed_data:
+    dependency: transitive
+    description:
+      name: typed_data
+      sha256: f9049c039ebfeb4cf7a7104a675823cd72dba8297f264b6637062516699fa006
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.0"
   very_good_analysis:
     dependency: "direct dev"
     description:
