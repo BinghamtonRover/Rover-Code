@@ -13,11 +13,7 @@
 typedef struct Image{
   uint64_t height;
   uint64_t width;
-
-  // uint64_t capacity;
-  // SickScanUint8Array buffer;
   uint8_t* data;
-  SickScanPointCloudMsg* pointCloudMsg;
 } Image;
 
 FFI_PLUGIN_EXPORT void init();

@@ -13,13 +13,14 @@ SickScanApiHandle handle;
 int mutex = 1;
 
 FFI_PLUGIN_EXPORT void init() {
-  image.data = (uint8_t*)calloc(3*WIDTH*HEIGHT, sizeof(uint8_t));
-  image.pointCloudMsg = new SickScanPointCloudMsg;
   handle = SickScanApiCreate(0, nullptr);
   SickScanApiRegisterCartesianPointCloudMsg(handle, updateLatestImage);
   SickScanApiSetVerboseLevel(handle, 0); // 0 = DEBUG
   char* args[] = {"lidar.dart", "lidar.launch", "hostname:=169.254.166.55"};
   SickScanApiInitByCli(handle, 3, args);
+  image.data = (uint8_t*)calloc(3*WIDTH*HEIGHT, sizeof(uint8_t));
+  image.height = HEIGHT;
+  image.width = WIDTH;
 
   // ALLOCATE MEMORY FOR image.data 
   std::cout << "INITEDDDDD !!!" << std::endl;
@@ -32,31 +33,24 @@ FFI_PLUGIN_EXPORT void dispose() {
 }
 
 FFI_PLUGIN_EXPORT void updateLatestImage(SickScanApiHandle apiHandle, const SickScanPointCloudMsg* pointCloudMsg) {
-  std::cout << "Image height: " << (int) pointCloudMsg->height << ", Width: " << (int) pointCloudMsg->width << std::endl;
-  std::cout << pointCloudMsg << std::endl;
+  // std::cout << "Image height: " << (int) pointCloudMsg->height << ", Width: " << (int) pointCloudMsg->width << std::endl;
+  // std::cout << pointCloudMsg << std::endl;
   // SickScanPointCloudMsg* msgptr = pointCloudMsg;
-  // memcpy(msgptr, image.pointCloudMsg, 100);
   //if (image.height != 0) mutex = 0;  
 
   // Change to if: assert(pointCloudMsg->height >= 0 && (int)pointCloudMsg->width >=0);
   if(pointCloudMsg->height == 0 || pointCloudMsg->width ==0){
     return;
-    // image.height = pointCloudMsg->height;
-    // image.width = pointCloudMsg->width;
-    // return;
   }
   if (image.data == nullptr) {
     // image.data = new uint8_t[image.height * image.width * 3];
   }
-  std::cout << "Made it here1" << std::endl;
-  image.height = 1000;
-  image.width = 1000;
   
   make_matrix(pointCloudMsg);
   addCross(pointCloudMsg);
   addHiddenArea();
-  //mutex = 1;
-  std::cout << "Done updating upate" << std::endl;
+  // mutex = 1;
+  // std::cout << "Done updating upate" << std::endl;
 }
 
 FFI_PLUGIN_EXPORT void make_matrix(const SickScanPointCloudMsg* msg){
@@ -76,8 +70,10 @@ FFI_PLUGIN_EXPORT void make_matrix(const SickScanPointCloudMsg* msg){
     }
 	assert(field_offset_x >= 0 && field_offset_y >= 0 && field_offset_z >= 0);
 	// Create an image with 250 pixel/meter, max. +/-2 meter
-	int img_width = 250 * 4, img_height = 250 * 4;
+	int img_width = WIDTH, img_height = HEIGHT;
 	//uint8_t* img_pixel = image.data;
+
+  memset(image.data, 0, 3 * image.width * image.height);
   
 
 	// Plot all points in pointcloud
@@ -105,27 +101,24 @@ FFI_PLUGIN_EXPORT void make_matrix(const SickScanPointCloudMsg* msg){
 			}
 		}
 	}
-  std::cout << "Made it here2" << std::endl;
-  //free(img_pixel);
-  // addCross(imageData);
-  // addHiddenArea();
+  // std::cout << "Made it here2" << std::endl;
 }
 
 FFI_PLUGIN_EXPORT void addCross(const SickScanPointCloudMsg* pixels) {
     int thickness = 1;
-    int midx = image.width / 2;
-    int midy = image.height / 2;
-    for (int x = midx - 7; x <= midx + 7; x++) {
+    uint64_t midx = image.width / 2;
+    uint64_t midy = image.height / 2;
+    for (uint64_t x = midx - 7; x <= midx + 7; x++) {
       // draw horizontal
-      for (int y = midy - thickness; y < midy + thickness; y++) {
+      for (uint64_t y = midy - thickness; y < midy + thickness; y++) {
         image.data[3 * y * image.width + 3 * x + 0] = 0; // B
         image.data[3 * y * image.width + 3 * x + 1] = 0; // G
         image.data[3 * y * image.width + 3 * x + 2] = 255; // R
       }
     }
-    for (int y = midy - 7; y <= midy + 7; y++) {
+    for (uint64_t y = midy - 7; y <= midy + 7; y++) {
       // draw vertical
-      for (int x = midx - thickness; x < midx + thickness; x++) {
+      for (uint64_t x = midx - thickness; x < midx + thickness; x++) {
         image.data[3 * y * image.width + 3 * x + 0] = 0; // B
         image.data[3 * y * image.width + 3 * x + 1] = 0; // G
         image.data[3 * y * image.width + 3 * x + 2] = 255; // R
@@ -136,8 +129,8 @@ FFI_PLUGIN_EXPORT void addCross(const SickScanPointCloudMsg* pixels) {
   /// Draws a triangle in the area behind lidar that doesn't include data
 FFI_PLUGIN_EXPORT void addHiddenArea() {
     /// NEED IMAGE TO BE SQUARE FOR THIS TO WORK
-    for (int y = image.height - 1; y > (int)(image.height / 2); y--) {
-      for (int x = image.width - y; x < y; x++) {
+    for (uint64_t y = image.height - 1; y > (int)(image.height / 2); y--) {
+      for (uint64_t x = image.width - y; x < y; x++) {
         image.data[3 * y * image.width + 3 * x + 0] = 130; // R
         image.data[3 * y * image.width + 3 * x + 1] = 130; // G
         image.data[3 * y * image.width + 3 * x + 2] = 130; // B

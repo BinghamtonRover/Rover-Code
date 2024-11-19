@@ -21,9 +21,10 @@ class LidarCollection extends Service {
   void run() async {
     while(true){
       final data = await lidar.readFrame();
-      server.sendMessage(data, destination: SocketInfo(address: InternetAddress("169.254.166.50"), port: 8002));
-      print("sending message ${data}");
-      await Future<void>.delayed(const Duration(seconds: 1));
+      server.sendMessage(data, destination: SocketInfo(address: InternetAddress("127.0.0.1"), port: 8002));
+      //print("sending message ${data}");
+      print("sending");
+      await Future<void>.delayed(const Duration(milliseconds: 100));
     }
   }
 }

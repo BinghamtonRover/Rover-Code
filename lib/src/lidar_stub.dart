@@ -4,7 +4,6 @@ import "dart:typed_data";
 import "package:burt_network/burt_network.dart";
 import "package:lidar/lidar.dart";
 import "generated/lidar_bindings.dart";
-//import "package:opencv_ffi/opencv_ffi.dart";
 import "package:opencv_dart/opencv_dart.dart";
 import "lidar.dart";
 
@@ -53,7 +52,7 @@ class LidarStub extends Lidar {
     final image = bindings.getLatestImage();
     print("image height: ${image.height}, image width ${image.width}");
     Resolution res = (height: image.height, width: image.width);
-    final matrix = image.data.toOpenCVMat(res, length: 3*image.height*image.width);
+    final matrix = image.data.toOpenCVMat(res, length: 3 * image.height * image.width);
     final jpg = matrix.encodeJpg(quality: 75);
     return VideoData(
       // TODO: Add CameraName.LIDAR
