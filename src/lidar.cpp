@@ -18,12 +18,10 @@ FFI_PLUGIN_EXPORT void init() {
   SickScanApiSetVerboseLevel(handle, 0); // 0 = DEBUG
   char* args[] = {"lidar.dart", "lidar.launch", "hostname:=169.254.166.55"};
   SickScanApiInitByCli(handle, 3, args);
+  
   image.data = (uint8_t*)calloc(3*WIDTH*HEIGHT, sizeof(uint8_t));
   image.height = HEIGHT;
   image.width = WIDTH;
-
-  // ALLOCATE MEMORY FOR image.data 
-  std::cout << "INITEDDDDD !!!" << std::endl;
 }
 
 FFI_PLUGIN_EXPORT void dispose() {
@@ -144,6 +142,5 @@ FFI_PLUGIN_EXPORT Image getLatestImage() {
   //   std::cout << "Mutex locked" << std::endl;
   //   Sleep(100);
   // }
-  std::cout << "Latest Image: " << image.height << std::endl;
   return image;
 }
