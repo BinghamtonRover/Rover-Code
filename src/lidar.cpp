@@ -37,17 +37,18 @@ FFI_PLUGIN_EXPORT void updateLatestImage(SickScanApiHandle apiHandle, const Sick
   //if (image.height != 0) mutex = 0;  
 
   // Change to if: assert(pointCloudMsg->height >= 0 && (int)pointCloudMsg->width >=0);
-  if(pointCloudMsg->height == 0 || pointCloudMsg->width ==0){
+  if(pointCloudMsg->height == 0 || pointCloudMsg->width == 0 || image.data == nullptr){
     return;
   }
-  if (image.data == nullptr) {
-    // image.data = new uint8_t[image.height * image.width * 3];
+  if(mutex == 0){
+    std::cout << "Mutex locked" << std::endl;
+    return;
   }
-  
+  mutex = 0;
   make_matrix(pointCloudMsg);
   addCross(pointCloudMsg);
   addHiddenArea();
-  // mutex = 1;
+  mutex = 1;
   // std::cout << "Done updating upate" << std::endl;
 }
 
