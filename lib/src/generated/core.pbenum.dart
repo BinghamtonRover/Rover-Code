@@ -24,6 +24,8 @@ class Device extends $pb.ProtobufEnum {
   static const Device GRIPPER = Device._(7, _omitEnumNames ? '' : 'GRIPPER');
   static const Device SCIENCE = Device._(8, _omitEnumNames ? '' : 'SCIENCE');
   static const Device DRIVE = Device._(9, _omitEnumNames ? '' : 'DRIVE');
+  static const Device BASE_STATION = Device._(10, _omitEnumNames ? '' : 'BASE_STATION');
+  static const Device ANTENNA = Device._(11, _omitEnumNames ? '' : 'ANTENNA');
 
   static const $core.List<Device> values = <Device> [
     DEVICE_UNDEFINED,
@@ -36,6 +38,8 @@ class Device extends $pb.ProtobufEnum {
     GRIPPER,
     SCIENCE,
     DRIVE,
+    BASE_STATION,
+    ANTENNA,
   ];
 
   static final $core.Map<$core.int, Device> _byValue = $pb.ProtobufEnum.initByValue(values);

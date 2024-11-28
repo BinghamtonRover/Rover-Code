@@ -1,6 +1,6 @@
 //
 //  Generated code. Do not modify.
-//  source: mars.proto
+//  source: base_station.proto
 //
 // @dart = 2.12
 
@@ -10,5 +10,5 @@
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
 
-export 'mars.pb.dart';
+export 'base_station.pb.dart';
 

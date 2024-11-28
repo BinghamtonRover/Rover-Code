@@ -17,16 +17,16 @@ import 'dart:typed_data' as $typed_data;
 const GpsCoordinates$json = {
   '1': 'GpsCoordinates',
   '2': [
-    {'1': 'latitude', '3': 1, '4': 1, '5': 2, '10': 'latitude'},
-    {'1': 'longitude', '3': 2, '4': 1, '5': 2, '10': 'longitude'},
-    {'1': 'altitude', '3': 3, '4': 1, '5': 2, '10': 'altitude'},
+    {'1': 'latitude', '3': 1, '4': 1, '5': 1, '10': 'latitude'},
+    {'1': 'longitude', '3': 2, '4': 1, '5': 1, '10': 'longitude'},
+    {'1': 'altitude', '3': 3, '4': 1, '5': 1, '10': 'altitude'},
   ],
 };
 
 /// Descriptor for `GpsCoordinates`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List gpsCoordinatesDescriptor = $convert.base64Decode(
-    'Cg5HcHNDb29yZGluYXRlcxIaCghsYXRpdHVkZRgBIAEoAlIIbGF0aXR1ZGUSHAoJbG9uZ2l0dW'
-    'RlGAIgASgCUglsb25naXR1ZGUSGgoIYWx0aXR1ZGUYAyABKAJSCGFsdGl0dWRl');
+    'Cg5HcHNDb29yZGluYXRlcxIaCghsYXRpdHVkZRgBIAEoAVIIbGF0aXR1ZGUSHAoJbG9uZ2l0dW'
+    'RlGAIgASgBUglsb25naXR1ZGUSGgoIYWx0aXR1ZGUYAyABKAFSCGFsdGl0dWRl');
 
 @$core.Deprecated('Use orientationDescriptor instead')
 const Orientation$json = {
@@ -50,6 +50,7 @@ const RoverPosition$json = {
     {'1': 'gps', '3': 1, '4': 1, '5': 11, '6': '.GpsCoordinates', '10': 'gps'},
     {'1': 'orientation', '3': 2, '4': 1, '5': 11, '6': '.Orientation', '10': 'orientation'},
     {'1': 'version', '3': 3, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
+    {'1': 'rtkMessage', '3': 4, '4': 1, '5': 12, '10': 'rtkMessage'},
   ],
 };
 
@@ -57,5 +58,6 @@ const RoverPosition$json = {
 final $typed_data.Uint8List roverPositionDescriptor = $convert.base64Decode(
     'Cg1Sb3ZlclBvc2l0aW9uEiEKA2dwcxgBIAEoCzIPLkdwc0Nvb3JkaW5hdGVzUgNncHMSLgoLb3'
     'JpZW50YXRpb24YAiABKAsyDC5PcmllbnRhdGlvblILb3JpZW50YXRpb24SIgoHdmVyc2lvbhgD'
-    'IAEoCzIILlZlcnNpb25SB3ZlcnNpb24=');
+    'IAEoCzIILlZlcnNpb25SB3ZlcnNpb24SHgoKcnRrTWVzc2FnZRgEIAEoDFIKcnRrTWVzc2FnZQ'
+    '==');
 

@@ -13,7 +13,7 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'version.pb.dart' as $0;
+import 'version.pb.dart' as $2;
 
 class GpsCoordinates extends $pb.GeneratedMessage {
   factory GpsCoordinates({
@@ -38,9 +38,9 @@ class GpsCoordinates extends $pb.GeneratedMessage {
   factory GpsCoordinates.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GpsCoordinates', createEmptyInstance: create)
-    ..a<$core.double>(1, _omitFieldNames ? '' : 'latitude', $pb.PbFieldType.OF)
-    ..a<$core.double>(2, _omitFieldNames ? '' : 'longitude', $pb.PbFieldType.OF)
-    ..a<$core.double>(3, _omitFieldNames ? '' : 'altitude', $pb.PbFieldType.OF)
+    ..a<$core.double>(1, _omitFieldNames ? '' : 'latitude', $pb.PbFieldType.OD)
+    ..a<$core.double>(2, _omitFieldNames ? '' : 'longitude', $pb.PbFieldType.OD)
+    ..a<$core.double>(3, _omitFieldNames ? '' : 'altitude', $pb.PbFieldType.OD)
     ..hasRequiredFields = false
   ;
 
@@ -68,7 +68,7 @@ class GpsCoordinates extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.double get latitude => $_getN(0);
   @$pb.TagNumber(1)
-  set latitude($core.double v) { $_setFloat(0, v); }
+  set latitude($core.double v) { $_setDouble(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasLatitude() => $_has(0);
   @$pb.TagNumber(1)
@@ -77,7 +77,7 @@ class GpsCoordinates extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.double get longitude => $_getN(1);
   @$pb.TagNumber(2)
-  set longitude($core.double v) { $_setFloat(1, v); }
+  set longitude($core.double v) { $_setDouble(1, v); }
   @$pb.TagNumber(2)
   $core.bool hasLongitude() => $_has(1);
   @$pb.TagNumber(2)
@@ -86,7 +86,7 @@ class GpsCoordinates extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.double get altitude => $_getN(2);
   @$pb.TagNumber(3)
-  set altitude($core.double v) { $_setFloat(2, v); }
+  set altitude($core.double v) { $_setDouble(2, v); }
   @$pb.TagNumber(3)
   $core.bool hasAltitude() => $_has(2);
   @$pb.TagNumber(3)
@@ -175,7 +175,8 @@ class RoverPosition extends $pb.GeneratedMessage {
   factory RoverPosition({
     GpsCoordinates? gps,
     Orientation? orientation,
-    $0.Version? version,
+    $2.Version? version,
+    $core.List<$core.int>? rtkMessage,
   }) {
     final $result = create();
     if (gps != null) {
@@ -187,6 +188,9 @@ class RoverPosition extends $pb.GeneratedMessage {
     if (version != null) {
       $result.version = version;
     }
+    if (rtkMessage != null) {
+      $result.rtkMessage = rtkMessage;
+    }
     return $result;
   }
   RoverPosition._() : super();
@@ -196,7 +200,8 @@ class RoverPosition extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'RoverPosition', createEmptyInstance: create)
     ..aOM<GpsCoordinates>(1, _omitFieldNames ? '' : 'gps', subBuilder: GpsCoordinates.create)
     ..aOM<Orientation>(2, _omitFieldNames ? '' : 'orientation', subBuilder: Orientation.create)
-    ..aOM<$0.Version>(3, _omitFieldNames ? '' : 'version', subBuilder: $0.Version.create)
+    ..aOM<$2.Version>(3, _omitFieldNames ? '' : 'version', subBuilder: $2.Version.create)
+    ..a<$core.List<$core.int>>(4, _omitFieldNames ? '' : 'rtkMessage', $pb.PbFieldType.OY, protoName: 'rtkMessage')
     ..hasRequiredFields = false
   ;
 
@@ -244,15 +249,24 @@ class RoverPosition extends $pb.GeneratedMessage {
   Orientation ensureOrientation() => $_ensure(1);
 
   @$pb.TagNumber(3)
-  $0.Version get version => $_getN(2);
+  $2.Version get version => $_getN(2);
   @$pb.TagNumber(3)
-  set version($0.Version v) { setField(3, v); }
+  set version($2.Version v) { setField(3, v); }
   @$pb.TagNumber(3)
   $core.bool hasVersion() => $_has(2);
   @$pb.TagNumber(3)
   void clearVersion() => clearField(3);
   @$pb.TagNumber(3)
-  $0.Version ensureVersion() => $_ensure(2);
+  $2.Version ensureVersion() => $_ensure(2);
+
+  @$pb.TagNumber(4)
+  $core.List<$core.int> get rtkMessage => $_getN(3);
+  @$pb.TagNumber(4)
+  set rtkMessage($core.List<$core.int> v) { $_setBytes(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasRtkMessage() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearRtkMessage() => clearField(4);
 }
 
 

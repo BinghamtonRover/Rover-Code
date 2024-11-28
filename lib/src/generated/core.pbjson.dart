@@ -27,6 +27,8 @@ const Device$json = {
     {'1': 'GRIPPER', '2': 7},
     {'1': 'SCIENCE', '2': 8},
     {'1': 'DRIVE', '2': 9},
+    {'1': 'BASE_STATION', '2': 10},
+    {'1': 'ANTENNA', '2': 11},
   ],
 };
 
@@ -34,7 +36,8 @@ const Device$json = {
 final $typed_data.Uint8List deviceDescriptor = $convert.base64Decode(
     'CgZEZXZpY2USFAoQREVWSUNFX1VOREVGSU5FRBAAEg0KCURBU0hCT0FSRBABEg4KClNVQlNZU1'
     'RFTVMQAhIJCgVWSURFTxADEgwKCEFVVE9OT01ZEAQSDAoIRklSTVdBUkUQBRIHCgNBUk0QBhIL'
-    'CgdHUklQUEVSEAcSCwoHU0NJRU5DRRAIEgkKBURSSVZFEAk=');
+    'CgdHUklQUEVSEAcSCwoHU0NJRU5DRRAIEgkKBURSSVZFEAkSEAoMQkFTRV9TVEFUSU9OEAoSCw'
+    'oHQU5URU5OQRAL');
 
 @$core.Deprecated('Use connectDescriptor instead')
 const Connect$json = {

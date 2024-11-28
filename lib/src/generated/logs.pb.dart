@@ -13,7 +13,7 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'core.pbenum.dart' as $4;
+import 'core.pbenum.dart' as $5;
 import 'logs.pbenum.dart';
 
 export 'logs.pbenum.dart';
@@ -23,7 +23,7 @@ class BurtLog extends $pb.GeneratedMessage {
     BurtLogLevel? level,
     $core.String? title,
     $core.String? body,
-    $4.Device? device,
+    $5.Device? device,
   }) {
     final $result = create();
     if (level != null) {
@@ -48,7 +48,7 @@ class BurtLog extends $pb.GeneratedMessage {
     ..e<BurtLogLevel>(1, _omitFieldNames ? '' : 'level', $pb.PbFieldType.OE, defaultOrMaker: BurtLogLevel.BURT_LOG_LEVEL_UNDEFINED, valueOf: BurtLogLevel.valueOf, enumValues: BurtLogLevel.values)
     ..aOS(2, _omitFieldNames ? '' : 'title')
     ..aOS(3, _omitFieldNames ? '' : 'body')
-    ..e<$4.Device>(4, _omitFieldNames ? '' : 'device', $pb.PbFieldType.OE, defaultOrMaker: $4.Device.DEVICE_UNDEFINED, valueOf: $4.Device.valueOf, enumValues: $4.Device.values)
+    ..e<$5.Device>(4, _omitFieldNames ? '' : 'device', $pb.PbFieldType.OE, defaultOrMaker: $5.Device.DEVICE_UNDEFINED, valueOf: $5.Device.valueOf, enumValues: $5.Device.values)
     ..hasRequiredFields = false
   ;
 
@@ -101,9 +101,9 @@ class BurtLog extends $pb.GeneratedMessage {
   void clearBody() => clearField(3);
 
   @$pb.TagNumber(4)
-  $4.Device get device => $_getN(3);
+  $5.Device get device => $_getN(3);
   @$pb.TagNumber(4)
-  set device($4.Device v) { setField(4, v); }
+  set device($5.Device v) { setField(4, v); }
   @$pb.TagNumber(4)
   $core.bool hasDevice() => $_has(3);
   @$pb.TagNumber(4)
