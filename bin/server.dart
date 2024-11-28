@@ -15,4 +15,5 @@ void main() async {
     callback: onData,
   );
 	await server.init();
+  await server.waitForConnection();
 }

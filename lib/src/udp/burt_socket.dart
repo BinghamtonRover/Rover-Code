@@ -116,6 +116,8 @@ abstract class BurtSocket extends UdpSocket {
   @mustCallSuper
   void onConnect(SocketInfo source) {
     destination = source;
+    _connectionCompleter?.complete();
+    _connectionCompleter = null;  // to avoid completing twice
     logger.info("Port $port is connected to $source");
   }
 
@@ -130,5 +132,13 @@ abstract class BurtSocket extends UdpSocket {
     destination = null;
     await collection?.onDisconnect();
     await super.onDisconnect();
+  }
+
+  Completer<void>? _connectionCompleter;
+
+  /// Waits for a connection to be established.
+  Future<void> waitForConnection() {
+    _connectionCompleter = Completer();
+    return _connectionCompleter!.future;
   }
 }

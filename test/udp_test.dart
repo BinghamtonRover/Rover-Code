@@ -38,8 +38,7 @@ void main() => group("ProtoSocket:", () {
     await server.init();
     await client.init();
     client.shouldSendHeartbeats = true;
-    await Future<void>.delayed(heartbeatDelay);
-    expect(server.onConnectCalled, isTrue);
+    await server.waitForConnection();
     client.shouldSendHeartbeats = false;
     await Future<void>.delayed(heartbeatDelay);
     expect(server.onDisconnectCalled, isTrue);
@@ -159,8 +158,7 @@ void main() => group("ProtoSocket:", () {
     RoverSettings.isTest = true;
     await server.init();
     await client.init();
-    await Future<void>.delayed(heartbeatDelay * 5);
-    expect(server.isConnected, true);
+    await server.waitForConnection();
 
     // Send a restart command
     client.sendMessage(NetworkSettings(status: RoverStatus.RESTART));
