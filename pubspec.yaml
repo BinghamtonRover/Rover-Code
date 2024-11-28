@@ -1,6 +1,6 @@
 name: burt_network
 description: A starting point for Dart libraries or applications.
-version: 2.1.0
+version: 2.2.0
 publish_to: none
 repository: https://github.com/BinghamtonRover/Networking
 
