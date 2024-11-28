@@ -17,23 +17,26 @@ class BurtFirmwareSerial extends Service {
   /// The reset code to send to a firmware device.
   static final resetCode = Uint8List.fromList([0, 0, 0, 0]);
 
-  /// The name of this device.
-  Device device = Device.FIRMWARE;
-
-  late final _serial = SerialDevice(
-    portName: port,
-    readInterval: readInterval,
-    logger: logger,
-  );
-
-  /// The port this device is attached to.
-  final String port;
+  /// The underlying serial connection.
+  final SerialDevice _serial;
 
   /// The logger to use.
   final BurtLogger logger;
 
-  /// Creates a firmware device at the given serial port.
-  BurtFirmwareSerial({required this.port, required this.logger});
+  /// Creates a firmware device with the given serial port and baud rate.
+  BurtFirmwareSerial({required String port, required this.logger, int baudRate = 9600}) :
+    _serial = SerialDevice(
+      portName: port,
+      readInterval: readInterval,
+      logger: logger,
+      baudRate: baudRate,
+    );
+
+  /// The name of this device.
+  Device device = Device.FIRMWARE;
+
+  /// The port this device is attached to.
+  String get port => _serial.portName;
 
   /// The stream of raw data coming from this device.
   Stream<Uint8List> get rawStream => _serial.stream;

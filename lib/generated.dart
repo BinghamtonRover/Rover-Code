@@ -40,3 +40,19 @@ extension MessageUtils on Message {
     timestamp: Timestamp.fromDateTime(timestamp ?? DateTime.now()),
   );
 }
+
+/// Helpful methods on lists of Protobuf enums.
+extension EnumUtils<T extends proto.ProtobufEnum> on List<T> {
+  /// Filters out the `UNDEFINED` value.
+  List<T> get filtered => [
+    for (final value in this)
+      if (value.value != 0)
+        value,
+  ];
+
+  /// A list of all the enum value names.
+  List<String> get names => [
+    for (final value in filtered)
+      value.name,
+  ];
+}

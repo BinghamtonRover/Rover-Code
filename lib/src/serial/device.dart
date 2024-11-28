@@ -2,6 +2,7 @@ import "dart:async";
 import "dart:typed_data";
 
 import "package:burt_network/burt_network.dart";
+import "package:libserialport/libserialport.dart";
 
 /// A wrapper around the `package:libserialport` library.
 ///
@@ -11,8 +12,9 @@ import "package:burt_network/burt_network.dart";
 /// - Listen to [stream] to get incoming data
 /// - Call [dispose] to close the port
 class SerialDevice extends Service {
-  /// The port to connect to.
-	final String portName;
+  /// All available ports on this device.
+  static List<String> get allPorts => SerialPort.availablePorts;
+
 	/// How often to read from the port.
 	final Duration readInterval;
   /// The underlying connection to the serial port.
@@ -26,26 +28,32 @@ class SerialDevice extends Service {
 	/// The controller for [stream].
 	final _controller = StreamController<Uint8List>.broadcast();
 
-	/// Manages a connection to a serial device.
+	/// Opens a new serial connection with the given port name and baud rate.
 	SerialDevice({
-    required this.portName,
+    required String portName,
 		required this.readInterval,
     required this.logger,
-	}) : _port = SerialPortInterface.factory(portName);
+    int baudRate = 9600,
+	}) : _port = DelegateSerialPort(portName, baudRate: baudRate);
 
+  /// Opens a serial connection on the given port.
+  SerialDevice.fromPort(this._port, {required this.readInterval, required this.logger});
+
+  /// The name of the port to connect to.
+  String get portName => _port.portName;
 
 	/// Whether the port is open (ie, the device is connected).
 	bool get isOpen => _port.isOpen;
 
   @override
 	Future<bool> init() async {
-    if (_controller.isClosed) throw StateError("A SerialDevice cannot be used after shutdown() is called");
+    if (_controller.isClosed) throw StateError("A SerialDevice cannot be used after closeStream() is called");
+    var result = false;
     try {
-      return await _port.init();
-    } catch (error) {
-      logger.warning("Could not open port $portName", body: "$error");
-      return false;
-    }
+      result = await _port.init();
+    } catch (error) { /* Ignore, log below */ }
+    if (!result) logger.warning("Could not open serial port $portName");
+    return result;
   }
 
   /// Starts listening to data sent over the serial port via [stream].
@@ -59,27 +67,24 @@ class SerialDevice extends Service {
     try {
       return _port.read(count ?? _port.bytesAvailable);
     } catch (error) {
-      logger.error("Could not read from serial port $portName:\n  $error");
+      logger.error("Serial device on $portName has suddenly disconnected");
+      stopListening();
+      _port.dispose(isSafe: false);
       return Uint8List(0);
     }
   }
 
 	/// Reads any data from the port and adds it to the [stream].
 	void _checkForBytes(_) {
-		try {
-      final bytes = readBytes();
-      if (bytes.isEmpty) return;
-      _controller.add(bytes);
-		} catch (error) {
-      logger.critical("Could not read $portName", body: error.toString());
-      dispose();
-		}
+    final bytes = readBytes();
+    if (bytes.isEmpty) return;
+    _controller.add(bytes);
 	}
 
   @override
 	Future<void> dispose() async {
     _timer?.cancel();
-		await _port.dispose();
+		await _port.dispose(isSafe: isOpen);
 	}
 
   /// Closes the [stream] so it cannot be listened to.

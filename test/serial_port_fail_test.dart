@@ -10,11 +10,10 @@ const readInterval = Duration(milliseconds: 100);
 void main() async {
   Logger.level = LogLevel.off;
   final logger = BurtLogger();
-  SerialPortInterface.factory = FailingSerialPort.new;  
-  final device = SerialDevice(logger: logger, portName: "portName", readInterval: readInterval);
-  SerialPortInterface.factory = DelegateSerialPort.new;  
 
   group("Failing Serial port", () {
+    final port = FailingSerialPort("portName");
+    final device = SerialDevice.fromPort(port, logger: logger, readInterval: readInterval);
     setUp(device.init);
     tearDown(device.dispose);
 
@@ -47,6 +46,41 @@ void main() async {
       const data = [1, 2, 3, 4, 5, 6, 7, 8];
       final buffer = Uint8List.fromList(data);
       device.write(buffer);
+    });
+  });
+
+  group("Suddenly disconnected port", () {
+    final port = DisconnectedSerialPort("portName");
+    final device = SerialDevice.fromPort(port, logger: logger, readInterval: readInterval);
+    setUp(device.init);
+    tearDown(device.dispose);
+
+    test("can handle being suddenly disconnected: read()", () async {
+      expect(device.isOpen, true);
+      expect(device.readBytes(), Uint8List.fromList([1, 2, 3, 4]));
+      expect(device.isOpen, true);
+      expect(device.readBytes().isEmpty, true);
+      expect(device.isOpen, false);
+    });
+
+    test("can handle being suddenly disconnected: stream", () async {
+      final sub = device.stream.listen((_) { });
+      expect(device.isOpen, true);
+      device.startListening();
+      await Future<void>.delayed(const Duration(milliseconds: 500));
+      expect(device.isOpen, false);
+      await device.dispose();
+      await sub.cancel();
+    });
+
+    test("does not try to call dispose", () async {
+      final sub = device.stream.listen((_) { });
+      expect(device.isOpen, true);
+      device.startListening();
+      await Future<void>.delayed(const Duration(milliseconds: 500));
+      expect(device.isOpen, false);
+      await device.dispose();
+      await sub.cancel();
     });
   });
 }
