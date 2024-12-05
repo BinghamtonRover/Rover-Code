@@ -1,0 +1,14 @@
+# Starts the subsystems (~/subsystems.exe) program on boot. 
+# Place this file in /etc/systemd/system/video.service
+# For more information, see: https://bing-rover.gitbook.io/docs/v/software/onboard-computers/configuring-systemd
+
+[Unit]
+Description=Rover Subsystems
+After=network-online.target
+
+[Service]
+ExecStart=/home/pi/subsystems.exe
+TimeoutStopSec=3
+
+[Install]
+WantedBy=multi-user.target

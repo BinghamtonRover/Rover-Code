@@ -1,0 +1,18 @@
+# https://dart.dev/guides/libraries/private-files
+# Created by `dart pub`
+.dart_tool/
+# The rover has its own cache and SDK that conflicts with pub.dev
+pubspec.lock
+
+# C/C++ build files
+build/
+*.dll
+*.so
+*.o
+*.out
+*.exp
+*.exe
+
+# This file tells the rover to get its dependencies from local files instead of Git/Pub.
+# GitHub's CI needs to use the Pub versions, so we don't check in this file.
+pubspec_overrides.yaml

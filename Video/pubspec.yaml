@@ -1,0 +1,49 @@
+name: video
+description: A sample command-line application.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.0.0
+
+# Add regular dependencies here.
+dependencies:
+  opencv_ffi:
+    # This is published to Pub, but using Git allows us to iterate faster
+    # Not using a dependency override here so that our CI can use the Git version as well
+    git: https://github.com/Levi-Lesches/opencv_ffi
+  burt_network: 
+    git: https://github.com/BinghamtonRover/Networking
+  typed_isolate: ^4.0.0
+  ffi: ^2.1.0
+  protobuf: ^3.1.0
+
+dev_dependencies:
+  ffigen: ^11.0.0
+  test: ^1.21.0
+  very_good_analysis: ^5.0.0+1
+
+ffigen:
+  # Run with `dart run ffigen --config ffigen.yaml -v severe`.
+  name: LibRealSenseBindings
+  description: |
+    Bindings for the RealSense SDK.
+
+    Regenerate bindings with `dart run ffigen --config ffigen.yaml -v severe`.
+  output: "lib/src/generated/librealsense_ffi_bindings.dart"
+  headers:
+    entry-points:
+      - "src/realsense_ffi.h"
+    include-directives:
+      - "src/realsense_ffi.h"
+  comments:
+    style: any
+    length: full
+  type-map:
+    native-types:
+      'char':  # Converts `char` to `Utf8` instead of `Char`
+        'lib': 'pkg_ffi'
+        'c-type': 'Utf8'
+        'dart-type': 'Utf8'
+  compiler-opts:
+    - '-Isrc/librealsense/include'

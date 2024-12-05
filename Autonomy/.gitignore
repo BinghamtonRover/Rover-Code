@@ -1,0 +1,10 @@
+# These tell your computer or the rover to fetch from the parent folder and not GitHub
+# Because of that, we don't sync our pubspec.lock either
+pubspec_overrides.yaml
+pubspec.lock
+
+# https://dart.dev/guides/libraries/private-files
+# Created by `dart pub`
+.dart_tool/
+
+*.dll
