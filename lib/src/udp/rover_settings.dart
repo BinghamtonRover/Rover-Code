@@ -1,12 +1,12 @@
 import "dart:io";
 
-import "package:burt_network/generated.dart";
+import "package:burt_network/protobuf.dart";
 
 import "burt_socket.dart";
 
 /// A mixin that handles [UpdateSetting] commands.
 mixin RoverSettings on BurtSocket {
-  /// Whether this code is being run in a test environment. 
+  /// Whether this code is being run in a test environment.
   static bool isTest = false;
 
   /// Handles an [UpdateSetting] command and updates the appropriate setting.

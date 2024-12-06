@@ -1,7 +1,7 @@
 import "dart:async";
 import "dart:math";
 
-import "package:burt_network/generated.dart";
+import "package:burt_network/protobuf.dart";
 
 /// JSON data as a map.
 typedef Json = Map<String, dynamic>;

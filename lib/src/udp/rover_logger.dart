@@ -1,4 +1,4 @@
-import "package:burt_network/generated.dart";
+import "package:burt_network/protobuf.dart";
 
 import "burt_socket.dart";
 import "socket_info.dart";
