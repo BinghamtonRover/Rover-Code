@@ -2,8 +2,9 @@ name: rover
 publish_to: none
 environment:
   sdk: ^3.6.0
+
 workspace:
   - Autonomy
-  - Networking
+  - burt_network
   - Subsystems
   - Video

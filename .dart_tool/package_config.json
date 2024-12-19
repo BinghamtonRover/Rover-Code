@@ -44,12 +44,6 @@
       "languageVersion": "3.1"
     },
     {
-      "name": "cli_config",
-      "rootUri": "file:///D:/.tools/pub/hosted/pub.dev/cli_config-0.2.0",
-      "packageUri": "lib/",
-      "languageVersion": "3.0"
-    },
-    {
       "name": "cli_util",
       "rootUri": "file:///D:/.tools/pub/hosted/pub.dev/cli_util-0.4.2",
       "packageUri": "lib/",
@@ -57,7 +51,7 @@
     },
     {
       "name": "collection",
-      "rootUri": "file:///D:/.tools/pub/hosted/pub.dev/collection-1.19.1",
+      "rootUri": "file:///D:/.tools/pub/hosted/pub.dev/collection-1.19.0",
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
@@ -90,6 +84,12 @@
       "rootUri": "file:///D:/.tools/pub/hosted/pub.dev/dart_style-2.3.7",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "dartcv4",
+      "rootUri": "file:///D:/.tools/pub/hosted/pub.dev/dartcv4-1.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
     },
     {
       "name": "dylib",
@@ -189,7 +189,7 @@
     },
     {
       "name": "meta",
-      "rootUri": "file:///D:/.tools/pub/hosted/pub.dev/meta-1.16.0",
+      "rootUri": "file:///D:/.tools/pub/hosted/pub.dev/meta-1.15.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -200,22 +200,10 @@
       "languageVersion": "3.2"
     },
     {
-      "name": "native_assets_cli",
-      "rootUri": "file:///D:/.tools/pub/hosted/pub.dev/native_assets_cli-0.7.3",
-      "packageUri": "lib/",
-      "languageVersion": "3.3"
-    },
-    {
       "name": "node_preamble",
       "rootUri": "file:///D:/.tools/pub/hosted/pub.dev/node_preamble-2.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
-    },
-    {
-      "name": "opencv_dart",
-      "rootUri": "file:///D:/.tools/pub/hosted/pub.dev/opencv_dart-2.1.0-dev.0",
-      "packageUri": "lib/",
-      "languageVersion": "3.3"
     },
     {
       "name": "opencv_ffi",
@@ -435,9 +423,9 @@
     },
     {
       "name": "burt_network",
-      "rootUri": "../Networking",
+      "rootUri": "../burt_network",
       "packageUri": "lib/",
-      "languageVersion": "3.5"
+      "languageVersion": "3.6"
     },
     {
       "name": "subsystems",
@@ -452,7 +440,7 @@
       "languageVersion": "3.6"
     }
   ],
-  "generated": "2024-12-18T20:17:42.106801Z",
+  "generated": "2024-12-19T03:00:19.751985Z",
   "generator": "pub",
   "generatorVersion": "3.6.0",
   "flutterRoot": "file:///C:/Users/Levi/flutter",
