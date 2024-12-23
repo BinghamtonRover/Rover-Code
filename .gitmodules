@@ -5,7 +5,7 @@
 	path = Autonomy
 	url = https://github.com/BinghamtonRover/Autonomy
 [submodule "Networking"]
-	path = Networking
+	path = burt_network
 	url = https://github.com/BinghamtonRover/Networking
 [submodule "opencv_ffi"]
 	path = opencv_ffi
