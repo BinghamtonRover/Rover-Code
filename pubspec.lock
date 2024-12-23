@@ -270,15 +270,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.2"
-  opencv_ffi:
-    dependency: transitive
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "4912b2962f322e964bbb0f3bedd18b10118f50a4"
-      url: "https://github.com/BinghamtonRover/OpenCV-FFI.git"
-    source: git
-    version: "2.0.0"
   osc:
     dependency: transitive
     description:

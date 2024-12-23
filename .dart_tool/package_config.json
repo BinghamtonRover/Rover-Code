@@ -206,12 +206,6 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "opencv_ffi",
-      "rootUri": "file:///D:/.tools/pub/git/OpenCV-FFI-4912b2962f322e964bbb0f3bedd18b10118f50a4/",
-      "packageUri": "lib/",
-      "languageVersion": "3.0"
-    },
-    {
       "name": "osc",
       "rootUri": "file:///D:/.tools/pub/hosted/pub.dev/osc-1.0.0",
       "packageUri": "lib/",
@@ -419,7 +413,7 @@
       "name": "autonomy",
       "rootUri": "../Autonomy",
       "packageUri": "lib/",
-      "languageVersion": "3.5"
+      "languageVersion": "3.6"
     },
     {
       "name": "burt_network",
@@ -431,7 +425,7 @@
       "name": "subsystems",
       "rootUri": "../Subsystems",
       "packageUri": "lib/",
-      "languageVersion": "3.5"
+      "languageVersion": "3.6"
     },
     {
       "name": "video",
@@ -440,7 +434,7 @@
       "languageVersion": "3.6"
     }
   ],
-  "generated": "2024-12-19T03:00:19.751985Z",
+  "generated": "2024-12-23T17:36:31.110997Z",
   "generator": "pub",
   "generatorVersion": "3.6.0",
   "flutterRoot": "file:///C:/Users/Levi/flutter",
