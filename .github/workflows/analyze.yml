@@ -17,10 +17,18 @@ jobs:
       # https://github.com/dart-lang/setup-dart/blob/main/README.md
       - uses: dart-lang/setup-dart@v1
         with:
-          sdk: 3.5.2
+          sdk: 3.6.0
 
+      # This package is part of a Pub Workspace. However, CI still needs to
+      # run on this repo by itself, so we want to override burt_network to use
+      # a Git dependency ONLY on GitHub Actions.
+      #
+      # To get around this, we commit the overrides to the .github folder where
+      # Dart can't find them, then copy them as part of the CI workflow.
       - name: Install dependencies
-        run: dart pub get
+        run: |
+          mv .github/pubspec_overrides.yaml .
+          dart pub get
 
       - name: Analyze project source
         run: dart analyze --fatal-infos
