@@ -4,8 +4,9 @@ version: 2.3.1
 publish_to: none
 repository: https://github.com/BinghamtonRover/Networking
 
+resolution: workspace
 environment:
-  sdk: ^3.5.0
+  sdk: ^3.6.0
 
 # Add regular dependencies here.
 dependencies:

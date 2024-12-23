@@ -20,10 +20,12 @@ jobs:
       # https://github.com/dart-lang/setup-dart/blob/main/README.md
       - uses: dart-lang/setup-dart@v1
         with:
-          sdk: 3.5.2
+          sdk: 3.6.0
 
       - name: Install dependencies
-        run: dart pub get
+        run: |
+          mv .github/pubspec_overrides.yaml pubspec_overrides.yaml
+          dart pub get
 
       - name: Analyze project source
         run: dart analyze --fatal-infos
