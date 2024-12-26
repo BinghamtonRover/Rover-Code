@@ -45,9 +45,9 @@ class RoverProgram {
       "dart compile exe bin/$name.dart -o ~/$name",
     ],
     Language.python => [
-      'echo "#!/bin/bash\\n" > ~/$name',
-      'echo "cd /home/pi/rover/$name\\n" >> ~/$name',
-      'echo "python -m bin.$name\\n" >> ~/$name',
+      'echo "#!/bin/bash" > ~/$name',
+      'echo "cd /home/pi/rover/$name" >> ~/$name',
+      'echo "python -m bin.$name" >> ~/$name',
     ]
   };
 }

@@ -33,7 +33,7 @@ cd ..
 
 echo "Compiling the cv program. This could take a few minutes..."
 cd cv
-echo "#!/bin/bash\n" > ~/cv
-echo "cd /home/pi/rover/cv\n" >> ~/cv
-echo "python -m bin.cv\n" >> ~/cv
+echo "#!/bin/bash" > ~/cv
+echo "cd /home/pi/rover/cv" >> ~/cv
+echo "python -m bin.cv" >> ~/cv
 cd ..
