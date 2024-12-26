@@ -33,7 +33,10 @@ void main() async {
     buffer.writeln();
     buffer.writeln('echo "Compiling the $name program. This could take a few minutes..."');
     buffer.writeln("cd $name");
-    buffer.writeln("dart compile exe bin/$name.dart -o ~/$name.exe $suffix");
+    // buffer.writeln("dart compile exe bin/$name.dart -o ~/$name.exe $suffix");
+    for (final command in program.compilationCommands) {
+      buffer.writeln(command);
+    }
     for (final extraCommand in program.extraCommands ?? []) {
       buffer.writeln("$extraCommand $suffix");
     }

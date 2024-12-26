@@ -39,8 +39,15 @@ class RoverProgram {
   });
 
   /// The command to compile this program.
-  String get compilationCommand => switch (language) {
-    Language.dart => "dart compile exe bin/$name.dart -o ~/$name.exe",
-    Language.python => 'echo "#!/bin/bash\ncd /home/pi/rover/$name;\npython -m bin.$name" > ~/$name.sh',
+  List<String> get compilationCommands => switch (language) {
+    Language.dart => [
+      // "cd $name",
+      "dart compile exe bin/$name.dart -o ~/$name",
+    ],
+    Language.python => [
+      'echo "#!/bin/bash\\n" > ~/$name',
+      'echo "cd /home/pi/rover/$name\\n" >> ~/$name',
+      'echo "python -m bin.$name\\n" >> ~/$name',
+    ]
   };
 }
