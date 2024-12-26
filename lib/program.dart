@@ -1,3 +1,14 @@
+/// A language a program can be written in.
+///
+/// Affects how the program is compiled and executed.
+enum Language {
+  /// Dart.
+  dart,
+
+  /// Python.
+  python,
+}
+
 /// A team-written program on the rover.
 ///
 /// This class will be used to compile the program and register the executable with systemd
@@ -15,11 +26,21 @@ class RoverProgram {
   /// Any extra commands to compile native assets.
   final List<String>? extraCommands;
 
+  /// What language this program is compiled in.
+  final Language language;
+
   /// Registers a program to be compiled and ran with systemd.
   const RoverProgram({
     required this.name,
     required this.description,
     required this.fullPathToExecutable,
     this.extraCommands,
+    this.language = Language.dart,
   });
+
+  /// The command to compile this program.
+  String get compilationCommand => switch (language) {
+    Language.dart => "dart compile exe bin/$name.dart -o ~/$name.exe",
+    Language.python => 'echo "#!/bin/bash\ncd /home/pi/rover/$name;\npython -m bin.$name" > ~/$name.sh',
+  };
 }
