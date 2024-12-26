@@ -18,4 +18,10 @@ const programs = [
     description: "Navigates the field autonomously",
     fullPathToExecutable: "/home/pi/autonomy.exe",
   ),
+  RoverProgram(
+    name: "cv",
+    description: "Analyzes video frames to look for objects of interest",
+    fullPathToExecutable: "/home/pi/cv.sh",
+    language: Language.python,
+  ),
 ];
