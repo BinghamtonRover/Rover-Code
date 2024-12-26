@@ -47,7 +47,7 @@ class RoverProgram {
     Language.python => [
       'echo "#!/bin/bash" > ~/$name',
       'echo "cd /home/pi/rover/$name" >> ~/$name',
-      'echo "python -m bin.$name" >> ~/$name',
+      'echo "python3 -m bin.$name" >> ~/$name',
     ]
   };
 }
