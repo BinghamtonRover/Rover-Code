@@ -4,7 +4,7 @@ environment:
   sdk: ^3.6.0
 
 workspace:
-  - Autonomy
+  - autonomy
   - burt_network
-  - Subsystems
-  - Video
+  - subsystems
+  - video
