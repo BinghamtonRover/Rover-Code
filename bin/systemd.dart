@@ -24,7 +24,8 @@ void main() async {
     buffer.writeln("After=network-online.target");
     buffer.writeln();
     buffer.writeln("[Service]");
-    buffer.writeln("ExecStart=${program.fullPathToExecutable}");
+    buffer.writeln("WorkingDirectory=${program.sourceDir}");
+    buffer.writeln("ExecStart=${program.executable}");
     buffer.writeln("TimeoutStopSec=3");
     buffer.writeln();
     buffer.writeln("[Install]");

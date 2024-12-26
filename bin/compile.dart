@@ -33,7 +33,7 @@ void main() async {
     buffer.writeln();
     buffer.writeln('echo "Compiling the $name program. This could take a few minutes..."');
     buffer.writeln("cd $name");
-    for (final command in program.compilationCommands) {
+    for (final command in program.compileCommands) {
       buffer.writeln(command);
     }
     for (final extraCommand in program.extraCommands ?? []) {

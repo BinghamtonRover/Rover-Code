@@ -1,3 +1,5 @@
+import "dart:io";
+
 /// A language a program can be written in.
 ///
 /// Affects how the program is compiled and executed.
@@ -20,9 +22,6 @@ class RoverProgram {
   /// A human-readable description of the program.
   final String description;
 
-  /// The full path to the executable that will result from compiling.
-  final String fullPathToExecutable;
-
   /// Any extra commands to compile native assets.
   final List<String>? extraCommands;
 
@@ -33,21 +32,26 @@ class RoverProgram {
   const RoverProgram({
     required this.name,
     required this.description,
-    required this.fullPathToExecutable,
-    this.extraCommands,
     this.language = Language.dart,
+    this.extraCommands,
   });
 
+  /// The path to the generated executable.
+  String get executable => switch (language) {
+    Language.dart => "${const String.fromEnvironment("HOME")}/$name",
+    Language.python => "python3 -m bin.$name",
+  };
+
+  /// The path to the program's source directory.
+  String get sourceDir => "${Directory.current.path}/$name";
+
   /// The command to compile this program.
-  List<String> get compilationCommands => switch (language) {
+  List<String> get compileCommands => switch (language) {
     Language.dart => [
-      // "cd $name",
       "dart compile exe bin/$name.dart -o ~/$name",
     ],
     Language.python => [
-      'echo "#!/bin/bash" > ~/$name',
-      'echo "cd /home/pi/rover/$name" >> ~/$name',
-      'echo "python3 -m bin.$name" >> ~/$name',
+
     ]
   };
 }
