@@ -13,3 +13,6 @@
 [submodule "Video"]
 	path = video
 	url = https://github.com/BinghamtonRover/Video
+[submodule "cv"]
+	path = cv
+	url = https://github.com/BinghamtonRover/Computer-Vision
