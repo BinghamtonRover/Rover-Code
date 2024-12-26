@@ -16,6 +16,7 @@ echo "Configuring Linux files..."
 sh scripts/linux.sh $1
 
 echo "Compiling all rover programs..."
+dart run :compile
 sh scripts/compile.sh $1
 
 echo ""
