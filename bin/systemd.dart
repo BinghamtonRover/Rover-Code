@@ -28,7 +28,6 @@ void main() async {
     buffer.writeln();
     buffer.writeln("[Install]");
     buffer.writeln("WantedBy=multi-user.target");
-    buffer.writeln();
     await file.create(recursive: true);
     await file.writeAsString(buffer.toString());
     print("Generated ${file.path}");
