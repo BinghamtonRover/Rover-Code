@@ -38,7 +38,7 @@ class RoverProgram {
 
   /// The path to the generated executable.
   String get executable => switch (language) {
-    Language.dart => "${const String.fromEnvironment("HOME")}/$name",
+    Language.dart => "${Platform.environment["HOME"] ?? ""}/$name",
     Language.python => "python3 -m bin.$name",
   };
 
