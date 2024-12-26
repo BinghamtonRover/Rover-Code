@@ -5,7 +5,7 @@ const programs = [
     name: "video",
     description: "Streams all the cameras and sends the feeds to the Dashboard",
     fullPathToExecutable: "/home/pi/video.exe",
-    extraCommands: ["sh build.sh"],
+    extraCommands: ["bash src/build.sh"],
   ),
   RoverProgram(
     name: "subsystems",

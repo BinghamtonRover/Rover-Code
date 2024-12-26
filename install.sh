@@ -10,14 +10,14 @@ else
 fi
 
 echo "Cloning submodules..."
-git submodule update --init >&3
+git submodule update --init --recursive >&3
 
 echo "Configuring Linux files..."
-sh scripts/linux.sh $1
+bash scripts/linux.sh $1
 
 echo "Compiling all rover programs..."
-dart run :compile
-sh scripts/compile.sh $1
+dart run :compile >&3
+bash scripts/compile.sh $1
 
 echo ""
 echo "Done! Here's what just happened"

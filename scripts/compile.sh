@@ -13,23 +13,21 @@ if [ "$1" = "-v" ]; then
 else
   exec 3>/dev/null
 fi
+dart pub get --offline >&3
 
 echo "Compiling the video program. This could take a few minutes..."
 cd video
-dart pub get --offline >&3
 dart compile exe bin/video.dart -o ~/video.exe >&3
-sh build.sh >&3
+bash src/build.sh >&3
 cd ..
 
 echo "Compiling the subsystems program. This could take a few minutes..."
 cd subsystems
-dart pub get --offline >&3
 dart compile exe bin/subsystems.dart -o ~/subsystems.exe >&3
 make -C src >&3
 cd ..
 
 echo "Compiling the autonomy program. This could take a few minutes..."
 cd autonomy
-dart pub get --offline >&3
 dart compile exe bin/autonomy.dart -o ~/autonomy.exe >&3
 cd ..
