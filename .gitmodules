@@ -1,8 +1,8 @@
 [submodule "Subsystems"]
-	path = Subsystems
+	path = subsystems
 	url = https://github.com/BinghamtonRover/Subsystems
 [submodule "Autonomy"]
-	path = Autonomy
+	path = autonomy
 	url = https://github.com/BinghamtonRover/Autonomy
 [submodule "Networking"]
 	path = burt_network
@@ -11,5 +11,5 @@
 	path = opencv_ffi
 	url = https://github.com/Levi-Lesches/opencv_ffi
 [submodule "Video"]
-	path = Video
+	path = video
 	url = https://github.com/BinghamtonRover/Video
