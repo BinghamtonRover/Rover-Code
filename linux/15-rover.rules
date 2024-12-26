@@ -1,5 +1,5 @@
 # AUTO-GENERATED FILE. DO NOT EDIT BY HAND.
-# To re-generate, edit `bin/devices.dart` and run `dart run :udev`
+# To re-generate, edit `all_devices.dart` and run `dart run :udev`
 #
 # UDev rules for the Subsystems Pi
 # This file should be placed in /etc/udev/rules.d

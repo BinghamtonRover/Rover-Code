@@ -1,13 +1,13 @@
 import "dart:io";
 
-import "devices.dart";
+import "../all_devices.dart";
 
-const filename = "15-rover.rules";
+const filename = "linux/15-rover.rules";
 
 const header =
 """
 # AUTO-GENERATED FILE. DO NOT EDIT BY HAND.
-# To re-generate, edit `bin/devices.dart` and run `dart run :udev`
+# To re-generate, edit `all_devices.dart` and run `dart run :udev`
 #
 # UDev rules for the Subsystems Pi
 # This file should be placed in /etc/udev/rules.d
@@ -28,6 +28,7 @@ const header =
 void main() async {
   final buffer = StringBuffer();
   buffer.writeln(header);
+
   for (final device in devices) {
     // Comment line
     buffer.writeln("# ${device.humanName}: /dev/${device.alias}");
@@ -49,7 +50,9 @@ void main() async {
   }
 
   final contents = buffer.toString();
-  await File(filename).writeAsString(contents);
+  final file = File(filename);
+  await file.create(recursive: true);
+  await file.writeAsString(contents);
 
   print("Generated $filename with ${devices.length} devices");
 }

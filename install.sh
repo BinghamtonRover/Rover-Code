@@ -24,16 +24,7 @@ sudo systemctl start subsystems > /dev/null
 sudo udevadm control --reload-rules
 sudo udevadm trigger
 
-echo ""
-echo "Done! Here's what just happened"
-echo "- SocketCan and libserialport were built and installed as dynamic libraries"
-echo "- The subsystems program was compiled to ~/subsystems.exe"
-echo "- udev will auto-detect the IMU and GPS when plugged in"
-echo "- systemd will auto-start the subsystems program on boot"
-
-
-
-# Redirects output on &3 to /dev/null unless -v or --verbose is passed 
+# Redirects output on &3 to /dev/null unless -v or --verbose is passed
 if [ "$1" = "-v" ]; then
   exec 3>&1
 else
@@ -78,3 +69,7 @@ echo "- OpenCV was built and installed as a dynamic library"
 echo "- The video program was compiled to ~/video.exe"
 echo "- udev will auto-detect cameras when plugged in"
 echo "- systemd will auto-start the video program on boot"
+echo "- SocketCan and libserialport were built and installed as dynamic libraries"
+echo "- The subsystems program was compiled to ~/subsystems.exe"
+echo "- udev will auto-detect the IMU and GPS when plugged in"
+echo "- systemd will auto-start the subsystems program on boot"
