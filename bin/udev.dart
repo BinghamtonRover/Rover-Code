@@ -1,5 +1,6 @@
-import "dart:io";
+// ignore_for_file: avoid_print
 
+import "dart:io";
 import "../all_devices.dart";
 
 const filename = "linux/15-rover.rules";
@@ -43,7 +44,7 @@ void main() async {
     buffer.writeln('ENV{$varName}="t"');
 
     // Line 2 generates the symlink for the device
-    buffer.write('${device.type.key}=="${device.subsystem}", ');
+    buffer.write('${device.type.key}=="${device.type.subsystem}", ');
     if (device.index != null) buffer.write('ATTR{index}=="${device.index}", ');
     buffer.writeln('ENV{$varName}=="t", SYMLINK+="${device.alias}"');
     buffer.writeln();

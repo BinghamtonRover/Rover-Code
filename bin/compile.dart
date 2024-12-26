@@ -1,9 +1,10 @@
-import "dart:io";
+// ignore_for_file: avoid_print
 
+import "dart:io";
 import "../all_programs.dart";
 
 const header =
-"""
+r"""
 #!/bin/bash
 
 # AUTO-GENERATED FILE. DO NOT EDIT.
@@ -14,7 +15,7 @@ const header =
 set -e  # Any error will cause the script to fail
 
 # Redirects output on &3 to /dev/null unless -v or --verbose is passed
-if [ "\$1" = "-v" ]; then
+if [ "$1" = "-v" ]; then
   exec 3>&1
 else
   exec 3>/dev/null
