@@ -9,8 +9,9 @@ else
   exec 3>/dev/null
 fi
 
-echo "Cloning submodules..."
+echo "Initializing Dart projects..."
 git submodule update --init --recursive >&3
+dart pub get --offline >&3
 
 echo "Configuring Linux files..."
 bash scripts/linux.sh $1

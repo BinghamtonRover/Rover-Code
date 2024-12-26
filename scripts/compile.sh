@@ -13,7 +13,6 @@ if [ "$1" = "-v" ]; then
 else
   exec 3>/dev/null
 fi
-dart pub get --offline >&3
 
 echo "Compiling the video program. This could take a few minutes..."
 cd video

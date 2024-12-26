@@ -27,7 +27,6 @@ const suffix = ">&3";
 void main() async {
   final buffer = StringBuffer();
   buffer.write(header);
-  buffer.writeln("dart pub get --offline $suffix");
   for (final program in programs) {
     final name = program.name;
     buffer.writeln();
