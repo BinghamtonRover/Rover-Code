@@ -1,3 +1,4 @@
 .dart_tool
 linux/
 .vscode
+scripts/compile.sh
