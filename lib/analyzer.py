@@ -5,12 +5,13 @@ class ImageAnalyzer:
   def __init__(self):
     self.model = YOLO("trained-model.pt", verbose=False)
 
-  def has_mallet(self, frame: cv2.Mat, confidence = 0.5) -> bool:
+  def has_mallet(self, frame: cv2.Mat, confidence = 0.80) -> bool:
     results = self.model.predict(frame, stream=True, verbose=False)
     for result in results:
       json = result.summary()
       if not json: return False
       object = json[0]
+      print(f"Confidence in analyzer: {object['confidence']}")
       is_mallet = object['name'] == "mallet" and object['confidence'] > confidence
       if is_mallet: return True
     else:
