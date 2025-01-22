@@ -9,11 +9,14 @@
 
 #include "sick_scan_api.h"
 #include <stdint.h>
+#include <vector>
+
 
 typedef struct Image{
   uint64_t height;
   uint64_t width;
   uint8_t* data;
+  double* OneDArray;
 } Image;
 
 FFI_PLUGIN_EXPORT void init();
@@ -23,3 +26,6 @@ FFI_PLUGIN_EXPORT Image getLatestImage();
 FFI_PLUGIN_EXPORT void addHiddenArea();
 FFI_PLUGIN_EXPORT void addCross(const SickScanPointCloudMsg* pixels);
 FFI_PLUGIN_EXPORT void make_matrix(const SickScanPointCloudMsg* msg);
+FFI_PLUGIN_EXPORT void getLatestData();
+FFI_PLUGIN_EXPORT void updateLatestData(const SickScanPointCloudMsg* pointCloudMsg);
+

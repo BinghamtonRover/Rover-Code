@@ -1,4 +1,4 @@
-echo off
+@echo off
 
 rem Build lidar_ffi_wrapper
 cd src
@@ -16,4 +16,4 @@ cd build
 copy Debug\lidar_ffi.dll ..\dist
 copy sick_scan_xd\Debug\sick_scan_xd_shared_lib.dll ..\dist
 cd ..
-dart run ffigen --config lidar.yaml -v severe
+dart --enable-experiment=native-assets run ffigen --config lidar.yaml -v severe

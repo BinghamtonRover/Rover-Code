@@ -50,6 +50,8 @@ class LidarStub extends Lidar {
   @override
   Future<VideoData> readFrame() async {
     final image = bindings.getLatestImage();
+    image.oneDa
+    //print("Image Data# plz strem: ${image.data}");
     print("image height: ${image.height}, image width ${image.width}");
     Resolution res = (height: image.height, width: image.width);
     final matrix = image.data.toOpenCVMat(res, length: 3 * image.height * image.width);
