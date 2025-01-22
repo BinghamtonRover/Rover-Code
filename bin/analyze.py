@@ -1,3 +1,5 @@
+print("Initializing...")
+
 import cv2
 import os
 
