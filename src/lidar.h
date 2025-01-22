@@ -1,6 +1,6 @@
 
 #if defined(_WIN32) && defined(__cplusplus)
-#define FFI_PLUGIN_EXPORT extern "C" __declspec(dllexport) 
+#define FFI_PLUGIN_EXPORT extern "C" __declspec(dllexport)
 #define NON_FFI __declspec(dllexport)
 #else
 #define FFI_PLUGIN_EXPORT
@@ -9,7 +9,6 @@
 
 #include "sick_scan_api.h"
 #include <stdint.h>
-#include <vector>
 
 
 typedef struct Image{

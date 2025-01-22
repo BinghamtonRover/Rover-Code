@@ -3,6 +3,8 @@
 // #include <unistd.h> // For sleep function on unix
 #include <cassert>
 #include <cmath>
+#include <vector>
+
 #include "lidar.h"
 #define WIDTH 1000
 #define HEIGHT 1000
@@ -78,7 +80,7 @@ FFI_PLUGIN_EXPORT void updateLatestData(const SickScanPointCloudMsg* pointCloudM
             if (field_offset_intensity >= 0) point_intensity = *((float*)(pointCloudMsg->data.buffer + polar_point_offset + field_offset_intensity));
         }
     }
-    std::cout << "\n"; 
+    std::cout << "\n";
     for(int k = 0; k < 270; k++){
       std:: cout<< image.OneDArray[k] << " ";
     }
@@ -89,7 +91,7 @@ FFI_PLUGIN_EXPORT void updateLatestImage(SickScanApiHandle apiHandle, const Sick
   // std::cout << "Image height: " << (int) pointCloudMsg->height << ", Width: " << (int) pointCloudMsg->width << std::endl;
   // std::cout << pointCloudMsg << std::endl;
   // SickScanPointCloudMsg* msgptr = pointCloudMsg;
-  //if (image.height != 0) mutex = 0;  
+  //if (image.height != 0) mutex = 0;
   //std::cout << "height" << pointCloudMsg->height << "width" << pointCloudMsg->width << "pointstep" << pointCloudMsg->point_step<< "rowstep" << pointCloudMsg->row_step << "data capacity" << pointCloudMsg->data.capacity << "data size" << pointCloudMsg->data.size << "data buffer" << pointCloudMsg->data.buffer << std::endl;
 
   // Change to if: assert(pointCloudMsg->height >= 0 && (int)pointCloudMsg->width >=0);
@@ -134,7 +136,7 @@ FFI_PLUGIN_EXPORT void make_matrix(const SickScanPointCloudMsg* msg){
 	//uint8_t* img_pixel = image.data;
 
   memset(image.data, 0, 3 * image.width * image.height);
-  
+
 
 	// Plot all points in pointcloud
     for (int row_idx = 0; row_idx < (int)msg->height; row_idx++)
@@ -169,7 +171,7 @@ FFI_PLUGIN_EXPORT void make_matrix(const SickScanPointCloudMsg* msg){
 		}
 	}
 
-  // std::cout << "\n"; 
+  // std::cout << "\n";
   // for(int k = 0; k < 270; k++){
   //     std:: cout<< image.OneDArray[k] << " ";
   // }
@@ -210,11 +212,11 @@ FFI_PLUGIN_EXPORT void addHiddenArea() {
     }
 }
 
-FFI_PLUGIN_EXPORT void getLatestData() { 
+FFI_PLUGIN_EXPORT void getLatestData() {
 
 }
 
-FFI_PLUGIN_EXPORT Image getLatestImage() { 
+FFI_PLUGIN_EXPORT Image getLatestImage() {
   // while(mutex == 0){
   //   std::cout << "Mutex locked" << std::endl;
   //   Sleep(100);

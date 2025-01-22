@@ -1118,6 +1118,29 @@ class LidarBindings {
   late final _make_matrix = _make_matrixPtr
       .asFunction<void Function(ffi.Pointer<SickScanPointCloudMsg>)>();
 
+  void getLatestData() {
+    return _getLatestData();
+  }
+
+  late final _getLatestDataPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function()>>('getLatestData');
+  late final _getLatestData = _getLatestDataPtr.asFunction<void Function()>();
+
+  void updateLatestData(
+    ffi.Pointer<SickScanPointCloudMsg> pointCloudMsg,
+  ) {
+    return _updateLatestData(
+      pointCloudMsg,
+    );
+  }
+
+  late final _updateLatestDataPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Pointer<SickScanPointCloudMsg>)>>('updateLatestData');
+  late final _updateLatestData = _updateLatestDataPtr
+      .asFunction<void Function(ffi.Pointer<SickScanPointCloudMsg>)>();
+
   late final addresses = _SymbolAddresses(this);
 }
 
@@ -2108,9 +2131,7 @@ final class Image extends ffi.Struct {
   @ffi.Uint64()
   external int width;
 
-  /// uint64_t capacity;
-  /// SickScanUint8Array buffer;
   external ffi.Pointer<ffi.Uint8> data;
 
-  external ffi.Pointer<SickScanPointCloudMsg> pointCloudMsg;
+  external ffi.Pointer<ffi.Double> OneDArray;
 }
