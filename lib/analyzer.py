@@ -12,6 +12,7 @@ class ImageAnalyzer:
       if not json: return False
       object = json[0]
       is_mallet = object['name'] == "mallet" and object['confidence'] > confidence
+      print("Confidence: " + str(object['confidence']))
       if is_mallet: return True
     else:
       return False
