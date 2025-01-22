@@ -1,26 +1,21 @@
 import cv2
-import sys
-from analyzer import ImageAnalyzer
+import os
 
-def main():
-  print("Loading model...")
+from lib.analyzer import ImageAnalyzer
+
+def main(): 
   analyzer = ImageAnalyzer()
-  no_mallet = cv2.imread("no_mallet.jpg")
-  yes_mallet = cv2.imread("yes_mallet.jpg")
-
-  print("Analyzing no_mallet... ", end = "")
-  found_mallet = analyzer.has_mallet(no_mallet)
-  if found_mallet:
-    print("Failed\nFound mallet when there is no mallet")
-    return
-  print("Success!")
-
-  print("Analyzing yes_mallet... ", end = "")
-  found_mallet = analyzer.has_mallet(yes_mallet)
-  if not found_mallet:
-    print("Failed\nCould not detect mallet")
-    return
-  print("Success!")
+  for file in os.listdir("test_images"): 
+    filename, _ = file.split(".")
+    if not filename: continue 
+    background, has_mallet = filename.split("_")  # chair_yes --> chair, yes
+    has_mallet = has_mallet == "yes"              # yes --> True
+    frame = cv2.imread(f"test_images/{file}")
+    result = analyzer.has_mallet(frame)
+    if result == has_mallet: 
+      print(f"{background} image passed -- {result}")
+    else: 
+      print(f"{background} image failed: Analyzer detected {result} instead of {has_mallet}")
 
 if __name__ == "__main__":
   main()

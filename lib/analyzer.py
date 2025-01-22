@@ -13,6 +13,7 @@ class ImageAnalyzer:
       object = json[0]
       print(f"Confidence in analyzer: {object['confidence']}")
       is_mallet = object['name'] == "mallet" and object['confidence'] > confidence
+      print("Confidence: " + str(object['confidence']))
       if is_mallet: return True
     else:
       return False
