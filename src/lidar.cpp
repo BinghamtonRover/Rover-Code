@@ -115,6 +115,7 @@ FFI_PLUGIN_EXPORT void updateLatestImage(SickScanApiHandle apiHandle, const Sick
 FFI_PLUGIN_EXPORT void make_matrix(const SickScanPointCloudMsg* msg){
     uint64_t midx = image.width / 2;
     uint64_t midy = image.height / 2;
+    double angle = 0;
 
    // Get offsets for x, y, z, intensity values
     SickScanPointFieldMsg* msg_fields_buffer = (SickScanPointFieldMsg*)msg->fields.buffer;
@@ -154,27 +155,31 @@ FFI_PLUGIN_EXPORT void make_matrix(const SickScanPointCloudMsg* msg){
 			// Convert point coordinates in meter to image coordinates in pixel
 			      int img_x = (int)(250.0f * (-point_y + 2.0f)); // img_x := -pointcloud.y
             int img_y = (int)(250.0f * (-point_x + 2.0f)); // img_y := -pointcloud.x
-
             if (img_x >= 0 && img_x < img_width && img_y >= 0 && img_y < img_height) // point within the image area
             {
               image.data[3 * img_y * img_width + 3 * img_x + 0] = 255; // R
               image.data[3 * img_y * img_width + 3 * img_x + 1] = 255; // G
               image.data[3 * img_y * img_width + 3 * img_x + 2] = 255; // B
+              angle  = std::atan2(point_y,  point_x);
+              angle = angle * 180 / PI;
+             // std::cout << " angle:" << angle << "  point_x " << point_x << " point_y " << point_y << std::endl;
+
             }
-            double angle  = std::atan2(point_y-midy, point_x-midx);
-            angle = angle * 180 / PI;
-            //std::cout << " Angle:" << angle << " ";
-            if(point_x >= 0 && point_y >=0 && angle >=0 && angle <= 270){
-              image.OneDArray[int(angle)] = angle;
+
+            if(angle >=0 && angle <= 270){
+              double distance = sqrt(pow(point_x,2) + pow(point_y,2));
+              image.OneDArray[int(angle)] = distance;
+              //std::cout << int(angle) << std::endl;
             }
 
 		}
 	}
 
-  // std::cout << "\n";
   // for(int k = 0; k < 270; k++){
   //     std:: cout<< image.OneDArray[k] << " ";
   // }
+  // std::cout << "\n";
+
   // std::cout << "Made it here2" << std::endl;
 }
 
