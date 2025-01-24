@@ -10,7 +10,7 @@ const outputName = "imu.csv";
 
 extension <E> on Iterable<E> {
   Iterable<(int, E)> get enumerate sync* {
-    int i = 0;
+    var i = 0;
     for (final e in this) {
       yield (i++, e);
     }
@@ -20,8 +20,8 @@ extension <E> on Iterable<E> {
 RoverPosition fromBuffer(List<int> buffer) => RoverPosition.fromBuffer(buffer);
 bool filter(RoverPosition data) => data.hasOrientation()
   && data.orientation.hasX() && data.orientation.hasY() && data.orientation.hasZ()
-  && data.orientation.x.abs() < 400 
-  && data.orientation.y.abs() < 400 
+  && data.orientation.x.abs() < 400
+  && data.orientation.y.abs() < 400
   && data.orientation.z.abs() < 400;
 List<dynamic> expand(RoverPosition data) => [data.orientation.x, data.orientation.y, data.orientation.z];
 

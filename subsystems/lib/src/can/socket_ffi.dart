@@ -94,7 +94,7 @@ class CanFFI extends CanSocket {
   /// Checks for new CAN messages and adds them to the [incomingMessages] stream.
   void _checkForMessages(_) {
     if (hasError) return;
-    int count = 0;
+    var count = 0;
     while (true) {
       final pointer = nativeLib.NativeCanMessage_create();
       final error = nativeLib.BurtCan_receive(_can!, pointer).stringError;
@@ -102,7 +102,7 @@ class CanFFI extends CanSocket {
       if (pointer.ref.length == 0) break;
       count++;
       if (count % 10 == 0) {
-	logger.warning("CAN Buffer is full", body: "Processed $count messages in one callback. Consider decreasing the CAN read interval.");
+        logger.warning("CAN Buffer is full", body: "Processed $count messages in one callback. Consider decreasing the CAN read interval.");
       }
       final message = CanMessage.fromPointer(pointer, isNative: true);
       _controller.add(message);

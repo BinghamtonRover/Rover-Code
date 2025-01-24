@@ -3,23 +3,23 @@ import "dart:typed_data";
 import "ffi.dart";
 
 /// A wrapper around a [NativeCanMessage].
-/// 
+///
 /// This class allows you to handle CAN frames allocated natively, or allocate them yourself.
-/// When allocating natively, use [CanMessage()]. When receiving a pointer to [NativeCanMessage], 
-/// use [CanMessage.fromPointer]. 
-/// 
+/// When allocating natively, use [CanMessage()]. When receiving a pointer to [NativeCanMessage],
+/// use [CanMessage.fromPointer].
+///
 /// Be sure to call [dispose] when you're done with the message. Once disposed, the fields of this
 /// class will return garbage data or segfault, so you should be careful to only dispose when you
 /// are truly done with the message.
 class CanMessage implements Finalizable {
   /// Guarantees that native resources are freed.
-  /// 
+  ///
   /// NOTE: This does not call free native resources allocated by Dart. Use [dispose] for that.
   static final _finalizer = NativeFinalizer(nativeLib.addresses.NativeCanMessage_free.cast());
   /// The pointer to the [NativeCanMessage] struct backing this object.
   final Pointer<NativeCanMessage> pointer;
 
-  /// Whether the resources were allocated by Dart or natively, which deteremines how to [dispose].
+  /// Whether the resources were allocated by Dart or natively, which determines how to [dispose].
   final bool isNative;
 
   /// The length of the message.
@@ -65,7 +65,7 @@ extension on List<int> {
   /// Copies a list of bytes in Dart into a newly-allocated`char*`, which must be freed.
   Pointer<Uint8> toNativeBuffer() {
     final buffer = calloc<Uint8>(length);
-    for (int i = 0; i < length; i++) {
+    for (var i = 0; i < length; i++) {
       buffer[i] = this[i];
     }
     return buffer;
