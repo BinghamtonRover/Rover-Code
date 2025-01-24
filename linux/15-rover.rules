@@ -1,0 +1,62 @@
+# AUTO-GENERATED FILE. DO NOT EDIT BY HAND.
+# To re-generate, edit `all_devices.dart` and run `dart run :udev`
+#
+# UDev rules for the Subsystems Pi
+# This file should be placed in /etc/udev/rules.d
+#
+# This file allows our USB to be assigned a particular port each time, instead of the default random one.
+# Instead of /dev/ttyACM0 and /dev/ttyACM1, we can have /dev/rover-imu and /dev/rover-gps
+#
+# The general gist of this file is that it reads data about the device (SUBSYSTEM and ATTRS), and,
+# based on the below rules, adds an alias for that device (SYMLINK). Each physical device may be
+# registered multiple times with the OS, so we use multiple checks (like USB port and video4linux).
+#
+# Resources:
+# - To see info for a device, run `udevadm info -a -n /dev/deviceName`
+# - For guidance on writing these kinds of files, see
+#   https://bing-rover.gitbook.io/docs/v/software/onboard-computers/video/udev-rules
+
+# Front Camera: /dev/rover_cam_front
+SUBSYSTEMS=="usb", KERNELS=="3-2:1.0", ENV{is_rover_cam_front}="t"
+SUBSYSTEMS=="video4linux", ATTR{index}=="0", ENV{is_rover_cam_front}=="t", SYMLINK+="rover_cam_front"
+
+# Rear Camera: /dev/rover_cam_rear
+SUBSYSTEMS=="usb", KERNELS=="1-2.4:1.0", ENV{is_rover_cam_rear}="t"
+SUBSYSTEMS=="video4linux", ATTR{index}=="0", ENV{is_rover_cam_rear}=="t", SYMLINK+="rover_cam_rear"
+
+# Bottom Left Camera: /dev/rover_cam_bottom_left
+SUBSYSTEMS=="usb", KERNELS=="1-2.3:1.0", ENV{is_rover_cam_bottom_left}="t"
+SUBSYSTEMS=="video4linux", ATTR{index}=="0", ENV{is_rover_cam_bottom_left}=="t", SYMLINK+="rover_cam_bottom_left"
+
+# Bottom Right Camera: /dev/rover_cam_bottom_right
+SUBSYSTEMS=="usb", KERNELS=="1-2.2:1.0", ENV{is_rover_cam_bottom_right}="t"
+SUBSYSTEMS=="video4linux", ATTR{index}=="0", ENV{is_rover_cam_bottom_right}=="t", SYMLINK+="rover_cam_bottom_right"
+
+# Subsystems Camera 1: /dev/rover_cam_subsystem_1
+SUBSYSTEMS=="usb", KERNELS=="3-1.2:1.0", ENV{is_rover_cam_subsystem_1}="t"
+SUBSYSTEMS=="video4linux", ATTR{index}=="0", ENV{is_rover_cam_subsystem_1}=="t", SYMLINK+="rover_cam_subsystem_1"
+
+# Subsystems Camera 2: /dev/rover_cam_subsystem_2
+SUBSYSTEMS=="usb", KERNELS=="3-1.3:1.0", ENV{is_rover_cam_subsystem_2}="t"
+SUBSYSTEMS=="video4linux", ATTR{index}=="0", ENV{is_rover_cam_subsystem_2}=="t", SYMLINK+="rover_cam_subsystem_2"
+
+# Subsystems Camera 3: /dev/rover_cam_subsystem_3
+SUBSYSTEMS=="usb", KERNELS=="3-1.4:1.0", ENV{is_rover_cam_subsystem_3}="t"
+SUBSYSTEMS=="video4linux", ATTR{index}=="0", ENV{is_rover_cam_subsystem_3}=="t", SYMLINK+="rover_cam_subsystem_3"
+
+# RealSense RGB: /dev/rover_realsense_rgb
+SUBSYSTEMS=="usb", ATTRS{interface}=="Intel(R) RealSense(TM) Depth Camera 435i RGB", ENV{is_rover_realsense_rgb}="t"
+SUBSYSTEMS=="video4linux", ATTR{index}=="0", ENV{is_rover_realsense_rgb}=="t", SYMLINK+="rover_realsense_rgb"
+
+# RealSense Depth: /dev/rover_realsense_depth
+SUBSYSTEMS=="usb", ATTRS{interface}=="Intel(R) RealSense(TM) Depth Camera 435i Depth", ENV{is_rover_realsense_depth}="t"
+SUBSYSTEMS=="video4linux", ATTR{index}=="2", ENV{is_rover_realsense_depth}=="t", SYMLINK+="rover_realsense_depth"
+
+# GPS: /dev/rover_gps
+SUBSYSTEMS=="usb", ATTRS{manufacturer}=="u-blox AG - www.u-blox.com", ENV{is_rover_gps}="t"
+SUBSYSTEM=="tty", ENV{is_rover_gps}=="t", SYMLINK+="rover_gps"
+
+# IMU: /dev/rover_imu
+SUBSYSTEMS=="usb", ATTRS{product}=="CDC + MSD Demo", ENV{is_rover_imu}="t"
+SUBSYSTEM=="tty", ENV{is_rover_imu}=="t", SYMLINK+="rover_imu"
+
