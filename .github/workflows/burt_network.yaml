@@ -8,6 +8,9 @@ on:
 jobs:
   analyze:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: burt_network
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -25,3 +28,4 @@ jobs:
 
       - name: Run unit tests
         run: dart test
+        working-directory:
