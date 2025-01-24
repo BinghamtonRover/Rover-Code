@@ -1,8 +1,8 @@
 name: Generate Dart Documentation
 
 # Documents the Dart code within this project with the `dartdoc` tool.
-# Publishes the result to a separate branch, `documentation`, under the `docs` folder. 
-# Set GitHub pages to publish that target to get an online documentation site. 
+# Publishes the result to a separate branch, `documentation`, under the `docs` folder.
+# Set GitHub pages to publish that target to get an online documentation site.
 
 on:
   push:
@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-        with: 
+        with:
           fetch-depth: 0
 
       - name: Git Setup
@@ -29,11 +29,13 @@ jobs:
         uses: dart-lang/setup-dart@v1
 
       - name: Install dependencies
-        run: dart pub get
+        run: |
+          mv .github/pubspec_overrides.yaml pubspec_overrides.yaml
+          dart pub get
 
       - name: Analyze Dart code
         run: dart analyze --fatal-infos
-        
+
       - name: Output error
         if: failure()
         run: echo "::error The code or is missing documentation. Run flutter analyze --dartdocs"
@@ -48,4 +50,4 @@ jobs:
           git status
           git stage --force docs
           git commit -a -m "Generated documentation"
-          git push --force      
+          git push --force
