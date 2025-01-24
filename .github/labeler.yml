@@ -1,0 +1,11 @@
+Subsystems:
+  - changed-files:
+      - any-glob-to-any-file: 'subsystems/**'
+
+Networking:
+  - changed-files:
+      - any-glob-to-any-file: 'burt_network/**'
+
+Protobuf:
+  - changed-files:
+    - any-glob-to-any-file: 'burt_network/lib/src/generated/**'
