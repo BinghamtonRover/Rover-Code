@@ -14,7 +14,7 @@ const header =
 # For more information, see: https://bing-rover.gitbook.io/docs/v/software/onboard-computers/configuring-systemd
 """;
 
-void main() async {
+Future<void> generateServices() async {
   for (final program in programs) {
     final file = File("linux/${program.name}.service");
     final buffer = StringBuffer();

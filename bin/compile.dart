@@ -31,6 +31,13 @@ void main() async {
   for (final program in programs) {
     final name = program.name;
     buffer.writeln();
+    // Stop the service if it was already running
+    buffer.writeln('if [[ \$(sudo systemctl is-active $name) == "active]]; then');
+    buffer.writeln("  sudo systemctl stop $name $suffix");
+    buffer.writeln("  sudo systemctl disable $name $suffix");
+    buffer.writeln("fi");
+
+    // Compile the program
     buffer.writeln('echo "Compiling the $name program. This could take a few minutes..."');
     buffer.writeln("cd $name");
     for (final command in program.compileCommands) {
@@ -40,6 +47,11 @@ void main() async {
       buffer.writeln("$extraCommand $suffix");
     }
     buffer.writeln("cd ..");
+
+    // Save, enable, and start the service
+    buffer.writeln("sudo cp linux/$name.service /etc/systemd/system $suffix");
+    buffer.writeln("sudo systemctl enable $name $suffix");
+    buffer.writeln("sudo systemctl start $name $suffix");
   }
   final file = File(filename);
   await file.create(recursive: true);
