@@ -114,10 +114,10 @@ packages:
     dependency: transitive
     description:
       name: dartcv4
-      sha256: a1322359f9aede04f3959211f40c3806175b32c2772b2655ce434e64b90c7b9a
+      sha256: "21bda1819d19ae40cf46837ee59cfcf35a3aacf93b9cf63bd8d0be4d0ad64965"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.1"
+    version: "1.1.2"
   dylib:
     dependency: transitive
     description:
