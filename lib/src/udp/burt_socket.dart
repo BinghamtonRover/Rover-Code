@@ -55,6 +55,7 @@ abstract class BurtSocket extends UdpSocket {
     required this.device,
     super.destination,
     super.quiet,
+    super.keepDestination,
     this.collection,
   });
 
