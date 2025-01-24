@@ -9,23 +9,12 @@ SET(ROS_VERSION 0)
 
 add_subdirectory(sick_scan_xd)
 
-# Set the output type to a shared library (DLL)
-add_library(lidar_ffi SHARED lidar.cpp)  # Add your own C++ files here
+add_library(lidar_ffi SHARED lidar.cpp) 
 
-# Specify the path to the sick_scan_xd headers and DLL
-message("${CMAKE_SOURCE_DIR}")
-set(SICK_SCAN_XD_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/sick_scan_xd/include")
-set(SICK_SCAN_XD_DLL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/sick_scan_xd/build/Release")  # Where sick_scan_xd DLL is built
+include_directories(${sick_scan_xd_INCLUDE_DIR})
 
-# Include directories for sick_scan_xd
-include_directories(${SICK_SCAN_XD_INCLUDE_DIR})
+target_link_libraries(lidar_ffi ${sick_scan_xd_LIBRARIES})
 
-# Link the sick_scan_xd DLL to your project
-target_link_libraries(lidar_ffi "${CMAKE_SOURCE_DIR}/../build/sick_scan_xd/Debug/sick_scan_xd_shared_lib.lib")
-#video\src\build\sick_scan_xd\Debug\sick_scan_xd_shared_lib.lib
-#C:/Users/aidan/dev/MarsRover/SecondaryPi/video/src/lidar
-
-# Specify the output directory for the generated DLL
 set_target_properties(lidar_ffi PROPERTIES
     PUBLIC_HEADER lidar.h
     PUBLIC_HEADER sick_scan_xd.h
