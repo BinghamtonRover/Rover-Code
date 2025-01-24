@@ -8,6 +8,8 @@ import "package:dhttpd/dhttpd.dart";
 import "package:cli_spin/cli_spin.dart";
 
 void main(List<String> args) async {
+  print("");
+
   // Get list of valid Dart packages
   final pubspecFile = File("pubspec.yaml");
   final pubspec = Pubspec.parse(await pubspecFile.readAsString());
@@ -15,12 +17,16 @@ void main(List<String> args) async {
 
   // Get the user's choice of package
   final parser = ArgParser()
-    ..addOption("package", abbr: "p", allowed: packages, mandatory: true);
+    ..addOption("package", abbr: "p", mandatory: true);
   final results = parser.parse(args);
   final package = results.option("package");
   if (package == null) {
     print("Usage: dart run :doc -p <package>");
     print(parser.usage);
+    return;
+  } else if (!packages.contains(package)) {
+    print("Please choose one of the following packages: ");
+    print("  ${packages.join(", ")}");
     return;
   }
 
@@ -40,4 +46,5 @@ void main(List<String> args) async {
   // Open the docs
   await Dhttpd.start(path: "docs", port: 8888);
   print("Serving documentation at http://localhost:8888");
+  print("Press CTRL+C to exit.");
 }
