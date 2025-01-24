@@ -28,4 +28,3 @@ jobs:
 
       - name: Run unit tests
         run: dart test
-        working-directory:
