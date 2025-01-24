@@ -1,7 +1,8 @@
 #include <iostream>
-#include <windows.h> // For sleep fucntion on windows
+// #include <windows.h> // For sleep fucntion on windows
 // #include <unistd.h> // For sleep function on unix
 #include <cassert>
+#include <cstring>
 #include <cmath>
 #include <vector>
 
