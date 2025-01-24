@@ -1,9 +1,11 @@
+// ignore_for_file: avoid_print
+
 import "dart:io";
 
 import "../all_programs.dart";
 
 const header =
-"""
+r"""
 #!/bin/bash
 
 # AUTO-GENERATED FILE. DO NOT EDIT.
