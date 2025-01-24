@@ -1,0 +1,7 @@
+Subsystems:
+  - changed-files:
+      - any-glob-to-any-file: 'subsystems/**'
+
+Networking:
+  - changed-files:
+      - any-glob-to-any-file: 'burt_network/**'
