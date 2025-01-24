@@ -24,3 +24,6 @@ jobs:
 
       - name: Analyze code
         run: dart analyze --fatal-infos
+
+      - name: Validate dependencies
+        run: dart run dependency_validator
