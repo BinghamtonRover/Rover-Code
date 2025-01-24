@@ -8,3 +8,6 @@ workspace:
   - burt_network
   - subsystems
   - video
+
+dev_dependencies:
+  very_good_analysis: ^6.0.0
