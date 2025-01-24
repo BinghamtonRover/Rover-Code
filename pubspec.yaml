@@ -9,5 +9,10 @@ workspace:
   - subsystems
   - video
 
-dev_dependencies:
+dependencies:
   very_good_analysis: ^6.0.0
+  pubspec_parse: ^1.5.0
+  args: ^2.6.0
+  logger: ^2.5.0
+  dhttpd: ^4.1.0
+  cli_spin: ^1.0.1
