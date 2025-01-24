@@ -10,3 +10,6 @@
 [submodule "Video"]
 	path = video
 	url = https://github.com/BinghamtonRover/Video
+[submodule "Protobuf"]
+	path = burt_network/Protobuf
+	url = https://github.com/BinghamtonRover/Protobuf
