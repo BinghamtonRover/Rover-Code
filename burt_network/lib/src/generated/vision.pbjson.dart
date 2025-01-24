@@ -33,15 +33,15 @@ final $typed_data.Uint8List detectedObjectTypeDescriptor = $convert.base64Decode
 const PnpResult$json = {
   '1': 'PnpResult',
   '2': [
-    {'1': 'pose', '3': 1, '4': 1, '5': 11, '6': '.Pose3d', '10': 'pose'},
-    {'1': 'error', '3': 2, '4': 1, '5': 1, '10': 'error'},
+    {'1': 'cameraToTarget', '3': 1, '4': 1, '5': 11, '6': '.Pose3d', '10': 'cameraToTarget'},
+    {'1': 'reprojectionError', '3': 2, '4': 1, '5': 1, '10': 'reprojectionError'},
   ],
 };
 
 /// Descriptor for `PnpResult`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List pnpResultDescriptor = $convert.base64Decode(
-    'CglQbnBSZXN1bHQSGwoEcG9zZRgBIAEoCzIHLlBvc2UzZFIEcG9zZRIUCgVlcnJvchgCIAEoAV'
-    'IFZXJyb3I=');
+    'CglQbnBSZXN1bHQSLwoOY2FtZXJhVG9UYXJnZXQYASABKAsyBy5Qb3NlM2RSDmNhbWVyYVRvVG'
+    'FyZ2V0EiwKEXJlcHJvamVjdGlvbkVycm9yGAIgASgBUhFyZXByb2plY3Rpb25FcnJvcg==');
 
 @$core.Deprecated('Use detectedObjectDescriptor instead')
 const DetectedObject$json = {
@@ -49,23 +49,40 @@ const DetectedObject$json = {
   '2': [
     {'1': 'objectType', '3': 1, '4': 1, '5': 14, '6': '.DetectedObjectType', '10': 'objectType'},
     {'1': 'arucoTagId', '3': 2, '4': 1, '5': 5, '10': 'arucoTagId'},
-    {'1': 'camera', '3': 3, '4': 1, '5': 14, '6': '.CameraName', '10': 'camera'},
     {'1': 'xPosition', '3': 4, '4': 1, '5': 2, '10': 'xPosition'},
     {'1': 'relativeSize', '3': 5, '4': 1, '5': 2, '10': 'relativeSize'},
-    {'1': 'yaw', '3': 6, '4': 1, '5': 2, '10': 'yaw'},
-    {'1': 'pitch', '3': 7, '4': 1, '5': 2, '10': 'pitch'},
-    {'1': 'bestPnpResult', '3': 8, '4': 1, '5': 11, '6': '.PnpResult', '10': 'bestPnpResult'},
-    {'1': 'alternatePnpResult', '3': 9, '4': 1, '5': 11, '6': '.PnpResult', '10': 'alternatePnpResult'},
+    {'1': 'centerX', '3': 6, '4': 1, '5': 5, '10': 'centerX'},
+    {'1': 'centerY', '3': 7, '4': 1, '5': 5, '10': 'centerY'},
+    {'1': 'yaw', '3': 8, '4': 1, '5': 2, '10': 'yaw'},
+    {'1': 'pitch', '3': 9, '4': 1, '5': 2, '10': 'pitch'},
+    {'1': 'bestPnpResult', '3': 10, '4': 1, '5': 11, '6': '.PnpResult', '10': 'bestPnpResult'},
+    {'1': 'alternatePnpResult', '3': 11, '4': 1, '5': 11, '6': '.PnpResult', '10': 'alternatePnpResult'},
   ],
 };
 
 /// Descriptor for `DetectedObject`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List detectedObjectDescriptor = $convert.base64Decode(
     'Cg5EZXRlY3RlZE9iamVjdBIzCgpvYmplY3RUeXBlGAEgASgOMhMuRGV0ZWN0ZWRPYmplY3RUeX'
-    'BlUgpvYmplY3RUeXBlEh4KCmFydWNvVGFnSWQYAiABKAVSCmFydWNvVGFnSWQSIwoGY2FtZXJh'
-    'GAMgASgOMgsuQ2FtZXJhTmFtZVIGY2FtZXJhEhwKCXhQb3NpdGlvbhgEIAEoAlIJeFBvc2l0aW'
-    '9uEiIKDHJlbGF0aXZlU2l6ZRgFIAEoAlIMcmVsYXRpdmVTaXplEhAKA3lhdxgGIAEoAlIDeWF3'
-    'EhQKBXBpdGNoGAcgASgCUgVwaXRjaBIwCg1iZXN0UG5wUmVzdWx0GAggASgLMgouUG5wUmVzdW'
-    'x0Ug1iZXN0UG5wUmVzdWx0EjoKEmFsdGVybmF0ZVBucFJlc3VsdBgJIAEoCzIKLlBucFJlc3Vs'
-    'dFISYWx0ZXJuYXRlUG5wUmVzdWx0');
+    'BlUgpvYmplY3RUeXBlEh4KCmFydWNvVGFnSWQYAiABKAVSCmFydWNvVGFnSWQSHAoJeFBvc2l0'
+    'aW9uGAQgASgCUgl4UG9zaXRpb24SIgoMcmVsYXRpdmVTaXplGAUgASgCUgxyZWxhdGl2ZVNpem'
+    'USGAoHY2VudGVyWBgGIAEoBVIHY2VudGVyWBIYCgdjZW50ZXJZGAcgASgFUgdjZW50ZXJZEhAK'
+    'A3lhdxgIIAEoAlIDeWF3EhQKBXBpdGNoGAkgASgCUgVwaXRjaBIwCg1iZXN0UG5wUmVzdWx0GA'
+    'ogASgLMgouUG5wUmVzdWx0Ug1iZXN0UG5wUmVzdWx0EjoKEmFsdGVybmF0ZVBucFJlc3VsdBgL'
+    'IAEoCzIKLlBucFJlc3VsdFISYWx0ZXJuYXRlUG5wUmVzdWx0');
+
+@$core.Deprecated('Use visionResultDescriptor instead')
+const VisionResult$json = {
+  '1': 'VisionResult',
+  '2': [
+    {'1': 'version', '3': 1, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
+    {'1': 'name', '3': 2, '4': 1, '5': 14, '6': '.CameraName', '10': 'name'},
+    {'1': 'objects', '3': 3, '4': 3, '5': 11, '6': '.DetectedObject', '10': 'objects'},
+  ],
+};
+
+/// Descriptor for `VisionResult`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List visionResultDescriptor = $convert.base64Decode(
+    'CgxWaXNpb25SZXN1bHQSIgoHdmVyc2lvbhgBIAEoCzIILlZlcnNpb25SB3ZlcnNpb24SHwoEbm'
+    'FtZRgCIAEoDjILLkNhbWVyYU5hbWVSBG5hbWUSKQoHb2JqZWN0cxgDIAMoCzIPLkRldGVjdGVk'
+    'T2JqZWN0UgdvYmplY3Rz');
 
