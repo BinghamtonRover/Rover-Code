@@ -11,3 +11,4 @@ workspace:
 
 dev_dependencies:
   very_good_analysis: ^6.0.0
+  pubspec_parse: ^1.5.0
