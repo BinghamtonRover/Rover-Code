@@ -78,6 +78,41 @@ abstract class BurtSocket extends UdpSocket {
     await super.dispose();
   }
 
+  /// A utility method to exchange a "handshake" to the destination
+  ///
+  /// This will immediately send the [message], and will complete once the
+  /// message is received again by this socket. If the message is not received
+  /// after [timeout] amount of time, then it will complete false
+  ///
+  /// This assumes that there is a destination that is expecting this
+  /// message and will immediately echo it back once receiving it
+  Future<bool> tryHandshake<T extends Message>({
+    required T message,
+    required Duration timeout,
+    required T Function(List<int> bytes) constructor,
+    SocketInfo? destination,
+  }) async {
+    sendMessage(message, destination: destination);
+    final completer = Completer<bool>();
+
+    late final StreamSubscription<T> subscription;
+    subscription = messages.onMessage(
+      name: message.messageName,
+      constructor: constructor,
+      callback: (handshake) {
+        completer.complete(true);
+        subscription.cancel();
+      },
+    );
+
+    try {
+      return await completer.future.timeout(timeout);
+    } on TimeoutException {
+      await subscription.cancel();
+      return false;
+    }
+  }
+
   void _onPacket(Datagram packet) {
     final wrapper = packet.parseWrapper();
     if (wrapper.name == Connect().messageName) {
@@ -86,6 +121,7 @@ abstract class BurtSocket extends UdpSocket {
     } else if (wrapper.name == UpdateSetting().messageName) {
       final settings = UpdateSetting.fromBuffer(wrapper.data);
       onSettings(settings);
+      _controller.add(wrapper);
     } else {
       _controller.add(wrapper);
     }

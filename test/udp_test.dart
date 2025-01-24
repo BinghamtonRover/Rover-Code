@@ -185,4 +185,42 @@ void main() => group("ProtoSocket:", () {
     await client.dispose();
     await server.dispose();
   });
+
+  group("tryHandshake", () {
+    test("works with successful handshakes", () async {
+      final socket1Info = SocketInfo(address: InternetAddress.loopbackIPv4, port: 8013);
+      final socket2Info = SocketInfo(address: InternetAddress.loopbackIPv4, port: 8014);
+      final socket1 = TestServer(port: 8013);
+      final socket2 = EchoSocket(port: 8014, destination: socket1Info);
+      await socket1.init();
+      await socket2.init();
+
+      final result = await socket1.tryHandshake(
+        message: SubsystemsCommand(zeroIMU: true),
+        timeout: const Duration(seconds: 1),
+        constructor: SubsystemsCommand.fromBuffer,
+        destination: socket2Info,
+      );
+      expect(result, isTrue);
+
+      await socket1.dispose();
+      await socket2.dispose();
+    });
+
+    test("catches missed handshakes", () async {
+      final socket2Info = SocketInfo(address: InternetAddress.loopbackIPv4, port: 8016);
+      final socket1 = TestServer(port: 8015);
+      await socket1.init();
+
+      final result = await socket1.tryHandshake(
+        message: SubsystemsCommand(zeroIMU: true),
+        timeout: const Duration(seconds: 1),
+        constructor: SubsystemsCommand.fromBuffer,
+        destination: socket2Info,
+      );
+      expect(result, isFalse);
+
+      await socket1.dispose();
+    });
+  });
 });

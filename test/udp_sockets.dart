@@ -1,4 +1,6 @@
 
+import "dart:async";
+
 import "package:burt_network/burt_network.dart";
 
 class TestService extends Service {
@@ -54,6 +56,27 @@ class TestServer extends RoverSocket {
     await super.onDisconnect();
     onDisconnectCalled = true;
   }
+}
+
+class EchoSocket extends RoverSocket {
+  EchoSocket({required super.port, required super.destination}) : super(device: Device.SUBSYSTEMS, keepDestination: true);
+
+  StreamSubscription<WrappedMessage>? _subscription;
+
+  @override
+  Future<bool> init() async {
+    await super.init();
+    _subscription = messages.listen(echoBack);
+    return true;
+  }
+
+  @override
+  Future<void> dispose() async {
+    await _subscription?.cancel();
+    await super.dispose();
+  }
+
+  void echoBack(WrappedMessage wrapper) => sendWrapper(wrapper);
 }
 
 class TestClient extends BurtSocket {
