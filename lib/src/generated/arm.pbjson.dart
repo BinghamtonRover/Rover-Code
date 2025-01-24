@@ -13,21 +13,6 @@ import 'dart:convert' as $convert;
 import 'dart:core' as $core;
 import 'dart:typed_data' as $typed_data;
 
-@$core.Deprecated('Use coordinatesDescriptor instead')
-const Coordinates$json = {
-  '1': 'Coordinates',
-  '2': [
-    {'1': 'x', '3': 1, '4': 1, '5': 2, '10': 'x'},
-    {'1': 'y', '3': 2, '4': 1, '5': 2, '10': 'y'},
-    {'1': 'z', '3': 3, '4': 1, '5': 2, '10': 'z'},
-  ],
-};
-
-/// Descriptor for `Coordinates`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List coordinatesDescriptor = $convert.base64Decode(
-    'CgtDb29yZGluYXRlcxIMCgF4GAEgASgCUgF4EgwKAXkYAiABKAJSAXkSDAoBehgDIAEoAlIBeg'
-    '==');
-
 @$core.Deprecated('Use armDataDescriptor instead')
 const ArmData$json = {
   '1': 'ArmData',

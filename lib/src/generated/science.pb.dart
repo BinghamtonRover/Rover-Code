@@ -14,7 +14,7 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'science.pbenum.dart';
-import 'version.pb.dart' as $2;
+import 'version.pb.dart' as $3;
 
 export 'science.pbenum.dart';
 
@@ -32,7 +32,7 @@ class ScienceCommand extends $pb.GeneratedMessage {
     $core.bool? stop,
     $core.int? sample,
     ScienceState? state,
-    $2.Version? version,
+    $3.Version? version,
   }) {
     final $result = create();
     if (carouselMotor != null) {
@@ -89,7 +89,7 @@ class ScienceCommand extends $pb.GeneratedMessage {
     ..aOB(9, _omitFieldNames ? '' : 'stop')
     ..a<$core.int>(10, _omitFieldNames ? '' : 'sample', $pb.PbFieldType.O3)
     ..e<ScienceState>(11, _omitFieldNames ? '' : 'state', $pb.PbFieldType.OE, defaultOrMaker: ScienceState.SCIENCE_STATE_UNDEFINED, valueOf: ScienceState.valueOf, enumValues: ScienceState.values)
-    ..aOM<$2.Version>(12, _omitFieldNames ? '' : 'version', subBuilder: $2.Version.create)
+    ..aOM<$3.Version>(12, _omitFieldNames ? '' : 'version', subBuilder: $3.Version.create)
     ..hasRequiredFields = false
   ;
 
@@ -217,15 +217,15 @@ class ScienceCommand extends $pb.GeneratedMessage {
   void clearState() => clearField(11);
 
   @$pb.TagNumber(12)
-  $2.Version get version => $_getN(11);
+  $3.Version get version => $_getN(11);
   @$pb.TagNumber(12)
-  set version($2.Version v) { setField(12, v); }
+  set version($3.Version v) { setField(12, v); }
   @$pb.TagNumber(12)
   $core.bool hasVersion() => $_has(11);
   @$pb.TagNumber(12)
   void clearVersion() => clearField(12);
   @$pb.TagNumber(12)
-  $2.Version ensureVersion() => $_ensure(11);
+  $3.Version ensureVersion() => $_ensure(11);
 }
 
 /// / Data coming from the science subsystem.
@@ -236,7 +236,7 @@ class ScienceData extends $pb.GeneratedMessage {
     $core.double? co2,
     $core.double? humidity,
     $core.double? temperature,
-    $2.Version? version,
+    $3.Version? version,
   }) {
     final $result = create();
     if (sample != null) {
@@ -269,7 +269,7 @@ class ScienceData extends $pb.GeneratedMessage {
     ..a<$core.double>(3, _omitFieldNames ? '' : 'co2', $pb.PbFieldType.OF)
     ..a<$core.double>(4, _omitFieldNames ? '' : 'humidity', $pb.PbFieldType.OF)
     ..a<$core.double>(5, _omitFieldNames ? '' : 'temperature', $pb.PbFieldType.OF)
-    ..aOM<$2.Version>(6, _omitFieldNames ? '' : 'version', subBuilder: $2.Version.create)
+    ..aOM<$3.Version>(6, _omitFieldNames ? '' : 'version', subBuilder: $3.Version.create)
     ..hasRequiredFields = false
   ;
 
@@ -342,15 +342,15 @@ class ScienceData extends $pb.GeneratedMessage {
   void clearTemperature() => clearField(5);
 
   @$pb.TagNumber(6)
-  $2.Version get version => $_getN(5);
+  $3.Version get version => $_getN(5);
   @$pb.TagNumber(6)
-  set version($2.Version v) { setField(6, v); }
+  set version($3.Version v) { setField(6, v); }
   @$pb.TagNumber(6)
   $core.bool hasVersion() => $_has(5);
   @$pb.TagNumber(6)
   void clearVersion() => clearField(6);
   @$pb.TagNumber(6)
-  $2.Version ensureVersion() => $_ensure(5);
+  $3.Version ensureVersion() => $_ensure(5);
 }
 
 

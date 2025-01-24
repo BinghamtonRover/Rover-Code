@@ -13,7 +13,7 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'version.pb.dart' as $2;
+import 'version.pb.dart' as $3;
 import 'video.pbenum.dart';
 
 export 'video.pbenum.dart';
@@ -32,6 +32,11 @@ class CameraDetails extends $pb.GeneratedMessage {
     $core.int? pan,
     $core.int? tilt,
     $core.int? focus,
+    $core.double? diagonalFov,
+    $core.double? horizontalFov,
+    $core.double? verticalFov,
+    $core.int? streamWidth,
+    $core.int? streamHeight,
   }) {
     final $result = create();
     if (name != null) {
@@ -67,6 +72,21 @@ class CameraDetails extends $pb.GeneratedMessage {
     if (focus != null) {
       $result.focus = focus;
     }
+    if (diagonalFov != null) {
+      $result.diagonalFov = diagonalFov;
+    }
+    if (horizontalFov != null) {
+      $result.horizontalFov = horizontalFov;
+    }
+    if (verticalFov != null) {
+      $result.verticalFov = verticalFov;
+    }
+    if (streamWidth != null) {
+      $result.streamWidth = streamWidth;
+    }
+    if (streamHeight != null) {
+      $result.streamHeight = streamHeight;
+    }
     return $result;
   }
   CameraDetails._() : super();
@@ -85,6 +105,11 @@ class CameraDetails extends $pb.GeneratedMessage {
     ..a<$core.int>(9, _omitFieldNames ? '' : 'pan', $pb.PbFieldType.O3)
     ..a<$core.int>(10, _omitFieldNames ? '' : 'tilt', $pb.PbFieldType.O3)
     ..a<$core.int>(11, _omitFieldNames ? '' : 'focus', $pb.PbFieldType.O3)
+    ..a<$core.double>(12, _omitFieldNames ? '' : 'diagonalFov', $pb.PbFieldType.OF)
+    ..a<$core.double>(13, _omitFieldNames ? '' : 'horizontalFov', $pb.PbFieldType.OF)
+    ..a<$core.double>(14, _omitFieldNames ? '' : 'verticalFov', $pb.PbFieldType.OF)
+    ..a<$core.int>(15, _omitFieldNames ? '' : 'streamWidth', $pb.PbFieldType.O3)
+    ..a<$core.int>(16, _omitFieldNames ? '' : 'streamHeight', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
   ;
 
@@ -212,6 +237,53 @@ class CameraDetails extends $pb.GeneratedMessage {
   $core.bool hasFocus() => $_has(10);
   @$pb.TagNumber(11)
   void clearFocus() => clearField(11);
+
+  @$pb.TagNumber(12)
+  $core.double get diagonalFov => $_getN(11);
+  @$pb.TagNumber(12)
+  set diagonalFov($core.double v) { $_setFloat(11, v); }
+  @$pb.TagNumber(12)
+  $core.bool hasDiagonalFov() => $_has(11);
+  @$pb.TagNumber(12)
+  void clearDiagonalFov() => clearField(12);
+
+  @$pb.TagNumber(13)
+  $core.double get horizontalFov => $_getN(12);
+  @$pb.TagNumber(13)
+  set horizontalFov($core.double v) { $_setFloat(12, v); }
+  @$pb.TagNumber(13)
+  $core.bool hasHorizontalFov() => $_has(12);
+  @$pb.TagNumber(13)
+  void clearHorizontalFov() => clearField(13);
+
+  @$pb.TagNumber(14)
+  $core.double get verticalFov => $_getN(13);
+  @$pb.TagNumber(14)
+  set verticalFov($core.double v) { $_setFloat(13, v); }
+  @$pb.TagNumber(14)
+  $core.bool hasVerticalFov() => $_has(13);
+  @$pb.TagNumber(14)
+  void clearVerticalFov() => clearField(14);
+
+  /// / The width of the image data streamed
+  @$pb.TagNumber(15)
+  $core.int get streamWidth => $_getIZ(14);
+  @$pb.TagNumber(15)
+  set streamWidth($core.int v) { $_setSignedInt32(14, v); }
+  @$pb.TagNumber(15)
+  $core.bool hasStreamWidth() => $_has(14);
+  @$pb.TagNumber(15)
+  void clearStreamWidth() => clearField(15);
+
+  /// / The height of the image data streamed
+  @$pb.TagNumber(16)
+  $core.int get streamHeight => $_getIZ(15);
+  @$pb.TagNumber(16)
+  set streamHeight($core.int v) { $_setSignedInt32(15, v); }
+  @$pb.TagNumber(16)
+  $core.bool hasStreamHeight() => $_has(15);
+  @$pb.TagNumber(16)
+  void clearStreamHeight() => clearField(16);
 }
 
 /// / Reports data about a camera.
@@ -220,7 +292,7 @@ class VideoData extends $pb.GeneratedMessage {
     $core.String? id,
     CameraDetails? details,
     $core.List<$core.int>? frame,
-    $2.Version? version,
+    $3.Version? version,
     $core.String? imagePath,
   }) {
     final $result = create();
@@ -249,7 +321,7 @@ class VideoData extends $pb.GeneratedMessage {
     ..aOS(1, _omitFieldNames ? '' : 'id')
     ..aOM<CameraDetails>(2, _omitFieldNames ? '' : 'details', subBuilder: CameraDetails.create)
     ..a<$core.List<$core.int>>(3, _omitFieldNames ? '' : 'frame', $pb.PbFieldType.OY)
-    ..aOM<$2.Version>(4, _omitFieldNames ? '' : 'version', subBuilder: $2.Version.create)
+    ..aOM<$3.Version>(4, _omitFieldNames ? '' : 'version', subBuilder: $3.Version.create)
     ..aOS(5, _omitFieldNames ? '' : 'imagePath', protoName: 'imagePath')
     ..hasRequiredFields = false
   ;
@@ -308,15 +380,15 @@ class VideoData extends $pb.GeneratedMessage {
   void clearFrame() => clearField(3);
 
   @$pb.TagNumber(4)
-  $2.Version get version => $_getN(3);
+  $3.Version get version => $_getN(3);
   @$pb.TagNumber(4)
-  set version($2.Version v) { setField(4, v); }
+  set version($3.Version v) { setField(4, v); }
   @$pb.TagNumber(4)
   $core.bool hasVersion() => $_has(3);
   @$pb.TagNumber(4)
   void clearVersion() => clearField(4);
   @$pb.TagNumber(4)
-  $2.Version ensureVersion() => $_ensure(3);
+  $3.Version ensureVersion() => $_ensure(3);
 
   @$pb.TagNumber(5)
   $core.String get imagePath => $_getSZ(4);
@@ -333,7 +405,7 @@ class VideoCommand extends $pb.GeneratedMessage {
   factory VideoCommand({
     $core.String? id,
     CameraDetails? details,
-    $2.Version? version,
+    $3.Version? version,
     $core.bool? takeSnapshot,
   }) {
     final $result = create();
@@ -358,7 +430,7 @@ class VideoCommand extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'VideoCommand', createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'id')
     ..aOM<CameraDetails>(2, _omitFieldNames ? '' : 'details', subBuilder: CameraDetails.create)
-    ..aOM<$2.Version>(3, _omitFieldNames ? '' : 'version', subBuilder: $2.Version.create)
+    ..aOM<$3.Version>(3, _omitFieldNames ? '' : 'version', subBuilder: $3.Version.create)
     ..aOB(4, _omitFieldNames ? '' : 'takeSnapshot', protoName: 'takeSnapshot')
     ..hasRequiredFields = false
   ;
@@ -409,15 +481,15 @@ class VideoCommand extends $pb.GeneratedMessage {
   CameraDetails ensureDetails() => $_ensure(1);
 
   @$pb.TagNumber(3)
-  $2.Version get version => $_getN(2);
+  $3.Version get version => $_getN(2);
   @$pb.TagNumber(3)
-  set version($2.Version v) { setField(3, v); }
+  set version($3.Version v) { setField(3, v); }
   @$pb.TagNumber(3)
   $core.bool hasVersion() => $_has(2);
   @$pb.TagNumber(3)
   void clearVersion() => clearField(3);
   @$pb.TagNumber(3)
-  $2.Version ensureVersion() => $_ensure(2);
+  $3.Version ensureVersion() => $_ensure(2);
 
   @$pb.TagNumber(4)
   $core.bool get takeSnapshot => $_getBF(3);

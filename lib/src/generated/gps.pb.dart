@@ -13,13 +13,18 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'version.pb.dart' as $2;
+import 'geometry.pb.dart' as $1;
+import 'gps.pbenum.dart';
+import 'version.pb.dart' as $3;
+
+export 'gps.pbenum.dart';
 
 class GpsCoordinates extends $pb.GeneratedMessage {
   factory GpsCoordinates({
     $core.double? latitude,
     $core.double? longitude,
     $core.double? altitude,
+    RTKMode? rtkMode,
   }) {
     final $result = create();
     if (latitude != null) {
@@ -31,6 +36,9 @@ class GpsCoordinates extends $pb.GeneratedMessage {
     if (altitude != null) {
       $result.altitude = altitude;
     }
+    if (rtkMode != null) {
+      $result.rtkMode = rtkMode;
+    }
     return $result;
   }
   GpsCoordinates._() : super();
@@ -41,6 +49,7 @@ class GpsCoordinates extends $pb.GeneratedMessage {
     ..a<$core.double>(1, _omitFieldNames ? '' : 'latitude', $pb.PbFieldType.OD)
     ..a<$core.double>(2, _omitFieldNames ? '' : 'longitude', $pb.PbFieldType.OD)
     ..a<$core.double>(3, _omitFieldNames ? '' : 'altitude', $pb.PbFieldType.OD)
+    ..e<RTKMode>(4, _omitFieldNames ? '' : 'rtkMode', $pb.PbFieldType.OE, protoName: 'rtkMode', defaultOrMaker: RTKMode.RTK_NONE, valueOf: RTKMode.valueOf, enumValues: RTKMode.values)
     ..hasRequiredFields = false
   ;
 
@@ -91,91 +100,22 @@ class GpsCoordinates extends $pb.GeneratedMessage {
   $core.bool hasAltitude() => $_has(2);
   @$pb.TagNumber(3)
   void clearAltitude() => clearField(3);
-}
 
-class Orientation extends $pb.GeneratedMessage {
-  factory Orientation({
-    $core.double? x,
-    $core.double? y,
-    $core.double? z,
-  }) {
-    final $result = create();
-    if (x != null) {
-      $result.x = x;
-    }
-    if (y != null) {
-      $result.y = y;
-    }
-    if (z != null) {
-      $result.z = z;
-    }
-    return $result;
-  }
-  Orientation._() : super();
-  factory Orientation.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Orientation.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Orientation', createEmptyInstance: create)
-    ..a<$core.double>(1, _omitFieldNames ? '' : 'x', $pb.PbFieldType.OF)
-    ..a<$core.double>(2, _omitFieldNames ? '' : 'y', $pb.PbFieldType.OF)
-    ..a<$core.double>(3, _omitFieldNames ? '' : 'z', $pb.PbFieldType.OF)
-    ..hasRequiredFields = false
-  ;
-
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  Orientation clone() => Orientation()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  Orientation copyWith(void Function(Orientation) updates) => super.copyWith((message) => updates(message as Orientation)) as Orientation;
-
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static Orientation create() => Orientation._();
-  Orientation createEmptyInstance() => create();
-  static $pb.PbList<Orientation> createRepeated() => $pb.PbList<Orientation>();
-  @$core.pragma('dart2js:noInline')
-  static Orientation getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Orientation>(create);
-  static Orientation? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.double get x => $_getN(0);
-  @$pb.TagNumber(1)
-  set x($core.double v) { $_setFloat(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasX() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearX() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.double get y => $_getN(1);
-  @$pb.TagNumber(2)
-  set y($core.double v) { $_setFloat(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasY() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearY() => clearField(2);
-
-  @$pb.TagNumber(3)
-  $core.double get z => $_getN(2);
-  @$pb.TagNumber(3)
-  set z($core.double v) { $_setFloat(2, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasZ() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearZ() => clearField(3);
+  @$pb.TagNumber(4)
+  RTKMode get rtkMode => $_getN(3);
+  @$pb.TagNumber(4)
+  set rtkMode(RTKMode v) { setField(4, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasRtkMode() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearRtkMode() => clearField(4);
 }
 
 class RoverPosition extends $pb.GeneratedMessage {
   factory RoverPosition({
     GpsCoordinates? gps,
-    Orientation? orientation,
-    $2.Version? version,
+    $1.Orientation? orientation,
+    $3.Version? version,
     $core.List<$core.int>? rtkMessage,
   }) {
     final $result = create();
@@ -199,8 +139,8 @@ class RoverPosition extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'RoverPosition', createEmptyInstance: create)
     ..aOM<GpsCoordinates>(1, _omitFieldNames ? '' : 'gps', subBuilder: GpsCoordinates.create)
-    ..aOM<Orientation>(2, _omitFieldNames ? '' : 'orientation', subBuilder: Orientation.create)
-    ..aOM<$2.Version>(3, _omitFieldNames ? '' : 'version', subBuilder: $2.Version.create)
+    ..aOM<$1.Orientation>(2, _omitFieldNames ? '' : 'orientation', subBuilder: $1.Orientation.create)
+    ..aOM<$3.Version>(3, _omitFieldNames ? '' : 'version', subBuilder: $3.Version.create)
     ..a<$core.List<$core.int>>(4, _omitFieldNames ? '' : 'rtkMessage', $pb.PbFieldType.OY, protoName: 'rtkMessage')
     ..hasRequiredFields = false
   ;
@@ -238,26 +178,26 @@ class RoverPosition extends $pb.GeneratedMessage {
   GpsCoordinates ensureGps() => $_ensure(0);
 
   @$pb.TagNumber(2)
-  Orientation get orientation => $_getN(1);
+  $1.Orientation get orientation => $_getN(1);
   @$pb.TagNumber(2)
-  set orientation(Orientation v) { setField(2, v); }
+  set orientation($1.Orientation v) { setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasOrientation() => $_has(1);
   @$pb.TagNumber(2)
   void clearOrientation() => clearField(2);
   @$pb.TagNumber(2)
-  Orientation ensureOrientation() => $_ensure(1);
+  $1.Orientation ensureOrientation() => $_ensure(1);
 
   @$pb.TagNumber(3)
-  $2.Version get version => $_getN(2);
+  $3.Version get version => $_getN(2);
   @$pb.TagNumber(3)
-  set version($2.Version v) { setField(3, v); }
+  set version($3.Version v) { setField(3, v); }
   @$pb.TagNumber(3)
   $core.bool hasVersion() => $_has(2);
   @$pb.TagNumber(3)
   void clearVersion() => clearField(3);
   @$pb.TagNumber(3)
-  $2.Version ensureVersion() => $_ensure(2);
+  $3.Version ensureVersion() => $_ensure(2);
 
   @$pb.TagNumber(4)
   $core.List<$core.int> get rtkMessage => $_getN(3);
