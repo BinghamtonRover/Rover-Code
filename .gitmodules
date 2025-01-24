@@ -1,6 +1,3 @@
-[submodule "Subsystems"]
-	path = subsystems
-	url = https://github.com/BinghamtonRover/Subsystems
 [submodule "Autonomy"]
 	path = autonomy
 	url = https://github.com/BinghamtonRover/Autonomy
