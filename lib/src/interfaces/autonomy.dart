@@ -24,7 +24,6 @@ abstract class AutonomyInterface extends Service with Receiver {
     result &= await detector.init();
     result &= await video.init();
     logger.info("Init orchestrator");
-    print("Orchestrator init 1");
     await orchestrator.init();
     logger.info("Init orchestrator done");
     if (result) {

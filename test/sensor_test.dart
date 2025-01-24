@@ -2,7 +2,7 @@ import "package:autonomy/src/rover/imu.dart";
 import "package:burt_network/logging.dart";
 import "package:test/test.dart";
 
-import "package:burt_network/generated.dart";
+import "package:burt_network/protobuf.dart";
 
 import "package:autonomy/interfaces.dart";
 import "package:autonomy/simulator.dart";
@@ -46,7 +46,7 @@ void main() => group("[Sensors]", tags: ["sensors"], () {
     final oldError = GpsUtils.maxErrorMeters;
     GpsUtils.maxErrorMeters = 3;
     Logger.level = LogLevel.off;
-    
+
     final simulator = AutonomySimulator();
     final realGps = RoverGps(collection: simulator);
     final simulatedGps = GpsSimulator(collection: simulator, maxError: GpsInterface.gpsError);
@@ -84,7 +84,7 @@ void main() => group("[Sensors]", tags: ["sensors"], () {
     final realImu = RoverImu(collection: simulator);
     final north = OrientationUtils.north;
     simulatedImu.update(north);
-    
+
     var count = 0;
     for (var i = 0; i < 1000; i++) {
       final newData = simulatedImu.raw;
@@ -101,7 +101,7 @@ void main() => group("[Sensors]", tags: ["sensors"], () {
     simulator.logger.info("Final orientation: ${realImu.heading}");
     expect(percentage, greaterThan(0.75), reason: "IMU should be accurate >75% of the time: $percentage");
 
-    
+
     realImu.update(OrientationUtils.south);
     expect(realImu.isNear(OrientationUtils.north.heading), isTrue);
     await simulator.dispose();
@@ -149,7 +149,7 @@ void main() => group("[Sensors]", tags: ["sensors"], () {
     final realImu = RoverImu(collection: simulator);
     final orientation = OrientationUtils.north;
     simulatedImu.update(orientation);
-    
+
     var count = 0;
     for (var i = 0; i < 350; i++) {
       orientation.z += 1;
@@ -184,7 +184,7 @@ void main() => group("[Sensors]", tags: ["sensors"], () {
     simulator.gps.update(utah);
     expect(simulator.hasValue, isFalse);
     expect(GpsInterface.currentLatitude, 0);
-    
+
     await simulator.init();
     await simulator.waitForValue();
     expect(simulator.hasValue, isTrue);
@@ -219,7 +219,7 @@ void main() => group("[Sensors]", tags: ["sensors"], () {
     final realImu = RoverImu(collection: simulator);
     final orientation = Orientation(z: 360);
     simulatedImu.update(orientation);
-    
+
     var count = 0;
     for (var i = 0; i < 1000; i++) {
       final newData = simulatedImu.raw;

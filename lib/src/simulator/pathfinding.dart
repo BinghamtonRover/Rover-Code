@@ -1,9 +1,9 @@
 import "package:autonomy/interfaces.dart";
-import "package:burt_network/generated.dart";
+import "package:burt_network/protobuf.dart";
 
-class PathfindingSimulator extends PathfindingInterface {  
+class PathfindingSimulator extends PathfindingInterface {
   static int i = 0;
-  
+
   PathfindingSimulator({required super.collection});
 
   @override

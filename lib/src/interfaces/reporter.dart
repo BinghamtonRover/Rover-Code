@@ -1,5 +1,5 @@
 import "dart:async";
-import "package:burt_network/generated.dart";
+import "package:burt_network/protobuf.dart";
 
 import "package:autonomy/interfaces.dart";
 
@@ -13,7 +13,7 @@ mixin ValueReporter on Service {
   @override
   Future<bool> init() async {
     timer = Timer.periodic(reportInterval, (timer) => _reportValue());
-    return await super.init();
+    return super.init();
   }
 
   @override

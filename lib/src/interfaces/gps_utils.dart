@@ -2,7 +2,7 @@
 import "dart:math";
 
 import "package:autonomy/interfaces.dart";
-import "package:burt_network/generated.dart";
+import "package:burt_network/protobuf.dart";
 
 extension RecordToGps on (num, num) {
   GpsCoordinates toGps() => GpsCoordinates(latitude: $1.toDouble() * GpsUtils.latitudePerMeter, longitude: $2.toDouble() * GpsUtils.longitudePerMeter);
@@ -10,16 +10,16 @@ extension RecordToGps on (num, num) {
 
 extension GpsUtils on GpsCoordinates {
   static double maxErrorMeters = 1;
-  static double get epsilonLatitude => maxErrorMeters * latitudePerMeter; 
-  static double get epsilonLongitude => maxErrorMeters * longitudePerMeter; 
+  static double get epsilonLatitude => maxErrorMeters * latitudePerMeter;
+  static double get epsilonLongitude => maxErrorMeters * longitudePerMeter;
 
-  static GpsCoordinates get east => 
+  static GpsCoordinates get east =>
     GpsCoordinates(longitude: -1 / metersPerLongitude);
-  static GpsCoordinates get west => 
+  static GpsCoordinates get west =>
     GpsCoordinates(longitude: 1 / metersPerLongitude);
-  static GpsCoordinates get north => 
+  static GpsCoordinates get north =>
     GpsCoordinates(latitude: 1 * latitudePerMeter);
-  static GpsCoordinates get south => 
+  static GpsCoordinates get south =>
     GpsCoordinates(latitude: -1 * latitudePerMeter);
 
   // Taken from https://stackoverflow.com/a/39540339/9392211
@@ -28,20 +28,20 @@ extension GpsUtils on GpsCoordinates {
   static const radiansPerDegree = pi / 180;
   static double get metersPerLongitude => 1;
 //    40075 * cos( GpsInterface.currentLatitude * radiansPerDegree ) / 360 * 1000;
-  
+
   static double get latitudePerMeter => 1 / metersPerLatitude;
   static double get longitudePerMeter => 1 / metersPerLongitude;
-  
+
   double distanceTo(GpsCoordinates other) => sqrt(
     pow(latitude - other.latitude, 2) +
     pow(longitude - other.longitude, 2),
   );
 
-  double manhattanDistance(GpsCoordinates other) => 
-    (latitude - other.latitude).abs() * metersPerLatitude + 
+  double manhattanDistance(GpsCoordinates other) =>
+    (latitude - other.latitude).abs() * metersPerLatitude +
     (longitude - other.longitude).abs() * metersPerLongitude;
 
-  bool isNear(GpsCoordinates other) => 
+  bool isNear(GpsCoordinates other) =>
     (latitude - other.latitude).abs() < epsilonLatitude &&
     (longitude - other.longitude).abs() < epsilonLongitude;
 

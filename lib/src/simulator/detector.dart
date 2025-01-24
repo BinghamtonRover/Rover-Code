@@ -1,16 +1,16 @@
 import "package:autonomy/interfaces.dart";
-import "package:burt_network/generated.dart";
+import "package:burt_network/protobuf.dart";
 
 class SimulatedObstacle {
   final GpsCoordinates coordinates;
   final int radius;
   SimulatedObstacle({required this.coordinates, required this.radius});
 
-  bool isNear(GpsCoordinates other) => 
+  bool isNear(GpsCoordinates other) =>
     coordinates.distanceTo(other) <= radius;
 }
 
-class DetectorSimulator extends DetectorInterface {  
+class DetectorSimulator extends DetectorInterface {
   static const arucoPosition = (10, 10);
   static const slopedLatitude = -5;
 
@@ -24,7 +24,7 @@ class DetectorSimulator extends DetectorInterface {
 
   @override
   Future<void> dispose() async => obstacles.clear();
-  
+
   @override
   bool findObstacles() {
     final coordinates = collection.gps.coordinates;

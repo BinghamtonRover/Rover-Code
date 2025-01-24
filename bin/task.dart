@@ -17,13 +17,11 @@ void main() async {
   simulator.detector = DetectorSimulator(collection: simulator, obstacles: obstacles);
   simulator.pathfinder = RoverPathfinder(collection: simulator);
   simulator.orchestrator = RoverOrchestrator(collection: simulator);
-  simulator.drive = RoverDrive(collection: simulator, useImu: true, useGps: false);
+  simulator.drive = RoverDrive(collection: simulator, useGps: false);
   simulator.gps = GpsSimulator(collection: simulator);
 //  simulator.drive = DriveSimulator(collection: simulator);
   await simulator.init();
   await simulator.imu.waitForValue();
 //	await simulator.drive.faceNorth();
   await simulator.server.waitForConnection();
-	print("Ready");
-
 }

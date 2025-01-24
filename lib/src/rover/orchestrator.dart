@@ -1,5 +1,5 @@
 import "package:autonomy/interfaces.dart";
-import "package:burt_network/generated.dart";
+import "package:burt_network/protobuf.dart";
 import "dart:async";
 
 class RoverOrchestrator extends OrchestratorInterface with ValueReporter {

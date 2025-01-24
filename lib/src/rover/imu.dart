@@ -29,8 +29,7 @@ class RoverImu extends ImuInterface {
   @override
   void update(Orientation newValue) {
     //  _zCorrector.addValue(newValue.heading);
-    //	collection.logger.trace("Got IMU value");
-    print("Got imu: ${newValue.heading}. Direction: ${collection.drive.orientation}");
+    // collection.logger.trace("Got IMU value");
     hasValue = true;
     value = newValue;
 	}

@@ -1,11 +1,11 @@
-import "package:burt_network/generated.dart";
+import "package:burt_network/protobuf.dart";
 import "package:autonomy/interfaces.dart";
 
-class ImuSimulator extends ImuInterface with ValueReporter {  
+class ImuSimulator extends ImuInterface with ValueReporter {
   final RandomError _error;
-  ImuSimulator({required super.collection, double maxError = 0}) : 
+  ImuSimulator({required super.collection, double maxError = 0}) :
     _error = RandomError(maxError);
-  
+
   @override
   RoverPosition getMessage() => RoverPosition(orientation: raw);
 

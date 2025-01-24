@@ -1,8 +1,8 @@
 import "package:autonomy/interfaces.dart";
-import "package:burt_network/generated.dart";
+import "package:burt_network/protobuf.dart";
 
 enum DriveDirection {
-  forward, 
+  forward,
   left,
   right,
   stop,
@@ -53,7 +53,7 @@ abstract class DriveInterface extends Service {
   };
 
   Future<void> faceNorth();
-  
+
   Future<void> goForward();
   Future<void> turnLeft();
   Future<void> turnRight();

@@ -1,7 +1,7 @@
 // ignore_for_file: cascade_invocations
 
 import "package:autonomy/interfaces.dart";
-import "package:burt_network/generated.dart";
+import "package:burt_network/protobuf.dart";
 
 class DriveSimulator extends DriveInterface {
   final bool shouldDelay;
