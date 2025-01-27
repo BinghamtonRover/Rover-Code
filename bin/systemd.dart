@@ -27,7 +27,7 @@ void main() async {
     buffer.writeln("[Service]");
     buffer.writeln("ExecStart=${program.fullPathToExecutable}");
     buffer.writeln("TimeoutStopSec=3");
-    buffer.writeln("Restart=on-failure");
+    buffer.writeln("Restart=on-success");
     buffer.writeln("RestartSec=1");
     buffer.writeln();
     buffer.writeln("[Install]");
