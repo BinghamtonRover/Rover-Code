@@ -1,4 +1,5 @@
 import "dart:ffi";
+import "dart:io";
 import "dart:typed_data";
 
 import "package:burt_network/burt_network.dart";
@@ -31,7 +32,7 @@ extension Uint8ToMat on Pointer<Uint8> {
 class LidarStub extends Lidar {
   final LidarBindings bindings;
 
-  LidarStub() : bindings = LidarBindings(DynamicLibrary.open("dist/lidar_ffi.dll"));
+  LidarStub() : bindings = Platform.isWindows ? LidarBindings(DynamicLibrary.open("dist/lidar_ffi.dll")) : LidarBindings(DynamicLibrary.open("dist/liblidar_ffi.so"));
     
   @override
   Future<bool> init() async {
