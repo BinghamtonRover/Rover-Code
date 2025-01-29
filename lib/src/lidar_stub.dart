@@ -34,13 +34,16 @@ class LidarStub extends Lidar {
 
   LidarStub() : bindings = Platform.isWindows ? LidarBindings(DynamicLibrary.open("dist/lidar_ffi.dll")) : LidarBindings(DynamicLibrary.open("dist/liblidar_ffi.so"));
     
+  bool getStatus() => bindings.getStatus() == 0;
+  
   @override
   Future<bool> init() async {
     /// init will return bool
     /// return bindings.init();
     bindings.init();
-    await Future<void>.delayed(const Duration(seconds: 10));
+    await Future<void>.delayed(const Duration(seconds: 5));
     final status = bindings.getStatus();
+    print("Lidar Status: $status");
     return status == 0;
   }
 
@@ -54,8 +57,8 @@ class LidarStub extends Lidar {
     final image = bindings.getLatestImage();
 
     //print("Image Data# plz strem: ${image.data}");
-    print("image height: ${image.height}, image width ${image.width}");
-    Resolution res = (height: image.height, width: image.width);
+    print("latest image is: ${image.height}, image width ${image.width}");
+    final res = (height: image.height, width: image.width);
     final matrix = image.data.toOpenCVMat(res, length: 3 * image.height * image.width);
     final jpg = matrix.encodeJpg(quality: 75);
     return VideoData(

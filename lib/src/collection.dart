@@ -9,9 +9,10 @@ class LidarCollection extends Service {
 
   final server = RoverSocket(port: 8004, device: Device.VIDEO);
 
+  bool status = true;
+
   @override
   Future<bool> init() async {
-    bool status = true;
     status &= await lidar.init();
     status &= await server.init();
     return status;
@@ -24,11 +25,12 @@ class LidarCollection extends Service {
   } 
 
   void run() async {
-    while(true){
+    while(status){
       final data = await lidar.readFrame();
+      status = lidar.getStatus();
       server.sendMessage(data, destination: SocketInfo(address: InternetAddress("127.0.0.1"), port: 8002));
       //print("sending message ${data}");
-      print("sending");
+      print("sending from Lidar program");
       await Future<void>.delayed(const Duration(milliseconds: 100));
     }
   }
