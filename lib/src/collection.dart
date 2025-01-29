@@ -10,7 +10,12 @@ class LidarCollection extends Service {
   final server = RoverSocket(port: 8004, device: Device.VIDEO);
 
   @override
-  Future<bool> init() async => (await lidar.init()) && (await server.init());
+  Future<bool> init() async {
+    bool status = true;
+    status &= await lidar.init();
+    status &= await server.init();
+    return status;
+  }
 
   @override
   Future<void> dispose() async {

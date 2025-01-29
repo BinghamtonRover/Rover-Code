@@ -12,8 +12,7 @@ dependencies:
   burt_network:
     git: https://github.com/BinghamtonRover/Networking
   ffigen: ^15.0.0
-  opencv_dart: ^2.1.0-dev.0
-  opencv_ffi: ^1.2.0
+  dartcv4: ^1.1.2
 
 dev_dependencies:
   very_good_analysis: ^6.0.0

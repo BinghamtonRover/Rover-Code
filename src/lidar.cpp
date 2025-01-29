@@ -16,32 +16,42 @@ Image image;
 SickScanApiHandle handle;
 SickScanApiHandle handleData;
 
+// enum SickScanApiErrorCodes
+// {
+//     SICK_SCAN_API_SUCCESS = 0,          // function executed successfully
+//     SICK_SCAN_API_ERROR = 1,            // general (unspecified) error
+//     SICK_SCAN_API_NOT_LOADED = 2,       // sick_scan_xd library not loaded
+//     SICK_SCAN_API_NOT_INITIALIZED = 3,  // API not initialized
+//     SICK_SCAN_API_NOT_IMPLEMENTED = 4,  // function not implemented in sick_scan_xd library
+//     SICK_SCAN_API_TIMEOUT = 5           // timeout during wait for response
+// };
+
 int mutex = 1;
+int status = 0; 
 
-FFI_PLUGIN_EXPORT void init() {
+FFI_PLUGIN_EXPORT int32_t init() {
   handle = SickScanApiCreate(0, nullptr);
-  SickScanApiRegisterCartesianPointCloudMsg(handle, updateLatestImage);
 
-  SickScanApiSetVerboseLevel(handle, 0); // 0 = DEBUG
+  SickScanApiSetVerboseLevel(handle, 5); // 0=DEBUG, 1=INFO, 2=WARN, 3=ERROR, 4=FATAL or 5=QUIET
   char* args[] = {"lidar.dart", "lidar.launch", "hostname:=169.254.166.55"};
-  SickScanApiInitByCli(handle, 3, args);
-  //alloc data
-  image.OneDArray = (double*)calloc(1*270, sizeof(double));
-  for(int i =0; i < 270; i++){
-    image.OneDArray[i] = -1;
-  }
-  //alloc image
+  if(SickScanApiInitByCli(handle, 3, args) != SICK_SCAN_API_SUCCESS) status = 1;
+  if(SickScanApiRegisterCartesianPointCloudMsg(handle, updateLatestImage) != SICK_SCAN_API_SUCCESS) status = 1;
+  /// allocate data
+  image.OneDArray = (double*)calloc(270, sizeof(double));
+  memset(image.OneDArray, -1, 270 * sizeof(double));
+
+  /// allocate image
   image.data = (uint8_t*)calloc(3*WIDTH*HEIGHT, sizeof(uint8_t));
   image.height = HEIGHT;
   image.width = WIDTH;
+  return status;
 }
 
-FFI_PLUGIN_EXPORT void dispose() {
-  SickScanApiDeregisterCartesianPointCloudMsg(handle, updateLatestImage);
-
-  SickScanApiClose(handle);
-  SickScanApiRelease(handle);
-
+FFI_PLUGIN_EXPORT int32_t dispose() {
+  if(SickScanApiDeregisterCartesianPointCloudMsg(handle, updateLatestImage) != SICK_SCAN_API_SUCCESS) return -1;
+  if(SickScanApiClose(handle) != SICK_SCAN_API_SUCCESS) return -1;
+  if(SickScanApiRelease(handle) != SICK_SCAN_API_SUCCESS) return -1;
+  return SICK_SCAN_API_SUCCESS;
 }
 
 FFI_PLUGIN_EXPORT void updateLatestData(const SickScanPointCloudMsg* pointCloudMsg) {
@@ -81,10 +91,10 @@ FFI_PLUGIN_EXPORT void updateLatestData(const SickScanPointCloudMsg* pointCloudM
             if (field_offset_intensity >= 0) point_intensity = *((float*)(pointCloudMsg->data.buffer + polar_point_offset + field_offset_intensity));
         }
     }
-    std::cout << "\n";
-    for(int k = 0; k < 270; k++){
-      std:: cout<< image.OneDArray[k] << " ";
-    }
+    // std::cout << "\n";
+    // for(int k = 0; k < 270; k++){
+    //   std:: cout<< image.OneDArray[k] << " ";
+    // }
 }
 
 
@@ -139,8 +149,7 @@ FFI_PLUGIN_EXPORT void make_matrix(const SickScanPointCloudMsg* msg){
 
   memset(image.data, 0, 3 * image.width * image.height);
 
-
-	// Plot all points in pointcloud
+	/// Plot all points in pointcloud
     for (int row_idx = 0; row_idx < (int)msg->height; row_idx++)
     {
         for (int col_idx = 0; col_idx < (int)msg->width; col_idx++)
@@ -218,8 +227,8 @@ FFI_PLUGIN_EXPORT void addHiddenArea() {
     }
 }
 
-FFI_PLUGIN_EXPORT void getLatestData() {
-
+FFI_PLUGIN_EXPORT double* getLatestData() {
+  return image.OneDArray;
 }
 
 FFI_PLUGIN_EXPORT Image getLatestImage() {
@@ -228,4 +237,8 @@ FFI_PLUGIN_EXPORT Image getLatestImage() {
   //   Sleep(100);
   // }
   return image;
+}
+
+FFI_PLUGIN_EXPORT int getStatus(){
+  return status;
 }

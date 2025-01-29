@@ -5,7 +5,7 @@ import "dart:typed_data";
 import "package:burt_network/burt_network.dart";
 import "package:lidar/lidar.dart";
 import "generated/lidar_bindings.dart";
-import "package:opencv_dart/opencv_dart.dart";
+import "package:dartcv4/dartcv.dart";
 import "lidar.dart";
 
 /// Useful methods on OpenCV images.
@@ -39,8 +39,9 @@ class LidarStub extends Lidar {
     /// init will return bool
     /// return bindings.init();
     bindings.init();
-    await Future<void>.delayed(const Duration(seconds: 5));
-    return true;
+    await Future<void>.delayed(const Duration(seconds: 10));
+    final status = bindings.getStatus();
+    return status == 0;
   }
 
   @override
