@@ -7,7 +7,7 @@ import "lidar_stub.dart";
 class LidarCollection extends Service {
   final lidar = LidarStub();
 
-  final server = RoverSocket(port: 8004, device: Device.VIDEO);
+  final server = RoverSocket(port: 8002, device: Device.VIDEO);
 
   bool status = true;
 
@@ -24,12 +24,12 @@ class LidarCollection extends Service {
     await server.dispose();
   } 
 
-  void run() async {
+  /// Run the service.
+  Future<void> run() async {
     while(status){
       final data = await lidar.readFrame();
       status = lidar.getStatus();
       server.sendMessage(data, destination: SocketInfo(address: InternetAddress("127.0.0.1"), port: 8002));
-      //print("sending message ${data}");
       print("sending from Lidar program");
       await Future<void>.delayed(const Duration(milliseconds: 100));
     }

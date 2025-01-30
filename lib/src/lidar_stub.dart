@@ -38,12 +38,15 @@ class LidarStub extends Lidar {
   
   @override
   Future<bool> init() async {
-    /// init will return bool
-    /// return bindings.init();
     bindings.init();
-    await Future<void>.delayed(const Duration(seconds: 5));
-    final status = bindings.getStatus();
-    print("Lidar Status: $status");
+    int status = 5; // 5 is failure
+    for(int i = 0; i < 30; i++){
+      status = bindings.getStatus();
+      if(status == 0){
+        break;
+      }
+      await Future<void>.delayed(const Duration(seconds: 1));
+    }
     return status == 0;
   }
 
@@ -56,7 +59,6 @@ class LidarStub extends Lidar {
   Future<VideoData> readFrame() async {
     final image = bindings.getLatestImage();
 
-    //print("Image Data# plz strem: ${image.data}");
     print("latest image is: ${image.height}, image width ${image.width}");
     final res = (height: image.height, width: image.width);
     final matrix = image.data.toOpenCVMat(res, length: 3 * image.height * image.width);

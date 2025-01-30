@@ -9,5 +9,5 @@ void main() async {
     print("Disposed Lidar");
     return;
   }
-  collection.run();
+  await collection.run();
 }

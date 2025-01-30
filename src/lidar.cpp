@@ -27,22 +27,23 @@ SickScanApiHandle handleData;
 // };
 
 int mutex = 1;
-int32_t status = 0; 
+int32_t status = SICK_SCAN_API_SUCCESS; 
 char* buffer;
 
 FFI_PLUGIN_EXPORT int32_t init() {
   handle = SickScanApiCreate(0, nullptr);
-
   SickScanApiSetVerboseLevel(handle, 5); // 0=DEBUG, 1=INFO, 2=WARN, 3=ERROR, 4=FATAL or 5=QUIET
   char* args[] = {"lidar.dart", "lidar.launch", "hostname:=169.254.166.55"};
-  if(status = SickScanApiInitByCli(handle, 3, args) != SICK_SCAN_API_SUCCESS){
-    dispose();
-    return status;
-  }
-  if(status = SickScanApiRegisterCartesianPointCloudMsg(handle, updateLatestImage) != SICK_SCAN_API_SUCCESS){
-    dispose();
-    return status;
-  }
+  // if(status = SickScanApiInitByCli(handle, 3, args) != SICK_SCAN_API_SUCCESS){
+  //   dispose();
+  //   return status;
+  // }
+  SickScanApiInitByCli(handle, 3, args);
+  // if(status = SickScanApiRegisterCartesianPointCloudMsg(handle, updateLatestImage) != SICK_SCAN_API_SUCCESS){
+  //   dispose();
+  //   return status;
+  // }
+  SickScanApiRegisterCartesianPointCloudMsg(handle, updateLatestImage);
   /// allocate data
   image.OneDArray = (double*)calloc(270, sizeof(double));
   memset(image.OneDArray, -1, 270 * sizeof(double));
@@ -53,16 +54,18 @@ FFI_PLUGIN_EXPORT int32_t init() {
   image.width = WIDTH;
 
   buffer = (char*)calloc(128, sizeof(char));
-  std::cout << "==============================" << std::endl;
-  std::cout << "\n\n\n Init done with status: " << status << "\n\n\n" <<  std::endl;
-  std::cout << "==============================" << std::endl;
-  return status;
+  // std::cout << "==============================" << std::endl;
+  // std::cout << "\n\n\n Init done with status: " << status << "\n\n\n" <<  std::endl;
+  // std::cout << "==============================" << std::endl;
+  return getStatus();
 }
 
 FFI_PLUGIN_EXPORT int32_t dispose() {
-  if(SickScanApiDeregisterCartesianPointCloudMsg(handle, updateLatestImage) != SICK_SCAN_API_SUCCESS) return -1;
-  if(SickScanApiClose(handle) != SICK_SCAN_API_SUCCESS) return -1;
-  if(SickScanApiRelease(handle) != SICK_SCAN_API_SUCCESS) return -1;
+  SickScanApiDeregisterCartesianPointCloudMsg(handle, updateLatestImage);
+  SickScanApiClose(handle);
+  SickScanApiRelease(handle);
+  delete image.data;
+  delete image.OneDArray;
   return SICK_SCAN_API_SUCCESS;
 }
 
@@ -254,5 +257,8 @@ FFI_PLUGIN_EXPORT Image getLatestImage() {
 
 FFI_PLUGIN_EXPORT int32_t getStatus(){
   SickScanApiGetStatus(handle, &status, buffer, 128);
+  if(status != SICK_SCAN_API_SUCCESS){
+    std::cout << "Status: " << buffer << std::endl;
+  }
   return status;
 }
