@@ -1,9 +1,12 @@
 
-#if defined(_WIN32) && defined(__cplusplus)
-#define FFI_PLUGIN_EXPORT extern "C" __declspec(dllexport)
-#define NON_FFI __declspec(dllexport)
+#if defined(_WIN32) 
+#define FFI_PLUGIN_EXPORT __declspec(dllexport)
 #else
 #define FFI_PLUGIN_EXPORT
+#endif
+
+#ifdef  __cplusplus
+extern "C" {
 #endif
 
 #include "sick_scan_api.h"
@@ -26,3 +29,6 @@ FFI_PLUGIN_EXPORT double* getLatestData();
 FFI_PLUGIN_EXPORT void updateLatestData(const SickScanPointCloudMsg* pointCloudMsg);
 FFI_PLUGIN_EXPORT int getStatus();
 
+#ifdef  __cplusplus
+} // extern "C"
+#endif
