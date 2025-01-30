@@ -31,7 +31,7 @@ class LidarCollection extends Service {
       status = lidar.getStatus();
       server.sendMessage(data, destination: SocketInfo(address: InternetAddress("127.0.0.1"), port: 8002));
       print("sending from Lidar program");
-      await Future<void>.delayed(const Duration(milliseconds: 100));
+      await Future<void>.delayed(const Duration(milliseconds: 1000));
     }
   }
 }

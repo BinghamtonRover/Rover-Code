@@ -10,4 +10,5 @@ void main() async {
     return;
   }
   await collection.run();
+  await collection.dispose();
 }

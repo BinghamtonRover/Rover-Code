@@ -40,7 +40,7 @@ class LidarStub extends Lidar {
   Future<bool> init() async {
     bindings.init();
     int status = 5; // 5 is failure
-    for(int i = 0; i < 30; i++){
+    for(int i = 0; i < 15; i++){ // Attemp to connect for 15 seconds
       status = bindings.getStatus();
       if(status == 0){
         break;
@@ -69,14 +69,4 @@ class LidarStub extends Lidar {
       details: CameraDetails(name: CameraName.AUTONOMY_DEPTH, status: CameraStatus.CAMERA_ENABLED),
     );
   }
-  
-
-  // void sendFrame() {
-  //   final image = bindings.getLatestImage();
-  //   // final mat = getMatrix(image.height, image.width, image.data.asTypedList(3 * image.height * image.width));
-  //   // final jpg = encodeJpg(mat);
-  //   collection.server.sendMessage(VideoData(frame: image.data.asTypedList(3 * image.height * image.width)));
-  // }
-  // final mat = getMatrix(imgHeight, imgWidth, pixels);
-  // final jpeg = encodeJpg(mat);
 }
