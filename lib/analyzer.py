@@ -43,4 +43,5 @@ class ImageAnalyzer:
 
 if __name__ == "__main__":
   camera = ImageAnalyzer()
-  camera.sendFrames()
+  while True:
+    camera.getFrames(show = True)
