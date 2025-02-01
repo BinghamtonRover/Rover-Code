@@ -2,5 +2,3 @@
 # Created by `dart pub`
 .dart_tool/
 /build
-*.so
-*.dll
