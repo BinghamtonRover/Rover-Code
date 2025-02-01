@@ -37,10 +37,10 @@ class LidarStub extends Lidar {
   bool getStatus() => bindings.getStatus() == 0;
   
   @override
-  Future<bool> init() async {
+  Future<bool> init({int timeout = 15}) async {
     bindings.init();
     int status = 5; // 5 is failure
-    for(int i = 0; i < 15; i++){ // Attemp to connect for 15 seconds
+    for(int i = 0; i < timeout; i++){ // Attemp to connect for 15 seconds
       status = bindings.getStatus();
       if(status == 0){
         break;

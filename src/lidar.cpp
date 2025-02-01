@@ -33,7 +33,7 @@ char* buffer;
 FFI_PLUGIN_EXPORT int32_t init() {
   handle = SickScanApiCreate(0, nullptr);
   SickScanApiSetVerboseLevel(handle, 5); // 0=DEBUG, 1=INFO, 2=WARN, 3=ERROR, 4=FATAL or 5=QUIET
-  char* args[] = {"lidar.dart", "lidar.launch", "hostname:=169.254.166.55"};
+  char* args[] = {"lidar.dart", "lidar.launch", "hostname:=192.168.1.71"};
   // if(status = SickScanApiInitByCli(handle, 3, args) != SICK_SCAN_API_SUCCESS){
   //   dispose();
   //   return status;
