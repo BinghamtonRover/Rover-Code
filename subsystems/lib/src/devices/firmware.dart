@@ -26,6 +26,12 @@ final nameToDevice = <String, Device>{
 /// class takes care of connecting to, identifying, and streaming from a firmware device. This
 /// service is responsible for routing incoming UDP messages to the correct firmware device
 /// ([_sendToSerial]), and forwarding serial messages to the Dashboard ([RoverSocket.sendWrapper]).
+/// 
+/// This service also acts as the lowest level of sending commands to operate the rover, and where 
+/// the final "invalid" commands are filtered. The firmware manager maintains an internal [RoverStatus],
+/// which is updated when either an [UpdateSetting] is received from the network, or a new [RoverStatus] is
+/// reported from the drive firmware. Any commands that are received when the rover is not in the manual or
+/// autonomous status will not be sent to the firmware, acting as the final safety barrier.
 class FirmwareManager extends Service {
   /// The amount of time to wait before automatically sending a
   /// stop command to the firmware after not receiving messages
@@ -55,7 +61,11 @@ class FirmwareManager extends Service {
       currentStatus == RoverStatus.AUTONOMOUS ||
       currentStatus == RoverStatus.MANUAL;
 
+  /// Subscription for the rover status message being sent over the network
   StreamSubscription<UpdateSetting>? _roverStatusSubscription;
+
+  /// Subscription for the rover status message being sent from the drive firmware
+  StreamSubscription<DriveData>? _driveStatusSubscription;
 
   /// The command to stop the drive motors
   final stopDrive = DriveCommand(throttle: 0, setThrottle: true);
@@ -84,6 +94,13 @@ class FirmwareManager extends Service {
       result &= await device.init();
       if (!device.isReady) continue;
       final subscription = device.messages.listen(collection.server.sendWrapper);
+      if (device.device == Device.DRIVE) {
+        _driveStatusSubscription = device.messages.onMessage(
+          name: DriveData().messageName,
+          constructor: DriveData.fromBuffer,
+          callback: onDriveData,
+        );
+      }
       _subscriptions.add(subscription);
     }
     currentStatus = RoverStatus.MANUAL;
@@ -96,12 +113,37 @@ class FirmwareManager extends Service {
     return result;
   }
 
-  /// Handles an incoming [UpdateSetting] message
+  /// Handles an incoming [DriveData] message
+  /// 
+  /// This is only used to update [currentStatus] and the server based
+  /// on the Rover Status reported by the drive
+  void onDriveData(DriveData message) {
+    if (!message.hasStatus() || message.status == currentStatus) return;
+
+    _onStatus(message.status);
+
+    // Update the socket based on the setting, will also send the status to the dashboard
+    final updateSetting = UpdateSetting(status: message.status);
+    collection.server.onSettings(updateSetting);
+  }
+
+  /// Handles an incoming [UpdateSetting] message from the network
   void onSettingsUpdate(UpdateSetting setting) {
     if (!setting.hasStatus()) return;
     final status = setting.status;
 
-    currentStatus = setting.status;
+    // Send status to drive to update the button LEDs
+    sendMessage(DriveCommand(status: status));
+
+    _onStatus(status);
+  }
+
+  /// Handles an update to the Rover Status
+  /// 
+  /// This will appropriately update [currentStatus] and if setting to idle,
+  /// send a stop command to appropriate firmware devices
+  void _onStatus(RoverStatus status) {
+    currentStatus = status;
     
     if (status == RoverStatus.AUTONOMOUS) {
       stopDevice(Device.DRIVE);
@@ -119,6 +161,7 @@ class FirmwareManager extends Service {
       await device.dispose();
     }
     await _roverStatusSubscription?.cancel();
+    await _driveStatusSubscription?.cancel();
   }
 
   /// Sends a message to the firmware [device] to stop the device
