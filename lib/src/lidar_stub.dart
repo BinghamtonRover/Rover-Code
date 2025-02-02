@@ -53,17 +53,23 @@ class LidarStub extends Lidar {
   @override
   Future<void> dispose() async {
     bindings.dispose();
+    print("Disposed of lidar");
   }
 
   @override
   Future<VideoData> readFrame() async {
     final image = bindings.getLatestImage();
-
-    print("latest image is: ${image.height}, image width ${image.width}");
+    while(image.lock.value == 0){ // locked
+      await Future<void>.delayed(const Duration(milliseconds: 10));
+    }
+    image.lock.value = 0;
+    print("latest image is: ${image.height}, image width ${image.width}, image data ${image.data}");
     final res = (height: image.height, width: image.width);
     final matrix = image.data.toOpenCVMat(res, length: 3 * image.height * image.width);
+    image.lock.value = 1;
     final jpg = matrix.encodeJpg(quality: 75);
     return VideoData(
+      id: "CameraName.LIDAR",
       // TODO: Add CameraName.LIDAR
       frame: jpg,
       details: CameraDetails(name: CameraName.AUTONOMY_DEPTH, status: CameraStatus.CAMERA_ENABLED),

@@ -33,6 +33,7 @@ class LidarCollection extends Service {
       print("sending from Lidar program");
       await Future<void>.delayed(const Duration(milliseconds: 1000));
     }
+    print("Lidar program stopped");
   }
 }
 

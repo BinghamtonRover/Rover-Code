@@ -2135,10 +2135,12 @@ enum SickScanApiErrorCodes {
 }
 
 final class Image extends ffi.Struct {
-  @ffi.Uint64()
+  external ffi.Pointer<ffi.Int> lock;
+
+  @ffi.Uint32()
   external int height;
 
-  @ffi.Uint64()
+  @ffi.Uint32()
   external int width;
 
   external ffi.Pointer<ffi.Uint8> data;

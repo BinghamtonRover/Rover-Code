@@ -12,8 +12,9 @@ extern "C" {
 #include "sick_scan_api.h"
 #include <stdint.h>
 typedef struct Image{
-  uint64_t height;
-  uint64_t width;
+  int* lock;
+  uint32_t height;
+  uint32_t width;
   uint8_t* data;
   double* OneDArray;
 } Image;
