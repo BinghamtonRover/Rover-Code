@@ -12,23 +12,30 @@ extern "C" {
 #include "sick_scan_api.h"
 #include <stdint.h>
 typedef struct Image{
-  int* lock;
   uint32_t height;
   uint32_t width;
   uint8_t* data;
-  double* OneDArray;
 } Image;
 
-FFI_PLUGIN_EXPORT int32_t init();
-FFI_PLUGIN_EXPORT int32_t dispose();
-FFI_PLUGIN_EXPORT void updateLatestImage(SickScanApiHandle apiHandle, const SickScanPointCloudMsg* pointCloudMsg);
-FFI_PLUGIN_EXPORT Image getLatestImage();
-FFI_PLUGIN_EXPORT void addHiddenArea();
-FFI_PLUGIN_EXPORT void addCross(const SickScanPointCloudMsg* pixels);
-FFI_PLUGIN_EXPORT void make_matrix(const SickScanPointCloudMsg* msg);
-FFI_PLUGIN_EXPORT double* getLatestData();
-FFI_PLUGIN_EXPORT void updateLatestData(const SickScanPointCloudMsg* pointCloudMsg);
-FFI_PLUGIN_EXPORT int getStatus();
+typedef struct LidarHandle {
+  SickScanApiHandle api;
+  int lock;
+  Image image;
+  double* OneDArray;
+  int isReady;
+  int32_t statusCode;
+  char* statusBuffer;
+} LidarHandle;
+
+FFI_PLUGIN_EXPORT LidarHandle* Lidar_create();
+FFI_PLUGIN_EXPORT void Lidar_delete(LidarHandle* handle);
+
+FFI_PLUGIN_EXPORT void deregisterCallback(LidarHandle* handle);
+FFI_PLUGIN_EXPORT void registerCallback(LidarHandle* handle);
+
+FFI_PLUGIN_EXPORT void getStatus(LidarHandle* handle);
+
+// FFI_PLUGIN_EXPORT double* getLatestData();
 
 #ifdef  __cplusplus
 } // extern "C"

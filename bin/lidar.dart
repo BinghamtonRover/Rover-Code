@@ -1,6 +1,11 @@
+import "dart:io";
 import "package:lidar/lidar.dart";
 
 void main() async {
+  ProcessSignal.sigint.watch().listen((signal) {
+    print("CTRL+C pressed");
+    exit(0);
+  });
   final collection = LidarCollection();
   final ready = await collection.init();
   if(!ready) {

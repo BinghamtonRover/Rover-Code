@@ -11,11 +11,6 @@
 #define HEIGHT 1000
 #define PI 3.14159
 
-Image image;
-
-SickScanApiHandle handle;
-SickScanApiHandle handleData;
-
 // enum SickScanApiErrorCodes
 // {
 //     SICK_SCAN_API_SUCCESS = 0,          // function executed successfully
@@ -26,77 +21,103 @@ SickScanApiHandle handleData;
 //     SICK_SCAN_API_TIMEOUT = 5           // timeout during wait for response
 // };
 
-int mutex = 1;
-int32_t status = SICK_SCAN_API_SUCCESS; 
-char* buffer;
+LidarHandle* globalHandle;
+void updateLatestImage(SickScanApiHandle apiHandle, const SickScanPointCloudMsg* pointCloudMsg);
+void updateLatestData(const SickScanPointCloudMsg* pointCloudMsg);
+void make_matrix(const SickScanPointCloudMsg* msg);
+void addCross(const SickScanPointCloudMsg* pixels);
+void addHiddenArea();
 
-FFI_PLUGIN_EXPORT int32_t init() {
-  image.lock = (int*)malloc(sizeof(int32_t)); 
-  *image.lock = 1;
-  handle = SickScanApiCreate(0, nullptr);
-  SickScanApiSetVerboseLevel(handle, 0); // 0=DEBUG, 1=INFO, 2=WARN, 3=ERROR, 4=FATAL or 5=QUIET
+FFI_PLUGIN_EXPORT LidarHandle* Lidar_create() {
+    LidarHandle* handle = new LidarHandle;
+    handle->isReady = false;
+  handle->lock = 0;
+  handle->api = SickScanApiCreate(0, nullptr);
+
+
+
+  SickScanApiSetVerboseLevel(handle->api, 3); // 0=DEBUG, 1=INFO, 2=WARN, 3=ERROR, 4=FATAL or 5=QUIET
   char* args[] = {"lidar.dart", "lidar.launch", "hostname:=192.168.1.71"};
   // if(status = SickScanApiInitByCli(handle, 3, args) != SICK_SCAN_API_SUCCESS){
   //   dispose();
   //   return status;
   // }
-  SickScanApiInitByCli(handle, 3, args);
+  SickScanApiInitByCli(handle->api, 3, args);
   // if(status = SickScanApiRegisterCartesianPointCloudMsg(handle, updateLatestImage) != SICK_SCAN_API_SUCCESS){
   //   dispose();
   //   return status;
   // }
-  SickScanApiRegisterCartesianPointCloudMsg(handle, updateLatestImage);
+   SickScanApiRegisterCartesianPointCloudMsg(handle->api, updateLatestImage);
   /// allocate data
-  image.OneDArray = (double*)calloc(270, sizeof(double));
-  memset(image.OneDArray, -1, 270 * sizeof(double));
+  handle->OneDArray = new double[270];
+  memset(handle->OneDArray, -1, 270 * sizeof(double));
 
   /// allocate image
-  image.data = (uint8_t*)calloc(3*WIDTH*HEIGHT, sizeof(uint8_t));
-  image.height = HEIGHT;
-  image.width = WIDTH;
+  handle->image.data = new uint8_t[3 * WIDTH * HEIGHT];
+  handle->image.height = HEIGHT;
+  handle->image.width = WIDTH;
 
-  buffer = (char*)calloc(128, sizeof(char));
-  // std::cout << "==============================" << std::endl;
-  // std::cout << "\n\n\n Init done with status: " << status << "\n\n\n" <<  std::endl;
-  // std::cout << "==============================" << std::endl;
-  // *image.lock = 1;
-  return getStatus();
+  std::cout << "Getting status" << std::endl;
+
+  handle->statusBuffer = new char[128];
+  getStatus(handle);
+  std::cout << "==============================" << std::endl;
+  std::cout << "\n\n\n Init done with status: " << handle->statusCode << "\n\n\n" <<  std::endl;
+  std::cout << "==============================" << std::endl;
+  handle->lock = 1;
+  globalHandle = handle;
+  return handle;
 }
 
-FFI_PLUGIN_EXPORT int32_t dispose() {
-  SickScanApiDeregisterCartesianPointCloudMsg(handle, updateLatestImage);
-  SickScanApiClose(handle);
-  SickScanApiRelease(handle);
-  free(image.lock);
-  free(image.data);
-  free(image.OneDArray);
-  return SICK_SCAN_API_SUCCESS;
+FFI_PLUGIN_EXPORT void Lidar_delete(LidarHandle* handle) {
+  SickScanApiDeregisterCartesianPointCloudMsg(handle->api, updateLatestImage);
+  SickScanApiClose(handle->api);
+  SickScanApiRelease(handle->api);
+  delete handle->image.data;
+  delete handle->OneDArray;
+  delete handle->statusBuffer;
+  delete handle;
+  globalHandle = nullptr;
+}
+
+FFI_PLUGIN_EXPORT void deregisterCallback(LidarHandle* handle) {
+  SickScanApiDeregisterCartesianPointCloudMsg(handle->api, updateLatestImage);
+}
+
+FFI_PLUGIN_EXPORT void registerCallback(LidarHandle* handle) {
+   SickScanApiRegisterCartesianPointCloudMsg(handle->api, updateLatestImage);
 }
 
 FFI_PLUGIN_EXPORT void updateLatestImage(SickScanApiHandle apiHandle, const SickScanPointCloudMsg* pointCloudMsg) {
   // Change to if: assert(pointCloudMsg->height >= 0 && (int)pointCloudMsg->width >=0);
-  if(pointCloudMsg->height == 0 || pointCloudMsg->width == 0 || image.data == nullptr){
+  if (globalHandle == nullptr) return;
+  deregisterCallback(globalHandle);
+  std::cout << "C++ callback" << std::endl;
+  globalHandle->isReady = false;
+  if(pointCloudMsg->height == 0 || pointCloudMsg->width == 0 || globalHandle->image.data == nullptr){
     return;
   }
-  if(*image.lock == 0){
-    // std::cout << "Image locked" << std::endl;
+  if(globalHandle->lock == 0){
+    std::cout << "Image locked" << std::endl;
     return;
   }
-  // std::cout << "Unlocked" << std::endl;
-  *image.lock = 0;
+  std::cout << "Unlocked" << std::endl;
+  globalHandle->lock = 0;
   make_matrix(pointCloudMsg);
   addCross(pointCloudMsg);
   addHiddenArea();
-  *image.lock = 1;
+  globalHandle->lock = 1;
+  globalHandle->isReady = true;
 }
 
 FFI_PLUGIN_EXPORT void updateLatestData(const SickScanPointCloudMsg* pointCloudMsg) {
-  if(pointCloudMsg->height == 0 || pointCloudMsg->row_step == 0 || image.data == nullptr){
+  if (globalHandle == nullptr) return;
+  if(pointCloudMsg->height == 0 || pointCloudMsg->row_step == 0 || globalHandle->image.data == nullptr){
     return;
   }
   //std::cout << "Image height: " << (int) pointCloudMsg->height << ", Width: " << (int) pointCloudMsg->width << std::endl;
-  uint32_t midx = image.width / 2;
-  uint32_t midy = image.height / 2;
+  uint32_t midx = globalHandle->image.width / 2;
+  uint32_t midy = globalHandle->image.height / 2;
 
   //do pythagorean theorem with x and y
    // Get offsets for x, y, z, intensity values
@@ -130,13 +151,13 @@ FFI_PLUGIN_EXPORT void updateLatestData(const SickScanPointCloudMsg* pointCloudM
     }
     // std::cout << "\n";
     // for(int k = 0; k < 270; k++){
-    //   std:: cout<< image.OneDArray[k] << " ";
+    //   std:: cout<< image->OneDArray[k] << " ";
     // }
 }
 
 FFI_PLUGIN_EXPORT void make_matrix(const SickScanPointCloudMsg* msg){
-    uint32_t midx = image.width / 2;
-    uint32_t midy = image.height / 2;
+    uint32_t midx = globalHandle->image.width / 2;
+    uint32_t midy = globalHandle->image.height / 2;
     double angle = 0;
 
    // Get offsets for x, y, z, intensity values
@@ -156,9 +177,9 @@ FFI_PLUGIN_EXPORT void make_matrix(const SickScanPointCloudMsg* msg){
 	assert(field_offset_x >= 0 && field_offset_y >= 0 && field_offset_z >= 0);
 	// Create an image with 250 pixel/meter, max. +/-2 meter
 	int img_width = WIDTH, img_height = HEIGHT;
-	//uint8_t* img_pixel = image.data;
+	//uint8_t* img_pixel = image->data;
 
-  memset(image.data, 0, 3 * image.width * image.height);
+  memset(globalHandle->image.data, 0, 3 * globalHandle->image.width * globalHandle->image.height);
 
 	/// Plot all points in pointcloud
     for (int row_idx = 0; row_idx < (int)msg->height; row_idx++)
@@ -178,9 +199,9 @@ FFI_PLUGIN_EXPORT void make_matrix(const SickScanPointCloudMsg* msg){
             int img_y = (int)(250.0f * (-point_x + 2.0f)); // img_y := -pointcloud.x
             if (img_x >= 0 && img_x < img_width && img_y >= 0 && img_y < img_height) // point within the image area
             {
-              image.data[3 * img_y * img_width + 3 * img_x + 0] = 255; // R
-              image.data[3 * img_y * img_width + 3 * img_x + 1] = 255; // G
-              image.data[3 * img_y * img_width + 3 * img_x + 2] = 255; // B
+              globalHandle->image.data[3 * img_y * img_width + 3 * img_x + 0] = 255; // R
+              globalHandle->image.data[3 * img_y * img_width + 3 * img_x + 1] = 255; // G
+              globalHandle->image.data[3 * img_y * img_width + 3 * img_x + 2] = 255; // B
               angle  = std::atan2(point_y,  point_x);
               angle = angle * 180 / PI;
              // std::cout << " angle:" << angle << "  point_x " << point_x << " point_y " << point_y << std::endl;
@@ -189,7 +210,7 @@ FFI_PLUGIN_EXPORT void make_matrix(const SickScanPointCloudMsg* msg){
 
             if(angle >=0 && angle <= 270){
               double distance = sqrt(pow(point_x,2) + pow(point_y,2));
-              image.OneDArray[int(angle)] = distance;
+              globalHandle->OneDArray[int(angle)] = distance;
               //std::cout << int(angle) << std::endl;
             }
 
@@ -197,7 +218,7 @@ FFI_PLUGIN_EXPORT void make_matrix(const SickScanPointCloudMsg* msg){
 	}
 
   // for(int k = 0; k < 270; k++){
-  //     std:: cout<< image.OneDArray[k] << " ";
+  //     std:: cout<< image->OneDArray[k] << " ";
   // }
   // std::cout << "\n";
 
@@ -206,22 +227,22 @@ FFI_PLUGIN_EXPORT void make_matrix(const SickScanPointCloudMsg* msg){
 
 FFI_PLUGIN_EXPORT void addCross(const SickScanPointCloudMsg* pixels) {
     int thickness = 1;
-    uint32_t midx = image.width / 2;
-    uint32_t midy = image.height / 2;
+    uint32_t midx = globalHandle->image.width / 2;
+    uint32_t midy = globalHandle->image.height / 2;
     for (uint32_t x = midx - 7; x <= midx + 7; x++) {
       // draw horizontal
       for (uint32_t y = midy - thickness; y < midy + thickness; y++) {
-        image.data[3 * y * image.width + 3 * x + 0] = 0; // B
-        image.data[3 * y * image.width + 3 * x + 1] = 0; // G
-        image.data[3 * y * image.width + 3 * x + 2] = 255; // R
+        globalHandle->image.data[3 * y * globalHandle->image.width + 3 * x + 0] = 0; // B
+        globalHandle->image.data[3 * y * globalHandle->image.width + 3 * x + 1] = 0; // G
+        globalHandle->image.data[3 * y * globalHandle->image.width + 3 * x + 2] = 255; // R
       }
     }
     for (uint32_t y = midy - 7; y <= midy + 7; y++) {
       // draw vertical
       for (uint32_t x = midx - thickness; x < midx + thickness; x++) {
-        image.data[3 * y * image.width + 3 * x + 0] = 0; // B
-        image.data[3 * y * image.width + 3 * x + 1] = 0; // G
-        image.data[3 * y * image.width + 3 * x + 2] = 255; // R
+        globalHandle->image.data[3 * y * globalHandle->image.width + 3 * x + 0] = 0; // B
+        globalHandle->image.data[3 * y * globalHandle->image.width + 3 * x + 1] = 0; // G
+        globalHandle->image.data[3 * y * globalHandle->image.width + 3 * x + 2] = 255; // R
       }
     }
   }
@@ -229,31 +250,18 @@ FFI_PLUGIN_EXPORT void addCross(const SickScanPointCloudMsg* pixels) {
   /// Draws a triangle in the area behind lidar that doesn't include data
 FFI_PLUGIN_EXPORT void addHiddenArea() {
     /// NEED IMAGE TO BE SQUARE FOR THIS TO WORK
-    for (uint32_t y = image.height - 1; y > (int)(image.height / 2); y--) {
-      for (uint32_t x = image.width - y; x < y; x++) {
-        image.data[3 * y * image.width + 3 * x + 0] = 130; // R
-        image.data[3 * y * image.width + 3 * x + 1] = 130; // G
-        image.data[3 * y * image.width + 3 * x + 2] = 130; // B
+    for (uint32_t y = globalHandle->image.height - 1; y > (int)(globalHandle->image.height / 2); y--) {
+      for (uint32_t x = globalHandle->image.width - y; x < y; x++) {
+        globalHandle->image.data[3 * y * globalHandle->image.width + 3 * x + 0] = 130; // R
+        globalHandle->image.data[3 * y * globalHandle->image.width + 3 * x + 1] = 130; // G
+        globalHandle->image.data[3 * y * globalHandle->image.width + 3 * x + 2] = 130; // B
       }
     }
 }
 
-FFI_PLUGIN_EXPORT double* getLatestData() {
-  return image.OneDArray;
-}
-
-FFI_PLUGIN_EXPORT Image getLatestImage() {
-  // while(mutex == 0){
-  //   std::cout << "Mutex locked" << std::endl;
-  //   Sleep(100);
-  // }
-  return image;
-}
-
-FFI_PLUGIN_EXPORT int32_t getStatus(){
-  SickScanApiGetStatus(handle, &status, buffer, 128);
-  if(status != SICK_SCAN_API_SUCCESS){
-    std::cout << "Status: " << buffer << std::endl;
+FFI_PLUGIN_EXPORT void getStatus(LidarHandle* handle){
+  SickScanApiGetStatus(handle->api, &handle->statusCode, handle->statusBuffer, 128);
+  if(handle->statusCode != SICK_SCAN_API_SUCCESS){
+    std::cout << "Status: " << handle->statusBuffer << std::endl;
   }
-  return status;
 }

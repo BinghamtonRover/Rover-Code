@@ -1039,129 +1039,71 @@ class LidarBindings {
           int Function(
               SickScanApiHandle, ffi.Pointer<SickScanOdomVelocityMsg>)>();
 
-  int init() {
-    return _init();
+  ffi.Pointer<LidarHandle> Lidar_create() {
+    return _Lidar_create();
   }
 
-  late final _initPtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function()>>('init');
-  late final _init = _initPtr.asFunction<int Function()>();
+  late final _Lidar_createPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<LidarHandle> Function()>>(
+          'Lidar_create');
+  late final _Lidar_create =
+      _Lidar_createPtr.asFunction<ffi.Pointer<LidarHandle> Function()>();
 
-  int dispose() {
-    return _dispose();
-  }
-
-  late final _disposePtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function()>>('dispose');
-  late final _dispose = _disposePtr.asFunction<int Function()>();
-
-  void updateLatestImage(
-    SickScanApiHandle apiHandle,
-    ffi.Pointer<SickScanPointCloudMsg> pointCloudMsg,
+  void Lidar_delete(
+    ffi.Pointer<LidarHandle> handle,
   ) {
-    return _updateLatestImage(
-      apiHandle,
-      pointCloudMsg,
+    return _Lidar_delete(
+      handle,
     );
   }
 
-  late final _updateLatestImagePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(SickScanApiHandle,
-              ffi.Pointer<SickScanPointCloudMsg>)>>('updateLatestImage');
-  late final _updateLatestImage = _updateLatestImagePtr.asFunction<
-      void Function(SickScanApiHandle, ffi.Pointer<SickScanPointCloudMsg>)>();
+  late final _Lidar_deletePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<LidarHandle>)>>(
+          'Lidar_delete');
+  late final _Lidar_delete =
+      _Lidar_deletePtr.asFunction<void Function(ffi.Pointer<LidarHandle>)>();
 
-  Image getLatestImage() {
-    return _getLatestImage();
-  }
-
-  late final _getLatestImagePtr =
-      _lookup<ffi.NativeFunction<Image Function()>>('getLatestImage');
-  late final _getLatestImage =
-      _getLatestImagePtr.asFunction<Image Function()>();
-
-  void addHiddenArea() {
-    return _addHiddenArea();
-  }
-
-  late final _addHiddenAreaPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function()>>('addHiddenArea');
-  late final _addHiddenArea = _addHiddenAreaPtr.asFunction<void Function()>();
-
-  void addCross(
-    ffi.Pointer<SickScanPointCloudMsg> pixels,
+  void deregisterCallback(
+    ffi.Pointer<LidarHandle> handle,
   ) {
-    return _addCross(
-      pixels,
+    return _deregisterCallback(
+      handle,
     );
   }
 
-  late final _addCrossPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<SickScanPointCloudMsg>)>>('addCross');
-  late final _addCross = _addCrossPtr
-      .asFunction<void Function(ffi.Pointer<SickScanPointCloudMsg>)>();
+  late final _deregisterCallbackPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<LidarHandle>)>>(
+          'deregisterCallback');
+  late final _deregisterCallback = _deregisterCallbackPtr
+      .asFunction<void Function(ffi.Pointer<LidarHandle>)>();
 
-  void make_matrix(
-    ffi.Pointer<SickScanPointCloudMsg> msg,
+  void registerCallback(
+    ffi.Pointer<LidarHandle> handle,
   ) {
-    return _make_matrix(
-      msg,
+    return _registerCallback(
+      handle,
     );
   }
 
-  late final _make_matrixPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Pointer<SickScanPointCloudMsg>)>>('make_matrix');
-  late final _make_matrix = _make_matrixPtr
-      .asFunction<void Function(ffi.Pointer<SickScanPointCloudMsg>)>();
+  late final _registerCallbackPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<LidarHandle>)>>(
+          'registerCallback');
+  late final _registerCallback = _registerCallbackPtr
+      .asFunction<void Function(ffi.Pointer<LidarHandle>)>();
 
-  ffi.Pointer<ffi.Double> getLatestData() {
-    return _getLatestData();
-  }
-
-  late final _getLatestDataPtr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Double> Function()>>(
-          'getLatestData');
-  late final _getLatestData =
-      _getLatestDataPtr.asFunction<ffi.Pointer<ffi.Double> Function()>();
-
-  void updateLatestData(
-    ffi.Pointer<SickScanPointCloudMsg> pointCloudMsg,
+  void getStatus(
+    ffi.Pointer<LidarHandle> handle,
   ) {
-    return _updateLatestData(
-      pointCloudMsg,
+    return _getStatus(
+      handle,
     );
-  }
-
-  late final _updateLatestDataPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Pointer<SickScanPointCloudMsg>)>>('updateLatestData');
-  late final _updateLatestData = _updateLatestDataPtr
-      .asFunction<void Function(ffi.Pointer<SickScanPointCloudMsg>)>();
-
-  int getStatus() {
-    return _getStatus();
   }
 
   late final _getStatusPtr =
-      _lookup<ffi.NativeFunction<ffi.Int Function()>>('getStatus');
-  late final _getStatus = _getStatusPtr.asFunction<int Function()>();
-
-  late final addresses = _SymbolAddresses(this);
-}
-
-class _SymbolAddresses {
-  final LidarBindings _library;
-  _SymbolAddresses(this._library);
-  ffi.Pointer<
-          ffi.NativeFunction<
-              ffi.Void Function(
-                  SickScanApiHandle, ffi.Pointer<SickScanPointCloudMsg>)>>
-      get updateLatestImage => _library._updateLatestImagePtr;
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<LidarHandle>)>>(
+          'getStatus');
+  late final _getStatus =
+      _getStatusPtr.asFunction<void Function(ffi.Pointer<LidarHandle>)>();
 }
 
 /// Message definitions
@@ -2135,8 +2077,6 @@ enum SickScanApiErrorCodes {
 }
 
 final class Image extends ffi.Struct {
-  external ffi.Pointer<ffi.Int> lock;
-
   @ffi.Uint32()
   external int height;
 
@@ -2144,6 +2084,23 @@ final class Image extends ffi.Struct {
   external int width;
 
   external ffi.Pointer<ffi.Uint8> data;
+}
+
+final class LidarHandle extends ffi.Struct {
+  external SickScanApiHandle api;
+
+  @ffi.Int()
+  external int lock;
+
+  external Image image;
 
   external ffi.Pointer<ffi.Double> OneDArray;
+
+  @ffi.Int()
+  external int isReady;
+
+  @ffi.Int32()
+  external int statusCode;
+
+  external ffi.Pointer<ffi.Char> statusBuffer;
 }
