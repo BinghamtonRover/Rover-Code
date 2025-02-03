@@ -7,27 +7,28 @@ import "package:lidar/lidar.dart";
 import "package:ffi/ffi.dart";
 import "generated/lidar_bindings.dart";
 import "package:dartcv4/dartcv.dart";
+import "package:opencv_ffi/opencv_ffi.dart";
 import "lidar.dart";
 
-/// Useful methods on OpenCV images.
-extension MatrixUtils on Mat {
-  /// Encodes this image as a JPG with the given quality.
-  Uint8List? encodeJpg({required int quality}) {
-    //final params = VecI32.fromList([IMWRITE_JPEG_QUALITY, quality]);
-    final (success, frame) = imencode(".jpg", this); //, params: params);
-    return success ? frame : null;
-  }
-}
-/// The resolution of an image.
-typedef Resolution = ({int width, int height});
+///// Useful methods on OpenCV images.
+//extension MatrixUtils on Mat {
+//  /// Encodes this image as a JPG with the given quality.
+//  Uint8List? encodeJpg({required int quality}) {
+//    //final params = VecI32.fromList([IMWRITE_JPEG_QUALITY, quality]);
+//    final (success, frame) = imencode(".jpg", this); //, params: params);
+//    return success ? frame : null;
+//  }
+//}
+///// The resolution of an image.
+//typedef Resolution = ({int width, int height});
 
-/// Converts raw data in native memory to an OpenCV image.
-extension Uint8ToMat on Pointer<Uint8> {
-  /// Reads this 1-dimensional list as an OpenCV image.
-  Mat toOpenCVMat(Resolution resolution, {required int length}) {
-    return Mat.fromList(resolution.height, resolution.width, MatType.CV_8UC3, asTypedList(length));
-  }
-}
+///// Converts raw data in native memory to an OpenCV image.
+//extension Uint8ToMat on Pointer<Uint8> {
+//  /// Reads this 1-dimensional list as an OpenCV image.
+//  Mat toOpenCVMat(Resolution resolution, {required int length}) {
+//    return Mat.fromList(resolution.height, resolution.width, MatType.CV_8UC3, asTypedList(length));
+//  }
+//}
 
 class LidarStub extends Lidar {
   final LidarBindings bindings;
@@ -102,22 +103,37 @@ class LidarStub extends Lidar {
     }
     print("Copied $length bytes");
 
+    // ---------- opencv_ffi
     print("making matrix");
-    //final res = (height: image.height, width: image.width);
-    final matrix = Mat.fromList(image.height, image.width,  MatType.CV_8UC3, copyPointer.asTypedList(length));
-    print("Got matrix: Ptr=${matrix.dataPtr}, length=${matrix.data.toList().length}");
-    print("encoding... (matrix: $matrix)");
-    final jpg = matrix.encodeJpg(quality: 75);
-     
-     
+    final matrix = getMatrix(image.height, image.width, image.data);
+    //await Future<void>.delayed(Duration(seconds: 1));
+    print("Made matrix: ${matrix.address.toRadixString(16)}");
+    print("Encoding...");
+    final jpg = encodeJpg(matrix);
+    if (jpg == null) {
+      print("Could not encode JPG");
+    } else {
+      print("Got JPG: ${jpg.pointer.address.toRadixString(16)}");
+      print("  length=${jpg.data.toList().length}");
+    }
+
+    //------- opencv_dart
+    //print("making matrix");
+    ////final res = (height: image.height, width: image.width);
+    //final matrix = Mat.fromList(image.height, image.width,  MatType.CV_8UC3, copyPointer.asTypedList(length));
+    //print("Got matrix: Ptr=${matrix.dataPtr}, length=${matrix.data.toList().length}");
+    //print("encoding... (matrix: $matrix)");
+    //final jpg = matrix.encodeJpg(quality: 75);
+
+
     //final matrix = image.data.toOpenCVMat(res, length: 3 * image.height * image.width);
     handle!.ref.lock = 1;
     //matrix.dispose();
-    bindings.registerCallback(handle!);
+    //bindings.registerCallback(handle!);
     return VideoData(
       id: "CameraName.LIDAR",
       // TODO: Add CameraName.LIDAR
-      //frame: jpg,
+      //frame: jpg?.data,
       details: CameraDetails(name: CameraName.AUTONOMY_DEPTH, status: CameraStatus.CAMERA_ENABLED),
     );
   }

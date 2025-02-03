@@ -8,12 +8,14 @@ environment:
   sdk: ^3.5.0
 
 # Add regular dependencies here.
+resolution: workspace
 dependencies:
-  burt_network:
-    git: https://github.com/BinghamtonRover/Networking
-  ffigen: ^15.0.0
+  burt_network: ^2.4.0
+    # git: https://github.com/BinghamtonRover/Networking
+  ffigen: ^16.0.0
   dartcv4: ^1.1.2
+  opencv_ffi: 
+    path: ../opencv_ffi
 
 dev_dependencies:
   very_good_analysis: ^6.0.0
-

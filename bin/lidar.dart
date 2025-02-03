@@ -6,6 +6,7 @@ void main() async {
     print("CTRL+C pressed");
     exit(0);
   });
+     //socket.close();
   final collection = LidarCollection();
   final ready = await collection.init();
   if(!ready) {
