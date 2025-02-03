@@ -2,9 +2,8 @@ import cv2
 from ultralytics import YOLO
 
 class ImageAnalyzer:
-  def __init__(self):
-    self.model = YOLO("trained-model.pt", verbose=False)
-    self.cam = cv2.VideoCapture(0)
+  def __init__(self, load_from="trained-model.pt"):
+    self.model = YOLO(load_from, verbose=False)
 
   def has_mallet(self, frame: cv2.Mat, confidence = 0.80) -> bool:
     results = self.model.predict(frame, stream=True, verbose=False)
@@ -31,8 +30,8 @@ class ImageAnalyzer:
         return result.plot()
     return frame
     
-  def getFrames(self, show = False):
-    ret, frame = self.cam.read()
+  def getFrames(self, cam, show = False):
+    ret, frame = cam.read()
     if not ret:
       return None
     
@@ -43,5 +42,6 @@ class ImageAnalyzer:
 
 if __name__ == "__main__":
   camera = ImageAnalyzer()
+  cam = cv2.VideoCapture(0)
   while True:
-    camera.getFrames(show = True)
+    camera.getFrames(cam, show = True)
