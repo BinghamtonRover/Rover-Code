@@ -9,6 +9,7 @@ workspace:
   - subsystems
   - video
   - lidar
+  - opencv_ffi
 
 dependencies:
   pubspec_parse: ^1.5.0
