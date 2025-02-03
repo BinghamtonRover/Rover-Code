@@ -1,0 +1,3 @@
+[submodule "src/sick_scan_xd"]
+	path = src/sick_scan_xd
+	url = https://github.com/SICKAG/sick_scan_xd.git
