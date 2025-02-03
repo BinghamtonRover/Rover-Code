@@ -5,10 +5,10 @@ packages:
     dependency: transitive
     description:
       name: _fe_analyzer_shared
-      sha256: "03f6da266a27a4538a69295ec142cb5717d7d4e5727b84658b63e1e1509bac9c"
+      sha256: "16e298750b6d0af7ce8a3ba7c18c69c3785d11b15ec83f6dcd0ad2a0009b3cab"
       url: "https://pub.dev"
     source: hosted
-    version: "79.0.0"
+    version: "76.0.0"
   _macros:
     dependency: transitive
     description: dart
@@ -26,10 +26,10 @@ packages:
     dependency: transitive
     description:
       name: analyzer
-      sha256: c9040fc56483c22a5e04a9f6a251313118b1a3c42423770623128fa484115643
+      sha256: "1f14db053a8c23e260789e9b0980fa27f2680dd640932cae5e1137cce0e46e1e"
       url: "https://pub.dev"
     source: hosted
-    version: "7.2.0"
+    version: "6.11.0"
   ansi_regex:
     dependency: transitive
     description:
@@ -78,14 +78,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
-  build_config:
-    dependency: transitive
-    description:
-      name: build_config
-      sha256: "4ae2de3e1e67ea270081eaee972e1bd8f027d459f249e0f1186730784c2e7e33"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.2"
   characters:
     dependency: transitive
     description:
@@ -162,10 +154,10 @@ packages:
     dependency: transitive
     description:
       name: dart_style
-      sha256: "27eb0ae77836989a3bc541ce55595e8ceee0992807f14511552a898ddd0d88ac"
+      sha256: "7306ab8a2359a48d22310ad823521d723acfed60ee1f7e37388e8986853b6820"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.1"
+    version: "2.3.8"
   dartcv4:
     dependency: transitive
     description:
@@ -174,14 +166,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.2"
-  dependency_validator:
-    dependency: "direct dev"
-    description:
-      name: dependency_validator
-      sha256: "3a243f5b9def5f902887a66fbea7e72e612eee956af6c8c34d382fe6d5484145"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.0.2"
   dhttpd:
     dependency: "direct main"
     description:
@@ -223,14 +207,13 @@ packages:
     source: hosted
     version: "2.1.3"
   ffigen:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
-      path: "pkgs/ffigen"
-      ref: HEAD
-      resolved-ref: "6456d48324dcd9ddc8907c073f56f682ddc519ff"
-      url: "https://github.com/dart-lang/native"
-    source: git
-    version: "17.0.0-wip"
+      name: ffigen
+      sha256: "2119b4fe3aad0db94dc9531b90283c4640a6231070e613c400b426a4da08c704"
+      url: "https://pub.dev"
+    source: hosted
+    version: "16.1.0"
   file:
     dependency: transitive
     description:
