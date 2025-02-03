@@ -1,6 +1,7 @@
+// ignore_for_file: avoid_print
+
 import "dart:ffi";
 import "dart:io";
-import "dart:typed_data";
 
 import "package:burt_network/burt_network.dart";
 import "package:lidar/lidar.dart";
@@ -35,13 +36,13 @@ class LidarStub extends Lidar {
   Pointer<LidarHandle>? handle;
 
   LidarStub() : bindings = Platform.isWindows ? LidarBindings(DynamicLibrary.open("dist/lidar_ffi.dll")) : LidarBindings(DynamicLibrary.open("dist/liblidar_ffi.so"));
-    
+
   bool getStatus() {
     if (handle == null) return false;
     bindings.getStatus(handle!);
     return handle!.ref.statusCode == 0;
   }
-  
+
   @override
   Future<bool> init({int timeout = 15}) async {
     handle = bindings.Lidar_create();
@@ -80,7 +81,7 @@ class LidarStub extends Lidar {
         exit(0);
       }
       return null;
-    }  
+    }
     if (handle!.ref.isReady == 0) {
       print("NO image loaded");
       return null;
