@@ -112,10 +112,18 @@ class LidarStub extends Lidar {
     final jpg = encodeJpg(matrix);
     if (jpg == null) {
       print("Could not encode JPG");
-    } else {
-      print("Got JPG: ${jpg.pointer.address.toRadixString(16)}");
-      print("  length=${jpg.data.toList().length}");
+      return null;
     }
+    print("Got JPG: ${jpg.pointer.address.toRadixString(16)}");
+    final length2 = jpg.data.toList().length;
+    print("  length=$length2");
+    final jpgCopy = arena<Uint8>(length2);
+    print("Copyinh");
+    for (int i = 0; i < length2; i++) {
+      jpgCopy[i] = jpg.data[i];
+    }
+    print("Done copyinh: ");
+    //arena.releaseAll();
 
     //------- opencv_dart
     //print("making matrix");
@@ -133,7 +141,7 @@ class LidarStub extends Lidar {
     return VideoData(
       id: "CameraName.LIDAR",
       // TODO: Add CameraName.LIDAR
-      //frame: jpg?.data,
+      frame: jpgCopy.asTypedList(length2),
       details: CameraDetails(name: CameraName.AUTONOMY_DEPTH, status: CameraStatus.CAMERA_ENABLED),
     );
   }
