@@ -35,7 +35,11 @@ FFI_PLUGIN_EXPORT void registerCallback(LidarHandle* handle);
 
 FFI_PLUGIN_EXPORT void getStatus(LidarHandle* handle);
 
-// FFI_PLUGIN_EXPORT double* getLatestData();
+void updateLatestImage(SickScanApiHandle apiHandle, const SickScanPointCloudMsg* pointCloudMsg);
+void updateLatestData(const SickScanPointCloudMsg* pointCloudMsg);
+void make_matrix(const SickScanPointCloudMsg* msg);
+void addCross(const SickScanPointCloudMsg* pixels);
+void addHiddenArea();
 
 #ifdef  __cplusplus
 } // extern "C"

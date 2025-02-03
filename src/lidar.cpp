@@ -88,7 +88,7 @@ FFI_PLUGIN_EXPORT void registerCallback(LidarHandle* handle) {
    SickScanApiRegisterCartesianPointCloudMsg(handle->api, updateLatestImage);
 }
 
-FFI_PLUGIN_EXPORT void updateLatestImage(SickScanApiHandle apiHandle, const SickScanPointCloudMsg* pointCloudMsg) {
+void updateLatestImage(SickScanApiHandle apiHandle, const SickScanPointCloudMsg* pointCloudMsg) {
   // Change to if: assert(pointCloudMsg->height >= 0 && (int)pointCloudMsg->width >=0);
   if (globalHandle == nullptr) return;
   deregisterCallback(globalHandle);
@@ -110,7 +110,7 @@ FFI_PLUGIN_EXPORT void updateLatestImage(SickScanApiHandle apiHandle, const Sick
   globalHandle->isReady = true;
 }
 
-FFI_PLUGIN_EXPORT void updateLatestData(const SickScanPointCloudMsg* pointCloudMsg) {
+void updateLatestData(const SickScanPointCloudMsg* pointCloudMsg) {
   if (globalHandle == nullptr) return;
   if(pointCloudMsg->height == 0 || pointCloudMsg->row_step == 0 || globalHandle->image.data == nullptr){
     return;
@@ -155,7 +155,7 @@ FFI_PLUGIN_EXPORT void updateLatestData(const SickScanPointCloudMsg* pointCloudM
     // }
 }
 
-FFI_PLUGIN_EXPORT void make_matrix(const SickScanPointCloudMsg* msg){
+void make_matrix(const SickScanPointCloudMsg* msg){
     uint32_t midx = globalHandle->image.width / 2;
     uint32_t midy = globalHandle->image.height / 2;
     double angle = 0;
@@ -225,7 +225,7 @@ FFI_PLUGIN_EXPORT void make_matrix(const SickScanPointCloudMsg* msg){
   // std::cout << "Made it here2" << std::endl;
 }
 
-FFI_PLUGIN_EXPORT void addCross(const SickScanPointCloudMsg* pixels) {
+void addCross(const SickScanPointCloudMsg* pixels) {
     int thickness = 1;
     uint32_t midx = globalHandle->image.width / 2;
     uint32_t midy = globalHandle->image.height / 2;
@@ -247,8 +247,8 @@ FFI_PLUGIN_EXPORT void addCross(const SickScanPointCloudMsg* pixels) {
     }
   }
 
-  /// Draws a triangle in the area behind lidar that doesn't include data
-FFI_PLUGIN_EXPORT void addHiddenArea() {
+/// Draws a triangle in the area behind lidar that doesn't include data
+void addHiddenArea() {
     /// NEED IMAGE TO BE SQUARE FOR THIS TO WORK
     for (uint32_t y = globalHandle->image.height - 1; y > (int)(globalHandle->image.height / 2); y--) {
       for (uint32_t x = globalHandle->image.width - y; x < y; x++) {

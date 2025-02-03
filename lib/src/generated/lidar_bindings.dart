@@ -1104,6 +1104,87 @@ class LidarBindings {
           'getStatus');
   late final _getStatus =
       _getStatusPtr.asFunction<void Function(ffi.Pointer<LidarHandle>)>();
+
+  void updateLatestImage(
+    SickScanApiHandle apiHandle,
+    ffi.Pointer<SickScanPointCloudMsg> pointCloudMsg,
+  ) {
+    return _updateLatestImage(
+      apiHandle,
+      pointCloudMsg,
+    );
+  }
+
+  late final _updateLatestImagePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(SickScanApiHandle,
+              ffi.Pointer<SickScanPointCloudMsg>)>>('updateLatestImage');
+  late final _updateLatestImage = _updateLatestImagePtr.asFunction<
+      void Function(SickScanApiHandle, ffi.Pointer<SickScanPointCloudMsg>)>();
+
+  void updateLatestData(
+    ffi.Pointer<SickScanPointCloudMsg> pointCloudMsg,
+  ) {
+    return _updateLatestData(
+      pointCloudMsg,
+    );
+  }
+
+  late final _updateLatestDataPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Pointer<SickScanPointCloudMsg>)>>('updateLatestData');
+  late final _updateLatestData = _updateLatestDataPtr
+      .asFunction<void Function(ffi.Pointer<SickScanPointCloudMsg>)>();
+
+  void make_matrix(
+    ffi.Pointer<SickScanPointCloudMsg> msg,
+  ) {
+    return _make_matrix(
+      msg,
+    );
+  }
+
+  late final _make_matrixPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Pointer<SickScanPointCloudMsg>)>>('make_matrix');
+  late final _make_matrix = _make_matrixPtr
+      .asFunction<void Function(ffi.Pointer<SickScanPointCloudMsg>)>();
+
+  void addCross(
+    ffi.Pointer<SickScanPointCloudMsg> pixels,
+  ) {
+    return _addCross(
+      pixels,
+    );
+  }
+
+  late final _addCrossPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<SickScanPointCloudMsg>)>>('addCross');
+  late final _addCross = _addCrossPtr
+      .asFunction<void Function(ffi.Pointer<SickScanPointCloudMsg>)>();
+
+  void addHiddenArea() {
+    return _addHiddenArea();
+  }
+
+  late final _addHiddenAreaPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function()>>('addHiddenArea');
+  late final _addHiddenArea = _addHiddenAreaPtr.asFunction<void Function()>();
+
+  late final addresses = _SymbolAddresses(this);
+}
+
+class _SymbolAddresses {
+  final LidarBindings _library;
+  _SymbolAddresses(this._library);
+  ffi.Pointer<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  SickScanApiHandle, ffi.Pointer<SickScanPointCloudMsg>)>>
+      get updateLatestImage => _library._updateLatestImagePtr;
 }
 
 /// Message definitions
@@ -1125,6 +1206,9 @@ final class SickScanHeaderType extends ffi.Struct {
   external ffi.Array<ffi.Char> frame_id;
 }
 
+/// Message definitions
+typedef SickScanHeader = SickScanHeaderType;
+
 final class SickScanUint8ArrayType extends ffi.Struct {
   /// Number of allocated elements, i.e. max. number of elements in buffer, allocated buffer size is capacity * sizeof(uint8_t)
   @ffi.Uint64()
@@ -1137,6 +1221,8 @@ final class SickScanUint8ArrayType extends ffi.Struct {
   /// Memory, data in plain order (buffer == 0, if size == 0 && capacity == 0, otherwise allocated memory), allocation/deallocation always managed by the caller.
   external ffi.Pointer<ffi.Uint8> buffer;
 }
+
+typedef SickScanUint8Array = SickScanUint8ArrayType;
 
 enum SickScanNativeDataType {
   SICK_SCAN_POINTFIELD_DATATYPE_INT8(1),
@@ -1183,6 +1269,8 @@ final class SickScanPointFieldMsgType extends ffi.Struct {
   external int count;
 }
 
+typedef SickScanPointFieldMsg = SickScanPointFieldMsgType;
+
 final class SickScanPointFieldArrayType extends ffi.Struct {
   /// Number of allocated elements, i.e. max. number of elements in buffer, allocated buffer size is capacity * sizeof(SickScanPointFieldMsg)
   @ffi.Uint64()
@@ -1196,7 +1284,7 @@ final class SickScanPointFieldArrayType extends ffi.Struct {
   external ffi.Pointer<SickScanPointFieldMsg> buffer;
 }
 
-typedef SickScanPointFieldMsg = SickScanPointFieldMsgType;
+typedef SickScanPointFieldArray = SickScanPointFieldArrayType;
 
 final class SickScanPointCloudMsgType extends ffi.Struct {
   /// message timestamp
@@ -1245,10 +1333,7 @@ final class SickScanPointCloudMsgType extends ffi.Struct {
   external ffi.Array<ffi.Char> topic;
 }
 
-/// Message definitions
-typedef SickScanHeader = SickScanHeaderType;
-typedef SickScanPointFieldArray = SickScanPointFieldArrayType;
-typedef SickScanUint8Array = SickScanUint8ArrayType;
+typedef SickScanPointCloudMsg = SickScanPointCloudMsgType;
 
 final class SickScanVector3MsgType extends ffi.Struct {
   @ffi.Double()
@@ -1260,6 +1345,8 @@ final class SickScanVector3MsgType extends ffi.Struct {
   @ffi.Double()
   external double z;
 }
+
+typedef SickScanVector3Msg = SickScanVector3MsgType;
 
 final class SickScanQuaternionMsgType extends ffi.Struct {
   @ffi.Double()
@@ -1275,6 +1362,8 @@ final class SickScanQuaternionMsgType extends ffi.Struct {
   external double w;
 }
 
+typedef SickScanQuaternionMsg = SickScanQuaternionMsgType;
+
 final class SickScanPointArrayType extends ffi.Struct {
   /// Number of allocated elements, i.e. max. number of elements in buffer, allocated buffer size is capacity * sizeof(SickScanVector3Msg)
   @ffi.Uint64()
@@ -1288,7 +1377,7 @@ final class SickScanPointArrayType extends ffi.Struct {
   external ffi.Pointer<SickScanVector3Msg> buffer;
 }
 
-typedef SickScanVector3Msg = SickScanVector3MsgType;
+typedef SickScanPointArray = SickScanPointArrayType;
 
 final class SickScanImuMsgType extends ffi.Struct {
   /// message timestamp
@@ -1313,7 +1402,7 @@ final class SickScanImuMsgType extends ffi.Struct {
   external ffi.Array<ffi.Double> linear_acceleration_covariance;
 }
 
-typedef SickScanQuaternionMsg = SickScanQuaternionMsgType;
+typedef SickScanImuMsg = SickScanImuMsgType;
 
 final class SickScanLFErecFieldMsgType extends ffi.Struct {
   @ffi.Uint16()
@@ -1374,6 +1463,8 @@ final class SickScanLFErecFieldMsgType extends ffi.Struct {
   external int microsecond;
 }
 
+typedef SickScanLFErecFieldMsg = SickScanLFErecFieldMsgType;
+
 final class SickScanLFErecMsgType extends ffi.Struct {
   /// message timestamp
   external SickScanHeader header;
@@ -1387,7 +1478,7 @@ final class SickScanLFErecMsgType extends ffi.Struct {
   external ffi.Array<SickScanLFErecFieldMsg> fields;
 }
 
-typedef SickScanLFErecFieldMsg = SickScanLFErecFieldMsgType;
+typedef SickScanLFErecMsg = SickScanLFErecMsgType;
 
 final class SickScanLIDoutputstateMsgType extends ffi.Struct {
   /// message timestamp
@@ -1441,6 +1532,8 @@ final class SickScanLIDoutputstateMsgType extends ffi.Struct {
   @ffi.Uint32()
   external int microsecond;
 }
+
+typedef SickScanLIDoutputstateMsg = SickScanLIDoutputstateMsgType;
 
 final class SickScanRadarPreHeaderType extends ffi.Struct {
   /// version number
@@ -1512,6 +1605,8 @@ final class SickScanRadarPreHeaderType extends ffi.Struct {
   external ffi.Array<ffi.Int16> iencoderspeed;
 }
 
+typedef SickScanRadarPreHeader = SickScanRadarPreHeaderType;
+
 final class SickScanRadarObjectType extends ffi.Struct {
   @ffi.Int32()
   external int id;
@@ -1565,7 +1660,7 @@ final class SickScanRadarObjectType extends ffi.Struct {
   external SickScanPointArray contour_points;
 }
 
-typedef SickScanPointArray = SickScanPointArrayType;
+typedef SickScanRadarObject = SickScanRadarObjectType;
 
 final class SickScanRadarObjectArrayType extends ffi.Struct {
   /// Number of allocated elements, i.e. max. number of elements in buffer, allocated buffer size is capacity * sizeof(SickScanRadarObject)
@@ -1580,7 +1675,7 @@ final class SickScanRadarObjectArrayType extends ffi.Struct {
   external ffi.Pointer<SickScanRadarObject> buffer;
 }
 
-typedef SickScanRadarObject = SickScanRadarObjectType;
+typedef SickScanRadarObjectArray = SickScanRadarObjectArrayType;
 
 final class SickScanRadarScanType extends ffi.Struct {
   /// message timestamp
@@ -1596,9 +1691,8 @@ final class SickScanRadarScanType extends ffi.Struct {
   external SickScanRadarObjectArray objects;
 }
 
-typedef SickScanRadarPreHeader = SickScanRadarPreHeaderType;
-typedef SickScanPointCloudMsg = SickScanPointCloudMsgType;
-typedef SickScanRadarObjectArray = SickScanRadarObjectArrayType;
+typedef SickScanRadarScan = SickScanRadarScanType;
+typedef SickScanLdmrsObject = SickScanRadarObject;
 
 final class SickScanLdmrsObjectBufferType extends ffi.Struct {
   /// Number of allocated elements, i.e. max. number of elements in buffer, allocated buffer size is capacity * sizeof(SickScanLdmrsObject)
@@ -1613,7 +1707,7 @@ final class SickScanLdmrsObjectBufferType extends ffi.Struct {
   external ffi.Pointer<SickScanLdmrsObject> buffer;
 }
 
-typedef SickScanLdmrsObject = SickScanRadarObject;
+typedef SickScanLdmrsObjectBuffer = SickScanLdmrsObjectBufferType;
 
 final class SickScanLdmrsObjectArrayType extends ffi.Struct {
   /// message timestamp
@@ -1623,7 +1717,7 @@ final class SickScanLdmrsObjectArrayType extends ffi.Struct {
   external SickScanLdmrsObjectBuffer objects;
 }
 
-typedef SickScanLdmrsObjectBuffer = SickScanLdmrsObjectBufferType;
+typedef SickScanLdmrsObjectArray = SickScanLdmrsObjectArrayType;
 
 final class SickScanColorRGBAType extends ffi.Struct {
   @ffi.Float()
@@ -1639,6 +1733,8 @@ final class SickScanColorRGBAType extends ffi.Struct {
   external double a;
 }
 
+typedef SickScanColorRGBA = SickScanColorRGBAType;
+
 final class SickScanColorRGBAArrayType extends ffi.Struct {
   /// Number of allocated elements, i.e. max. number of elements in buffer, allocated buffer size is capacity * sizeof(SickScanColorRGBA)
   @ffi.Uint64()
@@ -1652,7 +1748,7 @@ final class SickScanColorRGBAArrayType extends ffi.Struct {
   external ffi.Pointer<SickScanColorRGBA> buffer;
 }
 
-typedef SickScanColorRGBA = SickScanColorRGBAType;
+typedef SickScanColorRGBAArray = SickScanColorRGBAArrayType;
 
 final class SickScanVisualizationMarkerType extends ffi.Struct {
   /// message timestamp
@@ -1717,7 +1813,7 @@ final class SickScanVisualizationMarkerType extends ffi.Struct {
   external int mesh_use_embedded_materials;
 }
 
-typedef SickScanColorRGBAArray = SickScanColorRGBAArrayType;
+typedef SickScanVisualizationMarker = SickScanVisualizationMarkerType;
 
 final class SickScanVisualizationMarkerBufferType extends ffi.Struct {
   /// Number of allocated elements, i.e. max. number of elements in buffer, allocated buffer size is capacity * sizeof(SickScanVisualizationMarker)
@@ -1732,15 +1828,15 @@ final class SickScanVisualizationMarkerBufferType extends ffi.Struct {
   external ffi.Pointer<SickScanVisualizationMarker> buffer;
 }
 
-typedef SickScanVisualizationMarker = SickScanVisualizationMarkerType;
+typedef SickScanVisualizationMarkerBuffer
+    = SickScanVisualizationMarkerBufferType;
 
 final class SickScanVisualizationMarkerMsgType extends ffi.Struct {
   /// Array of SickScanVisualizationMarkers
   external SickScanVisualizationMarkerBuffer markers;
 }
 
-typedef SickScanVisualizationMarkerBuffer
-    = SickScanVisualizationMarkerBufferType;
+typedef SickScanVisualizationMarkerMsg = SickScanVisualizationMarkerMsgType;
 
 final class SickScanNavReflectorType extends ffi.Struct {
   @ffi.Uint16()
@@ -1823,6 +1919,8 @@ final class SickScanNavReflectorType extends ffi.Struct {
   external int opt_timestamp_nsec;
 }
 
+typedef SickScanNavReflector = SickScanNavReflectorType;
+
 final class SickScanNavReflectorBufferType extends ffi.Struct {
   /// Number of allocated elements, i.e. max. number of elements in buffer, allocated buffer size is capacity * sizeof(SickScanNavReflector)
   @ffi.Uint64()
@@ -1836,7 +1934,7 @@ final class SickScanNavReflectorBufferType extends ffi.Struct {
   external ffi.Pointer<SickScanNavReflector> buffer;
 }
 
-typedef SickScanNavReflector = SickScanNavReflectorType;
+typedef SickScanNavReflectorBuffer = SickScanNavReflectorBufferType;
 
 final class SickScanNavPoseLandmarkMsgType extends ffi.Struct {
   @ffi.Uint16()
@@ -1901,7 +1999,7 @@ final class SickScanNavPoseLandmarkMsgType extends ffi.Struct {
   external SickScanNavReflectorBuffer reflectors;
 }
 
-typedef SickScanNavReflectorBuffer = SickScanNavReflectorBufferType;
+typedef SickScanNavPoseLandmarkMsg = SickScanNavPoseLandmarkMsgType;
 
 final class SickScanNavOdomVelocityMsgType extends ffi.Struct {
   /// x-component of velocity in the coordinate system defined by coordbase (i.e. in lidar coordinate for coordbase=0) in m/s, -32.0 ... +32.0 m/s
@@ -1925,6 +2023,8 @@ final class SickScanNavOdomVelocityMsgType extends ffi.Struct {
   external int coordbase;
 }
 
+typedef SickScanNavOdomVelocityMsg = SickScanNavOdomVelocityMsgType;
+
 final class SickScanOdomVelocityMsgType extends ffi.Struct {
   /// x-component of velocity in ros coordinates in m/s
   @ffi.Float()
@@ -1947,6 +2047,8 @@ final class SickScanOdomVelocityMsgType extends ffi.Struct {
   external int timestamp_nsec;
 }
 
+typedef SickScanOdomVelocityMsg = SickScanOdomVelocityMsgType;
+
 final class SickScanLogMsgType extends ffi.Struct {
   /// log_level defined in ros::console::levels: Info=1, Warn=2, Error=3, Fatal=4
   @ffi.Int32()
@@ -1955,6 +2057,8 @@ final class SickScanLogMsgType extends ffi.Struct {
   /// log message
   external ffi.Pointer<ffi.Char> log_message;
 }
+
+typedef SickScanLogMsg = SickScanLogMsgType;
 
 final class SickScanDiagnosticMsgType extends ffi.Struct {
   /// status_code defined in SICK_DIAGNOSTIC_STATUS: OK=0 (normal operation), WARN=1 (warning), ERROR=2 (error, should not occure), INIT=3 (initialization after startup or reconnection), EXIT=4 (sick_scan_xd exiting)
@@ -1965,81 +2069,72 @@ final class SickScanDiagnosticMsgType extends ffi.Struct {
   external ffi.Pointer<ffi.Char> status_message;
 }
 
+typedef SickScanDiagnosticMsg = SickScanDiagnosticMsgType;
+
 /// Callback declarations
 typedef SickScanApiHandle = ffi.Pointer<ffi.Void>;
-typedef SickScanPointCloudMsgCallback
-    = ffi.Pointer<ffi.NativeFunction<SickScanPointCloudMsgCallbackFunction>>;
 typedef SickScanPointCloudMsgCallbackFunction = ffi.Void Function(
     SickScanApiHandle apiHandle, ffi.Pointer<SickScanPointCloudMsg> msg);
 typedef DartSickScanPointCloudMsgCallbackFunction = void Function(
     SickScanApiHandle apiHandle, ffi.Pointer<SickScanPointCloudMsg> msg);
-typedef SickScanImuMsgCallback
-    = ffi.Pointer<ffi.NativeFunction<SickScanImuMsgCallbackFunction>>;
+typedef SickScanPointCloudMsgCallback
+    = ffi.Pointer<ffi.NativeFunction<SickScanPointCloudMsgCallbackFunction>>;
 typedef SickScanImuMsgCallbackFunction = ffi.Void Function(
     SickScanApiHandle apiHandle, ffi.Pointer<SickScanImuMsg> msg);
 typedef DartSickScanImuMsgCallbackFunction = void Function(
     SickScanApiHandle apiHandle, ffi.Pointer<SickScanImuMsg> msg);
-typedef SickScanImuMsg = SickScanImuMsgType;
-typedef SickScanLFErecMsgCallback
-    = ffi.Pointer<ffi.NativeFunction<SickScanLFErecMsgCallbackFunction>>;
+typedef SickScanImuMsgCallback
+    = ffi.Pointer<ffi.NativeFunction<SickScanImuMsgCallbackFunction>>;
 typedef SickScanLFErecMsgCallbackFunction = ffi.Void Function(
     SickScanApiHandle apiHandle, ffi.Pointer<SickScanLFErecMsg> msg);
 typedef DartSickScanLFErecMsgCallbackFunction = void Function(
     SickScanApiHandle apiHandle, ffi.Pointer<SickScanLFErecMsg> msg);
-typedef SickScanLFErecMsg = SickScanLFErecMsgType;
-typedef SickScanLIDoutputstateMsgCallback = ffi
-    .Pointer<ffi.NativeFunction<SickScanLIDoutputstateMsgCallbackFunction>>;
+typedef SickScanLFErecMsgCallback
+    = ffi.Pointer<ffi.NativeFunction<SickScanLFErecMsgCallbackFunction>>;
 typedef SickScanLIDoutputstateMsgCallbackFunction = ffi.Void Function(
     SickScanApiHandle apiHandle, ffi.Pointer<SickScanLIDoutputstateMsg> msg);
 typedef DartSickScanLIDoutputstateMsgCallbackFunction = void Function(
     SickScanApiHandle apiHandle, ffi.Pointer<SickScanLIDoutputstateMsg> msg);
-typedef SickScanLIDoutputstateMsg = SickScanLIDoutputstateMsgType;
-typedef SickScanRadarScanCallback
-    = ffi.Pointer<ffi.NativeFunction<SickScanRadarScanCallbackFunction>>;
+typedef SickScanLIDoutputstateMsgCallback = ffi
+    .Pointer<ffi.NativeFunction<SickScanLIDoutputstateMsgCallbackFunction>>;
 typedef SickScanRadarScanCallbackFunction = ffi.Void Function(
     SickScanApiHandle apiHandle, ffi.Pointer<SickScanRadarScan> msg);
 typedef DartSickScanRadarScanCallbackFunction = void Function(
     SickScanApiHandle apiHandle, ffi.Pointer<SickScanRadarScan> msg);
-typedef SickScanRadarScan = SickScanRadarScanType;
-typedef SickScanLdmrsObjectArrayCallback
-    = ffi.Pointer<ffi.NativeFunction<SickScanLdmrsObjectArrayCallbackFunction>>;
+typedef SickScanRadarScanCallback
+    = ffi.Pointer<ffi.NativeFunction<SickScanRadarScanCallbackFunction>>;
 typedef SickScanLdmrsObjectArrayCallbackFunction = ffi.Void Function(
     SickScanApiHandle apiHandle, ffi.Pointer<SickScanLdmrsObjectArray> msg);
 typedef DartSickScanLdmrsObjectArrayCallbackFunction = void Function(
     SickScanApiHandle apiHandle, ffi.Pointer<SickScanLdmrsObjectArray> msg);
-typedef SickScanLdmrsObjectArray = SickScanLdmrsObjectArrayType;
-typedef SickScanVisualizationMarkerCallback = ffi
-    .Pointer<ffi.NativeFunction<SickScanVisualizationMarkerCallbackFunction>>;
+typedef SickScanLdmrsObjectArrayCallback
+    = ffi.Pointer<ffi.NativeFunction<SickScanLdmrsObjectArrayCallbackFunction>>;
 typedef SickScanVisualizationMarkerCallbackFunction = ffi.Void Function(
     SickScanApiHandle apiHandle,
     ffi.Pointer<SickScanVisualizationMarkerMsg> msg);
 typedef DartSickScanVisualizationMarkerCallbackFunction = void Function(
     SickScanApiHandle apiHandle,
     ffi.Pointer<SickScanVisualizationMarkerMsg> msg);
-typedef SickScanVisualizationMarkerMsg = SickScanVisualizationMarkerMsgType;
-typedef SickScanNavPoseLandmarkCallback
-    = ffi.Pointer<ffi.NativeFunction<SickScanNavPoseLandmarkCallbackFunction>>;
+typedef SickScanVisualizationMarkerCallback = ffi
+    .Pointer<ffi.NativeFunction<SickScanVisualizationMarkerCallbackFunction>>;
 typedef SickScanNavPoseLandmarkCallbackFunction = ffi.Void Function(
     SickScanApiHandle apiHandle, ffi.Pointer<SickScanNavPoseLandmarkMsg> msg);
 typedef DartSickScanNavPoseLandmarkCallbackFunction = void Function(
     SickScanApiHandle apiHandle, ffi.Pointer<SickScanNavPoseLandmarkMsg> msg);
-typedef SickScanNavPoseLandmarkMsg = SickScanNavPoseLandmarkMsgType;
-typedef SickScanDiagnosticMsgCallback
-    = ffi.Pointer<ffi.NativeFunction<SickScanDiagnosticMsgCallbackFunction>>;
-typedef SickScanDiagnosticMsgCallbackFunction = ffi.Void Function(
-    SickScanApiHandle apiHandle, ffi.Pointer<SickScanDiagnosticMsg> msg);
-typedef DartSickScanDiagnosticMsgCallbackFunction = void Function(
-    SickScanApiHandle apiHandle, ffi.Pointer<SickScanDiagnosticMsg> msg);
-typedef SickScanDiagnosticMsg = SickScanDiagnosticMsgType;
-typedef SickScanLogMsgCallback
-    = ffi.Pointer<ffi.NativeFunction<SickScanLogMsgCallbackFunction>>;
+typedef SickScanNavPoseLandmarkCallback
+    = ffi.Pointer<ffi.NativeFunction<SickScanNavPoseLandmarkCallbackFunction>>;
 typedef SickScanLogMsgCallbackFunction = ffi.Void Function(
     SickScanApiHandle apiHandle, ffi.Pointer<SickScanLogMsg> msg);
 typedef DartSickScanLogMsgCallbackFunction = void Function(
     SickScanApiHandle apiHandle, ffi.Pointer<SickScanLogMsg> msg);
-typedef SickScanLogMsg = SickScanLogMsgType;
-typedef SickScanNavOdomVelocityMsg = SickScanNavOdomVelocityMsgType;
-typedef SickScanOdomVelocityMsg = SickScanOdomVelocityMsgType;
+typedef SickScanLogMsgCallback
+    = ffi.Pointer<ffi.NativeFunction<SickScanLogMsgCallbackFunction>>;
+typedef SickScanDiagnosticMsgCallbackFunction = ffi.Void Function(
+    SickScanApiHandle apiHandle, ffi.Pointer<SickScanDiagnosticMsg> msg);
+typedef DartSickScanDiagnosticMsgCallbackFunction = void Function(
+    SickScanApiHandle apiHandle, ffi.Pointer<SickScanDiagnosticMsg> msg);
+typedef SickScanDiagnosticMsgCallback
+    = ffi.Pointer<ffi.NativeFunction<SickScanDiagnosticMsgCallbackFunction>>;
 
 /// Error codes, return values of SickScanApi-functions
 enum SickScanApiErrorCodes {
