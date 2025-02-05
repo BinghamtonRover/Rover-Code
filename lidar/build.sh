@@ -21,5 +21,6 @@ else
 fi
 cd ..
 
+mkdir -p dist
 cp build/*.so dist
 cp build/lidar .
