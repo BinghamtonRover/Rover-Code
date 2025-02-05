@@ -16,10 +16,6 @@ headers:
 comments:
   style: any
   length: full
-functions:
-  symbol-address:
-    include:
-      - updateLatestImage
 compiler-opts:
   - '-Isrc/sick_scan_xd/include/sick_scan_xd_api'
 silence-enum-warning: true

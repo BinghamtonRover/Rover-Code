@@ -23,10 +23,10 @@ class LidarBindings {
           lookup)
       : _lookup = lookup;
 
-  LidarStatus init(
+  SickScanApiErrorCodes init(
     ffi.Pointer<NativeLidar> lidar,
   ) {
-    return LidarStatus.fromValue(_init(
+    return SickScanApiErrorCodes.fromValue(_init(
       lidar,
     ));
   }
@@ -51,10 +51,10 @@ class LidarBindings {
   late final _dispose =
       _disposePtr.asFunction<void Function(ffi.Pointer<NativeLidar>)>();
 
-  LidarStatus registerCallback(
+  SickScanApiErrorCodes registerCallback(
     ffi.Pointer<NativeLidar> lidar,
   ) {
-    return LidarStatus.fromValue(_registerCallback(
+    return SickScanApiErrorCodes.fromValue(_registerCallback(
       lidar,
     ));
   }
@@ -95,29 +95,38 @@ class LidarBindings {
       _updateStatusPtr.asFunction<void Function(ffi.Pointer<NativeLidar>)>();
 }
 
-/// The different outcomes of the API.
-///
-/// Should remain in sync with [SickScanApiErrorCodes](https://github.com/SICKAG/sick_scan_xd/blob/8e560a865ea3642bb0230183b71ac149219978dd/include/sick_scan_xd_api/sick_scan_api.h#L607).
-/// Casting the SickScan codes to this enum should be safe.
-enum LidarStatus {
-  SUCCESS(0),
-  ERROR(1),
-  NOT_LOADED(2),
-  NOT_INITIALIZED(3),
-  NOT_IMPLEMENTED(4),
-  TIMEOUT(5);
+/// Error codes, return values of SickScanApi-functions
+enum SickScanApiErrorCodes {
+  /// function executed successfully
+  SICK_SCAN_API_SUCCESS(0),
+
+  /// general (unspecified) error
+  SICK_SCAN_API_ERROR(1),
+
+  /// sick_scan_xd library not loaded
+  SICK_SCAN_API_NOT_LOADED(2),
+
+  /// API not initialized
+  SICK_SCAN_API_NOT_INITIALIZED(3),
+
+  /// function not implemented in sick_scan_xd library
+  SICK_SCAN_API_NOT_IMPLEMENTED(4),
+
+  /// timeout during wait for response
+  SICK_SCAN_API_TIMEOUT(5);
 
   final int value;
-  const LidarStatus(this.value);
+  const SickScanApiErrorCodes(this.value);
 
-  static LidarStatus fromValue(int value) => switch (value) {
-        0 => SUCCESS,
-        1 => ERROR,
-        2 => NOT_LOADED,
-        3 => NOT_INITIALIZED,
-        4 => NOT_IMPLEMENTED,
-        5 => TIMEOUT,
-        _ => throw ArgumentError("Unknown value for LidarStatus: $value"),
+  static SickScanApiErrorCodes fromValue(int value) => switch (value) {
+        0 => SICK_SCAN_API_SUCCESS,
+        1 => SICK_SCAN_API_ERROR,
+        2 => SICK_SCAN_API_NOT_LOADED,
+        3 => SICK_SCAN_API_NOT_INITIALIZED,
+        4 => SICK_SCAN_API_NOT_IMPLEMENTED,
+        5 => SICK_SCAN_API_TIMEOUT,
+        _ => throw ArgumentError(
+            "Unknown value for SickScanApiErrorCodes: $value"),
       };
 }
 
@@ -145,7 +154,8 @@ final class NativeLidar extends ffi.Struct {
   @ffi.UnsignedInt()
   external int statusCodeAsInt;
 
-  LidarStatus get statusCode => LidarStatus.fromValue(statusCodeAsInt);
+  SickScanApiErrorCodes get statusCode =>
+      SickScanApiErrorCodes.fromValue(statusCodeAsInt);
 
   external ffi.Pointer<ffi.Char> statusBuffer;
 

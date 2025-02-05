@@ -28,16 +28,18 @@ LidarStatus init(Lidar* lidar) {
   SickScanApiSetVerboseLevel(lidar->api, 3); // 0=DEBUG, 1=INFO, 2=WARN, 3=ERROR, 4=FATAL or 5=QUIET
   const char* args[3] = {"lidar.dart", "lidar.launch", "hostname:=192.168.1.71"};
   auto argsPtr = const_cast<char**>(args);  // it's a C API, it cannot take the const-ness
-  int status = SickScanApiInitByCli(lidar->api, 3, argsPtr);
+  int statusInt = SickScanApiInitByCli(lidar->api, 3, argsPtr);
+  auto status = static_cast<LidarStatus>(statusInt);
   if (status != SICK_SCAN_API_SUCCESS) {
-    return static_cast<LidarStatus>(status);
+    return status;
   }
-  status = SickScanApiRegisterCartesianPointCloudMsg(lidar->api, cartesianCallback);
+  statusInt = SickScanApiRegisterCartesianPointCloudMsg(lidar->api, cartesianCallback);
+  status = static_cast<LidarStatus>(statusInt);
   if (status != SICK_SCAN_API_SUCCESS) {
-    return static_cast<LidarStatus>(status);
+    return status;
   }
   globalLidar = lidar;
-  return static_cast<LidarStatus>(status);
+  return status;
 }
 
 void dispose(Lidar* lidar) {
