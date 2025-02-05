@@ -10,6 +10,7 @@ extern "C" {
 #endif
 
 #include <stdint.h>
+#include <stdbool.h>
 
 #include "sick_scan_api.h"
 #include "image.h"
@@ -30,10 +31,10 @@ typedef enum LidarStatus : int {
 typedef struct Lidar {
   SickScanApiHandle api;
   Image image;  // Unused but populated. Leave as-is for now.
-  double* angleData = nullptr;
-  LidarStatus statusCode = SUCCESS;
-  char* statusBuffer = nullptr;
-  bool hasNewData = false;
+  double* angleData;
+  LidarStatus statusCode;
+  char* statusBuffer;
+  bool hasNewData;
 } Lidar;
 
 FFI_PLUGIN_EXPORT LidarStatus init(Lidar* lidar);
