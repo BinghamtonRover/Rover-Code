@@ -24,20 +24,21 @@ class LidarBindings {
       : _lookup = lookup;
 
   LidarStatus init(
-    ffi.Pointer<Lidar> lidar,
+    ffi.Pointer<NativeLidar> lidar,
   ) {
     return LidarStatus.fromValue(_init(
       lidar,
     ));
   }
 
-  late final _initPtr =
-      _lookup<ffi.NativeFunction<ffi.UnsignedInt Function(ffi.Pointer<Lidar>)>>(
-          'init');
-  late final _init = _initPtr.asFunction<int Function(ffi.Pointer<Lidar>)>();
+  late final _initPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.UnsignedInt Function(ffi.Pointer<NativeLidar>)>>('init');
+  late final _init =
+      _initPtr.asFunction<int Function(ffi.Pointer<NativeLidar>)>();
 
   void dispose(
-    ffi.Pointer<Lidar> lidar,
+    ffi.Pointer<NativeLidar> lidar,
   ) {
     return _dispose(
       lidar,
@@ -45,27 +46,28 @@ class LidarBindings {
   }
 
   late final _disposePtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<Lidar>)>>(
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<NativeLidar>)>>(
           'dispose');
   late final _dispose =
-      _disposePtr.asFunction<void Function(ffi.Pointer<Lidar>)>();
+      _disposePtr.asFunction<void Function(ffi.Pointer<NativeLidar>)>();
 
   LidarStatus registerCallback(
-    ffi.Pointer<Lidar> lidar,
+    ffi.Pointer<NativeLidar> lidar,
   ) {
     return LidarStatus.fromValue(_registerCallback(
       lidar,
     ));
   }
 
-  late final _registerCallbackPtr =
-      _lookup<ffi.NativeFunction<ffi.UnsignedInt Function(ffi.Pointer<Lidar>)>>(
-          'registerCallback');
+  late final _registerCallbackPtr = _lookup<
+          ffi
+          .NativeFunction<ffi.UnsignedInt Function(ffi.Pointer<NativeLidar>)>>(
+      'registerCallback');
   late final _registerCallback =
-      _registerCallbackPtr.asFunction<int Function(ffi.Pointer<Lidar>)>();
+      _registerCallbackPtr.asFunction<int Function(ffi.Pointer<NativeLidar>)>();
 
   void deregisterCallback(
-    ffi.Pointer<Lidar> lidar,
+    ffi.Pointer<NativeLidar> lidar,
   ) {
     return _deregisterCallback(
       lidar,
@@ -73,13 +75,13 @@ class LidarBindings {
   }
 
   late final _deregisterCallbackPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<Lidar>)>>(
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<NativeLidar>)>>(
           'deregisterCallback');
-  late final _deregisterCallback =
-      _deregisterCallbackPtr.asFunction<void Function(ffi.Pointer<Lidar>)>();
+  late final _deregisterCallback = _deregisterCallbackPtr
+      .asFunction<void Function(ffi.Pointer<NativeLidar>)>();
 
   void updateStatus(
-    ffi.Pointer<Lidar> lidar,
+    ffi.Pointer<NativeLidar> lidar,
   ) {
     return _updateStatus(
       lidar,
@@ -87,10 +89,10 @@ class LidarBindings {
   }
 
   late final _updateStatusPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<Lidar>)>>(
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<NativeLidar>)>>(
           'updateStatus');
   late final _updateStatus =
-      _updateStatusPtr.asFunction<void Function(ffi.Pointer<Lidar>)>();
+      _updateStatusPtr.asFunction<void Function(ffi.Pointer<NativeLidar>)>();
 }
 
 /// The different outcomes of the API.
@@ -132,7 +134,7 @@ final class Image extends ffi.Struct {
   external ffi.Pointer<ffi.Uint8> data;
 }
 
-final class Lidar extends ffi.Struct {
+final class NativeLidar extends ffi.Struct {
   external SickScanApiHandle api;
 
   /// Unused but populated. Leave as-is for now.

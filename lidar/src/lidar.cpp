@@ -20,11 +20,9 @@ LidarStatus init(Lidar* lidar) {
   lidar->angleData = new double[270];
   lidar->statusBuffer = new char[sickScanMessageSize];
   memset(lidar->angleData, -1, 270 * sizeof(double));
-  lidar->image = {
-    .height = imageHeight,
-    .width = imageWidth,
-    .data = new uint8_t[imageSize],
-  };
+  lidar->image.height = imageHeight;
+  lidar->image.width = imageWidth;
+  lidar->image.data = new uint8_t[imageSize];
 
   // Initialize the SickScan API.
   SickScanApiSetVerboseLevel(lidar->api, 3); // 0=DEBUG, 1=INFO, 2=WARN, 3=ERROR, 4=FATAL or 5=QUIET

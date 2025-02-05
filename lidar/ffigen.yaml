@@ -5,7 +5,7 @@ description: |
   Bindings for the LiDAR SDK.
 
   Regenerate bindings with `dart run ffigen --lidar ffigen.yaml -v severe`.
-output: "lib/src/generated/lidar_bindings.dart"
+output: "lib/src/lidar_bindings.g.dart"
 headers:
   entry-points:
     - "src/lidar.h"
@@ -23,9 +23,6 @@ functions:
 compiler-opts:
   - '-Isrc/sick_scan_xd/include/sick_scan_xd_api'
 silence-enum-warning: true
-# type-map:
-#   native-types:
-#     'char':  # Converts `char` to `Utf8` instead of `Char`
-#       'lib': 'pkg_ffi'
-#       'c-type': 'Utf8'
-#       'dart-type': 'Utf8'
+structs:
+  rename:
+    "Lidar": "NativeLidar"
