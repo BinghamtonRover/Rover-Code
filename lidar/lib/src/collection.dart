@@ -15,6 +15,7 @@ class LidarCollection extends Service {
   Future<bool> init() async {
      //status &= await server.init();
     status &= await lidar.init();
+    print("Inited with status $status");
     return status;
   }
 
@@ -29,7 +30,7 @@ class LidarCollection extends Service {
     while(true){
 
       final data = await lidar.readFrame();
-      print("Got Lidar JPG: ${data?.frame.length} bytes");
+      if(data != null) print("Got Lidar JPG: ${data.frame.length} bytes");
        //final socket = await RawDatagramSocket.bind(InternetAddress.anyIPv4, 8005, reuseAddress: false, reusePort: false);
       //socket.close();
       //if (data == null) {

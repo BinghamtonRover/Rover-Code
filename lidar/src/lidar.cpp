@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "lidar.h"
+
 #define WIDTH 1000
 #define HEIGHT 1000
 #define PI 3.14159
@@ -22,21 +23,26 @@
 // };
 
 LidarHandle* globalHandle;
-void updateLatestImage(SickScanApiHandle apiHandle, const SickScanPointCloudMsg* pointCloudMsg);
-void updateLatestData(const SickScanPointCloudMsg* pointCloudMsg);
-void make_matrix(const SickScanPointCloudMsg* msg);
-void addCross(const SickScanPointCloudMsg* pixels);
-void addHiddenArea();
+// void updateLatestImage(SickScanApiHandle apiHandle, const SickScanPointCloudMsg* pointCloudMsg);
+// void updateLatestData(const SickScanPointCloudMsg* pointCloudMsg);
+// void make_matrix(const SickScanPointCloudMsg* msg);
+// void addCross(const SickScanPointCloudMsg* pixels);
+// void addHiddenArea();
 
 FFI_PLUGIN_EXPORT LidarHandle* Lidar_create() {
-    LidarHandle* handle = new LidarHandle;
-    handle->isReady = false;
+#ifdef _MSC_VER
+	const char* sick_scan_api_lib = "/dist/sick_scan_xd_shared_lib.dll";
+#else
+	const char* sick_scan_api_lib = "/dist/libsick_scan_xd_shared_lib.so";
+#endif 
+  // NOT SURE WHY THIS WONT COMPILE
+  // SickScanApiLoadLibrary(sick_scan_api_lib);
+  LidarHandle* handle = new LidarHandle;
+  handle->isReady = false;
   handle->lock = 0;
   handle->api = SickScanApiCreate(0, nullptr);
 
-
-
-  SickScanApiSetVerboseLevel(handle->api, 3); // 0=DEBUG, 1=INFO, 2=WARN, 3=ERROR, 4=FATAL or 5=QUIET
+  SickScanApiSetVerboseLevel(handle->api, 0); // 0=DEBUG, 1=INFO, 2=WARN, 3=ERROR, 4=FATAL or 5=QUIET
   char* args[] = {"lidar.dart", "lidar.launch", "hostname:=192.168.1.71"};
   // if(status = SickScanApiInitByCli(handle, 3, args) != SICK_SCAN_API_SUCCESS){
   //   dispose();
@@ -47,7 +53,7 @@ FFI_PLUGIN_EXPORT LidarHandle* Lidar_create() {
   //   dispose();
   //   return status;
   // }
-   SickScanApiRegisterCartesianPointCloudMsg(handle->api, updateLatestImage);
+  SickScanApiRegisterCartesianPointCloudMsg(handle->api, updateLatestImage);
   /// allocate data
   handle->OneDArray = new double[270];
   memset(handle->OneDArray, -1, 270 * sizeof(double));
@@ -73,11 +79,13 @@ FFI_PLUGIN_EXPORT void Lidar_delete(LidarHandle* handle) {
   SickScanApiDeregisterCartesianPointCloudMsg(handle->api, updateLatestImage);
   SickScanApiClose(handle->api);
   SickScanApiRelease(handle->api);
+  //SickScanApiUnloadLibrary();
   delete handle->image.data;
   delete handle->OneDArray;
   delete handle->statusBuffer;
   delete handle;
   globalHandle = nullptr;
+
 }
 
 FFI_PLUGIN_EXPORT void deregisterCallback(LidarHandle* handle) {
@@ -91,8 +99,8 @@ FFI_PLUGIN_EXPORT void registerCallback(LidarHandle* handle) {
 void updateLatestImage(SickScanApiHandle apiHandle, const SickScanPointCloudMsg* pointCloudMsg) {
   // Change to if: assert(pointCloudMsg->height >= 0 && (int)pointCloudMsg->width >=0);
   if (globalHandle == nullptr) return;
-  deregisterCallback(globalHandle);
-  std::cout << "C++ callback" << std::endl;
+  //deregisterCallback(globalHandle);
+  //std::cout << "C++ callback" << std::endl;
   globalHandle->isReady = false;
   if(pointCloudMsg->height == 0 || pointCloudMsg->width == 0 || globalHandle->image.data == nullptr){
     return;
@@ -101,7 +109,7 @@ void updateLatestImage(SickScanApiHandle apiHandle, const SickScanPointCloudMsg*
     std::cout << "Image locked" << std::endl;
     return;
   }
-  std::cout << "Unlocked" << std::endl;
+  // std::cout << "Unlocked" << std::endl;
   globalHandle->lock = 0;
   make_matrix(pointCloudMsg);
   addCross(pointCloudMsg);

@@ -49,13 +49,13 @@ class LidarStub extends Lidar {
     print("Done with C++ init()");
     int status = 5; // 5 is failure
     for(int i = 0; i < timeout; i++){ // Attemp to connect for 15 seconds
+      await Future<void>.delayed(const Duration(seconds: 1));
       bindings.getStatus(handle!);
       status = handle!.ref.statusCode;
       print("Trying to connect ($i/$timeout)...");
       if(status == 0){
         break;
       }
-      await Future<void>.delayed(const Duration(seconds: 1));
     }
     print("Done with Dart init");
     return status == 0;
@@ -71,15 +71,19 @@ class LidarStub extends Lidar {
 
   @override
   Future<VideoData?> readFrame() async {
-
     bindings.getStatus(handle!);
     if (handle!.ref.statusCode != 0) {
       print("API returned non-zero status code: ${handle!.ref.statusCode} (${handle!.ref.statusBuffer.toDartString()}");
-      if (handle!.ref.statusCode == 4) {
+      if(handle!.ref.statusCode == 4) {
         print("API has quit");
         await dispose();
         exit(0);
       }
+      if(handle!.ref.statusCode == 2){
+        print("restarting API");
+        await dispose();
+        await init();
+      } 
       return null;
     }
     if (handle!.ref.isReady == 0) {
@@ -119,7 +123,7 @@ class LidarStub extends Lidar {
     final length2 = jpg.data.toList().length;
     print("  length=$length2");
     final jpgCopy = arena<Uint8>(length2);
-    print("Copyinh");
+    print("Copying");
     for (int i = 0; i < length2; i++) {
       jpgCopy[i] = jpg.data[i];
     }
