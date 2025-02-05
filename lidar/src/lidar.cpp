@@ -1,6 +1,4 @@
 #include <iostream>
-// #include <windows.h> // For sleep fucntion on windows
-// #include <unistd.h> // For sleep function on unix
 #include <cassert>
 #include <cstring>
 #include <cmath>
@@ -66,15 +64,14 @@ void deregisterCallback(Lidar* handle) {
 }
 
 void cartesianCallback(SickScanApiHandle apiHandle, const SickScanPointCloudMsg* pointCloudMsg) {
-  if (globalLidar == nullptr) return;
-  deregisterCallback(globalLidar);
-  std::cout << "C++ callback" << std::endl;
+  if (globalLidar == nullptr || globalLidar->hasNewData) return;
+  globalLidar->hasNewData = true;
   if(pointCloudMsg->height == 0 || pointCloudMsg->width == 0 || globalLidar->image.data == nullptr){
     return;
   }
   auto image = globalLidar->image;
   auto angleData = globalLidar->angleData;
-  make_matrix(image, angleData, pointCloudMsg);
+  makeMatrix(image, angleData, pointCloudMsg);
   addCross(image, pointCloudMsg);
   addHiddenArea(image);
 }

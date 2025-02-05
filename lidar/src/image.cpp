@@ -43,7 +43,7 @@ float readFloat(const SickScanPointCloudMsg* message, int point, int field) {
   return *floatPtr;
 }
 
-void make_matrix(Image imageStruct, double* angleData, const SickScanPointCloudMsg* message){
+void makeMatrix(Image imageStruct, double* angleData, const SickScanPointCloudMsg* message){
   // Initialize some variables
   double angle = 0;
   auto offsets = getOffsets(message);

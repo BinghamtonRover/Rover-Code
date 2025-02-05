@@ -11,25 +11,6 @@ add_subdirectory(sick_scan_xd)
 # Include directories for sick_scan_xd
 include_directories(${SICK_SCAN_XD_INCLUDE_DIR})
 
-# Set the output type to a shared library (DLL)
-add_executable(lidar lidar.cpp main.cpp)  # Add your own C++ files here
 
-# Link the sick_scan_xd DLL to your project
-if(WIN32)
-    message("Building for windows")
-    target_link_libraries(lidar ${sick_scan_xd_LIBRARIES})
-    target_link_libraries(lidar "${CMAKE_SOURCE_DIR}/../build/sick_scan_xd/Debug/sick_scan_xd_shared_lib.lib")
-else()
-    message("Building for linux")
-    #target_link_libraries(lidar ${sick_scan_xd_LIBRARIES})
-    target_link_libraries(lidar "${CMAKE_CURRENT_SOURCE_DIR}/../build/sick_scan_xd/libsick_scan_xd_lib.a")
-endif()
-
-# Specify the output directory for the generated DLL
-set_target_properties(lidar PROPERTIES
-    PUBLIC_HEADER lidar.h
-    PUBLIC_HEADER sick_scan_xd.h
-    OUTPUT_NAME "lidar"
-)
-
-
+add_executable(lidar udp.cpp image.cpp lidar.cpp main.cpp)
+target_link_libraries(lidar sick_scan_xd_lib)

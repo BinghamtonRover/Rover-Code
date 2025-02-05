@@ -33,6 +33,7 @@ typedef struct Lidar {
   double* angleData = nullptr;
   LidarStatus statusCode = SUCCESS;
   char* statusBuffer = nullptr;
+  bool hasNewData = false;
 } Lidar;
 
 FFI_PLUGIN_EXPORT LidarStatus init(Lidar* lidar);
