@@ -1,12 +1,18 @@
+// ignore_for_file: avoid_print
+
 import "package:burt_network/burt_network.dart";
 
-import "lidar_stub.dart";
+import "lidar.dart";
 
+/// The collection for the lidar program
 class LidarCollection extends Service {
-  final lidar = LidarStub();
+  /// A class to manage the lidar.
+  final lidar = Lidar();
 
-  //final server = RoverSocket(port: 8002, device: Device.VIDEO);
+  // SIMPLY UN-COMMENTING THIS LINE CAUSES SEGFAULTS. NEED TO TEST MORE
+  // final server = RoverSocket(port: 8002, device: Device.VIDEO);
 
+  /// Whether the collection successfully initialized.
   bool status = true;
 
   //RawDatagramSocket? socket;
@@ -15,6 +21,7 @@ class LidarCollection extends Service {
   Future<bool> init() async {
      //status &= await server.init();
     status &= await lidar.init();
+    print("Initialized with status $status");
     return status;
   }
 
@@ -29,7 +36,7 @@ class LidarCollection extends Service {
     while(true){
 
       final data = await lidar.readFrame();
-      print("Got Lidar JPG: ${data?.frame.length} bytes");
+      if(data != null) print("Got Lidar JPG: ${data.frame.length} bytes");
        //final socket = await RawDatagramSocket.bind(InternetAddress.anyIPv4, 8005, reuseAddress: false, reusePort: false);
       //socket.close();
       //if (data == null) {
@@ -42,4 +49,5 @@ class LidarCollection extends Service {
   }
 }
 
+/// The Lidar program's global collection.
 final collection = LidarCollection();
