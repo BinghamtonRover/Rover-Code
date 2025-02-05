@@ -49,13 +49,13 @@ class LidarStub extends Lidar {
     print("Done with C++ init()");
     int status = 5; // 5 is failure
     for(int i = 0; i < timeout; i++){ // Attemp to connect for 15 seconds
+      await Future<void>.delayed(const Duration(seconds: 1));
       bindings.getStatus(handle!);
       status = handle!.ref.statusCode;
       print("Trying to connect ($i/$timeout)...");
       if(status == 0){
         break;
       }
-      await Future<void>.delayed(const Duration(seconds: 1));
     }
     print("Done with Dart init");
     return status == 0;
