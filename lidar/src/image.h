@@ -1,6 +1,6 @@
 #include <stdint.h>
 
-#include "sick_scan_api.h"
+#include <sick_scan_api.h>
 
 #ifdef  __cplusplus
 extern "C" {
