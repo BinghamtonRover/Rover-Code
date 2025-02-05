@@ -31,17 +31,21 @@ import "lidar_bindings.g.dart";
 //}
 
 class Lidar extends Service {
-  final LidarBindings bindings;
-  Pointer<NativeLidar>? _lidar;
-
-  Lidar() : bindings = Platform.isWindows
+  /// Allows access to the C functions defined in src/lidar.h
+  static final LidarBindings bindings =  Platform.isWindows
     ? LidarBindings(DynamicLibrary.open("dist/lidar_ffi.dll"))
     : LidarBindings(DynamicLibrary.open("dist/liblidar_ffi.so"));
 
+  Pointer<NativeLidar>? _lidar;
+
+  /// Creates a new lidar object
+  Lidar();
+
+  /// Returns whether the lidar is working right now.
   bool getStatus() {
     if (_lidar == null) return false;
     bindings.updateStatus(_lidar!);
-    return _lidar!.ref.statusCode == 0;
+    return _lidar!.ref.statusCode == LidarStatus.SUCCESS;
   }
 
   @override
@@ -50,7 +54,7 @@ class Lidar extends Service {
     bindings.init(_lidar!);
     print("Done with C++ init()");
     var status = LidarStatus.ERROR; // 5 is failure
-    for(int i = 0; i < timeout; i++){ // Attempt to connect for 15 seconds
+    for(var i = 0; i < timeout; i++){ // Attempt to connect for 15 seconds
       await Future<void>.delayed(const Duration(seconds: 1));
       bindings.updateStatus(_lidar!);
       status = _lidar!.ref.statusCode;
@@ -72,23 +76,24 @@ class Lidar extends Service {
     print("Disposed of lidar");
   }
 
+  /// Reads data from the lidar and returns a JPG representing the results visually.
   Future<VideoData?> readFrame() async {
     bindings.updateStatus(_lidar!);
-    if (_lidar!.ref.statusCode != 0) {
+    if (_lidar!.ref.statusCode != LidarStatus.SUCCESS) {
       print("API returned non-zero status code: ${_lidar!.ref.statusCode} (${_lidar!.ref.statusBuffer.toDartString()}");
-      if(_lidar!.ref.statusCode == 4) {
+      if(_lidar!.ref.statusCode == LidarStatus.NOT_IMPLEMENTED) {
         print("API has quit");
         await dispose();
         exit(0);
       }
-      if(_lidar!.ref.statusCode == 2){
+      if(_lidar!.ref.statusCode == LidarStatus.NOT_LOADED){
         print("restarting API");
         await dispose();
         await init();
       }
       return null;
     }
-    if (_lidar!.ref.hasNewData == 0) {
+    if (_lidar!.ref.hasNewData) {
       print("NO image loaded");
       return null;
     }
@@ -100,7 +105,7 @@ class Lidar extends Service {
     final nativeArray = image.data.asTypedList(length);
     final arena = Arena();
     final copyPointer = arena<Uint8>(length);
-    for (int index = 0; index < length; index++) {
+    for (var index = 0; index < length; index++) {
       copyPointer[index] = nativeArray[index];
     }
     print("Copied $length bytes");
@@ -121,7 +126,7 @@ class Lidar extends Service {
     print("  length=$length2");
     final jpgCopy = arena<Uint8>(length2);
     print("Copying");
-    for (int i = 0; i < length2; i++) {
+    for (var i = 0; i < length2; i++) {
       jpgCopy[i] = jpg.data[i];
     }
     print("Done copying: ");
@@ -141,7 +146,7 @@ class Lidar extends Service {
     //bindings.registerCallback(_lidar!);
     return VideoData(
       id: "CameraName.LIDAR",
-      // TODO: Add CameraName.LIDAR
+      // TODO(Aidan): Add CameraName.LIDAR
       frame: jpgCopy.asTypedList(length2),
       details: CameraDetails(name: CameraName.AUTONOMY_DEPTH, status: CameraStatus.CAMERA_ENABLED),
     );

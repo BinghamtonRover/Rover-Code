@@ -1,12 +1,18 @@
+// ignore_for_file: avoid_print
+
 import "package:burt_network/burt_network.dart";
 
 import "lidar.dart";
 
+/// The collection for the lidar program
 class LidarCollection extends Service {
+  /// A class to manage the lidar.
   final lidar = Lidar();
 
-  //final server = RoverSocket(port: 8002, device: Device.VIDEO);
+  // SIMPLY UN-COMMENTING THIS LINE CAUSES SEGFAULTS. NEED TO TEST MORE
+  // final server = RoverSocket(port: 8002, device: Device.VIDEO);
 
+  /// Whether the collection successfully initialized.
   bool status = true;
 
   //RawDatagramSocket? socket;
@@ -43,4 +49,5 @@ class LidarCollection extends Service {
   }
 }
 
+/// The Lidar program's global collection.
 final collection = LidarCollection();
