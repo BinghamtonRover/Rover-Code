@@ -19,7 +19,7 @@ if(WIN32)
     target_link_libraries(lidar_ffi "${CMAKE_SOURCE_DIR}/../build/sick_scan_xd/Debug/sick_scan_xd_shared_lib.lib")
 else()
     target_link_libraries(lidar_ffi ${sick_scan_xd_LIBRARIES})
-    target_link_libraries(lidar_ffi "${CMAKE_CURRENT_SOURCE_DIR}/../build/sick_scan_xd/libsick_scan_xd_lib.a")
+    #target_link_libraries(lidar_ffi "${CMAKE_CURRENT_SOURCE_DIR}/../build/sick_scan_xd/libsick_scan_xd_lib.a")
 endif()
 
 # Specify the output directory for the generated DLL
