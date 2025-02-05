@@ -30,6 +30,13 @@ import "lidar_bindings.g.dart";
 //  }
 //}
 
+typedef LidarStatus = SickScanApiErrorCodes;
+
+extension on LidarStatus {
+  bool get isOk => this == LidarStatus.SICK_SCAN_API_SUCCESS;
+}
+
+/// Interfaces with the lidar via native C++ code.
 class Lidar extends Service {
   /// Allows access to the C functions defined in src/lidar.h
   static final LidarBindings bindings =  Platform.isWindows
@@ -45,7 +52,7 @@ class Lidar extends Service {
   bool getStatus() {
     if (_lidar == null) return false;
     bindings.updateStatus(_lidar!);
-    return _lidar!.ref.statusCode == LidarStatus.SUCCESS;
+    return _lidar!.ref.statusCode.isOk;
   }
 
   @override
@@ -53,18 +60,18 @@ class Lidar extends Service {
     _lidar = malloc<NativeLidar>();
     bindings.init(_lidar!);
     print("Done with C++ init()");
-    var status = LidarStatus.ERROR; // 5 is failure
+    var status = LidarStatus.SICK_SCAN_API_ERROR; // 5 is failure
     for(var i = 0; i < timeout; i++){ // Attempt to connect for 15 seconds
       await Future<void>.delayed(const Duration(seconds: 1));
       bindings.updateStatus(_lidar!);
       status = _lidar!.ref.statusCode;
       print("Trying to connect ($i/$timeout)...");
-      if(status == LidarStatus.SUCCESS) {
+      if (status.isOk) {
         break;
       }
     }
     print("Done with Dart init");
-    return status == LidarStatus.SUCCESS;
+    return status.isOk;
   }
 
   @override
@@ -79,14 +86,14 @@ class Lidar extends Service {
   /// Reads data from the lidar and returns a JPG representing the results visually.
   Future<VideoData?> readFrame() async {
     bindings.updateStatus(_lidar!);
-    if (_lidar!.ref.statusCode != LidarStatus.SUCCESS) {
+    if (!_lidar!.ref.statusCode.isOk) {
       print("API returned non-zero status code: ${_lidar!.ref.statusCode} (${_lidar!.ref.statusBuffer.toDartString()}");
-      if(_lidar!.ref.statusCode == LidarStatus.NOT_IMPLEMENTED) {
+      if(_lidar!.ref.statusCode == LidarStatus.SICK_SCAN_API_NOT_IMPLEMENTED) {
         print("API has quit");
         await dispose();
         exit(0);
       }
-      if(_lidar!.ref.statusCode == LidarStatus.NOT_LOADED){
+      if(_lidar!.ref.statusCode == LidarStatus.SICK_SCAN_API_NOT_LOADED){
         print("restarting API");
         await dispose();
         await init();
