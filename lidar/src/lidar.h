@@ -1,5 +1,5 @@
 
-#if defined(_WIN32) 
+#if defined(_WIN32)
 #define FFI_PLUGIN_EXPORT __declspec(dllexport)
 #else
 #define FFI_PLUGIN_EXPORT
@@ -9,37 +9,30 @@
 extern "C" {
 #endif
 
-#include "sick_scan_api.h"
 #include <stdint.h>
-typedef struct Image{
-  uint32_t height;
-  uint32_t width;
-  uint8_t* data;
-} Image;
+#include <stdbool.h>
 
-typedef struct LidarHandle {
+#include "sick_scan_api.h"
+#include "image.h"
+
+typedef enum SickScanApiErrorCodes LidarStatus;
+
+typedef struct Lidar {
   SickScanApiHandle api;
-  int lock;
-  Image image;
-  double* OneDArray;
-  int isReady;
-  int32_t statusCode;
+  Image image;  // Unused but populated. Leave as-is for now.
+  double* angleData;
+  LidarStatus statusCode;
   char* statusBuffer;
-} LidarHandle;
+  bool hasNewData;
+} Lidar;
 
-FFI_PLUGIN_EXPORT LidarHandle* Lidar_create();
-FFI_PLUGIN_EXPORT void Lidar_delete(LidarHandle* handle);
+FFI_PLUGIN_EXPORT LidarStatus init(Lidar* lidar);
+FFI_PLUGIN_EXPORT void dispose(Lidar* lidar);
 
-FFI_PLUGIN_EXPORT void deregisterCallback(LidarHandle* handle);
-FFI_PLUGIN_EXPORT void registerCallback(LidarHandle* handle);
+FFI_PLUGIN_EXPORT LidarStatus registerCallback(Lidar* lidar);
+FFI_PLUGIN_EXPORT void deregisterCallback(Lidar* lidar);
 
-FFI_PLUGIN_EXPORT void getStatus(LidarHandle* handle);
-
-void updateLatestImage(SickScanApiHandle apiHandle, const SickScanPointCloudMsg* pointCloudMsg);
-void updateLatestData(const SickScanPointCloudMsg* pointCloudMsg);
-void make_matrix(const SickScanPointCloudMsg* msg);
-void addCross(const SickScanPointCloudMsg* pixels);
-void addHiddenArea();
+FFI_PLUGIN_EXPORT void updateStatus(Lidar* lidar);
 
 #ifdef  __cplusplus
 } // extern "C"
