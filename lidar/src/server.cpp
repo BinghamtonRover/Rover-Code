@@ -8,7 +8,7 @@
 #include <arpa/inet.h> 
 #include <netinet/in.h> 
 
-#define PORT	 8080 
+#define PORT	 8005
 #define MAXLINE 1024 
 
 // Driver code 
@@ -39,6 +39,8 @@ int main() {
 		perror("bind failed"); 
 		exit(EXIT_FAILURE); 
 	} 
+
+	std::cout << "Bind sucessful" << std::endl;
 	
 	socklen_t len;
 int n; 
@@ -49,6 +51,7 @@ int n;
 				MSG_WAITALL, ( struct sockaddr *) &cliaddr, 
 				&len); 
 	buffer[n] = '\0'; 
+	std::cout << "here" << std::endl;
 	printf("Client : %s\n", buffer); 
 	sendto(sockfd, (const char *)hello, strlen(hello), 
 		MSG_CONFIRM, (const struct sockaddr *) &cliaddr, 

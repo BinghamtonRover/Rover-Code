@@ -6,11 +6,23 @@
 #include <cmath>
 #include <vector>
 
+#include <bits/stdc++.h> 
+#include <stdlib.h> 
+#include <unistd.h> 
+#include <string.h> 
+#include <sys/types.h> 
+#include <sys/socket.h> 
+#include <arpa/inet.h> 
+#include <netinet/in.h> 
+#include <errno.h>
+
 #include "lidar.h"
 
 #define WIDTH 1000
 #define HEIGHT 1000
 #define PI 3.14159
+
+#define PORT 8020
 
 // enum SickScanApiErrorCodes
 // {
@@ -23,11 +35,8 @@
 // };
 
 LidarHandle* globalHandle;
-// void updateLatestImage(SickScanApiHandle apiHandle, const SickScanPointCloudMsg* pointCloudMsg);
-// void updateLatestData(const SickScanPointCloudMsg* pointCloudMsg);
-// void make_matrix(const SickScanPointCloudMsg* msg);
-// void addCross(const SickScanPointCloudMsg* pixels);
-// void addHiddenArea();
+static int sockfd;
+static struct sockaddr_in* servaddr;
 
 FFI_PLUGIN_EXPORT LidarHandle* Lidar_create() {
 #ifdef _MSC_VER
@@ -35,7 +44,6 @@ FFI_PLUGIN_EXPORT LidarHandle* Lidar_create() {
 #else
 	const char* sick_scan_api_lib = "/dist/libsick_scan_xd_shared_lib.so";
 #endif 
-  // NOT SURE WHY THIS WONT COMPILE
   // SickScanApiLoadLibrary(sick_scan_api_lib);
   LidarHandle* handle = new LidarHandle;
   handle->isReady = false;
@@ -66,10 +74,27 @@ FFI_PLUGIN_EXPORT LidarHandle* Lidar_create() {
   std::cout << "Getting status" << std::endl;
 
   handle->statusBuffer = new char[128];
+
+  if((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0){
+    perror("socket creation failed");
+    exit(EXIT_FAILURE);
+  }
+  std::cout << "SOCKFD: " << sockfd << std::endl;
+
+  servaddr = new sockaddr_in;
+
+  memset(servaddr, 0, sizeof(servaddr)); 
+
+  servaddr->sin_family = AF_INET;
+  servaddr->sin_port = htons(PORT);
+  servaddr->sin_addr.s_addr = INADDR_ANY;
+  std::cout << "created socket" << std::endl;
+
   getStatus(handle);
   std::cout << "==============================" << std::endl;
   std::cout << "\n\n\n Init done with status: " << handle->statusCode << "\n\n\n" <<  std::endl;
   std::cout << "==============================" << std::endl;
+
   handle->lock = 1;
   globalHandle = handle;
   return handle;
@@ -84,6 +109,7 @@ FFI_PLUGIN_EXPORT void Lidar_delete(LidarHandle* handle) {
   delete handle->OneDArray;
   delete handle->statusBuffer;
   delete handle;
+  delete servaddr;
   globalHandle = nullptr;
 
 }
@@ -114,6 +140,47 @@ void updateLatestImage(SickScanApiHandle apiHandle, const SickScanPointCloudMsg*
   make_matrix(pointCloudMsg);
   addCross(pointCloudMsg);
   addHiddenArea();
+  std::cout << "SOCKFD: " << sockfd << std::endl;
+
+  // int sockfd; 
+  const char *hello = "Hello from client"; 
+  //   struct sockaddr_in     servaddr; 
+   
+  //   // Creating socket file descriptor 
+  //   if ( (sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) { 
+  //       perror("socket creation failed"); 
+  //       exit(EXIT_FAILURE); 
+  //   } 
+   
+  //   memset(&servaddr, 0, sizeof(servaddr)); 
+       
+  //   // Filling server information 
+  //   servaddr.sin_family = AF_INET; 
+  //   servaddr.sin_port = htons(PORT); 
+  //   servaddr.sin_addr.s_addr = INADDR_ANY; 
+  //   int sock_response = sendto(sockfd, (const char *)hello, strlen(hello), 
+  //           MSG_CONFIRM, (const struct sockaddr *) &servaddr,  
+  //               sizeof(servaddr));
+
+
+  int sock_response = sendto(
+    sockfd, 
+    // (const char *) hello, 
+    // strlen(hello), 
+    (const char*) globalHandle->OneDArray,
+    270*8,
+    MSG_CONFIRM, 
+    (const struct sockaddr *) 
+    servaddr, 
+    sizeof(*servaddr)
+  );
+  if(sock_response == -1){
+    std::cout << "There was an error sending UDP" << std::endl;
+    std::cout << "Ernno: " << errno << std::endl;
+    std::cout << strerror(errno) << std::endl;
+  } else {
+    std::cout << "Sent UDP bytes: "  << sock_response << std::endl;
+  }
   globalHandle->lock = 1;
   globalHandle->isReady = true;
 }

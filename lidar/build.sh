@@ -10,3 +10,4 @@ cmake --build . -j 1
 cd ..
 
 cp build/liblidar_ffi.so dist/liblidar_ffi.so
+cp build/lidar .
