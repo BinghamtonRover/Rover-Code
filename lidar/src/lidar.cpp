@@ -6,8 +6,8 @@
 
 #include "lidar.h"
 
-const int imageWidth = 1'000;
-const int imageHeight = 1'000;
+const int imageWidth = 1000;
+const int imageHeight = 1000;
 const int imageSize = 3 * imageHeight * imageWidth;
 const int sickScanMessageSize = 128;
 
@@ -64,6 +64,7 @@ void deregisterCallback(Lidar* handle) {
 }
 
 void cartesianCallback(SickScanApiHandle apiHandle, const SickScanPointCloudMsg* pointCloudMsg) {
+  std::cout << "Callback called" << std::endl;
   if (globalLidar == nullptr || globalLidar->hasNewData) return;
   globalLidar->hasNewData = true;
   if(pointCloudMsg->height == 0 || pointCloudMsg->width == 0 || globalLidar->image.data == nullptr){
@@ -71,9 +72,9 @@ void cartesianCallback(SickScanApiHandle apiHandle, const SickScanPointCloudMsg*
   }
   auto image = globalLidar->image;
   auto angleData = globalLidar->angleData;
-  makeMatrix(image, angleData, pointCloudMsg);
-  addCross(image, pointCloudMsg);
-  addHiddenArea(image);
+  // makeMatrix(image, angleData, pointCloudMsg);
+  // addCross(image, pointCloudMsg);
+  // addHiddenArea(image);
 }
 
 void updateStatus(Lidar* lidar) {

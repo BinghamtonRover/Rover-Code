@@ -14,10 +14,12 @@ int main() {
   if (!socket.init()) {
     perror("Could not initialize UDP server");
   }
+  std::cout << "Initialized UDP server" << std::endl;
   // Open the lidar
   auto lidar = new Lidar;
   init(lidar);
-  sleep(5);  // init is actually async. TODO: better error-handling
+  // 10 seconds
+  sleep(10000000); // init is actually async. TODO: better error-handling
 
   while (true) {
     // Check for errors and quit if there are any (the lidar has disconnected)

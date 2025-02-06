@@ -6,7 +6,7 @@
 extern "C" {
 #endif
 
-typedef struct Image{
+typedef struct Image {
   uint32_t height;
   uint32_t width;
   uint8_t* data;
