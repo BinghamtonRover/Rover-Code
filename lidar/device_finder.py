@@ -17,7 +17,7 @@ RANDOM_KEY=random.randrange(4294967295)
 MESSAGE = bytes.fromhex('10000008ffffffffffffc8f4b6270102c0a8007effffff00')
 MESSAGE=MESSAGE.replace(bytes.fromhex('c8f4b627'),RANDOM_KEY.to_bytes(4, byteorder='big', signed=False))
 HOST = ''                 # Symbolic name meaning all available interfaces
-DEBUGMSGENABLED = False
+DEBUGMSGENABLED = True
 ANSWERTIMEOUT=10 #timeout in seconds
 # print("Test .... {<Var-ID>}".format(<VAR_ID>=<VAR|Wert>))
 print("UDP target IP: {ip}".format(ip=UDP_IP))
