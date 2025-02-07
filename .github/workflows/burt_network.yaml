@@ -1,0 +1,32 @@
+name: Test burt_network
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+jobs:
+  burt_network_unit_tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: burt_network
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Install Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 3.6.0
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Analyze code
+        run: dart analyze --fatal-infos
+
+      - name: Run unit tests
+        run: dart test

@@ -1,0 +1,29 @@
+name: Analyze Dart
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Install Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 3.6.0
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Analyze code
+        run: dart analyze --fatal-infos
+
+      # - name: Validate dependencies
+      #   run: dart run dependency_validator
