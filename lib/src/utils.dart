@@ -12,7 +12,7 @@ Future<String?> getCommandOutput(String command, List<String> arguments) async {
   logger.debug("Running $command $arguments");
   final result = await Process.run(command, arguments);
   logger.trace(result.stdout);
-  logger.warning(result.stderr);
+  if (result.stderr.isNotEmpty) logger.warning(result.stderr);
   logger.debug("Command finished with exit code ${result.exitCode}");
   return result.stdout as String;
 }
