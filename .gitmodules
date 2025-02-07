@@ -8,11 +8,8 @@
 [submodule "Video"]
 	path = video
 	url = https://github.com/BinghamtonRover/Video
-[submodule "cv"]
-	path = cv
-	url = https://github.com/BinghamtonRover/Computer-Vision
 
-# Any submodules required by our programs
+# Dependencies of our programs and libraries
 [submodule "Protobuf"]
 	path = burt_network/Protobuf
 	url = https://github.com/BinghamtonRover/Protobuf
@@ -26,3 +23,7 @@
 [submodule "src/opencv"]
 	path = opencv_ffi/src/opencv
 	url = https://github.com/opencv/opencv
+[submodule "Python-Networking"]
+	path = vision/lib/network
+	url = https://github.com/BinghamtonRover/Python-Networking
+

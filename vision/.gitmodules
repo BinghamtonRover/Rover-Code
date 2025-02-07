@@ -1,3 +1,0 @@
-[submodule "Python-Networking"]
-	path = lib/network
-	url = https://github.com/BinghamtonRover/Python-Networking
