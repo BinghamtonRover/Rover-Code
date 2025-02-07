@@ -1,12 +1,8 @@
-// ignore_for_file: avoid_print
 
-import "dart:io";
+import "package:rover/rover.dart";
 
-import "../all_devices.dart";
-
-const filename = "linux/15-rover.rules";
-
-const header =
+/// The header to prepend to the top of all generated udev files.
+const udevHeader =
 """
 # AUTO-GENERATED FILE. DO NOT EDIT BY HAND.
 # To re-generate, edit `all_devices.dart` and run `dart run :udev`
@@ -27,34 +23,30 @@ const header =
 #   https://bing-rover.gitbook.io/docs/v/software/onboard-computers/video/udev-rules
 """;
 
-void main() async {
-  final buffer = StringBuffer();
-  buffer.writeln(header);
-
-  for (final device in devices) {
+/// Generates udev rule files for rover programs.
+extension UdevGenerator on Device {
+  /// The udev rules file for this service.
+  ///
+  /// For more information, see: https://wiki.archlinux.org/title/Udev
+  String get udevRule {
+    final buffer = StringBuffer();
     // Comment line
-    buffer.writeln("# ${device.humanName}: /dev/${device.alias}");
+    buffer.writeln("# $humanName: /dev/$alias");
 
     // Line 1 matches the device
-    final varName = "is_${device.alias}";
+    final varName = "is_$alias";
     buffer.write('SUBSYSTEMS=="usb", ');
-    if (device.manufacturer != null) buffer.write('ATTRS{manufacturer}=="${device.manufacturer}", ');
-    if (device.product != null) buffer.write('ATTRS{product}=="${device.product}", ');
-    if (device.port != null) buffer.write('KERNELS=="${device.port}", ');
-    if (device.interface != null) buffer.write('ATTRS{interface}=="${device.interface}", ');
+    if (manufacturer != null) buffer.write('ATTRS{manufacturer}=="$manufacturer", ');
+    if (product != null) buffer.write('ATTRS{product}=="$product", ');
+    if (port != null) buffer.write('KERNELS=="$port", ');
+    if (interface != null) buffer.write('ATTRS{interface}=="$interface", ');
     buffer.writeln('ENV{$varName}="t"');
 
     // Line 2 generates the symlink for the device
-    buffer.write('${device.type.key}=="${device.subsystem}", ');
-    if (device.index != null) buffer.write('ATTR{index}=="${device.index}", ');
-    buffer.writeln('ENV{$varName}=="t", SYMLINK+="${device.alias}"');
+    buffer.write('${type.key}=="${type.subsystem}", ');
+    if (index != null) buffer.write('ATTR{index}=="$index", ');
+    buffer.writeln('ENV{$varName}=="t", SYMLINK+="$alias"');
     buffer.writeln();
+    return buffer.toString();
   }
-
-  final contents = buffer.toString();
-  final file = File(filename);
-  await file.create(recursive: true);
-  await file.writeAsString(contents);
-
-  print("Generated $filename with ${devices.length} devices");
 }

@@ -1,5 +1,8 @@
-import "package:rover/device.dart";
+import "package:rover/src/device.dart";
 
+/// All USB devices that need a udev rule.
+///
+/// For more inforamtion, see [Device].
 const devices = <Device>[
   // ==================== Drive Cameras ====================
   Device(
