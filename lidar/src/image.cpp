@@ -1,6 +1,6 @@
 #include <cmath>
 #include <cstring>
-
+#include <iostream>
 #include "image.h"
 
 const double pi = 3.141592653589293;
@@ -39,7 +39,9 @@ CartesianFieldOffsets getOffsets(const SickScanPointCloudMsg* message) {
 float readFloat(const SickScanPointCloudMsg* message, int point, int field) {
   // The fields are floats, stored in a list of bytes. First find the byte, then cast.
   auto bytePtr = message->data.buffer[point + field];
+
   auto floatPtr = reinterpret_cast<float*>(bytePtr);
+
   return *floatPtr;
 }
 
@@ -48,18 +50,21 @@ void makeMatrix(Image imageStruct, double* angleData, const SickScanPointCloudMs
   double angle = 0;
   auto offsets = getOffsets(message);
   auto image = imageStruct.data;
-  memset(image, 0, 3 * imageStruct.width * imageStruct.height);
+  //memset(image, 0, 3 * imageStruct.width * imageStruct.height);
+  memset(angleData, 0, 542 * sizeof(double));
 
 	/// Plot all points in pointcloud
+  int count = 0; 
   for (int row = 0; row < message->height; row++) {
     for (int col = 0; col < message->width; col++) {
       // Get cartesian point coordinates
       int point = row * message->row_step + col * message->point_step;
-      float x = readFloat(message, point, offsets.x);
-      float y = readFloat(message, point, offsets.y);
+      float x = *((float*)(message->data.buffer + point + offsets.x));
+      float y =  *((float*)(message->data.buffer + point + offsets.y));
+
       // TODO: Can/should we use intensity?
       // float intensity = readFloat(message, point, offsets.intensity);
-
+      
 			// Convert point coordinates in meter to image coordinates in pixel
       int xPixel = 250.0 * (-y + 2.0);
       int yPixel = 250.0 * (-x + 2.0);
@@ -67,16 +72,25 @@ void makeMatrix(Image imageStruct, double* angleData, const SickScanPointCloudMs
         image[3 * yPixel * imageStruct.width + 3 * xPixel + 0] = 255; // R
         image[3 * yPixel * imageStruct.width + 3 * xPixel + 1] = 255; // G
         image[3 * yPixel * imageStruct.width + 3 * xPixel + 2] = 255; // B
+        angleData[count] = x;
+        angleData[count+1] = y;
+        count += 2;
+
         angle  = std::atan2(y,  x);
         angle = angle * 180 / pi;
+
+        angle += 135;
       }
 
       // Record the angle data for this point (TODO: Move this logic to the polar callback)
       if (angle >=0 && angle <= 270){
         auto distance = sqrt(pow(x, 2) + pow(y, 2));
         angleData[static_cast<int>(angle)] = distance;
+
       }
+
 		}
+
 	}
 }
 

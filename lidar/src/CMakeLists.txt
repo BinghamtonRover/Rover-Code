@@ -11,9 +11,9 @@ add_subdirectory(sick_scan_xd)
 include_directories("sick_scan_xd/include/sick_scan_xd_api")
 
 if (NOT WIN32)
-add_executable(lidar udp.cpp image.cpp lidar.cpp main.cpp)
+add_executable(lidar udp.cpp lidar.cpp main.cpp)
 target_link_libraries(lidar sick_scan_xd_lib)
 endif()
 
-add_library(lidar_ffi SHARED lidar.cpp image.cpp )
+add_library(lidar_ffi SHARED lidar.cpp )
 target_link_libraries(lidar_ffi sick_scan_xd_lib)
