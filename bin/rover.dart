@@ -44,7 +44,7 @@ Future<void> compileAllPrograms() async {
       logger.warning("Not all git submodules have been initialized, but --offline was passed");
     } else {
       logger.info("Updating submodules. This requires internet...");
-      await runCommand("git", ["submodule", "update", "--init"]);
+      await runCommand("git", ["submodule", "update", "--init", "--recursive"]);
     }
   }
 
