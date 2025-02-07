@@ -15,7 +15,7 @@ const systemdHeader =
 
 Future<bool> isServiceRunning(String program) async {
   final result = await getCommandOutput("sudo", ["systemctl", "is-active", program]);
-  return result == "active";
+  return result.trim() == "active";
 }
 
 extension SystemdGenerator on RoverProgram {

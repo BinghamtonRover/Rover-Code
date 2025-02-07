@@ -5,14 +5,14 @@ const programs = [
     name: "video",
     description: "Streams all the cameras and sends the feeds to the Dashboard",
     extraCommands: [
-      ExtraCommand("Build RealSense SDK", "bash", ["src/build.sh"]),
+      ExtraCommand("Building RealSense SDK", "bash", ["build.sh"]),
     ],
   ),
   RoverProgram(
     name: "subsystems",
     description: "Commands all the hardware and sends data to the Dashboard",
     extraCommands: [
-      ExtraCommand("Build libserialport library", "make", ["-C", "src"]),
+      ExtraCommand("Building libserialport library", "make", ["-C", "src"]),
     ],
   ),
   RoverProgram(
@@ -24,7 +24,18 @@ const programs = [
     description: "Analyzes video frames to look for objects of interest",
     language: Language.python,
     extraCommands: [
-      ExtraCommand("Install dependencies", "python", ["-m", "pip", "install", "-r", "requirements.txt"]),
+      ExtraCommand(
+        "Installing pip",
+        "sudo",
+        ["apt-get", "install", "python3-pip", "-y"],
+        requiresInternet: true,
+      ),
+      ExtraCommand(
+        "Installing dependencies",
+        "python3",
+        ["-m", "pip", "install", "-r", "requirements.txt", "--break-system-packages"],
+        requiresInternet: true,
+      ),
     ],
   ),
 ];

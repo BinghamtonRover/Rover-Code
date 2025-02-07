@@ -15,8 +15,9 @@ class ExtraCommand {
   final String task;
   final String command;
   final List<String> args;
+  final bool requiresInternet;
 
-  const ExtraCommand(this.task, this.command, this.args);
+  const ExtraCommand(this.task, this.command, this.args, {this.requiresInternet = false});
 }
 
 typedef TerminalCommand = (String, List<String>);
@@ -57,9 +58,9 @@ class RoverProgram {
 
   /// The command to compile this program.
   TerminalCommand? get compileCommand => switch (language) {
-    Language.dart => ("dart", ["compile", "exe", "bin/$name.dart", "-o", "~/$name"]),
+    Language.dart => ("dart", ["compile", "exe", "bin/$name.dart", "-o", "$homeDir/$name"]),
     Language.python => null,
   };
-
-
 }
+
+final String homeDir = Platform.environment["HOME"]!;
