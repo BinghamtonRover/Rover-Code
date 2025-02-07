@@ -1,0 +1,31 @@
+name: Test setup scripts
+
+on:
+  push:
+    paths:
+      - 'bin/**'
+      - 'lib/**'
+      - './pubspec.yaml
+    branches:
+      - "main"
+  pull_request:
+    paths:
+      - 'bin/**'
+      - 'lib/**'
+      - './pubspec.yaml'
+      - '.github/**'
+
+jobs:
+  setup_scripts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 3.6.0
+
+      - name: Run setup script
+        run: dart run :rover --verbose
