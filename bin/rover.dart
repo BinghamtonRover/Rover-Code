@@ -11,6 +11,7 @@ void main(List<String> cliArgs) async {
   parser.addFlag("offline", help: "Skip any steps that require internet", negatable: false);
   parser.addFlag("help", abbr: "h", help: "Show this help message and exits", negatable: false);
   parser.addFlag("verbose", help: "Show all output", negatable: false);
+
   final args = parser.parse(cliArgs);
   offline = args.flag("offline");
   final verbose = args.flag("verbose");
