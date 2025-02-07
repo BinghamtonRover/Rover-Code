@@ -5,7 +5,7 @@ on:
     paths:
       - 'bin/**'
       - 'lib/**'
-      - './pubspec.yaml
+      - './pubspec.yaml'
     branches:
       - "main"
   pull_request:
