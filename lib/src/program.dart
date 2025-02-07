@@ -11,6 +11,16 @@ enum Language {
   python,
 }
 
+class ExtraCommand {
+  final String task;
+  final String command;
+  final List<String> args;
+
+  const ExtraCommand(this.task, this.command, this.args);
+}
+
+typedef TerminalCommand = (String, List<String>);
+
 /// A team-written program on the rover.
 ///
 /// This class will be used to compile the program and register the executable with systemd
@@ -23,7 +33,7 @@ class RoverProgram {
   final String description;
 
   /// Any extra commands to compile native assets.
-  final List<String>? extraCommands;
+  final List<ExtraCommand>? extraCommands;
 
   /// What language this program is compiled in.
   final Language language;
@@ -46,12 +56,10 @@ class RoverProgram {
   String get sourceDir => "${Directory.current.path}/$name";
 
   /// The command to compile this program.
-  List<String> get compileCommands => switch (language) {
-    Language.dart => [
-      "dart compile exe bin/$name.dart -o ~/$name",
-    ],
-    Language.python => [
-
-    ]
+  TerminalCommand? get compileCommand => switch (language) {
+    Language.dart => ("dart", ["compile", "exe", "bin/$name.dart", "-o", "~/$name"]),
+    Language.python => null,
   };
+
+
 }

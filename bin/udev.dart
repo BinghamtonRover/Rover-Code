@@ -1,9 +1,7 @@
 // ignore_for_file: avoid_print
 
 import "dart:io";
-import "../all_devices.dart";
-
-const filename = "linux/15-rover.rules";
+import "package:rover/all_devices.dart";
 
 const header =
 """
@@ -51,9 +49,9 @@ void main() async {
   }
 
   final contents = buffer.toString();
-  final file = File(filename);
+  final file = File("/etc/udev/rules.d/15-rover.rules");
   await file.create(recursive: true);
   await file.writeAsString(contents);
 
-  print("Generated $filename with ${devices.length} devices");
+  print("Generated ${file.path} with ${devices.length} devices");
 }

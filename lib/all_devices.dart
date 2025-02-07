@@ -1,4 +1,4 @@
-import "package:rover/device.dart";
+import "package:rover/src/device.dart";
 
 const devices = <Device>[
   // ==================== Drive Cameras ====================
