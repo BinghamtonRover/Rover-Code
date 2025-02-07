@@ -21,7 +21,7 @@ void main(List<String> cliArgs) async {
 
   if (showHelp) {
     // ignore: avoid_print
-    print("\nUsage: dart run :compile [--offline] [--verbose] [--help]\n${parser.usage}");
+    print("\nUsage: dart run :rover [--offline] [--verbose] [--help]\n${parser.usage}");
     return;
   }
 
