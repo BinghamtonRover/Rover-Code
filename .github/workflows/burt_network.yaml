@@ -2,6 +2,8 @@ name: Test burt_network
 
 on:
   push:
+    paths:
+      - 'burt_network/**'
     branches: [ "main" ]
   pull_request:
 
