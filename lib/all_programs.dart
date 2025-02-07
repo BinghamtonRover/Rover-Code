@@ -24,7 +24,7 @@ const programs = [
     description: "Navigates the field autonomously",
   ),
   RoverProgram(
-    name: "cv",
+    name: "vision",
     description: "Analyzes video frames to look for objects of interest",
     language: Language.python,
     extraCommands: [

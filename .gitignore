@@ -3,3 +3,4 @@ linux/
 .vscode
 scripts/compile.sh
 docs/
+pubspec.lock
