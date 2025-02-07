@@ -1,17 +1,22 @@
-import "dart:io";
 import "package:args/args.dart";
 import "package:burt_network/logging.dart";
 import "package:rover/rover.dart";
 
+late bool offline;
+
 void main(List<String> cliArgs) async {
   final parser = ArgParser();
-  parser.addFlag("help", abbr: "h", help: "Show this help message and exits", negatable: false);
+  parser.addFlag("compile", help: "Compile all rover programs", defaultsTo: true);
+  parser.addFlag("udev", help: "Generate udev rules", defaultsTo: true);
   parser.addFlag("offline", help: "Skip any steps that require internet", negatable: false);
+  parser.addFlag("help", abbr: "h", help: "Show this help message and exits", negatable: false);
   parser.addFlag("verbose", help: "Show all output", negatable: false);
   final args = parser.parse(cliArgs);
-  final offline = args.flag("offline");
+  offline = args.flag("offline");
   final verbose = args.flag("verbose");
   final showHelp = args.flag("help");
+  final udev = args.flag("udev");
+  final compile = args.flag("compile");
   Logger.level = verbose ? LogLevel.all : LogLevel.info;
 
   if (showHelp) {
@@ -20,6 +25,19 @@ void main(List<String> cliArgs) async {
     return;
   }
 
+  if (compile) {
+    await compileAllPrograms();
+  }
+
+  if (udev) {
+    logger.info("Generating udev rules...");
+    await writeUdevFile();
+  }
+
+  logger.info("Done!");
+}
+
+Future<void> compileAllPrograms() async {
   if (await needsGitSubmodules()) {
     if (offline) {
       logger.warning("Not all git submodules have been initialized, but --offline was passed");
@@ -62,13 +80,6 @@ void main(List<String> cliArgs) async {
     }
 
     // Save, enable, and start the systemd service
-    // Note that we can't write directly to the service file because we need to use sudo
-    final systemdFile = File("temp.service");
-    await systemdFile.writeAsString(program.systemdService, flush: true);
-    await runCommand("sudo", ["cp", "temp.service", "/etc/systemd/system/$name.service"]);
-    await runCommand("sudo", ["systemctl", "enable", name], hideOutput: true);  // always uses stderr
-    await runCommand("sudo", ["systemctl", "start", name]);
-    await systemdFile.delete();
+    await writeSystemdFile(program);
   }
-  logger.info("Done!");
 }

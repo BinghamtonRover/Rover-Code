@@ -13,12 +13,17 @@ const systemdHeader =
 # For more information, see: https://bing-rover.gitbook.io/docs/v/software/onboard-computers/configuring-systemd
 """;
 
-Future<bool> isServiceRunning(String program) async {
-  final result = await getCommandOutput("sudo", ["systemctl", "is-active", program]);
+/// Returns whether the given systemd service is running.
+Future<bool> isServiceRunning(String service) async {
+  final result = await getCommandOutput("sudo", ["systemctl", "is-active", service]);
   return result.trim() == "active";
 }
 
+/// Generates systemd service files for rover programs.
 extension SystemdGenerator on RoverProgram {
+  /// The systemd service file for this service.
+  ///
+  /// For more information, see: https://www.digitalocean.com/community/tutorials/understanding-systemd-units-and-unit-files
   String get systemdService {
     final buffer = StringBuffer();
     buffer.writeln(systemdHeader);

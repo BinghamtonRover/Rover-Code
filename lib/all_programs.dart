@@ -1,5 +1,8 @@
 import "package:rover/src/program.dart";
 
+/// All programs written by the rover team that need to be compiled.
+///
+/// For more information, see [RoverProgram].
 const programs = [
   RoverProgram(
     name: "video",
