@@ -1,0 +1,7 @@
+{
+	"files.associations": {
+		"*.cs": "csharp",
+		"cstdlib": "cpp"
+	},
+	"cmake.sourceDirectory": "C:/Users/aidan/dev/MarsRover/mono-rover/lidar/src"
+}
