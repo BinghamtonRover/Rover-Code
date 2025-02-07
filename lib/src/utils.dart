@@ -8,21 +8,26 @@ extension MapRecords<K, V> on Map<K, V> {
   Iterable<(K, V)> get records => entries.map((entry) => (entry.key, entry.value));
 }
 
-Future<String?> getCommandOutput(String command, List<String> arguments, {bool checkErrors = false}) async {
+Future<String?> getCommandOutput(String command, List<String> arguments) async {
+  logger.debug("Running $command $arguments");
   final result = await Process.run(command, arguments);
-  if (checkErrors && result.exitCode != 0) return null;
+  logger.trace(result.stdout);
+  logger.warning(result.stderr);
+  logger.debug("Command finished with exit code ${result.exitCode}");
   return result.stdout as String;
 }
 
-Future<void> runCommand(String command, List<String> arguments, {String? workingDirectory, bool isFatal = true}) async {
+Future<void> runCommand(String command, List<String> arguments, {String? workingDirectory}) async {
+  logger.debug("Running $command $arguments");
   final result = await Process.run(command, arguments, workingDirectory: workingDirectory);
+  logger.trace(result.stdout);
+  logger.debug("Command finished with exit code ${result.exitCode}");
   if (result.exitCode != 0) {
-    final logFunction = isFatal ? logger.critical : logger.warning;
     final args = arguments.join(" ");
-    logFunction(
+    logger.critical(
       "Failed to execute command: $command $args",
       body: "${result.stdout}\n${result.stderr}",
     );
-    if (isFatal) exit(1);
+    exit(1);
   }
 }
