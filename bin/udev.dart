@@ -1,7 +1,7 @@
-// ignore_for_file: avoid_print
-
 import "dart:io";
-import "package:rover/all_devices.dart";
+import "package:args/args.dart";
+import "package:burt_network/logging.dart";
+import "package:rover/rover.dart";
 
 const header =
 """
@@ -24,7 +24,21 @@ const header =
 #   https://bing-rover.gitbook.io/docs/v/software/onboard-computers/video/udev-rules
 """;
 
-void main() async {
+void main(List<String> cliArgs) async {
+  final parser = ArgParser();
+  parser.addFlag("help", abbr: "h", help: "Show this help message and exits", negatable: false);
+  parser.addFlag("verbose", help: "Show all output", negatable: false);
+  final args = parser.parse(cliArgs);
+  final verbose = args.flag("verbose");
+  final showHelp = args.flag("help");
+  Logger.level = verbose ? LogLevel.all : LogLevel.info;
+
+  if (showHelp) {
+    // ignore: avoid_print
+    print("\nUsage: dart run :udev [--verbose] [--help]\n${parser.usage}");
+    return;
+  }
+
   final buffer = StringBuffer();
   buffer.writeln(header);
 
@@ -49,9 +63,13 @@ void main() async {
   }
 
   final contents = buffer.toString();
-  final file = File("/etc/udev/rules.d/15-rover.rules");
+  logger.trace("udev rules file:\n");
+  logger.trace(contents);
+  final file = File("temp.rules");
   await file.create(recursive: true);
-  await file.writeAsString(contents);
+  await file.writeAsString(contents, flush: true);
+  await runCommand("sudo", ["cp", file.path, "/etc/udev/rules.d/15-rover.rules"]);
+  await file.delete();
 
-  print("Generated ${file.path} with ${devices.length} devices");
+  logger.info("Generated ${file.path} with ${devices.length} devices");
 }
