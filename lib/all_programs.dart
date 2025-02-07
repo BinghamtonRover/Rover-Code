@@ -8,6 +8,7 @@ const programs = [
     name: "video",
     description: "Streams all the cameras and sends the feeds to the Dashboard",
     extraCommands: [
+      ExtraCommand("Download the RealSense SDK", "git", ["submodule", "update", "--init"], requiresInternet: true),
       ExtraCommand("Building RealSense SDK", "bash", ["build.sh"]),
     ],
   ),
