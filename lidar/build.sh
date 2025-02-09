@@ -1,6 +1,6 @@
 set -e
 
-cd src
+cd lib
 # git submodule update
 cd ..
 
