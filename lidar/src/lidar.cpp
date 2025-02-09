@@ -158,9 +158,7 @@ void cartesianCallback(SickScanApiHandle apiHandle, const SickScanPointCloudMsg*
       }
     }
   }
-  // makeMatrix(image, angleData, pointCloudMsg);
-  // addCross(image, pointCloudMsg);
-  // addHiddenArea(image);
+  globalLidar->coordinateLength = count;
 }
 
 void updateStatus(Lidar* lidar) {

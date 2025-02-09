@@ -22,6 +22,7 @@ typedef struct Lidar {
   Image image;  // Unused but populated. Leave as-is for now.
   double* angleData;
   double* coordinateData;
+  int coordinateLength;
   LidarStatus statusCode;
   char* statusBuffer;
   bool hasNewData;
