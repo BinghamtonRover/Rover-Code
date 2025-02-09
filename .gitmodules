@@ -1,3 +1,4 @@
+# Our Rover programs (TODO: use git subtree instead to embed the code)
 [submodule "Autonomy"]
 	path = autonomy
 	url = https://github.com/BinghamtonRover/Autonomy
@@ -7,9 +8,22 @@
 [submodule "Video"]
 	path = video
 	url = https://github.com/BinghamtonRover/Video
+
+# Dependencies of our programs and libraries
 [submodule "Protobuf"]
 	path = burt_network/Protobuf
 	url = https://github.com/BinghamtonRover/Protobuf
 [submodule "libserialport"]
 	path = subsystems/src/libserialport
 	url = https://github.com/sigrokproject/libserialport
+[submodule "src/sick_scan_xd"]
+	path = lidar/src/sick_scan_xd
+	url = https://github.com/BinghamtonRover/sick_scan_xd
+	branch = fpic
+[submodule "src/opencv"]
+	path = opencv_ffi/src/opencv
+	url = https://github.com/opencv/opencv
+[submodule "Python-Networking"]
+	path = vision/lib/network
+	url = https://github.com/BinghamtonRover/Python-Networking
+
