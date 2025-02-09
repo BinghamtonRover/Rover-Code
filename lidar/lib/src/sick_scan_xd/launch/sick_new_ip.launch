@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!--
+     !!!EXPERIMENTAL!!!
+     !!! ONLY BINARY COMMAND SUPPORT !!!
+     **********************************************
+     Lanch File for setting new ip address
+     **********************************************
+    This is an experimental launch file to set a new ip address in the scanner.
+    Maybe one should add a EEPROM-write command. But in our tests this was not necessary.
+-->
+<!-- Using node option required="true" will close roslaunch after node exits -->
+
+<launch>
+    <arg name="hostname" default="192.168.0.1"/>
+    <arg name="new_IP" default="192.168.0.2"/>
+    <node name="sick_new_ip" pkg="sick_scan_xd" type="sick_generic_caller" respawn="false" output="screen" required="true">
+        <param name="scanner_type" type="string" value="sick_tim_5xx"/>
+        <param name="use_binary_protocol" type="bool" value="True"/>
+        <param name="hostname" type="string" value="$(arg hostname)"/>
+        <param name="port" type="string" value="2112"/>
+        <param name="timelimit" type="int" value="5"/>
+        <param name="new_IP_address" type="string" value="$(arg new_IP)"/>
+        <param name="min_intensity" type="double" value="0.0"/> <!-- Set range of LaserScan messages to infinity, if intensity < min_intensity (default: 0) -->
+        <param name="use_generation_timestamp" type="bool" value="true"/> <!-- Use the lidar generation timestamp (true, default) or send timestamp (false) for the software pll converted message timestamp -->
+
+        <param name="start_services" type="bool" value="True" />                  <!-- Start ros service for cola commands, default: true -->
+        <param name="message_monitoring_enabled" type="bool" value="True" />      <!-- Enable message monitoring with reconnect+reinit in case of timeouts, default: true -->
+        <param name="read_timeout_millisec_default" type="int" value="5000"/>     <!-- 5 sec read timeout in operational mode (measurement mode), default: 5000 milliseconds -->
+        <param name="read_timeout_millisec_startup" type="int" value="120000"/>   <!-- 120 sec read timeout during startup (sensor may be starting up, which can take up to 120 sec.), default: 120000 milliseconds -->
+        <param name="read_timeout_millisec_kill_node" type="int" value="150000"/> <!-- 150 sec pointcloud timeout, ros node will be killed if no point cloud published within the last 150 sec., default: 150000 milliseconds -->
+        <!-- Note: read_timeout_millisec_kill_node less or equal 0 deactivates pointcloud monitoring (not recommended) -->
+        <param name="client_authorization_pw" type="string" value="F4724744"/>    <!-- Default password for client authorization -->
+
+        <!-- Configuration of ROS quality of service: -->
+        <!-- On ROS-1, parameter "ros_qos" sets the queue_size of ros publisher -->
+        <!-- On ROS-2, parameter "ros_qos" sets the QoS of ros publisher to one of the following predefined values: -->
+        <!-- 0: rclcpp::SystemDefaultsQoS(), 1: rclcpp::ParameterEventsQoS(), 2: rclcpp::ServicesQoS(), 3: rclcpp::ParametersQoS(), 4: rclcpp::SensorDataQoS() -->
+        <!-- See e.g. https://docs.ros2.org/dashing/api/rclcpp/classrclcpp_1_1QoS.html#ad7e932d8e2f636c80eff674546ec3963 for further details about ROS2 QoS -->
+        <!-- Default value is -1, i.e. queue_size=10 on ROS-1 resp. qos=rclcpp::SystemDefaultsQoS() on ROS-2 is used.-->
+        <param name="ros_qos" type="int" value="-1"/>  <!-- Default QoS=-1, i.e. do not overwrite, use queue_size=10 on ROS-1 resp. qos=rclcpp::SystemDefaultsQoS() on ROS-2 -->
+
+        <!-- 
+        Optional mode to convert lidar ticks to ros- resp. system-timestamps:
+        tick_to_timestamp_mode = 0 (default): convert lidar ticks in microseconds to system timestamp by software-pll
+        tick_to_timestamp_mode = 1 (optional tick-mode): convert lidar ticks in microseconds to timestamp by 1.0e-6*(curtick-firstTick)+firstSystemTimestamp
+        tick_to_timestamp_mode = 2 (optional tick-mode): convert lidar ticks in microseconds directly into a lidar timestamp by sec = tick/1000000, nsec = 1000*(tick%1000000)
+        Note: Using tick_to_timestamp_mode = 2, the timestamps in ROS message headers will be in lidar time, not in system time. Lidar and system time can be very different.
+        Using tick_to_timestamp_mode = 2 might cause unexpected results or error messages. We recommend using tick_to_timestamp_mode = 2 for special test cases only.
+        -->
+        <param name="tick_to_timestamp_mode" type="int" value="0"/>
+
+    </node>
+
+</launch>
+
+

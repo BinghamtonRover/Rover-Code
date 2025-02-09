@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<!-- Using node option required="true" will close roslaunch after node exits -->
+<launch>
+    <arg name="hostname" default="192.168.0.1"/>
+    <arg name="cloud_topic" default="cloud"/>
+    <arg name="laserscan_topic" default="scan"/>
+    <arg name="frame_id" default="cloud"/>
+    <arg name="scan_cfg_list_entry" default="1"/>
+    <arg name="skip" default="0"/>
+    <arg name="nodename" default="sick_lrs_4xxx"/>
+    <arg name="add_transform_xyz_rpy" default="0,0,0,0,0,0"/>
+    <arg name="add_transform_check_dynamic_updates" default="false"/> <!-- Note: dynamical updates of parameter add_transform_xyz_rpy can decrease the performance and is therefor deactivated by default -->
+    <arg name="encoder_mode" default="-1"/> <!-- Encoder settings (default: -1, i.e. not set): 0: Off, 1: Single increment, 2: Direction recognition phase, 3: Direction recognition level, 4: Fixed increment speed/ticks (LMS4000 only) -->
+    <arg name="tf_publish_rate" default="10.0" />                     <!-- Rate to publish TF messages in hz, use 0 to deactivate TF messages -->
+    <node name="$(arg nodename)" pkg="sick_scan_xd" type="sick_generic_caller" respawn="false" output="screen" required="true">
+        <param name="scanner_type" type="string" value="sick_lrs_4xxx"/>
+        <param name="hostname" type="string" value="$(arg hostname)"/>
+        <param name="cloud_topic" type="string" value="$(arg cloud_topic)"/>
+        <param name="laserscan_topic" type="string" value="$(arg laserscan_topic)"/>
+        <param name="frame_id" type="str" value="$(arg frame_id)"/>
+        <param name="port" type="string" value="2112"/>
+        <param name="timelimit" type="int" value="5"/>
+        <param name="min_ang" type="double" value="-3.1415926"/>
+        <param name="max_ang" type="double" value="3.1415926"/>
+        <param name="use_binary_protocol" type="bool" value="true"/>
+        
+        <!-- Optional range filter configuration: If the range of a scan point is less than range_min or greater than range_max, the point can be filtered. -->
+        <!-- Depending on parameter range_filter_handling, the following filter can be applied for points with a range not within [range_min, range_max],   -->
+        <!-- see enumeration RangeFilterResultHandling in range_filter.h:                                           -->
+        <!--   0: RANGE_FILTER_DEACTIVATED,  do not apply range filter (default)                                    -->
+        <!--   1: RANGE_FILTER_DROP,         drop point, if range is not within [range_min, range_max]              -->
+        <!--   2: RANGE_FILTER_TO_ZERO,      set range to 0, if range is not within [range_min, range_max]          -->
+        <!--   3: RANGE_FILTER_TO_RANGE_MAX, set range to range_max, if range is not within [range_min, range_max]  -->
+        <!--   4: RANGE_FILTER_TO_FLT_MAX,   set range to FLT_MAX, if range is not within [range_min, range_max]    -->
+        <!--   5: RANGE_FILTER_TO_NAN        set range to NAN, if range is not within [range_min, range_max]        -->
+        <!-- Note: Range filter applies only to Pointcloud messages, not to LaserScan messages.                     -->
+        <!-- Using range_filter_handling 4 or 5 requires handling of FLT_MAX and NAN values in an application.      -->
+        <param name="range_min" type="double" value="0.0"/>
+        <param name="range_max" type="double" value="100.0"/>
+        <param name="range_filter_handling" type="int" value="0"/>
+        
+        <param name="intensity" type="bool" value="True"/>
+        <param name="min_intensity" type="double" value="0.0"/> <!-- Set range of LaserScan messages to infinity, if intensity < min_intensity (default: 0) -->
+        <param name="encoder_mode" type="int" value="$(arg encoder_mode)"/> <!-- Encoder settings (default: -1, i.e. not set): 0: Off, 1: Single increment, 2: Direction recognition phase, 3: Direction recognition level, 4: Fixed increment speed/ticks (LMS4000 only) -->
+        <param name="use_generation_timestamp" type="bool" value="true"/> <!-- Use the lidar generation timestamp (true, default) or send timestamp (false) for the software pll converted message timestamp -->
+        <param name="filter_echos" type="int" value="2"/> <!-- FREchoFilter settings: 0 = first echo, 1 = all echos (echo filter off), 2 = last echo -->
+        <param name="skip" type="int" value="$(arg skip)"/> <!-- Default: 0 (i.e. publish each scan), otherwise only each n.th scan is published -->
+        <param name="scan_cfg_list_entry" type="int" value="$(arg scan_cfg_list_entry)"/>
+        <!-- Parameter scan_cfg_list_entry can be set to one of the following modes of the LRS4000 table (sets the scan configuration by "sMN mCLsetscancfglist <mode>")        
+        Mode Name Interlaced ScanFreq ResultScanFreq Resolution TotalResol FieldOfView        
+         1 12.5Hz & 0.040 deg 0x 12.5 Hz 12.5 Hz 0.040 deg 0.040 deg 360 deg
+         2 12.5Hz & 0.060 deg 0x 12.5 Hz 12.5 Hz 0.060 deg 0.060 deg 360 deg
+         4 12.5Hz & 0.100 deg 0x 12.5 Hz 12.5 Hz 0.100 deg 0.100 deg 360 deg
+         5 12.5Hz & 0.120 deg 0x 12.5 Hz 12.5 Hz 0.120 deg 0.120 deg 360 deg
+        11 12.5Hz & 0.020 deg 0x 12.5 Hz 12.5 Hz 0.040 deg 0.020 deg 288 deg
+        71   25Hz & 0.040 deg 0x   25 Hz   25 Hz 0.080 deg 0.040 deg 288 deg
+        61   25Hz & 0.080 deg 0x   25 Hz   25 Hz 0.080 deg 0.080 deg 360 deg
+        62   25Hz & 0.120 deg 0x   25 Hz   25 Hz 0.120 deg 0.120 deg 360 deg
+        64   25Hz & 0.200 deg 0x   25 Hz   25 Hz 0.200 deg 0.200 deg 360 deg
+        65   25Hz & 0.240 deg 0x   25 Hz   25 Hz 0.240 deg 0.240 deg 360 deg
+         -->
+
+        <!-- Apply an additional transform to the cartesian pointcloud, default: "0,0,0,0,0,0" (i.e. no transform) -->
+        <!-- Note: add_transform_xyz_rpy is specified by 6D pose x, y, z, roll, pitch, yaw in [m] resp. [rad] -->
+        <!-- It transforms a 3D point in cloud coordinates to 3D point in user defined world coordinates: --> 
+        <!-- add_transform_xyz_rpy := T[world,cloud] with parent "world" and child "cloud", i.e. P_world = T[world,cloud] * P_cloud -->
+        <!-- The additional transform applies to cartesian lidar pointclouds and visualization marker (fields) -->
+        <!-- It is NOT applied to polar pointclouds, radarscans, ldmrs objects or other messages -->
+        <param name="add_transform_xyz_rpy" type="string" value="$(arg add_transform_xyz_rpy)" /> 
+        <param name="add_transform_check_dynamic_updates" type="bool" value="$(arg add_transform_check_dynamic_updates)" />
+
+        <param name="start_services" type="bool" value="True" />                  <!-- Start ros service for cola commands, default: true -->
+        <param name="message_monitoring_enabled" type="bool" value="True" />      <!-- Enable message monitoring with reconnect+reinit in case of timeouts, default: true -->
+        <param name="read_timeout_millisec_default" type="int" value="5000"/>     <!-- 5 sec read timeout in operational mode (measurement mode), default: 5000 milliseconds -->
+        <param name="read_timeout_millisec_startup" type="int" value="120000"/>   <!-- 120 sec read timeout during startup (sensor may be starting up, which can take up to 120 sec.), default: 120000 milliseconds -->
+        <param name="read_timeout_millisec_kill_node" type="int" value="150000"/> <!-- 150 sec pointcloud timeout, ros node will be killed if no point cloud published within the last 150 sec., default: 150000 milliseconds -->
+        <!-- Note: read_timeout_millisec_kill_node less or equal 0 deactivates pointcloud monitoring (not recommended) -->
+        <param name="client_authorization_pw" type="string" value="F4724744"/>    <!-- Default password for client authorization -->
+
+        <!-- Supported by sick_generic_caller version 2.7.3 and above: -->
+        <param name="lfp_meanfilter" type="int" value="-1" />              <!-- MRS1xxx, LMS1xxx, LMS4xxx, LRS4xxx: lfp_meanfilter<0: do not apply, lfp_meanfilter==0: deactivate LFPmeanfilter, lfp_meanfilter>0: activate LFPmeanfilter with lfp_meanfilter = number of scans -->
+        <param name="lfp_medianfilter" type="int" value="-1" />            <!-- MRS1xxx, LMS1xxx, LMS4xxx, LRS4xxx: lfp_medianfilter<0: do not apply, lfp_medianfilter==0: deactivate LFPmedianfilter, lfp_medianfilter==1: activate LFPmedianfilter -->
+        <!-- Note on lfp_meanfilter and lfp_medianfilter for MRS1xxx, LMS1xxx, LMS4xxx, LRS4xxx: -->
+        <!-- Default value is -1, which means: "do not apply". This default value does not overwrite the device settings, -->
+        <!-- i.e. the default factory settings resp. filter settings configured by SOPAS ET are used. -->
+        <!-- Use value "0" to deactivate mean or median filter. Use values > 0 to set a mean or median filter. -->
+
+        <param name="lmd_scandatascalefactor" type="double" value="0.0" /> <!-- LRS4xxx: lmd_scandatascalefactor==0: do not apply, lmd_scandatascalefactor>0: set distance value in mm per digit -->
+        <!-- Supported by sick_generic_caller version 2.8.4 and above: -->
+        <param name="glare_detection_sens" type="int" value="-1" />        <!-- Glare Detection Sensitivity (LRS4xxx only): glare_detection_sens<0: do not apply, glare_detection_sens==0: deactivate glare_detection_filter, glare_detection_sens==5: medium glare detection sensitivity, glare_detection_sens==10: sensitive glare detection filter -->
+
+        <!-- Configuration of ROS quality of service: -->
+        <!-- On ROS-1, parameter "ros_qos" sets the queue_size of ros publisher -->
+        <!-- On ROS-2, parameter "ros_qos" sets the QoS of ros publisher to one of the following predefined values: -->
+        <!-- 0: rclcpp::SystemDefaultsQoS(), 1: rclcpp::ParameterEventsQoS(), 2: rclcpp::ServicesQoS(), 3: rclcpp::ParametersQoS(), 4: rclcpp::SensorDataQoS() -->
+        <!-- See e.g. https://docs.ros2.org/dashing/api/rclcpp/classrclcpp_1_1QoS.html#ad7e932d8e2f636c80eff674546ec3963 for further details about ROS2 QoS -->
+        <!-- Default value is -1, i.e. queue_size=10 on ROS-1 resp. qos=rclcpp::SystemDefaultsQoS() on ROS-2 is used.-->
+        <param name="ros_qos" type="int" value="-1"/>  <!-- Default QoS=-1, i.e. do not overwrite, use queue_size=10 on ROS-1 resp. qos=rclcpp::SystemDefaultsQoS() on ROS-2 -->
+
+        <!-- 
+        On ROS-1 and ROS-2, sick_scan_xd publishes TF messsages to map a given base frame (i.e. base coordinates system) to the lidar frame (i.e. lidar coordinates system) and vice versa.
+        The default base frame id is "map" (which is the default frame in rviz). 
+        The default 6D pose is (x,y,z,roll,pitch,yaw) = (0,0,0,0,0,0) defined by position (x,y,z) in meter and (roll,pitch,yaw) in radians.
+        This 6D pose (x,y,z,roll,pitch,yaw) is the transform T[base,lidar] with parent "base" and child "lidar".
+        For lidars mounted on a carrier, the lidar pose T[base,lidar] and base frame can be configured in this launchfile using the following parameter.
+        The lidar frame id given by parameter "frame_id" resp. "publish_frame_id".
+        Note that the transform is specified using (x,y,z,roll,pitch,yaw). In contrast, the ROS static_transform_publisher uses commandline arguments in order (x,y,z,yaw,pitch,roll).
+        -->
+        <param name="tf_base_frame_id" type="string" value="map" />              <!-- Frame id of base coordinates system, e.g. "map" (default frame in rviz) -->
+        <param name="tf_base_lidar_xyz_rpy" type="string" value="0,0,0,0,0,0" /> <!-- T[base,lidar], 6D pose (x,y,z,roll,pitch,yaw) in meter resp. radians with parent "map" and child "cloud" -->
+        <param name="tf_publish_rate" type="double" value="$(arg tf_publish_rate)" />                <!-- Rate to publish TF messages in hz, use 0 to deactivate TF messages -->
+
+        <!-- 
+        Optional mode to convert lidar ticks to ros- resp. system-timestamps:
+        tick_to_timestamp_mode = 0 (default): convert lidar ticks in microseconds to system timestamp by software-pll
+        tick_to_timestamp_mode = 1 (optional tick-mode): convert lidar ticks in microseconds to timestamp by 1.0e-6*(curtick-firstTick)+firstSystemTimestamp
+        tick_to_timestamp_mode = 2 (optional tick-mode): convert lidar ticks in microseconds directly into a lidar timestamp by sec = tick/1000000, nsec = 1000*(tick%1000000)
+        Note: Using tick_to_timestamp_mode = 2, the timestamps in ROS message headers will be in lidar time, not in system time. Lidar and system time can be very different.
+        Using tick_to_timestamp_mode = 2 might cause unexpected results or error messages. We recommend using tick_to_timestamp_mode = 2 for special test cases only.
+        -->
+        <param name="tick_to_timestamp_mode" type="int" value="0"/>
+
+    </node>
+</launch>

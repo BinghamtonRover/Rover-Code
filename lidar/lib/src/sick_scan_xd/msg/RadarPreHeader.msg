@@ -1,0 +1,7 @@
+# Version information for this whole structure (MeasurementData)
+
+uint16 uiversionno
+sick_scan_xd/RadarPreHeaderDeviceBlock radarpreheaderdeviceblock
+sick_scan_xd/RadarPreHeaderStatusBlock radarpreheaderstatusblock
+sick_scan_xd/RadarPreHeaderMeasurementParam1Block radarpreheadermeasurementparam1block
+sick_scan_xd/RadarPreHeaderEncoderBlock[] radarpreheaderarrayencoderblock
