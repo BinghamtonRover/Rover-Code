@@ -1,3 +1,7 @@
+autonomy:
+  - changed-files:
+    - any-glob-to-any-file: 'autonomy/**'
+
 subsystems:
   - changed-files:
       - any-glob-to-any-file: 'subsystems/**'
@@ -5,6 +9,10 @@ subsystems:
 networking:
   - changed-files:
       - any-glob-to-any-file: 'burt_network/**'
+
+video:
+  - changed-files:
+    - any-glob-to-any-file: 'video/**'
 
 protobuf:
   - changed-files:
@@ -18,7 +26,7 @@ vision:
   - changed-files:
     - any-glob-to-any-file: 'vision/**'
 
-monorepo:
+pi-setup:
   - changed-files:
     - any-glob-to-any-file: 'bin/**'
     - any-glob-to-any-file: 'lib/**'
