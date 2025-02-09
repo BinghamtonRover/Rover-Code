@@ -13,7 +13,6 @@ extern "C" {
 #include <stdbool.h>
 
 #include "sick_scan_api.h"
-#include "image.h"
 
 typedef enum SickScanApiErrorCodes LidarStatus;
 
