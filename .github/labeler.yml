@@ -1,11 +1,28 @@
-Subsystems:
+subsystems:
   - changed-files:
       - any-glob-to-any-file: 'subsystems/**'
 
-Networking:
+networking:
   - changed-files:
       - any-glob-to-any-file: 'burt_network/**'
 
-Protobuf:
+protobuf:
   - changed-files:
     - any-glob-to-any-file: 'burt_network/lib/src/generated/**'
+
+lidar:
+  - changed-files:
+    - any-glob-to-any-file: 'lidar/**'
+
+vision:
+  - changed-files:
+    - any-glob-to-any-file: 'vision/**'
+
+monorepo:
+  - changed-files:
+    - any-glob-to-any-file: 'bin/**'
+    - any-glob-to-any-file: 'lib/**'
+
+workflow:
+  - changed-files:
+    - any-glob-to-any-file: '.github/workflows/**'
