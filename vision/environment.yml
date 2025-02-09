@@ -1,0 +1,20 @@
+name: rover-cv
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pytorch
+  - torchvision 
+  - pytorch-cuda=11.8
+  - pip
+  - pip:
+    - ultralytics
+    - python-dotenv
+    - roboflow
+    - opencv-python-headless>=4.10.0
+    - protobuf
+    - asyncio
+    - opencv-python

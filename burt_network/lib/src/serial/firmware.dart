@@ -115,6 +115,7 @@ class BurtFirmwareSerial extends Service {
   /// Resets the device and closes the port.
   @override
   Future<void> dispose() async {
+    _serial.stopListening();
     if (!await _reset()) logger.warning("The $device device on port $port did not reset");
     await _serial.dispose();
   }

@@ -1,0 +1,24 @@
+
+# Run with `dart run ffigen --config lidar.yaml -v severe`.
+name: LidarBindings
+description: |
+  Bindings for the LiDAR SDK.
+
+  Regenerate bindings with `dart run ffigen --lidar ffigen.yaml -v severe`.
+output: "lib/src/lidar_bindings.g.dart"
+headers:
+  entry-points:
+    - "src/lidar.h"
+    - "src/sick_scan_api.h"
+  include-directives:
+    - "src/lidar.h"
+    - "src/sick_scan_api.h"
+comments:
+  style: any
+  length: full
+compiler-opts:
+  - '-Isrc/sick_scan_xd/include/sick_scan_xd_api'
+silence-enum-warning: true
+structs:
+  rename:
+    "Lidar": "NativeLidar"

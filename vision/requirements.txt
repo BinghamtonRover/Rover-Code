@@ -1,0 +1,5 @@
+opencv-python
+ultralytics
+Roboflow
+python-dotenv
+protobuf

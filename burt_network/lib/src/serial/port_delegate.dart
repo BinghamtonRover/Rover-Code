@@ -23,7 +23,6 @@ class DelegateSerialPort extends SerialPortInterface {
     final result = _delegate!.openReadWrite();
     final config = SerialPortConfig()..baudRate = baudRate;
     _delegate!.config = config;
-    config.dispose();
     return result;
   }
 

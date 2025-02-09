@@ -17,10 +17,17 @@ void main(List<String> args) async {
 
   // Get the user's choice of package
   final parser = ArgParser()
-    ..addOption("package", abbr: "p", mandatory: true);
+    ..addOption("package", abbr: "p", help: "The package to document", mandatory: true)
+    ..addFlag("help", abbr: "h", help: "Show this help message and exits", negatable: false);
+
   final results = parser.parse(args);
   final package = results.option("package");
-  if (package == null) {
+  final showHelp = results.flag("help");
+
+  if (showHelp) {
+    print("Usage: dart run :doc --package <package> [--help]\n${parser.usage}");
+    return;
+  } else if (package == null) {
     print("Usage: dart run :doc -p <package>");
     print(parser.usage);
     return;

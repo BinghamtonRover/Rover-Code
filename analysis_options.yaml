@@ -26,9 +26,8 @@ analyzer:
     strict-raw-types: true
 
   exclude:
-    - burt_network/lib/src/generated/**.dart
-    - lib/
-    - all_*.dart
+    - '**/*.pb*.dart'
+    - test/**.dart
 
 linter:
   rules:
