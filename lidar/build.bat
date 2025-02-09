@@ -1,13 +1,13 @@
 @echo off
 
 rem Build lidar_ffi_wrapper
-cd lib
+cd src
 git submodule init
 git submodule update
 cd ..
 if not exist build mkdir build
 cd build
-cmake ../lib
+cmake ../src
 if %ERRORLEVEL% == 1 exit /b
 cmake --build .
 cd ..
