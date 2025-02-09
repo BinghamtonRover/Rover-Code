@@ -14,8 +14,6 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'geometry.pb.dart' as $1;
-import 'version.pb.dart' as $3;
-import 'video.pbenum.dart' as $7;
 import 'vision.pbenum.dart';
 
 export 'vision.pbenum.dart';
@@ -268,80 +266,6 @@ class DetectedObject extends $pb.GeneratedMessage {
   void clearAlternatePnpResult() => clearField(11);
   @$pb.TagNumber(11)
   PnpResult ensureAlternatePnpResult() => $_ensure(9);
-}
-
-class VisionResult extends $pb.GeneratedMessage {
-  factory VisionResult({
-    $3.Version? version,
-    $7.CameraName? name,
-    $core.Iterable<DetectedObject>? objects,
-  }) {
-    final $result = create();
-    if (version != null) {
-      $result.version = version;
-    }
-    if (name != null) {
-      $result.name = name;
-    }
-    if (objects != null) {
-      $result.objects.addAll(objects);
-    }
-    return $result;
-  }
-  VisionResult._() : super();
-  factory VisionResult.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory VisionResult.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'VisionResult', createEmptyInstance: create)
-    ..aOM<$3.Version>(1, _omitFieldNames ? '' : 'version', subBuilder: $3.Version.create)
-    ..e<$7.CameraName>(2, _omitFieldNames ? '' : 'name', $pb.PbFieldType.OE, defaultOrMaker: $7.CameraName.CAMERA_NAME_UNDEFINED, valueOf: $7.CameraName.valueOf, enumValues: $7.CameraName.values)
-    ..pc<DetectedObject>(3, _omitFieldNames ? '' : 'objects', $pb.PbFieldType.PM, subBuilder: DetectedObject.create)
-    ..hasRequiredFields = false
-  ;
-
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  VisionResult clone() => VisionResult()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  VisionResult copyWith(void Function(VisionResult) updates) => super.copyWith((message) => updates(message as VisionResult)) as VisionResult;
-
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static VisionResult create() => VisionResult._();
-  VisionResult createEmptyInstance() => create();
-  static $pb.PbList<VisionResult> createRepeated() => $pb.PbList<VisionResult>();
-  @$core.pragma('dart2js:noInline')
-  static VisionResult getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<VisionResult>(create);
-  static VisionResult? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $3.Version get version => $_getN(0);
-  @$pb.TagNumber(1)
-  set version($3.Version v) { setField(1, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasVersion() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearVersion() => clearField(1);
-  @$pb.TagNumber(1)
-  $3.Version ensureVersion() => $_ensure(0);
-
-  @$pb.TagNumber(2)
-  $7.CameraName get name => $_getN(1);
-  @$pb.TagNumber(2)
-  set name($7.CameraName v) { setField(2, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasName() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearName() => clearField(2);
-
-  @$pb.TagNumber(3)
-  $core.List<DetectedObject> get objects => $_getList(2);
 }
 
 

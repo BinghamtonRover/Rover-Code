@@ -70,19 +70,3 @@ final $typed_data.Uint8List detectedObjectDescriptor = $convert.base64Decode(
     'ogASgLMgouUG5wUmVzdWx0Ug1iZXN0UG5wUmVzdWx0EjoKEmFsdGVybmF0ZVBucFJlc3VsdBgL'
     'IAEoCzIKLlBucFJlc3VsdFISYWx0ZXJuYXRlUG5wUmVzdWx0');
 
-@$core.Deprecated('Use visionResultDescriptor instead')
-const VisionResult$json = {
-  '1': 'VisionResult',
-  '2': [
-    {'1': 'version', '3': 1, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
-    {'1': 'name', '3': 2, '4': 1, '5': 14, '6': '.CameraName', '10': 'name'},
-    {'1': 'objects', '3': 3, '4': 3, '5': 11, '6': '.DetectedObject', '10': 'objects'},
-  ],
-};
-
-/// Descriptor for `VisionResult`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List visionResultDescriptor = $convert.base64Decode(
-    'CgxWaXNpb25SZXN1bHQSIgoHdmVyc2lvbhgBIAEoCzIILlZlcnNpb25SB3ZlcnNpb24SHwoEbm'
-    'FtZRgCIAEoDjILLkNhbWVyYU5hbWVSBG5hbWUSKQoHb2JqZWN0cxgDIAMoCzIPLkRldGVjdGVk'
-    'T2JqZWN0UgdvYmplY3Rz');
-
