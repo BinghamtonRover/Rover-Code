@@ -31,9 +31,6 @@ LidarStatus init(Lidar* lidar) {
   lidar->statusBuffer = new char[sickScanMessageSize];
   memset(lidar->angleData, 0, 271 * sizeof(double));
   memset(lidar->coordinateData, 0, 542 * sizeof(double));
-  lidar->image.height = imageHeight;
-  lidar->image.width = imageWidth;
-  lidar->image.data = new uint8_t[imageSize];
 
   // Initialize the SickScan API.
   SickScanApiSetVerboseLevel(lidar->api, 3); // 0=DEBUG, 1=INFO, 2=WARN, 3=ERROR, 4=FATAL or 5=QUIET
@@ -58,7 +55,6 @@ void dispose(Lidar* lidar) {
   SickScanApiDeregisterCartesianPointCloudMsg(lidar->api, cartesianCallback);
   SickScanApiClose(lidar->api);
   SickScanApiRelease(lidar->api);
-  delete lidar->image.data;
   delete lidar->angleData;
   delete lidar->coordinateData;
   delete lidar->statusBuffer;
@@ -111,11 +107,10 @@ float readFloat(const SickScanPointCloudMsg* message, int point, int field) {
 void cartesianCallback(SickScanApiHandle apiHandle, const SickScanPointCloudMsg* pointCloudMsg) {
   if (globalLidar == nullptr || globalLidar->hasNewData) return;
   globalLidar->hasNewData = true;
-  if(pointCloudMsg->height == 0 || pointCloudMsg->width == 0 || globalLidar->image.data == nullptr){
+  if(pointCloudMsg->height == 0 || pointCloudMsg->width == 0){
     return;
   }
   
-  auto image = globalLidar->image;
   auto angleData = globalLidar->angleData;
   auto coordinateData = globalLidar->coordinateData;
 
