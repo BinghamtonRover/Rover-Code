@@ -5,12 +5,14 @@ on:
     paths:
       - 'bin/**'
       - 'lib/**'
+      - .github/workflows/setup.yaml
     branches:
       - "main"
   pull_request:
     paths:
       - 'bin/**'
       - 'lib/**'
+      - .github/workflows/setup.yaml
 
 jobs:
   setup_scripts:
