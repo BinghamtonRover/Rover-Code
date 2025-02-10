@@ -48,6 +48,10 @@ Future<void> compileAllPrograms() async {
     }
   }
 
+  if (!offline) {
+    await runCommand("sudo", ["apt", "update", "-y"]);
+  }
+
   for (final program in programs) {
     final name = program.name;
     logger.info("Processing the $name program");
