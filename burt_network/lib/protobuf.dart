@@ -10,6 +10,7 @@ export "src/generated/core.pb.dart";
 export "src/generated/drive.pb.dart";
 export "src/generated/geometry.pb.dart";
 export "src/generated/gps.pb.dart";
+export "src/generated/lidar.pb.dart";
 export "src/generated/logs.pb.dart";
 export "src/generated/motor.pb.dart";
 export "src/generated/relays.pb.dart";
