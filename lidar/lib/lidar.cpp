@@ -26,11 +26,11 @@ void cartesianCallback(SickScanApiHandle apiHandle, const SickScanPointCloudMsg*
 LidarStatus init(Lidar* lidar) {
   /// Initialize and allocate data for the struct.
   lidar->api = SickScanApiCreate(0, nullptr);
-  lidar->angleData = new double[271];
-  lidar->coordinateData = new double[542];
+  lidar->angleData = new double[272];
+  lidar->coordinateData = new double[543];
   lidar->statusBuffer = new char[sickScanMessageSize];
-  memset(lidar->angleData, 0, 271 * sizeof(double));
-  memset(lidar->coordinateData, 0, 542 * sizeof(double));
+  memset(lidar->angleData, 0, 272 * sizeof(double));
+  memset(lidar->coordinateData, 0, 543 * sizeof(double));
   lidar->image.height = imageHeight;
   lidar->image.width = imageWidth;
   lidar->image.data = new uint8_t[imageSize];
@@ -125,8 +125,8 @@ void cartesianCallback(SickScanApiHandle apiHandle, const SickScanPointCloudMsg*
 
   memset(angleData, 0, 272 * sizeof(double));
   memset(coordinateData, 0, 543 * sizeof(double));
-  coordinateData[0] = -1;
-  angleData[0] = -2;
+  coordinateData[0] = 1;
+  angleData[0] = 2;
   /// Plot all points in pointcloud
   int count = 1; 
   for (int row = 0; row < pointCloudMsg->height; row++) {
