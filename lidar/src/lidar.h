@@ -18,6 +18,7 @@ typedef enum SickScanApiErrorCodes LidarStatus;
 
 typedef struct Lidar {
   SickScanApiHandle api;
+  Image image;  // Unused but populated. Leave as-is for now.
   double* angleData;
   double* coordinateData;
   int coordinateLength;
