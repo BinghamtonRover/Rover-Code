@@ -1,7 +1,8 @@
 set -e
 
 cd lib
-# git submodule update
+git submodule init
+git submodule update
 cd ..
 
 mkdir -p build

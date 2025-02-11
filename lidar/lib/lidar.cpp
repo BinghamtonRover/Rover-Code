@@ -6,9 +6,6 @@
 
 #include "lidar.h"
 
-const int imageWidth = 1'000;
-const int imageHeight = 1'000;
-const int imageSize = 3 * imageHeight * imageWidth;
 const int sickScanMessageSize = 128;
 
 const double pi = 3.141592653589293;
@@ -31,9 +28,7 @@ LidarStatus init(Lidar* lidar) {
   lidar->statusBuffer = new char[sickScanMessageSize];
   memset(lidar->angleData, 0, 272 * sizeof(double));
   memset(lidar->coordinateData, 0, 543 * sizeof(double));
-  lidar->image.height = imageHeight;
-  lidar->image.width = imageWidth;
-  lidar->image.data = new uint8_t[imageSize];
+  lidar->coordinateLength = 0;
 
   // Initialize the SickScan API.
   SickScanApiSetVerboseLevel(lidar->api, 3); // 0=DEBUG, 1=INFO, 2=WARN, 3=ERROR, 4=FATAL or 5=QUIET
@@ -58,7 +53,6 @@ void dispose(Lidar* lidar) {
   SickScanApiDeregisterCartesianPointCloudMsg(lidar->api, cartesianCallback);
   SickScanApiClose(lidar->api);
   SickScanApiRelease(lidar->api);
-  delete lidar->image.data;
   delete lidar->angleData;
   delete lidar->coordinateData;
   delete lidar->statusBuffer;
@@ -111,11 +105,10 @@ float readFloat(const SickScanPointCloudMsg* message, int point, int field) {
 void cartesianCallback(SickScanApiHandle apiHandle, const SickScanPointCloudMsg* pointCloudMsg) {
   if (globalLidar == nullptr || globalLidar->hasNewData) return;
   globalLidar->hasNewData = true;
-  if(pointCloudMsg->height == 0 || pointCloudMsg->width == 0 || globalLidar->image.data == nullptr){
+  if(pointCloudMsg->height == 0 || pointCloudMsg->width == 0){
     return;
   }
   
-  auto image = globalLidar->image;
   auto angleData = globalLidar->angleData;
   auto coordinateData = globalLidar->coordinateData;
 
@@ -139,7 +132,6 @@ void cartesianCallback(SickScanApiHandle apiHandle, const SickScanPointCloudMsg*
       // TODO: Can/should we use intensity?
       // float intensity = readFloat(message, point, offsets.intensity);
       
-      // Convert point coordinates in meter to image coordinates in pixel
       int xPixel = 250.0 * (-y + 2.0);
       int yPixel = 250.0 * (-x + 2.0);
       if (xPixel >= 0 && xPixel < 1000 && yPixel >= 0 && yPixel < 1000) {

@@ -34,7 +34,7 @@ int main() {
     if (lidar->hasNewData) {
       auto angleData = lidar->angleData;
       auto buffer = reinterpret_cast<uint8_t*>(angleData);
-      if (!socket.send(buffer, 271 * sizeof(double))) {
+      if (!socket.send(buffer, 272 * sizeof(double))) {
         perror("Could not send data over UDP");
       }
       auto coordinateData = lidar->coordinateData;
