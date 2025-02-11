@@ -1,13 +1,13 @@
 set -e
 
-cd src
+cd lib
 # git submodule update
 cd ..
 
 mkdir -p build
 
 cd build
-cmake ../src
+cmake ../lib
 
 # On WSL (Windows Subsystems for Linux), build as normal.
 # On other systems, assume you're on a Pi and conserve memory with -j 1
