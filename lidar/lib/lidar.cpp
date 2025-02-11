@@ -125,7 +125,7 @@ void cartesianCallback(SickScanApiHandle apiHandle, const SickScanPointCloudMsg*
   for (int row = 0; row < pointCloudMsg->height; row++) {
     for (int col = 0; col < pointCloudMsg->width; col++) {
       // Get cartesian point coordinates
-      int point = row * pointCloudMsg->row_step + col * pointCloudMsg->point_step;
+      int point = (row * pointCloudMsg->row_step) + (col * pointCloudMsg->point_step);
       float x = *((float*)(pointCloudMsg->data.buffer + point + offsets.x));
       float y = *((float*)(pointCloudMsg->data.buffer + point + offsets.y));
 
@@ -135,6 +135,7 @@ void cartesianCallback(SickScanApiHandle apiHandle, const SickScanPointCloudMsg*
       int xPixel = 250.0 * (-y + 2.0);
       int yPixel = 250.0 * (-x + 2.0);
       if (xPixel >= 0 && xPixel < 1000 && yPixel >= 0 && yPixel < 1000) {
+        std::cout << xPixel << " " << yPixel << std::endl;
         coordinateData[count] = x;
         coordinateData[count+1] = y;
         count += 2;

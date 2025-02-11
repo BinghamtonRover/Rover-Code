@@ -5,7 +5,7 @@
 #include "lidar.h"
 #include "udp.hpp"
 
-const int sleepDelay = 1;  // seconds
+const int sleepDelay = 100000;  // microseconds
 const int destinationPort = 8004;
 
 int main() {
@@ -18,7 +18,7 @@ int main() {
   // Open the lidar
   auto lidar = new Lidar;
   init(lidar);
-  sleep(15);  // init is actually async. TODO: better error-handling
+  sleep(10);  // init is actually async. TODO: better error-handling
 
   while (true) {
     // Check for errors and quit if there are any (the lidar has disconnected)
@@ -48,6 +48,6 @@ int main() {
       std::cout << "no data \n";
     }
 
-    sleep(sleepDelay);
+    usleep(sleepDelay);
   }
 }
