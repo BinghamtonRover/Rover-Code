@@ -34,7 +34,13 @@ const programs = [
         ["apt-get", "install", "python3-pip", "-y"],
         requiresInternet: true,
       ),
-      ExtraCommand(
+    ExtraCommand(
+        "Update pip",
+        "python3",
+        ["-m", "pip", "install", "--upgrade", "pip"],
+        requiresInternet: true,
+      ),
+            ExtraCommand(
         "Installing dependencies",
         "python3",
         ["-m", "pip", "install", "-r", "requirements.txt", "--break-system-packages"],
