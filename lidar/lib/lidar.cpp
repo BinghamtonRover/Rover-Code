@@ -93,22 +93,13 @@ CartesianFieldOffsets getOffsets(const SickScanPointCloudMsg* message) {
   return result;
 }
 
-float readFloat(const SickScanPointCloudMsg* message, int point, int field) {
-  // The fields are floats, stored in a list of bytes. First find the byte, then cast.
-  auto bytePtr = message->data.buffer[point + field];
-
-  auto floatPtr = reinterpret_cast<float*>(bytePtr);
-
-  return *floatPtr;
-}
-
 void cartesianCallback(SickScanApiHandle apiHandle, const SickScanPointCloudMsg* pointCloudMsg) {
   if (globalLidar == nullptr || globalLidar->hasNewData) return;
   globalLidar->hasNewData = true;
   if(pointCloudMsg->height == 0 || pointCloudMsg->width == 0){
     return;
   }
-  
+
   auto angleData = globalLidar->angleData;
   auto coordinateData = globalLidar->coordinateData;
 
@@ -121,7 +112,7 @@ void cartesianCallback(SickScanApiHandle apiHandle, const SickScanPointCloudMsg*
   coordinateData[0] = 1;
   angleData[0] = 2;
   /// Plot all points in pointcloud
-  int count = 1; 
+  int count = 1;
   for (int row = 0; row < pointCloudMsg->height; row++) {
     for (int col = 0; col < pointCloudMsg->width; col++) {
       // Get cartesian point coordinates
@@ -131,7 +122,7 @@ void cartesianCallback(SickScanApiHandle apiHandle, const SickScanPointCloudMsg*
 
       // TODO: Can/should we use intensity?
       // float intensity = readFloat(message, point, offsets.intensity);
-      
+
       int xPixel = 250.0 * (-y + 2.0);
       int yPixel = 250.0 * (-x + 2.0);
       if (xPixel >= 0 && xPixel < 1000 && yPixel >= 0 && yPixel < 1000) {
@@ -140,11 +131,10 @@ void cartesianCallback(SickScanApiHandle apiHandle, const SickScanPointCloudMsg*
         coordinateData[count+1] = y;
         count += 2;
 
-        angle  = std::atan2(y,  x);
-        angle = angle * 180 / pi;
-
-        angle += 135;
-              // Record the angle data for this point (TODO: Move this logic to the polar callback)
+        // Record the angle data for this point (TODO: Move this logic to the polar callback)
+        angle = std::atan2(y,  x);  // the angle from the origin to the x, y coordinate
+        angle = angle * 180 / pi;   // ...converted to radians
+        angle += 135;               // ...offset to the [-135, +135] range of the lidar
         if (angle >=0 && angle <= 270){
           auto distance = sqrt(pow(x, 2) + pow(y, 2));
           angleData[static_cast<int>(angle)+1] = distance;
