@@ -1,5 +1,12 @@
 #include <cstdlib>
-#include <unistd.h>
+#ifdef __linux__ 
+  #include <unistd.h>
+#elif _WIN32
+  #include <windows.h>
+#else
+#endif
+
+
 #include <iostream>
 
 #include "lidar.h"
@@ -17,7 +24,11 @@ int main() {
   // Open the lidar
   auto lidar = new Lidar;
   init(lidar);
+#if __linux__
   sleep(5);  // init is actually async. TODO: better error-handling
+#elseif(WIN32)
+  Sleep(5000);
+#endif
 
   while (true) {
     // Check for errors and quit if there are any (the lidar has disconnected)
@@ -38,6 +49,10 @@ int main() {
       }
     }
 
-    sleep(sleepDelay);
+#if __linux__
+    sleep(sleepDelay);  // init is actually async. TODO: better error-handling
+#elseif(WIN32)
+    Sleep(sleepDelay);
+#endif
   }
 }

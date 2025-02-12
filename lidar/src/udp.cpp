@@ -1,12 +1,19 @@
-#include <errno.h>
-#include <iostream>
-#include <netinet/in.h>
-#include <string.h>
-#include <sys/socket.h>
-#include <sys/types.h>
-#include <unistd.h>
-
 #include "udp.hpp"
+  #include <errno.h>
+  #include <iostream>
+
+#ifdef __linux__ 
+  #include <netinet/in.h>
+  #include <string.h>
+  #include <sys/socket.h>
+  #include <sys/types.h>
+  #include <unistd.h>
+#elif _WIN32
+  #include <windows.h>
+#else
+#endif
+
+
 
 UdpSocket::UdpSocket(int destPort) : destPort(destPort) { }
 
