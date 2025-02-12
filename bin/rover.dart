@@ -12,7 +12,7 @@ void main(List<String> cliArgs) async {
   parser.addFlag("udev", help: "Generate udev rules", defaultsTo: true);
   parser.addFlag("offline", help: "Skip any steps that require internet", negatable: false);
   parser.addFlag("help", abbr: "h", help: "Show this help message and exits", negatable: false);
-  parser.addFlag("verbose", help: "Show all output", negatable: false);
+  parser.addFlag("verbose", abbr: "v", help: "Show all output", negatable: false);
 
   final args = parser.parse(cliArgs);
   offline = args.flag("offline");
@@ -25,7 +25,7 @@ void main(List<String> cliArgs) async {
 
   if (showHelp) {
     // ignore: avoid_print
-    print("\nUsage: dart run :rover [--offline] [--verbose] [--help]\n${parser.usage}");
+    print("\nUsage: dart run :rover [--offline] [--verbose] [--only <program>] [--help]\n${parser.usage}");
     return;
   }
 

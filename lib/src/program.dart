@@ -76,7 +76,7 @@ class RoverProgram {
   (String, List<String>)? get compileCommand => switch (language) {
     Language.dart => ("dart", ["compile", "exe", "bin/$name.dart", "-o", "$homeDir/$name"]),
     Language.python => null,
-    Language.cpp => ("sudo", ["bash", "build.sh"]),
+    Language.cpp => ("bash", ["build.sh"]),
   };
 }
 
