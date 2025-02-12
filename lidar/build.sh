@@ -16,7 +16,7 @@ cmake ../lib
 # Not using -j at all causes the Pi 5 (8 GB RAM) to run out of memory and halt
 if [[ -v CI ]];
 then
-  echo Running on CI, using all cores
+  echo "Running on CI, building sick_scan with $(nproc) processors"
   cmake --build . -j$(nproc)
 else
   echo Running on Pi, using 1 core
