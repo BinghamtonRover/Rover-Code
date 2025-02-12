@@ -103,6 +103,7 @@ const VideoData$json = {
     {'1': 'frame', '3': 3, '4': 1, '5': 12, '10': 'frame'},
     {'1': 'version', '3': 4, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
     {'1': 'imagePath', '3': 5, '4': 1, '5': 9, '10': 'imagePath'},
+    {'1': 'detectedObjects', '3': 6, '4': 3, '5': 11, '6': '.DetectedObject', '10': 'detectedObjects'},
   ],
 };
 
@@ -110,7 +111,8 @@ const VideoData$json = {
 final $typed_data.Uint8List videoDataDescriptor = $convert.base64Decode(
     'CglWaWRlb0RhdGESDgoCaWQYASABKAlSAmlkEigKB2RldGFpbHMYAiABKAsyDi5DYW1lcmFEZX'
     'RhaWxzUgdkZXRhaWxzEhQKBWZyYW1lGAMgASgMUgVmcmFtZRIiCgd2ZXJzaW9uGAQgASgLMggu'
-    'VmVyc2lvblIHdmVyc2lvbhIcCglpbWFnZVBhdGgYBSABKAlSCWltYWdlUGF0aA==');
+    'VmVyc2lvblIHdmVyc2lvbhIcCglpbWFnZVBhdGgYBSABKAlSCWltYWdlUGF0aBI5Cg9kZXRlY3'
+    'RlZE9iamVjdHMYBiADKAsyDy5EZXRlY3RlZE9iamVjdFIPZGV0ZWN0ZWRPYmplY3Rz');
 
 @$core.Deprecated('Use videoCommandDescriptor instead')
 const VideoCommand$json = {
