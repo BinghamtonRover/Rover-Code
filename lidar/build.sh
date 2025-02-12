@@ -17,7 +17,7 @@ cmake ../lib
 if [[ -v CI ]];
 then
   echo Running on CI, using all cores
-  cmake --build .
+  cmake --build . -j$(nproc)
 else
   echo Running on Pi, using 1 core
   cmake --build . -j 1
