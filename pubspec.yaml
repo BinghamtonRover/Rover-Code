@@ -8,7 +8,6 @@ workspace:
   - burt_network
   - subsystems
   - video
-  - lidar
   - opencv_ffi
 
 dependencies:
