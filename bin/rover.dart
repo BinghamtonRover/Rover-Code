@@ -51,6 +51,10 @@ Future<void> compileAllPrograms(String? only) async {
     }
   }
 
+  if (!offline) {
+    await runCommand("sudo", ["apt", "update", "-y"]);
+  }
+
   for (final program in programs) {
     final name = program.name;
     if (only != null && name != only) continue;
