@@ -14,7 +14,7 @@ cmake ../lib
 # On other systems, assume you're on a Pi and conserve memory with -j 1
 # Feel free to change this to a more accurate check, or to try out -j 2
 # Not using -j at all causes the Pi 5 (8 GB RAM) to run out of memory and halt
-if [ -z "$CI" ];
+if [[ -v CI ]];
 then
   echo Running on CI, using all cores
   cmake --build .
