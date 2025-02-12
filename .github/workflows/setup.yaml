@@ -1,0 +1,30 @@
+name: Test setup scripts
+
+on:
+  push:
+    paths:
+      - 'bin/**'
+      - 'lib/**'
+    branches:
+      - "main"
+  pull_request:
+    paths:
+      - 'bin/**'
+      - 'lib/**'
+
+jobs:
+  setup_scripts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Install Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 3.6.0
+
+      - name: Run setup script
+        run: dart run :rover --verbose
