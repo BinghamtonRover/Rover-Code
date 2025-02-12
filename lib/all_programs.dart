@@ -42,4 +42,9 @@ const programs = [
       ),
     ],
   ),
+  RoverProgram(
+    name: "lidar",
+    description: "Reads from the lidar and sends to video",
+    language: Language.cpp,
+  ),
 ];
