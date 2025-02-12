@@ -26,3 +26,5 @@ mkdir -p dist
 cp build/*.so dist
 cp build/lidar .
 cp build/lidar $HOME
+cp lidar.launch $HOME
+
