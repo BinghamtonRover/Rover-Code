@@ -12,7 +12,7 @@ const gpsPort = "/dev/rover-gps";
 /// The UDP socket on the Autonomy program.
 final autonomySocket = SocketInfo(
   address: InternetAddress("192.168.1.30"),
-  port: 8001,
+  port: 8003,
 );
 
 /// The UDP socket for the Base Station program
@@ -146,7 +146,7 @@ class GpsReader extends Service {
     }
 
     final rtkMessage = Uint8List.fromList(message.rtkMessage);
-    logger.debug("Writing RTK Message", body: "Writing a ${rtkMessage.lengthInBytes}-byte RTCM packet to serial");
+    logger.trace("Writing RTK Message", body: "Writing a ${rtkMessage.lengthInBytes}-byte RTCM packet to serial");
     device.write(rtkMessage);
   }
 
