@@ -21,7 +21,7 @@ class DelegateSerialPort extends SerialPortInterface {
   Future<bool> init() async {
     _delegate = SerialPort(portName);
     final result = _delegate!.openReadWrite();
-    final config = SerialPortConfig()..baudRate = baudRate;
+    final config = _delegate!.config..baudRate = baudRate;
     _delegate!.config = config;
     return result;
   }
