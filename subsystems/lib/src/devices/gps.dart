@@ -104,6 +104,9 @@ class GpsReader extends Service {
     baudRate: 38400,
   );
 
+  /// Whether or not the GPS device is connected
+  bool get isConnected => device.isOpen;
+
   /// The subscription to the serial port.
   StreamSubscription<List<int>>? _subscription;
 

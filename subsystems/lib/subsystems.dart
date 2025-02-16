@@ -98,6 +98,8 @@ class SubsystemsCollection extends Service {
         connectedDevices: firmware.devices
             .where((e) => e.isReady)
             .map((firmware) => firmware.device),
+        gpsConnected: gps.isConnected ? BoolState.YES : BoolState.NO,
+        imuConnected: imu.isConnected ? BoolState.YES : BoolState.NO,
       ),
     );
   }

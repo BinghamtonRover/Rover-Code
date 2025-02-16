@@ -14,6 +14,7 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'core.pbenum.dart' as $6;
+import 'utils.pbenum.dart' as $0;
 import 'version.pb.dart' as $3;
 
 class SubsystemsCommand extends $pb.GeneratedMessage {
@@ -86,6 +87,8 @@ class SubsystemsData extends $pb.GeneratedMessage {
   factory SubsystemsData({
     $3.Version? version,
     $core.Iterable<$6.Device>? connectedDevices,
+    $0.BoolState? gpsConnected,
+    $0.BoolState? imuConnected,
   }) {
     final $result = create();
     if (version != null) {
@@ -93,6 +96,12 @@ class SubsystemsData extends $pb.GeneratedMessage {
     }
     if (connectedDevices != null) {
       $result.connectedDevices.addAll(connectedDevices);
+    }
+    if (gpsConnected != null) {
+      $result.gpsConnected = gpsConnected;
+    }
+    if (imuConnected != null) {
+      $result.imuConnected = imuConnected;
     }
     return $result;
   }
@@ -103,6 +112,8 @@ class SubsystemsData extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'SubsystemsData', createEmptyInstance: create)
     ..aOM<$3.Version>(1, _omitFieldNames ? '' : 'version', subBuilder: $3.Version.create)
     ..pc<$6.Device>(2, _omitFieldNames ? '' : 'connectedDevices', $pb.PbFieldType.KE, protoName: 'connectedDevices', valueOf: $6.Device.valueOf, enumValues: $6.Device.values, defaultEnumValue: $6.Device.DEVICE_UNDEFINED)
+    ..e<$0.BoolState>(3, _omitFieldNames ? '' : 'gpsConnected', $pb.PbFieldType.OE, protoName: 'gpsConnected', defaultOrMaker: $0.BoolState.BOOL_UNDEFINED, valueOf: $0.BoolState.valueOf, enumValues: $0.BoolState.values)
+    ..e<$0.BoolState>(4, _omitFieldNames ? '' : 'imuConnected', $pb.PbFieldType.OE, protoName: 'imuConnected', defaultOrMaker: $0.BoolState.BOOL_UNDEFINED, valueOf: $0.BoolState.valueOf, enumValues: $0.BoolState.values)
     ..hasRequiredFields = false
   ;
 
@@ -140,6 +151,24 @@ class SubsystemsData extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(2)
   $core.List<$6.Device> get connectedDevices => $_getList(1);
+
+  @$pb.TagNumber(3)
+  $0.BoolState get gpsConnected => $_getN(2);
+  @$pb.TagNumber(3)
+  set gpsConnected($0.BoolState v) { setField(3, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasGpsConnected() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearGpsConnected() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $0.BoolState get imuConnected => $_getN(3);
+  @$pb.TagNumber(4)
+  set imuConnected($0.BoolState v) { setField(4, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasImuConnected() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearImuConnected() => clearField(4);
 }
 
 

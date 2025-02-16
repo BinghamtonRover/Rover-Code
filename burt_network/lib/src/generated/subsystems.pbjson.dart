@@ -33,11 +33,15 @@ const SubsystemsData$json = {
   '2': [
     {'1': 'version', '3': 1, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
     {'1': 'connectedDevices', '3': 2, '4': 3, '5': 14, '6': '.Device', '10': 'connectedDevices'},
+    {'1': 'gpsConnected', '3': 3, '4': 1, '5': 14, '6': '.BoolState', '10': 'gpsConnected'},
+    {'1': 'imuConnected', '3': 4, '4': 1, '5': 14, '6': '.BoolState', '10': 'imuConnected'},
   ],
 };
 
 /// Descriptor for `SubsystemsData`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List subsystemsDataDescriptor = $convert.base64Decode(
     'Cg5TdWJzeXN0ZW1zRGF0YRIiCgd2ZXJzaW9uGAEgASgLMgguVmVyc2lvblIHdmVyc2lvbhIzCh'
-    'Bjb25uZWN0ZWREZXZpY2VzGAIgAygOMgcuRGV2aWNlUhBjb25uZWN0ZWREZXZpY2Vz');
+    'Bjb25uZWN0ZWREZXZpY2VzGAIgAygOMgcuRGV2aWNlUhBjb25uZWN0ZWREZXZpY2VzEi4KDGdw'
+    'c0Nvbm5lY3RlZBgDIAEoDjIKLkJvb2xTdGF0ZVIMZ3BzQ29ubmVjdGVkEi4KDGltdUNvbm5lY3'
+    'RlZBgEIAEoDjIKLkJvb2xTdGF0ZVIMaW11Q29ubmVjdGVk');
 
