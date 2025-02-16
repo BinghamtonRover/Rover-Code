@@ -46,7 +46,7 @@ class BurtFirmwareSerial extends Service {
     .map((packet) => WrappedMessage(data: packet, name: deviceToDataName(device)));
 
   /// Whether this device has passed the handshake.
-	bool get isReady => device != Device.FIRMWARE;
+	bool get isReady => device != Device.FIRMWARE && _serial.isOpen;
 
   @override
   Future<bool> init() async {
@@ -118,5 +118,6 @@ class BurtFirmwareSerial extends Service {
     _serial.stopListening();
     if (!await _reset()) logger.warning("The $device device on port $port did not reset");
     await _serial.dispose();
+    device = Device.FIRMWARE;
   }
 }

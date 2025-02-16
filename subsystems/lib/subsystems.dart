@@ -1,3 +1,5 @@
+import "dart:async";
+
 import "package:burt_network/burt_network.dart";
 
 import "src/devices/gps.dart";
@@ -31,11 +33,18 @@ class SubsystemsCollection extends Service {
   /// The IMU reader.
   final imu = ImuReader();
 
+  /// Timer for sending the subsystems status
+  Timer? dataSendTimer;
+
   @override
   Future<bool> init() async {
     await server.init();
     logger.socket = server;
     var result = true;
+    dataSendTimer = Timer.periodic(
+      const Duration(milliseconds: 250),
+      sendStatus,
+    );
     try {
       result &= await firmware.init();
       result &= await gps.init();
@@ -62,6 +71,7 @@ class SubsystemsCollection extends Service {
     await imu.dispose();
     await gps.dispose();
     await server.dispose();
+    dataSendTimer?.cancel();
     logger.socket = null;
     logger.info("Subsystems disposed");
   }
@@ -78,6 +88,18 @@ class SubsystemsCollection extends Service {
     firmware.sendMessage(stopArm);
     firmware.sendMessage(stopGripper);
     firmware.sendMessage(stopScience);
+  }
+  
+  /// Sends a [SubsystemsData] message over the network reporting the current status of subsystems
+  void sendStatus([_]) {
+    server.sendMessage(
+      SubsystemsData(
+        version: Version(major: 1, minor: 0),
+        connectedDevices: firmware.devices
+            .where((e) => e.isReady)
+            .map((firmware) => firmware.device),
+      ),
+    );
   }
 }
 
