@@ -74,23 +74,20 @@ extension GpsToMeters on GpsCoordinates {
   );
 
   /// Converts the current GPS coordinates in the form of [DDCoordinates]
-  DDCoordinates get asDDCoordinates => DDCoordinates(
+  DDCoordinates toDD() => DDCoordinates(
       latitude: latitude,
       longitude: longitude,
     );
 
   /// Converts the current GPS coordinates into UTM coordinates
-  UTMCoordinates get asUtmCoordinates => UTMCoordinates.fromDD(asDDCoordinates);
+  UTMCoordinates toUTM() => UTMCoordinates.fromDD(toDD());
 }
 
 /// Utility methods for converting UTM coordinates into GPS coordinates
 extension UTMToGps on UTMCoordinates {
-  /// Converts the current GPS coordinates in the form of [DDCoordinates]
-  DDCoordinates get asDDCoordinates => DDCoordinates.fromUTM(this);
-
   /// Converts the UTM coordinates into [GpsCoordinates]
-  GpsCoordinates get asGpsCoordinates {
-    final ddCoordinates = asDDCoordinates;
+  GpsCoordinates toGps() {
+    final ddCoordinates = toDD();
 
     return GpsCoordinates(
       latitude: ddCoordinates.latitude,
