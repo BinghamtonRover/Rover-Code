@@ -9,6 +9,9 @@ enum Language {
 
   /// Python.
   python,
+
+  /// C++
+  cpp,
 }
 
 /// An extra command to run before compiling a program.
@@ -61,8 +64,9 @@ class RoverProgram {
 
   /// The path to the generated executable.
   String get executable => switch (language) {
-    Language.dart => "${Platform.environment["HOME"] ?? ""}/$name",
+    Language.dart => "$homeDir/$name",
     Language.python => "python3 -m bin.main",
+    Language.cpp => "$homeDir/$name",
   };
 
   /// The path to the program's source directory.
@@ -72,6 +76,7 @@ class RoverProgram {
   (String, List<String>)? get compileCommand => switch (language) {
     Language.dart => ("dart", ["compile", "exe", "bin/$name.dart", "-o", "$homeDir/$name"]),
     Language.python => null,
+    Language.cpp => ("bash", ["build.sh"]),
   };
 }
 

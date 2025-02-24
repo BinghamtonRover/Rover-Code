@@ -27,6 +27,8 @@ class Device extends $pb.ProtobufEnum {
   static const Device RELAY = Device._(10, _omitEnumNames ? '' : 'RELAY');
   static const Device BASE_STATION = Device._(11, _omitEnumNames ? '' : 'BASE_STATION');
   static const Device ANTENNA = Device._(12, _omitEnumNames ? '' : 'ANTENNA');
+  static const Device VISION = Device._(13, _omitEnumNames ? '' : 'VISION');
+  static const Device LIDAR = Device._(14, _omitEnumNames ? '' : 'LIDAR');
 
   static const $core.List<Device> values = <Device> [
     DEVICE_UNDEFINED,
@@ -42,6 +44,8 @@ class Device extends $pb.ProtobufEnum {
     RELAY,
     BASE_STATION,
     ANTENNA,
+    VISION,
+    LIDAR,
   ];
 
   static final $core.Map<$core.int, Device> _byValue = $pb.ProtobufEnum.initByValue(values);

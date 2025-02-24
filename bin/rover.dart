@@ -6,11 +6,13 @@ late bool offline;
 
 void main(List<String> cliArgs) async {
   final parser = ArgParser();
+  final programNames = { for (final program in programs) program.name };
+  parser.addOption("only", help: "Only compile the given program", allowed: programNames);
   parser.addFlag("compile", help: "Compile all rover programs", defaultsTo: true);
   parser.addFlag("udev", help: "Generate udev rules", defaultsTo: true);
   parser.addFlag("offline", help: "Skip any steps that require internet", negatable: false);
   parser.addFlag("help", abbr: "h", help: "Show this help message and exits", negatable: false);
-  parser.addFlag("verbose", help: "Show all output", negatable: false);
+  parser.addFlag("verbose", abbr: "v", help: "Show all output", negatable: false);
 
   final args = parser.parse(cliArgs);
   offline = args.flag("offline");
@@ -18,16 +20,17 @@ void main(List<String> cliArgs) async {
   final showHelp = args.flag("help");
   final udev = args.flag("udev");
   final compile = args.flag("compile");
+  final only = args.option("only");
   Logger.level = verbose ? LogLevel.all : LogLevel.info;
 
   if (showHelp) {
     // ignore: avoid_print
-    print("\nUsage: dart run :rover [--offline] [--verbose] [--help]\n${parser.usage}");
+    print("\nUsage: dart run :rover [--offline] [--verbose] [--only <program>] [--help]\n${parser.usage}");
     return;
   }
 
   if (compile) {
-    await compileAllPrograms();
+    await compileAllPrograms(only);
   }
 
   if (udev) {
@@ -38,7 +41,7 @@ void main(List<String> cliArgs) async {
   logger.info("Done!");
 }
 
-Future<void> compileAllPrograms() async {
+Future<void> compileAllPrograms(String? only) async {
   if (await needsGitSubmodules()) {
     if (offline) {
       logger.warning("Not all git submodules have been initialized, but --offline was passed");
@@ -48,8 +51,13 @@ Future<void> compileAllPrograms() async {
     }
   }
 
+  if (!offline) {
+    await runCommand("sudo", ["apt", "update", "-y"]);
+  }
+
   for (final program in programs) {
     final name = program.name;
+    if (only != null && name != only) continue;
     logger.info("Processing the $name program");
 
     // Stop the service if it was already running

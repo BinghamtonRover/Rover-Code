@@ -14,22 +14,21 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'geometry.pb.dart' as $1;
-import 'video.pbenum.dart' as $7;
 import 'vision.pbenum.dart';
 
 export 'vision.pbenum.dart';
 
 class PnpResult extends $pb.GeneratedMessage {
   factory PnpResult({
-    $1.Pose3d? pose,
-    $core.double? error,
+    $1.Pose3d? cameraToTarget,
+    $core.double? reprojectionError,
   }) {
     final $result = create();
-    if (pose != null) {
-      $result.pose = pose;
+    if (cameraToTarget != null) {
+      $result.cameraToTarget = cameraToTarget;
     }
-    if (error != null) {
-      $result.error = error;
+    if (reprojectionError != null) {
+      $result.reprojectionError = reprojectionError;
     }
     return $result;
   }
@@ -38,8 +37,8 @@ class PnpResult extends $pb.GeneratedMessage {
   factory PnpResult.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'PnpResult', createEmptyInstance: create)
-    ..aOM<$1.Pose3d>(1, _omitFieldNames ? '' : 'pose', subBuilder: $1.Pose3d.create)
-    ..a<$core.double>(2, _omitFieldNames ? '' : 'error', $pb.PbFieldType.OD)
+    ..aOM<$1.Pose3d>(1, _omitFieldNames ? '' : 'cameraToTarget', protoName: 'cameraToTarget', subBuilder: $1.Pose3d.create)
+    ..a<$core.double>(2, _omitFieldNames ? '' : 'reprojectionError', $pb.PbFieldType.OD, protoName: 'reprojectionError')
     ..hasRequiredFields = false
   ;
 
@@ -65,33 +64,34 @@ class PnpResult extends $pb.GeneratedMessage {
   static PnpResult? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $1.Pose3d get pose => $_getN(0);
+  $1.Pose3d get cameraToTarget => $_getN(0);
   @$pb.TagNumber(1)
-  set pose($1.Pose3d v) { setField(1, v); }
+  set cameraToTarget($1.Pose3d v) { setField(1, v); }
   @$pb.TagNumber(1)
-  $core.bool hasPose() => $_has(0);
+  $core.bool hasCameraToTarget() => $_has(0);
   @$pb.TagNumber(1)
-  void clearPose() => clearField(1);
+  void clearCameraToTarget() => clearField(1);
   @$pb.TagNumber(1)
-  $1.Pose3d ensurePose() => $_ensure(0);
+  $1.Pose3d ensureCameraToTarget() => $_ensure(0);
 
   @$pb.TagNumber(2)
-  $core.double get error => $_getN(1);
+  $core.double get reprojectionError => $_getN(1);
   @$pb.TagNumber(2)
-  set error($core.double v) { $_setDouble(1, v); }
+  set reprojectionError($core.double v) { $_setDouble(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasError() => $_has(1);
+  $core.bool hasReprojectionError() => $_has(1);
   @$pb.TagNumber(2)
-  void clearError() => clearField(2);
+  void clearReprojectionError() => clearField(2);
 }
 
 class DetectedObject extends $pb.GeneratedMessage {
   factory DetectedObject({
     DetectedObjectType? objectType,
     $core.int? arucoTagId,
-    $7.CameraName? camera,
     $core.double? xPosition,
     $core.double? relativeSize,
+    $core.int? centerX,
+    $core.int? centerY,
     $core.double? yaw,
     $core.double? pitch,
     PnpResult? bestPnpResult,
@@ -104,14 +104,17 @@ class DetectedObject extends $pb.GeneratedMessage {
     if (arucoTagId != null) {
       $result.arucoTagId = arucoTagId;
     }
-    if (camera != null) {
-      $result.camera = camera;
-    }
     if (xPosition != null) {
       $result.xPosition = xPosition;
     }
     if (relativeSize != null) {
       $result.relativeSize = relativeSize;
+    }
+    if (centerX != null) {
+      $result.centerX = centerX;
+    }
+    if (centerY != null) {
+      $result.centerY = centerY;
     }
     if (yaw != null) {
       $result.yaw = yaw;
@@ -134,13 +137,14 @@ class DetectedObject extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'DetectedObject', createEmptyInstance: create)
     ..e<DetectedObjectType>(1, _omitFieldNames ? '' : 'objectType', $pb.PbFieldType.OE, protoName: 'objectType', defaultOrMaker: DetectedObjectType.DETECTION_TYPE_UNDEFINED, valueOf: DetectedObjectType.valueOf, enumValues: DetectedObjectType.values)
     ..a<$core.int>(2, _omitFieldNames ? '' : 'arucoTagId', $pb.PbFieldType.O3, protoName: 'arucoTagId')
-    ..e<$7.CameraName>(3, _omitFieldNames ? '' : 'camera', $pb.PbFieldType.OE, defaultOrMaker: $7.CameraName.CAMERA_NAME_UNDEFINED, valueOf: $7.CameraName.valueOf, enumValues: $7.CameraName.values)
     ..a<$core.double>(4, _omitFieldNames ? '' : 'xPosition', $pb.PbFieldType.OF, protoName: 'xPosition')
     ..a<$core.double>(5, _omitFieldNames ? '' : 'relativeSize', $pb.PbFieldType.OF, protoName: 'relativeSize')
-    ..a<$core.double>(6, _omitFieldNames ? '' : 'yaw', $pb.PbFieldType.OF)
-    ..a<$core.double>(7, _omitFieldNames ? '' : 'pitch', $pb.PbFieldType.OF)
-    ..aOM<PnpResult>(8, _omitFieldNames ? '' : 'bestPnpResult', protoName: 'bestPnpResult', subBuilder: PnpResult.create)
-    ..aOM<PnpResult>(9, _omitFieldNames ? '' : 'alternatePnpResult', protoName: 'alternatePnpResult', subBuilder: PnpResult.create)
+    ..a<$core.int>(6, _omitFieldNames ? '' : 'centerX', $pb.PbFieldType.O3, protoName: 'centerX')
+    ..a<$core.int>(7, _omitFieldNames ? '' : 'centerY', $pb.PbFieldType.O3, protoName: 'centerY')
+    ..a<$core.double>(8, _omitFieldNames ? '' : 'yaw', $pb.PbFieldType.OF)
+    ..a<$core.double>(9, _omitFieldNames ? '' : 'pitch', $pb.PbFieldType.OF)
+    ..aOM<PnpResult>(10, _omitFieldNames ? '' : 'bestPnpResult', protoName: 'bestPnpResult', subBuilder: PnpResult.create)
+    ..aOM<PnpResult>(11, _omitFieldNames ? '' : 'alternatePnpResult', protoName: 'alternatePnpResult', subBuilder: PnpResult.create)
     ..hasRequiredFields = false
   ;
 
@@ -184,75 +188,84 @@ class DetectedObject extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   void clearArucoTagId() => clearField(2);
 
-  @$pb.TagNumber(3)
-  $7.CameraName get camera => $_getN(2);
-  @$pb.TagNumber(3)
-  set camera($7.CameraName v) { setField(3, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasCamera() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearCamera() => clearField(3);
-
   /// Where it was detected
   @$pb.TagNumber(4)
-  $core.double get xPosition => $_getN(3);
+  $core.double get xPosition => $_getN(2);
   @$pb.TagNumber(4)
-  set xPosition($core.double v) { $_setFloat(3, v); }
+  set xPosition($core.double v) { $_setFloat(2, v); }
   @$pb.TagNumber(4)
-  $core.bool hasXPosition() => $_has(3);
+  $core.bool hasXPosition() => $_has(2);
   @$pb.TagNumber(4)
   void clearXPosition() => clearField(4);
 
   @$pb.TagNumber(5)
-  $core.double get relativeSize => $_getN(4);
+  $core.double get relativeSize => $_getN(3);
   @$pb.TagNumber(5)
-  set relativeSize($core.double v) { $_setFloat(4, v); }
+  set relativeSize($core.double v) { $_setFloat(3, v); }
   @$pb.TagNumber(5)
-  $core.bool hasRelativeSize() => $_has(4);
+  $core.bool hasRelativeSize() => $_has(3);
   @$pb.TagNumber(5)
   void clearRelativeSize() => clearField(5);
 
-  /// Experimental: Use pinhole model to find the object's position
   @$pb.TagNumber(6)
-  $core.double get yaw => $_getN(5);
+  $core.int get centerX => $_getIZ(4);
   @$pb.TagNumber(6)
-  set yaw($core.double v) { $_setFloat(5, v); }
+  set centerX($core.int v) { $_setSignedInt32(4, v); }
   @$pb.TagNumber(6)
-  $core.bool hasYaw() => $_has(5);
+  $core.bool hasCenterX() => $_has(4);
   @$pb.TagNumber(6)
-  void clearYaw() => clearField(6);
+  void clearCenterX() => clearField(6);
 
   @$pb.TagNumber(7)
-  $core.double get pitch => $_getN(6);
+  $core.int get centerY => $_getIZ(5);
   @$pb.TagNumber(7)
-  set pitch($core.double v) { $_setFloat(6, v); }
+  set centerY($core.int v) { $_setSignedInt32(5, v); }
   @$pb.TagNumber(7)
-  $core.bool hasPitch() => $_has(6);
+  $core.bool hasCenterY() => $_has(5);
   @$pb.TagNumber(7)
-  void clearPitch() => clearField(7);
+  void clearCenterY() => clearField(7);
+
+  /// Experimental: Use pinhole camera model to find the object's position
+  @$pb.TagNumber(8)
+  $core.double get yaw => $_getN(6);
+  @$pb.TagNumber(8)
+  set yaw($core.double v) { $_setFloat(6, v); }
+  @$pb.TagNumber(8)
+  $core.bool hasYaw() => $_has(6);
+  @$pb.TagNumber(8)
+  void clearYaw() => clearField(8);
+
+  @$pb.TagNumber(9)
+  $core.double get pitch => $_getN(7);
+  @$pb.TagNumber(9)
+  set pitch($core.double v) { $_setFloat(7, v); }
+  @$pb.TagNumber(9)
+  $core.bool hasPitch() => $_has(7);
+  @$pb.TagNumber(9)
+  void clearPitch() => clearField(9);
 
   /// Experimental: Use PnP to determine the 3D pose
-  @$pb.TagNumber(8)
-  PnpResult get bestPnpResult => $_getN(7);
-  @$pb.TagNumber(8)
-  set bestPnpResult(PnpResult v) { setField(8, v); }
-  @$pb.TagNumber(8)
-  $core.bool hasBestPnpResult() => $_has(7);
-  @$pb.TagNumber(8)
-  void clearBestPnpResult() => clearField(8);
-  @$pb.TagNumber(8)
-  PnpResult ensureBestPnpResult() => $_ensure(7);
+  @$pb.TagNumber(10)
+  PnpResult get bestPnpResult => $_getN(8);
+  @$pb.TagNumber(10)
+  set bestPnpResult(PnpResult v) { setField(10, v); }
+  @$pb.TagNumber(10)
+  $core.bool hasBestPnpResult() => $_has(8);
+  @$pb.TagNumber(10)
+  void clearBestPnpResult() => clearField(10);
+  @$pb.TagNumber(10)
+  PnpResult ensureBestPnpResult() => $_ensure(8);
 
-  @$pb.TagNumber(9)
-  PnpResult get alternatePnpResult => $_getN(8);
-  @$pb.TagNumber(9)
-  set alternatePnpResult(PnpResult v) { setField(9, v); }
-  @$pb.TagNumber(9)
-  $core.bool hasAlternatePnpResult() => $_has(8);
-  @$pb.TagNumber(9)
-  void clearAlternatePnpResult() => clearField(9);
-  @$pb.TagNumber(9)
-  PnpResult ensureAlternatePnpResult() => $_ensure(8);
+  @$pb.TagNumber(11)
+  PnpResult get alternatePnpResult => $_getN(9);
+  @$pb.TagNumber(11)
+  set alternatePnpResult(PnpResult v) { setField(11, v); }
+  @$pb.TagNumber(11)
+  $core.bool hasAlternatePnpResult() => $_has(9);
+  @$pb.TagNumber(11)
+  void clearAlternatePnpResult() => clearField(11);
+  @$pb.TagNumber(11)
+  PnpResult ensureAlternatePnpResult() => $_ensure(9);
 }
 
 

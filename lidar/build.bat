@@ -16,4 +16,4 @@ cd build
 copy Debug\lidar_ffi.dll ..\dist
 copy sick_scan_xd\Debug\sick_scan_xd_shared_lib.dll ..\dist
 cd ..
-dart run ffigen --config ffigen.yaml -v severe
+

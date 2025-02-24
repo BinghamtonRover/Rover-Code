@@ -5,16 +5,18 @@ on:
     paths:
       - 'bin/**'
       - 'lib/**'
+      - .github/workflows/setup.yaml
     branches:
       - "main"
   pull_request:
     paths:
       - 'bin/**'
       - 'lib/**'
+      - .github/workflows/setup.yaml
 
 jobs:
   setup_scripts:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
