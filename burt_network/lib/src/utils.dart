@@ -3,6 +3,8 @@ import "dart:math";
 
 import "package:burt_network/protobuf.dart";
 
+import "package:coordinate_converter/coordinate_converter.dart";
+
 /// JSON data as a map.
 typedef Json = Map<String, dynamic>;
 
@@ -70,6 +72,46 @@ extension GpsToMeters on GpsCoordinates {
     lat: latitude * metersPerLatitude,
     long: longitude * metersPerLongitude(latitude),
   );
+
+  /// Converts the current GPS coordinates in the form of [DDCoordinates]
+  DDCoordinates toDD() => DDCoordinates(
+      latitude: latitude,
+      longitude: longitude,
+    );
+
+  /// Converts the current GPS coordinates into UTM coordinates
+  UTMCoordinates toUTM() => UTMCoordinates.fromDD(toDD());
+}
+
+/// Utility methods for converting UTM coordinates into GPS coordinates
+extension UTMToGps on UTMCoordinates {
+  /// Converts the UTM coordinates into [GpsCoordinates]
+  GpsCoordinates toGps() {
+    final ddCoordinates = toDD();
+
+    return GpsCoordinates(
+      latitude: ddCoordinates.latitude,
+      longitude: ddCoordinates.longitude,
+    );
+  }
+
+  /// Adds 2 UTM coordinates together, this is assuming that the zone number
+  /// is the same for the other UTM coordinates
+  UTMCoordinates operator +(UTMCoordinates other) => UTMCoordinates(
+      x: x + other.x,
+      y: y + other.y,
+      zoneNumber: zoneNumber,
+      isSouthernHemisphere: isSouthernHemisphere,
+    );
+
+  /// Substracts 2 UTM coordinates together, this is assuming that the zone number
+  /// is the same for the other UTM coordinates
+  UTMCoordinates operator -(UTMCoordinates other) => UTMCoordinates(
+      x: x - other.x,
+      y: y - other.y,
+      zoneNumber: zoneNumber,
+      isSouthernHemisphere: isSouthernHemisphere,
+    );
 }
 
 /// Extension to convert coordinates in meters into [GpsCoordinates].
