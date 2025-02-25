@@ -13,6 +13,7 @@ final nameToDevice = <String, Device>{
   GripperCommand().messageName: Device.GRIPPER,
   DriveCommand().messageName: Device.DRIVE,
   ScienceCommand().messageName: Device.SCIENCE,
+  RelaysCommand().messageName: Device.RELAY,
 };
 
 /// A service to manage all the connected firmware.
