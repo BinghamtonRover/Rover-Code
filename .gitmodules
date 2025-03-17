@@ -17,12 +17,9 @@
 	path = subsystems/src/libserialport
 	url = https://github.com/sigrokproject/libserialport
 [submodule "src/sick_scan_xd"]
-	path = lidar/src/sick_scan_xd
+	path = lidar/lib/sick_scan_xd
 	url = https://github.com/BinghamtonRover/sick_scan_xd
 	branch = fpic
-[submodule "src/opencv"]
-	path = opencv_ffi/src/opencv
-	url = https://github.com/opencv/opencv
 [submodule "Python-Networking"]
 	path = vision/lib/network
 	url = https://github.com/BinghamtonRover/Python-Networking

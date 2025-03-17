@@ -35,11 +35,22 @@ const programs = [
         requiresInternet: true,
       ),
       ExtraCommand(
+        "Update pip",
+        "python3",
+        ["-m", "pip", "install", "--upgrade", "pip"],
+        requiresInternet: true,
+      ),
+      ExtraCommand(
         "Installing dependencies",
         "python3",
         ["-m", "pip", "install", "-r", "requirements.txt", "--break-system-packages"],
         requiresInternet: true,
       ),
     ],
+  ),
+  RoverProgram(
+    name: "lidar",
+    description: "Reads from the lidar and sends to video",
+    language: Language.cpp,
   ),
 ];
