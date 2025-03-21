@@ -30,6 +30,8 @@ const Device$json = {
     {'1': 'RELAY', '2': 10},
     {'1': 'BASE_STATION', '2': 11},
     {'1': 'ANTENNA', '2': 12},
+    {'1': 'VISION', '2': 13},
+    {'1': 'LIDAR', '2': 14},
   ],
 };
 
@@ -38,7 +40,7 @@ final $typed_data.Uint8List deviceDescriptor = $convert.base64Decode(
     'CgZEZXZpY2USFAoQREVWSUNFX1VOREVGSU5FRBAAEg0KCURBU0hCT0FSRBABEg4KClNVQlNZU1'
     'RFTVMQAhIJCgVWSURFTxADEgwKCEFVVE9OT01ZEAQSDAoIRklSTVdBUkUQBRIHCgNBUk0QBhIL'
     'CgdHUklQUEVSEAcSCwoHU0NJRU5DRRAIEgkKBURSSVZFEAkSCQoFUkVMQVkQChIQCgxCQVNFX1'
-    'NUQVRJT04QCxILCgdBTlRFTk5BEAw=');
+    'NUQVRJT04QCxILCgdBTlRFTk5BEAwSCgoGVklTSU9OEA0SCQoFTElEQVIQDg==');
 
 @$core.Deprecated('Use connectDescriptor instead')
 const Connect$json = {
@@ -53,6 +55,20 @@ const Connect$json = {
 final $typed_data.Uint8List connectDescriptor = $convert.base64Decode(
     'CgdDb25uZWN0Eh8KBnNlbmRlchgBIAEoDjIHLkRldmljZVIGc2VuZGVyEiMKCHJlY2VpdmVyGA'
     'IgASgOMgcuRGV2aWNlUghyZWNlaXZlcg==');
+
+@$core.Deprecated('Use timesyncDescriptor instead')
+const Timesync$json = {
+  '1': 'Timesync',
+  '2': [
+    {'1': 'sender', '3': 1, '4': 1, '5': 14, '6': '.Device', '10': 'sender'},
+    {'1': 'sendTime', '3': 2, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'sendTime'},
+  ],
+};
+
+/// Descriptor for `Timesync`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List timesyncDescriptor = $convert.base64Decode(
+    'CghUaW1lc3luYxIfCgZzZW5kZXIYASABKA4yBy5EZXZpY2VSBnNlbmRlchI2CghzZW5kVGltZR'
+    'gCIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSCHNlbmRUaW1l');
 
 @$core.Deprecated('Use disconnectDescriptor instead')
 const Disconnect$json = {

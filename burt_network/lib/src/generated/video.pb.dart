@@ -15,6 +15,7 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'version.pb.dart' as $3;
 import 'video.pbenum.dart';
+import 'vision.pb.dart' as $8;
 
 export 'video.pbenum.dart';
 
@@ -294,6 +295,7 @@ class VideoData extends $pb.GeneratedMessage {
     $core.List<$core.int>? frame,
     $3.Version? version,
     $core.String? imagePath,
+    $core.Iterable<$8.DetectedObject>? detectedObjects,
   }) {
     final $result = create();
     if (id != null) {
@@ -311,6 +313,9 @@ class VideoData extends $pb.GeneratedMessage {
     if (imagePath != null) {
       $result.imagePath = imagePath;
     }
+    if (detectedObjects != null) {
+      $result.detectedObjects.addAll(detectedObjects);
+    }
     return $result;
   }
   VideoData._() : super();
@@ -323,6 +328,7 @@ class VideoData extends $pb.GeneratedMessage {
     ..a<$core.List<$core.int>>(3, _omitFieldNames ? '' : 'frame', $pb.PbFieldType.OY)
     ..aOM<$3.Version>(4, _omitFieldNames ? '' : 'version', subBuilder: $3.Version.create)
     ..aOS(5, _omitFieldNames ? '' : 'imagePath', protoName: 'imagePath')
+    ..pc<$8.DetectedObject>(6, _omitFieldNames ? '' : 'detectedObjects', $pb.PbFieldType.PM, protoName: 'detectedObjects', subBuilder: $8.DetectedObject.create)
     ..hasRequiredFields = false
   ;
 
@@ -379,6 +385,7 @@ class VideoData extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   void clearFrame() => clearField(3);
 
+  /// / The version of this video data.
   @$pb.TagNumber(4)
   $3.Version get version => $_getN(3);
   @$pb.TagNumber(4)
@@ -390,6 +397,7 @@ class VideoData extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $3.Version ensureVersion() => $_ensure(3);
 
+  /// / The path that a high-quality screenshot was saved to.
   @$pb.TagNumber(5)
   $core.String get imagePath => $_getSZ(4);
   @$pb.TagNumber(5)
@@ -398,6 +406,10 @@ class VideoData extends $pb.GeneratedMessage {
   $core.bool hasImagePath() => $_has(4);
   @$pb.TagNumber(5)
   void clearImagePath() => clearField(5);
+
+  /// / Any objects that were detected in the frame.
+  @$pb.TagNumber(6)
+  $core.List<$8.DetectedObject> get detectedObjects => $_getList(5);
 }
 
 /// / Make changes to a camera feed.
