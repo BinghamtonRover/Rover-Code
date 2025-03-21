@@ -244,7 +244,7 @@ abstract class BurtSocket extends UdpSocket {
 
   /// The current timestamp of the socket
   /// This timestamp is used as the default timestamp when sending a message
-  DateTime get timestamp;
+  DateTime get timestamp => DateTime.timestamp();
 
   /// Sends or waits for heartbeats to or from the other device.
   void checkHeartbeats();
