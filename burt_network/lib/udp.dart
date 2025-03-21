@@ -30,3 +30,4 @@ export "src/udp/rover_settings.dart";
 export "src/udp/rover_heartbeats.dart";
 export "src/udp/socket_info.dart";
 export "src/udp/udp_socket.dart";
+export "src/udp/timesync_server.dart";
