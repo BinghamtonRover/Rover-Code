@@ -15,7 +15,7 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'version.pb.dart' as $3;
 import 'video.pbenum.dart';
-import 'vision.pb.dart' as $7;
+import 'vision.pb.dart' as $8;
 
 export 'video.pbenum.dart';
 
@@ -295,7 +295,7 @@ class VideoData extends $pb.GeneratedMessage {
     $core.List<$core.int>? frame,
     $3.Version? version,
     $core.String? imagePath,
-    $core.Iterable<$7.DetectedObject>? detectedObjects,
+    $core.Iterable<$8.DetectedObject>? detectedObjects,
   }) {
     final $result = create();
     if (id != null) {
@@ -328,7 +328,7 @@ class VideoData extends $pb.GeneratedMessage {
     ..a<$core.List<$core.int>>(3, _omitFieldNames ? '' : 'frame', $pb.PbFieldType.OY)
     ..aOM<$3.Version>(4, _omitFieldNames ? '' : 'version', subBuilder: $3.Version.create)
     ..aOS(5, _omitFieldNames ? '' : 'imagePath', protoName: 'imagePath')
-    ..pc<$7.DetectedObject>(6, _omitFieldNames ? '' : 'detectedObjects', $pb.PbFieldType.PM, protoName: 'detectedObjects', subBuilder: $7.DetectedObject.create)
+    ..pc<$8.DetectedObject>(6, _omitFieldNames ? '' : 'detectedObjects', $pb.PbFieldType.PM, protoName: 'detectedObjects', subBuilder: $8.DetectedObject.create)
     ..hasRequiredFields = false
   ;
 
@@ -409,7 +409,7 @@ class VideoData extends $pb.GeneratedMessage {
 
   /// / Any objects that were detected in the frame.
   @$pb.TagNumber(6)
-  $core.List<$7.DetectedObject> get detectedObjects => $_getList(5);
+  $core.List<$8.DetectedObject> get detectedObjects => $_getList(5);
 }
 
 /// / Make changes to a camera feed.
