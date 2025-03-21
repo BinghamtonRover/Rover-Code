@@ -4,8 +4,12 @@ import "dart:io";
 import "package:burt_network/burt_network.dart";
 import "package:meta/meta.dart";
 
-extension on Datagram {
+/// Utility methods for parsing datagram messages as wrapped messages
+extension DatagramUtil on Datagram {
+  /// Returns the wrapped message parsed from the data of the datagram
   WrappedMessage parseWrapper() => WrappedMessage.fromBuffer(data);
+
+  /// The source that the datagram was sent from
   SocketInfo get source => SocketInfo(address: address, port: port);
 }
 
@@ -66,7 +70,16 @@ abstract class BurtSocket extends UdpSocket {
   /// to them.
   final int maxClients;
 
+  /// The port to send and receive timesync messages from
+  /// If this socket is configured to send timesync messages,
+  /// the [Timesync] message will be sent to a socket with
+  /// the first address in [destinations] IP address, and timesync port.
+  /// 
+  /// By default, the timesync port is 8020
+  final int timesyncPort;
+
   Timer? _heartbeatTimer;
+  Timer? _timesyncTimer;
 
   StreamSubscription<Datagram?>? _subscription;
 
@@ -79,6 +92,7 @@ abstract class BurtSocket extends UdpSocket {
   BurtSocket({
     required super.port,
     required this.device,
+    this.timesyncPort = 8020,
     super.quiet,
     this.keepDestination = false,
     this.maxClients = 5,
@@ -106,6 +120,9 @@ abstract class BurtSocket extends UdpSocket {
     await super.init();
     _subscription = stream.listen(_onPacket);
     _heartbeatTimer = Timer.periodic(heartbeatInterval, (_) => checkHeartbeats());
+    if (shouldSendTimesync) {
+      _timesyncTimer = Timer.periodic(const Duration(seconds: 1), (_) => sendTimesync());
+    }
     return true;
   }
 
@@ -113,6 +130,7 @@ abstract class BurtSocket extends UdpSocket {
   Future<void> dispose() async {
     await _subscription?.cancel();
     _heartbeatTimer?.cancel();
+    _timesyncTimer?.cancel();
     if (!keepDestination) {
       destinations.clear();
     }
@@ -136,7 +154,7 @@ abstract class BurtSocket extends UdpSocket {
 
   @override
   void sendMessage(Message message, {SocketInfo? destination}) =>
-    sendWrapper(message.wrap(), destination: destination);
+    sendWrapper(message.wrap(timestamp), destination: destination);
 
   /// A utility method to exchange a "handshake" to the destination
   ///
@@ -174,10 +192,14 @@ abstract class BurtSocket extends UdpSocket {
   }
 
   void _onPacket(Datagram packet) {
+    final receiveTime = DateTime.timestamp();
     final wrapper = packet.parseWrapper();
     if (wrapper.name == Connect().messageName) {
       final heartbeat = Connect.fromBuffer(wrapper.data);
       onHeartbeat(heartbeat, packet.source);
+    } else if (wrapper.name == Timesync().messageName) {
+      final timesync = Timesync.fromBuffer(wrapper.data);
+      onTimesync(timesync, wrapper.timestamp, receiveTime, packet.source);
     } else if (wrapper.name == UpdateSetting().messageName) {
       final settings = UpdateSetting.fromBuffer(wrapper.data);
       onSettings(settings);
@@ -193,6 +215,18 @@ abstract class BurtSocket extends UdpSocket {
   /// the current [destinations] to properly handle the heartbeat.
   void onHeartbeat(Heartbeat heartbeat, SocketInfo source);
 
+  /// Handle an incoming Timesync message from a given source.
+  ///
+  /// The message's send time, server receive time, and client receive
+  /// time will be used to calculate the estimated time offset between
+  /// the socket and timesync server
+  void onTimesync(
+    Timesync timesync,
+    Timestamp serverReceiveTime,
+    DateTime clientReceiveTime,
+    SocketInfo source,
+  ) {}
+
   /// Handle an incoming request to change network settings.
   ///
   /// Be sure to echo the message back using [sendMessage], to confirm receipt.
@@ -204,8 +238,33 @@ abstract class BurtSocket extends UdpSocket {
   /// Whether the device on the other end is connected.
   bool get isConnected;
 
+  /// Whether or not this socket should be sending timesync events to its destination
+  /// If true, it will periodically send timesync events to its destination to 
+  bool get shouldSendTimesync;
+
+  /// The current timestamp of the socket
+  /// This timestamp is used as the default timestamp when sending a message
+  DateTime get timestamp;
+
   /// Sends or waits for heartbeats to or from the other device.
   void checkHeartbeats();
+
+  /// Sends a timesync message to the destination IP address on port [timesyncPort]
+  void sendTimesync() {
+    if (destinations.isEmpty) {
+      return;
+    }
+    sendMessage(
+      Timesync(
+        sender: device,
+        sendTime: Timestamp.fromDateTime(DateTime.timestamp()),
+      ),
+      destination: SocketInfo(
+        address: destinations.first.address,
+        port: timesyncPort,
+      ),
+    );
+  }
 
   /// Adds [source] to the available [destinations].
   ///
