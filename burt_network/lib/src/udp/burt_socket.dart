@@ -28,6 +28,7 @@ typedef NetworkSettings = UpdateSetting;
 /// This class also filters incoming messages to handle special types of messages:
 /// - Override [onHeartbeat] to handle [Heartbeat] messages
 /// - Override [onSettings] to handle [NetworkSettings] messages
+/// - Override [onTimesync] to handle [Timesync] messages
 ///
 /// To ensure connectedness, even over UDP, we send [Heartbeat] messages periodically. Override
 /// [checkHeartbeats] and [heartbeatInterval] to send or wait for heartbeats, and set [isConnected]
@@ -179,11 +180,16 @@ abstract class BurtSocket extends UdpSocket {
   bool get isConnected;
 
   /// Whether or not this socket should be sending timesync events to its destination
-  /// If true, it will periodically send timesync events to its destination to 
+  /// If true, it will periodically send timesync events to a destination timesync server.
+  ///
+  /// This serves a separate function than heartbeats. Heartbeats are used solely to
+  /// keep up the connection, wheras timesync is used to ensure that the dashboard and
+  /// rover are on the same time scale, allowing message timestamps to be consistent
+  /// regardless of where they are sent to or from.
   bool get shouldSendTimesync => false;
 
-  /// The current timestamp of the socket
-  /// This timestamp is used as the default timestamp when sending a message
+  /// The current time of the socket.
+  /// This timestamp is used as the default timestamp when sending a message.
   DateTime get timestamp => DateTime.timestamp();
 
   /// Sends or waits for heartbeats to or from the other device.
