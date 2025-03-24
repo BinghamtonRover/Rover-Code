@@ -71,13 +71,24 @@ abstract class BurtSocket extends UdpSocket {
   /// to them.
   final int maxClients;
 
-  /// The port to send and receive timesync messages from
-  /// If this socket is configured to send timesync messages,
-  /// the [Timesync] message will be sent to a socket with
-  /// the first address in [destinations] IP address, and timesync port.
-  /// 
-  /// By default, the timesync port is 8020
-  final int timesyncPort;
+  /// The address and port of the timesync server.
+  ///
+  /// If this socket is configured to send timesync messages, the [Timesync] message
+  /// will be sent to a socket with the specified IP address and port.
+  ///
+  /// If the Socket Info's IP address is [InternetAddress.anyIPv4], it will be sent to
+  /// the first address in [destinations] address
+  ///
+  /// By default, the address is the destination address, on port 8020
+  SocketInfo get timesyncDestination {
+    final address = _timesyncDestination.address != InternetAddress.anyIPv4
+        ? _timesyncDestination.address
+        : destinations.firstOrNull?.address ?? InternetAddress.loopbackIPv4;
+
+    return SocketInfo(address: address, port: _timesyncDestination.port);
+  }
+
+  late final SocketInfo _timesyncDestination;
 
   Timer? _heartbeatTimer;
   Timer? _timesyncTimer;
@@ -93,17 +104,20 @@ abstract class BurtSocket extends UdpSocket {
   BurtSocket({
     required super.port,
     required this.device,
-    this.timesyncPort = 8020,
     super.quiet,
     this.keepDestination = false,
     this.maxClients = 5,
     List<SocketInfo>? destinations,
     SocketInfo? destination,
+    SocketInfo? timesyncAddress,
     this.collection,
   }) : assert(
          destinations == null || destination == null,
          "Either destinations or destination must be null. Cannot initialize a singular and multiple destinations at the same time",
-       ) {
+       ),
+       _timesyncDestination =
+           timesyncAddress ??
+           SocketInfo(address: InternetAddress.anyIPv4, port: 8020) {
     if (destinations != null) {
       this.destinations.addAll(destinations);
     }
@@ -255,20 +269,14 @@ abstract class BurtSocket extends UdpSocket {
   /// Sends or waits for heartbeats to or from the other device.
   void checkHeartbeats();
 
-  /// Sends a timesync message to the destination IP address on port [timesyncPort]
+  /// Sends a timesync message to the [timesyncDestination]
   void sendTimesync() {
-    if (destinations.isEmpty) {
-      return;
-    }
     sendMessage(
       Timesync(
         sender: device,
         sendTime: Timestamp.fromDateTime(DateTime.timestamp()),
       ),
-      destination: SocketInfo(
-        address: destinations.first.address,
-        port: timesyncPort,
-      ),
+      destination: timesyncDestination,
     );
   }
 
