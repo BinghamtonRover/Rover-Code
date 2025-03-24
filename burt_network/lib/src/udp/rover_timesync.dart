@@ -25,14 +25,16 @@ mixin RoverTimesync on BurtSocket {
       }
       return;
     }
-    if (source.port != timesyncPort) {
+
+    if (source != timesyncDestination) {
       if (!quiet) {
         logger.warning(
-          "Socket on port ${destination?.port} expected to receive timesync message from port $timesyncPort, but received from ${source.port} instead",
+          "Socket on port $port expected to receive timesync message from $timesyncDestination, but received from $source instead",
         );
       }
       return;
     }
+
     if (source.address.isLoopback) {
       _timeOffset = Duration.zero;
       return;
