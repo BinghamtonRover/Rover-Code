@@ -63,7 +63,11 @@ abstract class BurtSocket extends UdpSocket {
     return SocketInfo(address: address, port: _timesyncDestination.port);
   }
 
-  late final SocketInfo _timesyncDestination;
+  set timesyncDestination(SocketInfo destination) {
+    _timesyncDestination = destination;
+  }
+
+  late SocketInfo _timesyncDestination;
 
   Timer? _heartbeatTimer;
   Timer? _timesyncTimer;
