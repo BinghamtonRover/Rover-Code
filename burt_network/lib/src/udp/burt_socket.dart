@@ -240,7 +240,7 @@ abstract class BurtSocket extends UdpSocket {
 
   /// Whether or not this socket should be sending timesync events to its destination
   /// If true, it will periodically send timesync events to its destination to 
-  bool get shouldSendTimesync;
+  bool get shouldSendTimesync => false;
 
   /// The current timestamp of the socket
   /// This timestamp is used as the default timestamp when sending a message
