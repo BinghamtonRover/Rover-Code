@@ -12,7 +12,7 @@ class TimesyncServer extends UdpSocket {
   StreamSubscription<Datagram?>? _subscription;
 
   /// Default constructor for TimesyncServer
-  TimesyncServer({required super.port});
+  TimesyncServer({required super.port, super.quiet});
 
   @override
   Future<bool> init() async {
