@@ -90,7 +90,7 @@ abstract class BurtSocket extends UdpSocket {
     SocketInfo? timesyncAddress,
   }) : _timesyncDestination =
            timesyncAddress ??
-           SocketInfo(address: InternetAddress.anyIPv4, port: 8020);
+           SocketInfo(address: InternetAddress.loopbackIPv4, port: 8020);
 
   /// A stream of [WrappedMessage]s as they arrive in the UDP socket.
   @override
