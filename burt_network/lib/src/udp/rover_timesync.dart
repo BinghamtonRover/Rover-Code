@@ -8,15 +8,21 @@ mixin RoverTimesync on BurtSocket {
   bool get shouldSendTimesync => true;
 
   @override
-  DateTime get timestamp => DateTime.timestamp().subtract(_timeOffset);
+  DateTime get timestamp => DateTime.timestamp().add(_timeOffset);
 
   @override
-  void onTimesync(Timesync timesync, Timestamp serverReceiveTime, DateTime clientReceiveTime, SocketInfo source) {
+  void onTimesync(
+    Timesync timesync,
+    Timestamp serverReceiveTime,
+    DateTime clientReceiveTime,
+    SocketInfo source,
+  ) {
     if (timesync.sender != device) {
       if (!quiet) {
-      logger.warning(
-        "Device ${device.name} received a timesync event for ${timesync.sender.name}",
-      );}
+        logger.warning(
+          "Device ${device.name} received a timesync event for ${timesync.sender.name}",
+        );
+      }
       return;
     }
     if (source.port != timesyncPort) {
@@ -28,8 +34,10 @@ mixin RoverTimesync on BurtSocket {
       return;
     }
     final pongLocalTime = clientReceiveTime.microsecondsSinceEpoch;
-    final pingClientTime = timesync.sendTime.toDateTime().microsecondsSinceEpoch;
-    final pongServerTime = serverReceiveTime.toDateTime().microsecondsSinceEpoch;
+    final pingClientTime =
+        timesync.sendTime.toDateTime().microsecondsSinceEpoch;
+    final pongServerTime =
+        serverReceiveTime.toDateTime().microsecondsSinceEpoch;
 
     final rtt = pongLocalTime - pingClientTime;
     final serverOffsetMicros = pongServerTime - rtt ~/ 2 - pingClientTime;
