@@ -33,14 +33,20 @@ mixin RoverTimesync on BurtSocket {
       }
       return;
     }
+    if (source.address.isLoopback) {
+      _timeOffset = Duration.zero;
+      return;
+    }
+
     final pongLocalTime = clientReceiveTime.microsecondsSinceEpoch;
     final pingClientTime =
         timesync.sendTime.toDateTime().microsecondsSinceEpoch;
     final pongServerTime =
         serverReceiveTime.toDateTime().microsecondsSinceEpoch;
 
-    final rtt = pongLocalTime - pingClientTime;
-    final serverOffsetMicros = pongServerTime - rtt ~/ 2 - pingClientTime;
+    final rtt2 = pongLocalTime - pingClientTime;
+    final serverTimeAtRx = pongServerTime + rtt2 ~/ 2;
+    final serverOffsetMicros = serverTimeAtRx - pongLocalTime;
     _timeOffset = Duration(microseconds: serverOffsetMicros);
   }
 }
