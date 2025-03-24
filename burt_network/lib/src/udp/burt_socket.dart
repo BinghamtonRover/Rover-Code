@@ -45,13 +45,25 @@ abstract class BurtSocket extends UdpSocket {
   /// Used to properly respond to heartbeats and for thorough logging.
   final Device device;
 
-  /// The port to send and receive timesync messages from
-  /// If this socket is configured to send timesync messages,
-  /// the [Timesync] message will be sent to a socket with
-  /// the [destination] IP address, and timesync port.
-  /// 
-  /// By default, the timesync port is 8020
-  final int timesyncPort;
+  /// The address and port of the timesync server.
+  ///
+  /// If this socket is configured to send timesync messages, the [Timesync] message
+  /// will be sent to a socket with the specified IP address and port.
+  ///
+  /// If the Socket Info's IP address is [InternetAddress.anyIPv4], it will be sent to
+  /// the [destination] address
+  ///
+  /// By default, the address is the destination address, on port 8020
+  SocketInfo get timesyncDestination {
+    final address =
+        _timesyncDestination.address != InternetAddress.anyIPv4
+            ? _timesyncDestination.address
+            : destination?.address ?? InternetAddress.loopbackIPv4;
+
+    return SocketInfo(address: address, port: _timesyncDestination.port);
+  }
+
+  late final SocketInfo _timesyncDestination;
 
   Timer? _heartbeatTimer;
   Timer? _timesyncTimer;
@@ -67,12 +79,14 @@ abstract class BurtSocket extends UdpSocket {
   BurtSocket({
     required super.port,
     required this.device,
-    this.timesyncPort = 8020,
     super.destination,
     super.quiet,
     super.keepDestination,
     this.collection,
-  });
+    SocketInfo? timesyncAddress,
+  }) : _timesyncDestination =
+           timesyncAddress ??
+           SocketInfo(address: InternetAddress.anyIPv4, port: 8020);
 
   /// A stream of [WrappedMessage]s as they arrive in the UDP socket.
   @override
@@ -195,20 +209,14 @@ abstract class BurtSocket extends UdpSocket {
   /// Sends or waits for heartbeats to or from the other device.
   void checkHeartbeats();
 
-  /// Sends a timesync message to the destination IP address on port [timesyncPort]
+  /// Sends a timesync message to the [timesyncDestination]
   void sendTimesync() {
-    if (destination == null) {
-      return;
-    }
     sendMessage(
       Timesync(
         sender: device,
         sendTime: Timestamp.fromDateTime(DateTime.timestamp()),
       ),
-      destination: SocketInfo(
-        address: destination!.address,
-        port: timesyncPort,
-      ),
+      destination: timesyncDestination,
     );
   }
 
