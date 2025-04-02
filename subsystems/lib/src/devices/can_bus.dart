@@ -22,6 +22,26 @@ extension on BoolState {
   int get intValue => this == BoolState.YES ? 1 : 0;
 }
 
+extension on DeviceBroadcastMessage {
+  Message toDriveProto() => DriveData(version: version);
+
+  Message toRelayProto() => RelaysData();
+
+  Message? toProtoMessage() {
+    if (deviceName.toInt() == Device.DRIVE.value) {
+      return toDriveProto();
+    } else if (deviceName.toInt() == Device.RELAY.value) {
+      return toRelayProto();
+    }
+    return null;
+  }
+
+  Version get version => Version(
+        major: fwVersionMajor.toInt(),
+        minor: fwVersionMinor.toInt(),
+      );
+}
+
 extension on DriveAppliedOutputMessage {
   DriveData toDriveProto() => DriveData(
         throttle: throttle.toDouble(),
@@ -38,6 +58,12 @@ extension on DriveBatteryMessage {
         batteryVoltage: voltage.toDouble(),
         batteryTemperature: temperature.toDouble(),
         batteryCurrent: current.toDouble(),
+      );
+}
+
+extension on DriveLedMessage {
+  DriveData toDriveProto() => DriveData(
+        color: ProtoColor.valueOf(color.toInt()),
       );
 }
 
@@ -110,22 +136,34 @@ extension on RelaysCommand {
 }
 
 /// A service to forward messages between CAN and UDP
+///
+/// Simliar to the firmware service, this service will stream incoming
+/// messages from the network, and send specific types of messages over
+/// the CAN bus as its corresponding DBC message.
+///
+/// For safety reasons, this service will send and receive heartbeats
+/// over the CAN bus, to ensure every device knows it's connected to the
+/// rover, and so the rover can determine every device connected, and their
+/// firmware versions.
 class CanBus extends Service {
   /// How often to send a rover heartbeat over the CAN bus
   static const Duration heartbeatPeriod = Duration(milliseconds: 100);
 
   /// The maximum time the program should wait for a device's heartbeat before
   /// it's considered disconnected
-  static const Duration heartbeatTimeout = Duration(milliseconds: 500);
+  static const Duration heartbeatTimeout = Duration(milliseconds: 250);
 
   /// A map of devices and the last time their broadcast message was received
   final Map<Device, DateTime> deviceHeartbeats = {};
 
   /// The CAN socket for the CAN bus
   CanSocket? socket;
-  Timer? _heartbeatTimer;
+  Timer? _sendHeartbeatTimer;
+  Timer? _checkHeartbeatsTimer;
 
   StreamSubscription<CanFrame>? _frameSubscription;
+  StreamSubscription<DriveCommand>? _driveSubscription;
+  StreamSubscription<RelaysCommand>? _relaySubscription;
 
   @override
   Future<bool> init() async {
@@ -156,16 +194,41 @@ class CanBus extends Service {
     }
     socket = canDevice.open();
     _frameSubscription = socket!.receive().listen(_onCanFrame);
-    _heartbeatTimer = Timer.periodic(heartbeatPeriod, (_) => sendHeartbeat());
+    _sendHeartbeatTimer = Timer.periodic(
+      heartbeatPeriod,
+      (_) => sendHeartbeat(),
+    );
+    _checkHeartbeatsTimer = Timer.periodic(
+      heartbeatTimeout,
+      (_) => checkHeartbeats(),
+    );
+
+    _driveSubscription = collection.server.messages.onMessage(
+      name: DriveCommand().messageName,
+      constructor: DriveCommand.fromBuffer,
+      callback: send,
+    );
+
+    _relaySubscription = collection.server.messages.onMessage(
+      name: RelaysCommand().messageName,
+      constructor: RelaysCommand.fromBuffer,
+      callback: send,
+    );
 
     return true;
   }
 
   @override
   Future<void> dispose() async {
+    _sendHeartbeatTimer?.cancel();
+    _checkHeartbeatsTimer?.cancel();
+
+    await _driveSubscription?.cancel();
+    await _relaySubscription?.cancel();
     await _frameSubscription?.cancel();
     await socket?.close();
-    _heartbeatTimer?.cancel();
+
+    deviceHeartbeats.clear();
   }
 
   /// Sends a message's DBC equivalent over the CAN bus
@@ -181,12 +244,15 @@ class CanBus extends Service {
   void sendHeartbeat() {
     final heartbeat = RoverHeartbeatMessage();
     sendDBCMessage(heartbeat);
+  }
 
+  /// Checks all device's heartbeats and determines if they are still connected
+  void checkHeartbeats() {
     final now = DateTime.timestamp();
     deviceHeartbeats.removeWhere((device, time) {
       if (now.difference(time) > heartbeatTimeout) {
         logger.warning(
-          "${device.name} disconnected.",
+          "${device.name} disconnected from CAN bus",
           body: "Broadcast message not received after $heartbeatTimeout",
         );
         return true;
@@ -197,16 +263,20 @@ class CanBus extends Service {
 
   /// Sends a DBC message over the CAN bus
   void sendDBCMessage(DBCMessage message) {
-    try {
-      socket?.send(
-        CanFrame.standard(
-          id: message.canId,
-          data: message.writeToBuffer(),
-        ),
-      );
-    } catch (e) {
-      logger.error("Error when sending CAN message", body: e.toString());
-    }
+    socket
+        ?.send(
+      CanFrame.standard(
+        id: message.canId,
+        data: message.writeToBuffer(),
+      ),
+    )
+        .catchError((Object e) {
+      if (e.toString().contains("No buffer space")) {
+        logger.debug("Error when sending CAN message", body: e.toString());
+      } else {
+        logger.error("Error when sending CAN message", body: e.toString());
+      }
+    });
   }
 
   void _handleDeviceBroadcast(DeviceBroadcastMessage broadcast) {
@@ -222,6 +292,11 @@ class CanBus extends Service {
       logger.info("${device.name} connected via CAN bus");
     }
     deviceHeartbeats[device] = DateTime.timestamp();
+
+    final versionProto = broadcast.toProtoMessage();
+    if (versionProto != null) {
+      collection.server.sendMessage(versionProto);
+    }
   }
 
   void _onCanFrame(CanFrame frame) {
@@ -236,6 +311,10 @@ class CanBus extends Service {
         } else if (id == DriveBatteryMessage().canId) {
           collection.server.sendMessage(
             DriveBatteryMessage.fromBuffer(data).toDriveProto(),
+          );
+        } else if (id == DriveLedMessage().canId) {
+          collection.server.sendMessage(
+            DriveLedMessage.fromBuffer(data).toDriveProto(),
           );
         } else if (id == RelayStateMessage().canId) {
           collection.server.sendMessage(
