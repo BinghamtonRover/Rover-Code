@@ -156,6 +156,9 @@ class CanBus extends Service {
   /// A map of devices and the last time their broadcast message was received
   final Map<Device, DateTime> deviceHeartbeats = {};
 
+  /// A list of all the devices connected to the CAN bus
+  List<Device> get connectedDevices => deviceHeartbeats.keys.toList();
+
   /// The CAN socket for the CAN bus
   CanSocket? socket;
   Timer? _sendHeartbeatTimer;
@@ -231,11 +234,19 @@ class CanBus extends Service {
     deviceHeartbeats.clear();
   }
 
+  bool _deviceConnected(Device device) => deviceHeartbeats.containsKey(device);
+
   /// Sends a message's DBC equivalent over the CAN bus
   void send(Message message) {
     if (message is DriveCommand) {
+      if (!_deviceConnected(Device.DRIVE)) {
+        return;
+      }
       message.toDBC().forEach(sendDBCMessage);
     } else if (message is RelaysCommand) {
+      if (!_deviceConnected(Device.RELAY)) {
+        return;
+      }
       message.toDBC().forEach(sendDBCMessage);
     }
   }
