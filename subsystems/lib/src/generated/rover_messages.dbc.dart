@@ -555,6 +555,114 @@ class DriveSetLedMessage extends $_dbc.DBCMessage {
   }
 }
 
+class DriveLedMessage extends $_dbc.DBCMessage {
+  @override
+  String messageName = "Drive_LED";
+
+  @override
+  int messageLength = 1;
+
+  @override
+  int canId = 0x17;
+
+  /// Whether or not "Drive_LED" is multiplex
+  static const bool isMultiplex = false;
+
+  /// The multiplexor for "Drive_LED"
+  static const String multiplexor = "";
+
+  /// Value of signal "Color"
+  num color;
+
+  /// Value of signal "Blink"
+  num blink;
+
+  final $_dbc.DBCSignal _colorSignal = $_dbc.DBCSignal(
+    name: "Color",
+    signalSignedness: $_dbc.DBCSignalSignedness.UNSIGNED,
+    signalType: $_dbc.DBCSignalType.INTEL,
+    signalMode: $_dbc.DBCSignalMode.SIGNAL,
+    multiplexGroup: -1,
+    start: 0,
+    length: 4,
+    mapping: [1, 2, 4, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    mappingIndexes: [0, 1, 2, 3],
+    factor: 1.0,
+    offset: 0.0,
+    min: 0.0,
+    max: 8.0,
+    unit: "",
+  );
+
+  final $_dbc.DBCSignal _blinkSignal = $_dbc.DBCSignal(
+    name: "Blink",
+    signalSignedness: $_dbc.DBCSignalSignedness.UNSIGNED,
+    signalType: $_dbc.DBCSignalType.INTEL,
+    signalMode: $_dbc.DBCSignalMode.SIGNAL,
+    multiplexGroup: -1,
+    start: 4,
+    length: 1,
+    mapping: [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    mappingIndexes: [4],
+    factor: 1.0,
+    offset: 0.0,
+    min: 0.0,
+    max: 1.0,
+    unit: "",
+  );
+
+  @override
+  List<$_dbc.DBCSignal> get signals => [
+    _colorSignal,
+    _blinkSignal,
+  ];
+
+  DriveLedMessage({
+    this.color = 0,
+    this.blink = 0,
+  });
+
+  /// Creates a clone of this [DriveLedMessage] with the non-null values replaced
+  DriveLedMessage copyWith({
+    num? color,
+    num? blink,
+  }) {
+    return DriveLedMessage(
+      color: color ?? this.color,
+      blink: blink ?? this.blink,
+    );
+  }
+
+  factory DriveLedMessage.fromBuffer(List<int> buffer) {
+    final message = DriveLedMessage();
+    final typedBuffer = $_typed.Uint8List.fromList(buffer);
+    final bitField = $_dbc.BitField.from(typedBuffer.sublist(0, message.messageLength));
+    message.color =
+        message._colorSignal.decode(bitField) ??
+        $_math.max(0, message._colorSignal.min);
+    message.blink =
+        message._blinkSignal.decode(bitField) ??
+        $_math.max(0, message._blinkSignal.min);
+
+    return message;
+  }
+
+  @override
+  $_typed.Uint8List writeToBuffer() {
+    final Map<$_dbc.DBCSignal, num> values = {
+      _colorSignal: color,
+      _blinkSignal: blink,
+    };
+
+    return encodeMessage(values);
+  }
+
+  @override
+  String toString() {
+    return "Drive_LED(\n  Color=$color\n  Blink=$blink\n)";
+  }
+}
+
 class DriveAppliedOutputMessage extends $_dbc.DBCMessage {
   @override
   String messageName = "Drive_Applied_Output";
@@ -824,6 +932,170 @@ class DriveBatteryMessage extends $_dbc.DBCMessage {
   @override
   String toString() {
     return "Drive_Battery(\n  Voltage=$voltage\n  Temperature=$temperature\n  Current=$current\n)";
+  }
+}
+
+class DriveSwivelMessage extends $_dbc.DBCMessage {
+  @override
+  String messageName = "Drive_Swivel";
+
+  @override
+  int messageLength = 6;
+
+  @override
+  int canId = 0x18;
+
+  /// Whether or not "Drive_Swivel" is multiplex
+  static const bool isMultiplex = false;
+
+  /// The multiplexor for "Drive_Swivel"
+  static const String multiplexor = "";
+
+  /// Value of signal "Front_Swivel"
+  num frontSwivel;
+
+  /// Value of signal "Front_Tilt"
+  num frontTilt;
+
+  /// Value of signal "Rear_Swivel"
+  num rearSwivel;
+
+  /// Value of signal "Rear_Tilt"
+  num rearTilt;
+
+  final $_dbc.DBCSignal _frontSwivelSignal = $_dbc.DBCSignal(
+    name: "Front_Swivel",
+    signalSignedness: $_dbc.DBCSignalSignedness.SIGNED,
+    signalType: $_dbc.DBCSignalType.INTEL,
+    signalMode: $_dbc.DBCSignalMode.SIGNAL,
+    multiplexGroup: -1,
+    start: 0,
+    length: 12,
+    mapping: [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    mappingIndexes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+    factor: 0.044,
+    offset: 0.0,
+    min: -90.0,
+    max: 90.0,
+    unit: "°",
+  );
+
+  final $_dbc.DBCSignal _frontTiltSignal = $_dbc.DBCSignal(
+    name: "Front_Tilt",
+    signalSignedness: $_dbc.DBCSignalSignedness.SIGNED,
+    signalType: $_dbc.DBCSignalType.INTEL,
+    signalMode: $_dbc.DBCSignalMode.SIGNAL,
+    multiplexGroup: -1,
+    start: 12,
+    length: 12,
+    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    mappingIndexes: [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+    factor: 0.044,
+    offset: 0.0,
+    min: -90.0,
+    max: 90.0,
+    unit: "°",
+  );
+
+  final $_dbc.DBCSignal _rearSwivelSignal = $_dbc.DBCSignal(
+    name: "Rear_Swivel",
+    signalSignedness: $_dbc.DBCSignalSignedness.SIGNED,
+    signalType: $_dbc.DBCSignalType.INTEL,
+    signalMode: $_dbc.DBCSignalMode.SIGNAL,
+    multiplexGroup: -1,
+    start: 24,
+    length: 12,
+    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    mappingIndexes: [24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35],
+    factor: 0.044,
+    offset: 0.0,
+    min: -90.0,
+    max: 90.0,
+    unit: "°",
+  );
+
+  final $_dbc.DBCSignal _rearTiltSignal = $_dbc.DBCSignal(
+    name: "Rear_Tilt",
+    signalSignedness: $_dbc.DBCSignalSignedness.SIGNED,
+    signalType: $_dbc.DBCSignalType.INTEL,
+    signalMode: $_dbc.DBCSignalMode.SIGNAL,
+    multiplexGroup: -1,
+    start: 36,
+    length: 12,
+    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    mappingIndexes: [36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47],
+    factor: 0.044,
+    offset: 0.0,
+    min: -90.0,
+    max: 90.0,
+    unit: "°",
+  );
+
+  @override
+  List<$_dbc.DBCSignal> get signals => [
+    _frontSwivelSignal,
+    _frontTiltSignal,
+    _rearSwivelSignal,
+    _rearTiltSignal,
+  ];
+
+  DriveSwivelMessage({
+    this.frontSwivel = 0,
+    this.frontTilt = 0,
+    this.rearSwivel = 0,
+    this.rearTilt = 0,
+  });
+
+  /// Creates a clone of this [DriveSwivelMessage] with the non-null values replaced
+  DriveSwivelMessage copyWith({
+    num? frontSwivel,
+    num? frontTilt,
+    num? rearSwivel,
+    num? rearTilt,
+  }) {
+    return DriveSwivelMessage(
+      frontSwivel: frontSwivel ?? this.frontSwivel,
+      frontTilt: frontTilt ?? this.frontTilt,
+      rearSwivel: rearSwivel ?? this.rearSwivel,
+      rearTilt: rearTilt ?? this.rearTilt,
+    );
+  }
+
+  factory DriveSwivelMessage.fromBuffer(List<int> buffer) {
+    final message = DriveSwivelMessage();
+    final typedBuffer = $_typed.Uint8List.fromList(buffer);
+    final bitField = $_dbc.BitField.from(typedBuffer.sublist(0, message.messageLength));
+    message.frontSwivel =
+        message._frontSwivelSignal.decode(bitField) ??
+        $_math.max(0, message._frontSwivelSignal.min);
+    message.frontTilt =
+        message._frontTiltSignal.decode(bitField) ??
+        $_math.max(0, message._frontTiltSignal.min);
+    message.rearSwivel =
+        message._rearSwivelSignal.decode(bitField) ??
+        $_math.max(0, message._rearSwivelSignal.min);
+    message.rearTilt =
+        message._rearTiltSignal.decode(bitField) ??
+        $_math.max(0, message._rearTiltSignal.min);
+
+    return message;
+  }
+
+  @override
+  $_typed.Uint8List writeToBuffer() {
+    final Map<$_dbc.DBCSignal, num> values = {
+      _frontSwivelSignal: frontSwivel,
+      _frontTiltSignal: frontTilt,
+      _rearSwivelSignal: rearSwivel,
+      _rearTiltSignal: rearTilt,
+    };
+
+    return encodeMessage(values);
+  }
+
+  @override
+  String toString() {
+    return "Drive_Swivel(\n  Front_Swivel=$frontSwivel\n  Front_Tilt=$frontTilt\n  Rear_Swivel=$rearSwivel\n  Rear_Tilt=$rearTilt\n)";
   }
 }
 
@@ -1665,16 +1937,16 @@ class DriveSetSwivelMessage extends $_dbc.DBCMessage {
     length: 12,
     mapping: [0, 0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     mappingIndexes: [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-    factor: 0.0878,
+    factor: 0.044,
     offset: 0.0,
     min: -90.0,
     max: 90.0,
-    unit: "Degrees",
+    unit: "°",
   );
 
   final $_dbc.DBCSignal _frontTiltSignal = $_dbc.DBCSignal(
     name: "Front_Tilt",
-    signalSignedness: $_dbc.DBCSignalSignedness.UNSIGNED,
+    signalSignedness: $_dbc.DBCSignalSignedness.SIGNED,
     signalType: $_dbc.DBCSignalType.INTEL,
     signalMode: $_dbc.DBCSignalMode.SIGNAL,
     multiplexGroup: -1,
@@ -1682,16 +1954,16 @@ class DriveSetSwivelMessage extends $_dbc.DBCMessage {
     length: 12,
     mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     mappingIndexes: [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27],
-    factor: 0.0878,
+    factor: 0.044,
     offset: 0.0,
     min: -90.0,
     max: 90.0,
-    unit: "Degrees",
+    unit: "°",
   );
 
   final $_dbc.DBCSignal _rearSwivelSignal = $_dbc.DBCSignal(
     name: "Rear_Swivel",
-    signalSignedness: $_dbc.DBCSignalSignedness.UNSIGNED,
+    signalSignedness: $_dbc.DBCSignalSignedness.SIGNED,
     signalType: $_dbc.DBCSignalType.INTEL,
     signalMode: $_dbc.DBCSignalMode.SIGNAL,
     multiplexGroup: -1,
@@ -1699,16 +1971,16 @@ class DriveSetSwivelMessage extends $_dbc.DBCMessage {
     length: 12,
     mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     mappingIndexes: [28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39],
-    factor: 0.0878,
+    factor: 0.044,
     offset: 0.0,
     min: -90.0,
     max: 90.0,
-    unit: "Degrees",
+    unit: "°",
   );
 
   final $_dbc.DBCSignal _rearTiltSignal = $_dbc.DBCSignal(
     name: "Rear_Tilt",
-    signalSignedness: $_dbc.DBCSignalSignedness.UNSIGNED,
+    signalSignedness: $_dbc.DBCSignalSignedness.SIGNED,
     signalType: $_dbc.DBCSignalType.INTEL,
     signalMode: $_dbc.DBCSignalMode.SIGNAL,
     multiplexGroup: -1,
@@ -1716,11 +1988,11 @@ class DriveSetSwivelMessage extends $_dbc.DBCMessage {
     length: 12,
     mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     mappingIndexes: [40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51],
-    factor: 0.0878,
+    factor: 0.044,
     offset: 0.0,
     min: -90.0,
     max: 90.0,
-    unit: "Degrees",
+    unit: "°",
   );
 
   @override
@@ -1820,113 +2092,5 @@ class DriveSetSwivelMessage extends $_dbc.DBCMessage {
   @override
   String toString() {
     return "Drive_SetSwivel(\n  Set_Front_Swivel=$setFrontSwivel\n  Set_Front_Tilt=$setFrontTilt\n  Set_Rear_Swivel=$setRearSwivel\n  Set_Rear_Tilt=$setRearTilt\n  Front_Swivel=$frontSwivel\n  Front_Tilt=$frontTilt\n  Rear_Swivel=$rearSwivel\n  Rear_Tilt=$rearTilt\n)";
-  }
-}
-
-class DriveLedMessage extends $_dbc.DBCMessage {
-  @override
-  String messageName = "Drive_LED";
-
-  @override
-  int messageLength = 1;
-
-  @override
-  int canId = 0x17;
-
-  /// Whether or not "Drive_LED" is multiplex
-  static const bool isMultiplex = false;
-
-  /// The multiplexor for "Drive_LED"
-  static const String multiplexor = "";
-
-  /// Value of signal "Color"
-  num color;
-
-  /// Value of signal "Blink"
-  num blink;
-
-  final $_dbc.DBCSignal _colorSignal = $_dbc.DBCSignal(
-    name: "Color",
-    signalSignedness: $_dbc.DBCSignalSignedness.UNSIGNED,
-    signalType: $_dbc.DBCSignalType.INTEL,
-    signalMode: $_dbc.DBCSignalMode.SIGNAL,
-    multiplexGroup: -1,
-    start: 0,
-    length: 4,
-    mapping: [1, 2, 4, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    mappingIndexes: [0, 1, 2, 3],
-    factor: 1.0,
-    offset: 0.0,
-    min: 0.0,
-    max: 8.0,
-    unit: "",
-  );
-
-  final $_dbc.DBCSignal _blinkSignal = $_dbc.DBCSignal(
-    name: "Blink",
-    signalSignedness: $_dbc.DBCSignalSignedness.UNSIGNED,
-    signalType: $_dbc.DBCSignalType.INTEL,
-    signalMode: $_dbc.DBCSignalMode.SIGNAL,
-    multiplexGroup: -1,
-    start: 4,
-    length: 1,
-    mapping: [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    mappingIndexes: [4],
-    factor: 1.0,
-    offset: 0.0,
-    min: 0.0,
-    max: 1.0,
-    unit: "",
-  );
-
-  @override
-  List<$_dbc.DBCSignal> get signals => [
-    _colorSignal,
-    _blinkSignal,
-  ];
-
-  DriveLedMessage({
-    this.color = 0,
-    this.blink = 0,
-  });
-
-  /// Creates a clone of this [DriveLedMessage] with the non-null values replaced
-  DriveLedMessage copyWith({
-    num? color,
-    num? blink,
-  }) {
-    return DriveLedMessage(
-      color: color ?? this.color,
-      blink: blink ?? this.blink,
-    );
-  }
-
-  factory DriveLedMessage.fromBuffer(List<int> buffer) {
-    final message = DriveLedMessage();
-    final typedBuffer = $_typed.Uint8List.fromList(buffer);
-    final bitField = $_dbc.BitField.from(typedBuffer.sublist(0, message.messageLength));
-    message.color =
-        message._colorSignal.decode(bitField) ??
-        $_math.max(0, message._colorSignal.min);
-    message.blink =
-        message._blinkSignal.decode(bitField) ??
-        $_math.max(0, message._blinkSignal.min);
-
-    return message;
-  }
-
-  @override
-  $_typed.Uint8List writeToBuffer() {
-    final Map<$_dbc.DBCSignal, num> values = {
-      _colorSignal: color,
-      _blinkSignal: blink,
-    };
-
-    return encodeMessage(values);
-  }
-
-  @override
-  String toString() {
-    return "Drive_LED(\n  Color=$color\n  Blink=$blink\n)";
   }
 }
