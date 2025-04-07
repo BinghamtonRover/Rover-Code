@@ -36,62 +36,57 @@ extension on DeviceBroadcastMessage {
     return null;
   }
 
-  Version get version => Version(
-        major: fwVersionMajor.toInt(),
-        minor: fwVersionMinor.toInt(),
-      );
+  Version get version =>
+      Version(major: fwVersionMajor.toInt(), minor: fwVersionMinor.toInt());
 }
 
 extension on DriveAppliedOutputMessage {
   DriveData toDriveProto() => DriveData(
-        throttle: throttle.toDouble(),
-        left: leftSpeed.toDouble(),
-        right: rightSpeed.toDouble(),
-        setLeft: true,
-        setRight: true,
-        setThrottle: true,
-      );
+    throttle: throttle.toDouble(),
+    left: leftSpeed.toDouble(),
+    right: rightSpeed.toDouble(),
+    setLeft: true,
+    setRight: true,
+    setThrottle: true,
+  );
 }
 
 extension on DriveBatteryMessage {
   DriveData toDriveProto() => DriveData(
-        batteryVoltage: voltage.toDouble(),
-        batteryTemperature: temperature.toDouble(),
-        batteryCurrent: current.toDouble(),
-      );
+    batteryVoltage: voltage.toDouble(),
+    batteryTemperature: temperature.toDouble(),
+    batteryCurrent: current.toDouble(),
+  );
 }
 
 extension on DriveLedMessage {
-  DriveData toDriveProto() => DriveData(
-        color: ProtoColor.valueOf(color.toInt()),
-      );
+  DriveData toDriveProto() =>
+      DriveData(color: ProtoColor.valueOf(color.toInt()));
 }
 
 extension on DriveCommand {
   DBCMessage get asSetSpeeds => DriveSetSpeedsMessage(
-        shouldSetLeft: setLeft.intValue,
-        shouldSetRight: setRight.intValue,
-        shouldSetThrottle: setThrottle.intValue,
-        leftSpeed: left,
-        rightSpeed: right,
-        throttle: throttle,
-      );
+    shouldSetLeft: setLeft.intValue,
+    shouldSetRight: setRight.intValue,
+    shouldSetThrottle: setThrottle.intValue,
+    leftSpeed: left,
+    rightSpeed: right,
+    throttle: throttle,
+  );
 
-  DBCMessage get asSetLEDS => DriveSetLedMessage(
-        color: color.value,
-        blink: blink.intValue,
-      );
+  DBCMessage get asSetLEDS =>
+      DriveSetLedMessage(color: color.value, blink: blink.intValue);
 
   DBCMessage get asSetSwivels => DriveSetSwivelMessage(
-        setFrontSwivel: hasFrontSwivel().intValue,
-        setFrontTilt: hasFrontTilt().intValue,
-        setRearSwivel: hasRearSwivel().intValue,
-        setRearTilt: hasRearTilt().intValue,
-        frontSwivel: frontSwivel,
-        frontTilt: frontTilt,
-        rearSwivel: rearSwivel,
-        rearTilt: rearTilt,
-      );
+    setFrontSwivel: hasFrontSwivel().intValue,
+    setFrontTilt: hasFrontTilt().intValue,
+    setRearSwivel: hasRearSwivel().intValue,
+    setRearTilt: hasRearTilt().intValue,
+    frontSwivel: frontSwivel,
+    frontTilt: frontTilt,
+    rearSwivel: rearSwivel,
+    rearTilt: rearTilt,
+  );
 
   List<DBCMessage> toDBC() {
     final output = <DBCMessage>[];
@@ -113,24 +108,24 @@ extension on DriveCommand {
 
 extension on RelayStateMessage {
   RelaysData toRelayProto() => RelaysData(
-        frontLeftMotor: frontLeftMotor.boolState,
-        frontRightMotor: frontRightMotor.boolState,
-        backLeftMotor: backLeftMotor.boolState,
-        backRightMotor: backRightMotor.boolState,
-        arm: arm.boolState,
-        drive: drive.boolState,
-        science: science.boolState,
-      );
+    frontLeftMotor: frontLeftMotor.boolState,
+    frontRightMotor: frontRightMotor.boolState,
+    backLeftMotor: backLeftMotor.boolState,
+    backRightMotor: backRightMotor.boolState,
+    arm: arm.boolState,
+    drive: drive.boolState,
+    science: science.boolState,
+  );
 }
 
 extension on RelaysCommand {
   DBCMessage get asSetState => RelaySetStateMessage(
-        updateArm: hasArm().intValue,
-        updateFrontLeftMotor: hasFrontLeftMotor().intValue,
-        updateFrontRightMotor: hasFrontRightMotor().intValue,
-        updateBackLeftMotor: hasBackLeftMotor().intValue,
-        updateBackRightMotor: hasBackRightMotor().intValue,
-      );
+    updateArm: hasArm().intValue,
+    updateFrontLeftMotor: hasFrontLeftMotor().intValue,
+    updateFrontRightMotor: hasFrontRightMotor().intValue,
+    updateBackLeftMotor: hasBackLeftMotor().intValue,
+    updateBackRightMotor: hasBackRightMotor().intValue,
+  );
 
   List<DBCMessage> toDBC() => [asSetState];
 }
@@ -189,10 +184,7 @@ class CanBus extends Service {
       (device) => device.networkInterface.name == "can0",
     );
     if (!canDevice.isUp) {
-      logger.error(
-        "CAN0 is not up",
-        body: "Device state: ${canDevice.state}",
-      );
+      logger.error("CAN0 is not up", body: "Device state: ${canDevice.state}");
       return false;
     }
     socket = canDevice.open();
@@ -209,13 +201,13 @@ class CanBus extends Service {
     _driveSubscription = collection.server.messages.onMessage(
       name: DriveCommand().messageName,
       constructor: DriveCommand.fromBuffer,
-      callback: send,
+      callback: sendDriveCommand,
     );
 
     _relaySubscription = collection.server.messages.onMessage(
       name: RelaysCommand().messageName,
       constructor: RelaysCommand.fromBuffer,
-      callback: send,
+      callback: sendRelaysCommand,
     );
 
     return true;
@@ -236,18 +228,36 @@ class CanBus extends Service {
 
   bool _deviceConnected(Device device) => deviceHeartbeats.containsKey(device);
 
+  /// Sends a drive command over the CAN bus
+  ///
+  /// If [override] is set to false, the command will only be sent if the rover
+  /// has received heartbeats from the drive device. The [override] should only
+  /// be true if this is a stop command.
+  void sendDriveCommand(DriveCommand command, {bool override = false}) {
+    if (!_deviceConnected(Device.DRIVE) && !override) {
+      return;
+    }
+    command.toDBC().forEach(sendDBCMessage);
+  }
+
+  /// Sends a relay command over the CAN bus
+  ///
+  /// If [override] is set to false, the command will only be sent if the rover
+  /// has received heartbeats from the relay device. The [override] should only
+  /// be true if this is a stop command.
+  void sendRelaysCommand(RelaysCommand command, {bool override = false}) {
+    if (!_deviceConnected(Device.RELAY) && !override) {
+      return;
+    }
+    command.toDBC().forEach(sendDBCMessage);
+  }
+
   /// Sends a message's DBC equivalent over the CAN bus
   void send(Message message) {
     if (message is DriveCommand) {
-      if (!_deviceConnected(Device.DRIVE)) {
-        return;
-      }
-      message.toDBC().forEach(sendDBCMessage);
+      sendDriveCommand(message);
     } else if (message is RelaysCommand) {
-      if (!_deviceConnected(Device.RELAY)) {
-        return;
-      }
-      message.toDBC().forEach(sendDBCMessage);
+      sendRelaysCommand(message);
     }
   }
 
@@ -276,18 +286,15 @@ class CanBus extends Service {
   void sendDBCMessage(DBCMessage message) {
     socket
         ?.send(
-      CanFrame.standard(
-        id: message.canId,
-        data: message.writeToBuffer(),
-      ),
-    )
+          CanFrame.standard(id: message.canId, data: message.writeToBuffer()),
+        )
         .catchError((Object e) {
-      if (e.toString().contains("No buffer space")) {
-        logger.debug("Error when sending CAN message", body: e.toString());
-      } else {
-        logger.error("Error when sending CAN message", body: e.toString());
-      }
-    });
+          if (e.toString().contains("No buffer space")) {
+            logger.debug("Error when sending CAN message", body: e.toString());
+          } else {
+            logger.error("Error when sending CAN message", body: e.toString());
+          }
+        });
   }
 
   void _handleDeviceBroadcast(DeviceBroadcastMessage broadcast) {
