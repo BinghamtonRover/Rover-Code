@@ -121,10 +121,19 @@ extension on RelayStateMessage {
 extension on RelaysCommand {
   DBCMessage get asSetState => RelaySetStateMessage(
     updateArm: hasArm().intValue,
+    arm: arm.intValue,
     updateFrontLeftMotor: hasFrontLeftMotor().intValue,
+    frontLeftMotor: frontLeftMotor.intValue,
     updateFrontRightMotor: hasFrontRightMotor().intValue,
+    frontRightMotor: frontRightMotor.intValue,
     updateBackLeftMotor: hasBackLeftMotor().intValue,
+    backLeftMotor: backLeftMotor.intValue,
     updateBackRightMotor: hasBackRightMotor().intValue,
+    backRightMotor: backRightMotor.intValue,
+    updateDrive: hasDrive().intValue,
+    drive: drive.intValue,
+    updateScience: hasScience().intValue,
+    science: science.intValue,
   );
 
   List<DBCMessage> toDBC() => [asSetState];
@@ -154,6 +163,9 @@ class CanBus extends Service {
   /// A list of all the devices connected to the CAN bus
   List<Device> get connectedDevices => deviceHeartbeats.keys.toList();
 
+  /// The CAN device for the CAN bus
+  CanDevice? device;
+
   /// The CAN socket for the CAN bus
   CanSocket? socket;
   Timer? _sendHeartbeatTimer;
@@ -180,14 +192,17 @@ class CanBus extends Service {
       "bitrate",
       "500000",
     ]);
-    final canDevice = LinuxCan.instance.devices.singleWhere(
+    device = LinuxCan.instance.devices.singleWhere(
       (device) => device.networkInterface.name == "can0",
     );
-    if (!canDevice.isUp) {
-      logger.error("CAN0 is not up", body: "Device state: ${canDevice.state}");
+    if (!device!.isUp) {
+      logger.error("CAN0 is not up", body: "Device state: ${device!.state}");
       return false;
     }
-    socket = canDevice.open();
+    logger.info(
+      "Initializing CAN socket for device ${device!.networkInterface.name}",
+    );
+    socket = device!.open();
     _frameSubscription = socket!.receive().listen(_onCanFrame);
     _sendHeartbeatTimer = Timer.periodic(
       heartbeatPeriod,
@@ -218,10 +233,12 @@ class CanBus extends Service {
     _sendHeartbeatTimer?.cancel();
     _checkHeartbeatsTimer?.cancel();
 
+    await socket?.close();
+    socket = null;
+
     await _driveSubscription?.cancel();
     await _relaySubscription?.cancel();
     await _frameSubscription?.cancel();
-    await socket?.close();
 
     deviceHeartbeats.clear();
   }
@@ -233,11 +250,14 @@ class CanBus extends Service {
   /// If [override] is set to false, the command will only be sent if the rover
   /// has received heartbeats from the drive device. The [override] should only
   /// be true if this is a stop command.
-  void sendDriveCommand(DriveCommand command, {bool override = false}) {
+  Future<void> sendDriveCommand(
+    DriveCommand command, {
+    bool override = false,
+  }) async {
     if (!_deviceConnected(Device.DRIVE) && !override) {
       return;
     }
-    command.toDBC().forEach(sendDBCMessage);
+    return Future.forEach(command.toDBC(), sendDBCMessage);
   }
 
   /// Sends a relay command over the CAN bus
@@ -245,26 +265,29 @@ class CanBus extends Service {
   /// If [override] is set to false, the command will only be sent if the rover
   /// has received heartbeats from the relay device. The [override] should only
   /// be true if this is a stop command.
-  void sendRelaysCommand(RelaysCommand command, {bool override = false}) {
+  Future<void> sendRelaysCommand(
+    RelaysCommand command, {
+    bool override = false,
+  }) async {
     if (!_deviceConnected(Device.RELAY) && !override) {
       return;
     }
-    command.toDBC().forEach(sendDBCMessage);
+    return Future.forEach(command.toDBC(), sendDBCMessage);
   }
 
   /// Sends a message's DBC equivalent over the CAN bus
-  void send(Message message) {
+  Future<void> send(Message message) async {
     if (message is DriveCommand) {
-      sendDriveCommand(message);
+      return sendDriveCommand(message);
     } else if (message is RelaysCommand) {
-      sendRelaysCommand(message);
+      return sendRelaysCommand(message);
     }
   }
 
   /// Sends a heartbeat message over the CAN bus
-  void sendHeartbeat() {
+  Future<void> sendHeartbeat() {
     final heartbeat = RoverHeartbeatMessage();
-    sendDBCMessage(heartbeat);
+    return sendDBCMessage(heartbeat);
   }
 
   /// Checks all device's heartbeats and determines if they are still connected
@@ -283,16 +306,33 @@ class CanBus extends Service {
   }
 
   /// Sends a DBC message over the CAN bus
-  void sendDBCMessage(DBCMessage message) {
-    socket
+  Future<void> sendDBCMessage(DBCMessage message) async {
+    if (socket == null) {
+      return;
+    }
+    if (!(device?.isUp ?? false)) {
+      logger.warning(
+        "Device is not up while trying to send message, restarting CAN socket",
+      );
+      await dispose();
+      await Future<void>.delayed(const Duration(milliseconds: 1000));
+      await init();
+      return;
+    }
+    return socket
         ?.send(
           CanFrame.standard(id: message.canId, data: message.writeToBuffer()),
         )
-        .catchError((Object e) {
+        .catchError((Object e) async {
           if (e.toString().contains("No buffer space")) {
             logger.debug("Error when sending CAN message", body: e.toString());
           } else {
             logger.error("Error when sending CAN message", body: e.toString());
+          }
+
+          if (!(device?.isUp ?? false)) {
+            await dispose();
+            await init();
           }
         });
   }
