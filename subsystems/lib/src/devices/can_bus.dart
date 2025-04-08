@@ -64,6 +64,15 @@ extension on DriveLedMessage {
       DriveData(color: ProtoColor.valueOf(color.toInt()));
 }
 
+extension on DriveSwivelMessage {
+  DriveData toDriveProto() => DriveData(
+    frontSwivel: frontSwivel.toDouble(),
+    frontTilt: frontTilt.toDouble(),
+    rearSwivel: rearSwivel.toDouble(),
+    rearTilt: rearTilt.toDouble(),
+  );
+}
+
 extension on DriveCommand {
   DBCMessage get asSetSpeeds => DriveSetSpeedsMessage(
     shouldSetLeft: setLeft.intValue,
@@ -373,6 +382,10 @@ class CanBus extends Service {
         } else if (id == DriveLedMessage().canId) {
           collection.server.sendMessage(
             DriveLedMessage.fromBuffer(data).toDriveProto(),
+          );
+        } else if (id == DriveSwivelMessage().canId) {
+          collection.server.sendMessage(
+            DriveSwivelMessage.fromBuffer(data).toDriveProto(),
           );
         } else if (id == RelayStateMessage().canId) {
           collection.server.sendMessage(
