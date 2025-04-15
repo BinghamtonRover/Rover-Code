@@ -329,9 +329,7 @@ class CanBus extends Service {
       return;
     }
     return socket
-        ?.send(
-          CanFrame.standard(id: message.canId, data: message.writeToBuffer()),
-        )
+        ?.send(CanFrame.standard(id: message.canId, data: message.encode()))
         .catchError((Object e) async {
           if (e.toString().contains("No buffer space")) {
             logger.debug("Error when sending CAN message", body: e.toString());
@@ -370,26 +368,26 @@ class CanBus extends Service {
     switch (frame) {
       case CanDataFrame(:final id, :final data):
         if (id == DeviceBroadcastMessage().canId) {
-          _handleDeviceBroadcast(DeviceBroadcastMessage.fromBuffer(data));
+          _handleDeviceBroadcast(DeviceBroadcastMessage.decode(data));
         } else if (id == DriveAppliedOutputMessage().canId) {
           collection.server.sendMessage(
-            DriveAppliedOutputMessage.fromBuffer(data).toDriveProto(),
+            DriveAppliedOutputMessage.decode(data).toDriveProto(),
           );
         } else if (id == DriveBatteryMessage().canId) {
           collection.server.sendMessage(
-            DriveBatteryMessage.fromBuffer(data).toDriveProto(),
+            DriveBatteryMessage.decode(data).toDriveProto(),
           );
         } else if (id == DriveLedMessage().canId) {
           collection.server.sendMessage(
-            DriveLedMessage.fromBuffer(data).toDriveProto(),
+            DriveLedMessage.decode(data).toDriveProto(),
           );
         } else if (id == DriveSwivelMessage().canId) {
           collection.server.sendMessage(
-            DriveSwivelMessage.fromBuffer(data).toDriveProto(),
+            DriveSwivelMessage.decode(data).toDriveProto(),
           );
         } else if (id == RelayStateMessage().canId) {
           collection.server.sendMessage(
-            RelayStateMessage.fromBuffer(data).toRelayProto(),
+            RelayStateMessage.decode(data).toRelayProto(),
           );
         }
       case CanRemoteFrame _:
