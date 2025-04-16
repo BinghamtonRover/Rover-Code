@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: base_station.proto
 //
-// @dart = 3.3
+// @dart = 2.12
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
@@ -16,9 +16,7 @@ import 'package:protobuf/protobuf.dart' as $pb;
 /// / How the antenna is being controller.
 class AntennaControlMode extends $pb.ProtobufEnum {
   static const AntennaControlMode ANTENNA_CONTROL_MODE_UNDEFINED = AntennaControlMode._(0, _omitEnumNames ? '' : 'ANTENNA_CONTROL_MODE_UNDEFINED');
-  /// / The antenna should automatically move to track the rover's position.
   static const AntennaControlMode TRACK_ROVER = AntennaControlMode._(1, _omitEnumNames ? '' : 'TRACK_ROVER');
-  /// / The antenna should only move when controlled manually by the operator.
   static const AntennaControlMode MANUAL_CONTROL = AntennaControlMode._(2, _omitEnumNames ? '' : 'MANUAL_CONTROL');
 
   static const $core.List<AntennaControlMode> values = <AntennaControlMode> [
@@ -30,7 +28,7 @@ class AntennaControlMode extends $pb.ProtobufEnum {
   static final $core.Map<$core.int, AntennaControlMode> _byValue = $pb.ProtobufEnum.initByValue(values);
   static AntennaControlMode? valueOf($core.int value) => _byValue[value];
 
-  const AntennaControlMode._(super.v, super.n);
+  const AntennaControlMode._($core.int v, $core.String n) : super(v, n);
 }
 
 

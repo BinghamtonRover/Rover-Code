@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: base_station.proto
 //
-// @dart = 3.3
+// @dart = 2.12
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
@@ -17,8 +17,6 @@ import 'base_station.pbenum.dart';
 import 'gps.pb.dart' as $4;
 import 'motor.pb.dart' as $2;
 import 'version.pb.dart' as $3;
-
-export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
 export 'base_station.pbenum.dart';
 
@@ -80,22 +78,22 @@ class AntennaFirmwareCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $3.Version get version => $_getN(0);
   @$pb.TagNumber(1)
-  set version($3.Version v) { $_setField(1, v); }
+  set version($3.Version v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasVersion() => $_has(0);
   @$pb.TagNumber(1)
-  void clearVersion() => $_clearField(1);
+  void clearVersion() => clearField(1);
   @$pb.TagNumber(1)
   $3.Version ensureVersion() => $_ensure(0);
 
   @$pb.TagNumber(2)
   $2.MotorCommand get swivel => $_getN(1);
   @$pb.TagNumber(2)
-  set swivel($2.MotorCommand v) { $_setField(2, v); }
+  set swivel($2.MotorCommand v) { setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasSwivel() => $_has(1);
   @$pb.TagNumber(2)
-  void clearSwivel() => $_clearField(2);
+  void clearSwivel() => clearField(2);
   @$pb.TagNumber(2)
   $2.MotorCommand ensureSwivel() => $_ensure(1);
 
@@ -106,7 +104,7 @@ class AntennaFirmwareCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasStop() => $_has(2);
   @$pb.TagNumber(3)
-  void clearStop() => $_clearField(3);
+  void clearStop() => clearField(3);
 
   @$pb.TagNumber(4)
   $core.bool get calibrate => $_getBF(3);
@@ -115,7 +113,7 @@ class AntennaFirmwareCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasCalibrate() => $_has(3);
   @$pb.TagNumber(4)
-  void clearCalibrate() => $_clearField(4);
+  void clearCalibrate() => clearField(4);
 }
 
 class AntennaFirmwareData extends $pb.GeneratedMessage {
@@ -166,22 +164,22 @@ class AntennaFirmwareData extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $3.Version get version => $_getN(0);
   @$pb.TagNumber(1)
-  set version($3.Version v) { $_setField(1, v); }
+  set version($3.Version v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasVersion() => $_has(0);
   @$pb.TagNumber(1)
-  void clearVersion() => $_clearField(1);
+  void clearVersion() => clearField(1);
   @$pb.TagNumber(1)
   $3.Version ensureVersion() => $_ensure(0);
 
   @$pb.TagNumber(2)
   $2.MotorData get swivel => $_getN(1);
   @$pb.TagNumber(2)
-  set swivel($2.MotorData v) { $_setField(2, v); }
+  set swivel($2.MotorData v) { setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasSwivel() => $_has(1);
   @$pb.TagNumber(2)
-  void clearSwivel() => $_clearField(2);
+  void clearSwivel() => clearField(2);
   @$pb.TagNumber(2)
   $2.MotorData ensureSwivel() => $_ensure(1);
 }
@@ -273,64 +271,64 @@ class BaseStationCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $3.Version get version => $_getN(0);
   @$pb.TagNumber(1)
-  set version($3.Version v) { $_setField(1, v); }
+  set version($3.Version v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasVersion() => $_has(0);
   @$pb.TagNumber(1)
-  void clearVersion() => $_clearField(1);
+  void clearVersion() => clearField(1);
   @$pb.TagNumber(1)
   $3.Version ensureVersion() => $_ensure(0);
 
   @$pb.TagNumber(2)
   AntennaControlMode get mode => $_getN(1);
   @$pb.TagNumber(2)
-  set mode(AntennaControlMode v) { $_setField(2, v); }
+  set mode(AntennaControlMode v) { setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasMode() => $_has(1);
   @$pb.TagNumber(2)
-  void clearMode() => $_clearField(2);
+  void clearMode() => clearField(2);
 
   @$pb.TagNumber(3)
   $4.GpsCoordinates get roverCoordinates => $_getN(2);
   @$pb.TagNumber(3)
-  set roverCoordinates($4.GpsCoordinates v) { $_setField(3, v); }
+  set roverCoordinates($4.GpsCoordinates v) { setField(3, v); }
   @$pb.TagNumber(3)
   $core.bool hasRoverCoordinates() => $_has(2);
   @$pb.TagNumber(3)
-  void clearRoverCoordinates() => $_clearField(3);
+  void clearRoverCoordinates() => clearField(3);
   @$pb.TagNumber(3)
   $4.GpsCoordinates ensureRoverCoordinates() => $_ensure(2);
 
   @$pb.TagNumber(4)
   $4.GpsCoordinates get baseStationCoordinates => $_getN(3);
   @$pb.TagNumber(4)
-  set baseStationCoordinates($4.GpsCoordinates v) { $_setField(4, v); }
+  set baseStationCoordinates($4.GpsCoordinates v) { setField(4, v); }
   @$pb.TagNumber(4)
   $core.bool hasBaseStationCoordinates() => $_has(3);
   @$pb.TagNumber(4)
-  void clearBaseStationCoordinates() => $_clearField(4);
+  void clearBaseStationCoordinates() => clearField(4);
   @$pb.TagNumber(4)
   $4.GpsCoordinates ensureBaseStationCoordinates() => $_ensure(3);
 
   @$pb.TagNumber(5)
   $4.GpsCoordinates get roverCoordinatesOverride => $_getN(4);
   @$pb.TagNumber(5)
-  set roverCoordinatesOverride($4.GpsCoordinates v) { $_setField(5, v); }
+  set roverCoordinatesOverride($4.GpsCoordinates v) { setField(5, v); }
   @$pb.TagNumber(5)
   $core.bool hasRoverCoordinatesOverride() => $_has(4);
   @$pb.TagNumber(5)
-  void clearRoverCoordinatesOverride() => $_clearField(5);
+  void clearRoverCoordinatesOverride() => clearField(5);
   @$pb.TagNumber(5)
   $4.GpsCoordinates ensureRoverCoordinatesOverride() => $_ensure(4);
 
   @$pb.TagNumber(6)
   AntennaFirmwareCommand get manualCommand => $_getN(5);
   @$pb.TagNumber(6)
-  set manualCommand(AntennaFirmwareCommand v) { $_setField(6, v); }
+  set manualCommand(AntennaFirmwareCommand v) { setField(6, v); }
   @$pb.TagNumber(6)
   $core.bool hasManualCommand() => $_has(5);
   @$pb.TagNumber(6)
-  void clearManualCommand() => $_clearField(6);
+  void clearManualCommand() => clearField(6);
   @$pb.TagNumber(6)
   AntennaFirmwareCommand ensureManualCommand() => $_ensure(5);
 
@@ -342,7 +340,7 @@ class BaseStationCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(7)
   $core.bool hasAngleTolerance() => $_has(6);
   @$pb.TagNumber(7)
-  void clearAngleTolerance() => $_clearField(7);
+  void clearAngleTolerance() => clearField(7);
 }
 
 class BaseStationData extends $pb.GeneratedMessage {
@@ -403,42 +401,42 @@ class BaseStationData extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $3.Version get version => $_getN(0);
   @$pb.TagNumber(1)
-  set version($3.Version v) { $_setField(1, v); }
+  set version($3.Version v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasVersion() => $_has(0);
   @$pb.TagNumber(1)
-  void clearVersion() => $_clearField(1);
+  void clearVersion() => clearField(1);
   @$pb.TagNumber(1)
   $3.Version ensureVersion() => $_ensure(0);
 
   @$pb.TagNumber(2)
   AntennaControlMode get mode => $_getN(1);
   @$pb.TagNumber(2)
-  set mode(AntennaControlMode v) { $_setField(2, v); }
+  set mode(AntennaControlMode v) { setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasMode() => $_has(1);
   @$pb.TagNumber(2)
-  void clearMode() => $_clearField(2);
+  void clearMode() => clearField(2);
 
   @$pb.TagNumber(3)
   AntennaFirmwareData get antenna => $_getN(2);
   @$pb.TagNumber(3)
-  set antenna(AntennaFirmwareData v) { $_setField(3, v); }
+  set antenna(AntennaFirmwareData v) { setField(3, v); }
   @$pb.TagNumber(3)
   $core.bool hasAntenna() => $_has(2);
   @$pb.TagNumber(3)
-  void clearAntenna() => $_clearField(3);
+  void clearAntenna() => clearField(3);
   @$pb.TagNumber(3)
   AntennaFirmwareData ensureAntenna() => $_ensure(2);
 
   @$pb.TagNumber(4)
   $4.GpsCoordinates get baseStationCoordinates => $_getN(3);
   @$pb.TagNumber(4)
-  set baseStationCoordinates($4.GpsCoordinates v) { $_setField(4, v); }
+  set baseStationCoordinates($4.GpsCoordinates v) { setField(4, v); }
   @$pb.TagNumber(4)
   $core.bool hasBaseStationCoordinates() => $_has(3);
   @$pb.TagNumber(4)
-  void clearBaseStationCoordinates() => $_clearField(4);
+  void clearBaseStationCoordinates() => clearField(4);
   @$pb.TagNumber(4)
   $4.GpsCoordinates ensureBaseStationCoordinates() => $_ensure(3);
 }
