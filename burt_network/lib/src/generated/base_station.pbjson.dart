@@ -92,6 +92,7 @@ const BaseStationData$json = {
     {'1': 'mode', '3': 2, '4': 1, '5': 14, '6': '.AntennaControlMode', '10': 'mode'},
     {'1': 'antenna', '3': 3, '4': 1, '5': 11, '6': '.AntennaFirmwareData', '10': 'antenna'},
     {'1': 'baseStationCoordinates', '3': 4, '4': 1, '5': 11, '6': '.GpsCoordinates', '10': 'baseStationCoordinates'},
+    {'1': 'rtkConnected', '3': 5, '4': 1, '5': 14, '6': '.BoolState', '10': 'rtkConnected'},
   ],
 };
 
@@ -100,5 +101,6 @@ final $typed_data.Uint8List baseStationDataDescriptor = $convert.base64Decode(
     'Cg9CYXNlU3RhdGlvbkRhdGESIgoHdmVyc2lvbhgBIAEoCzIILlZlcnNpb25SB3ZlcnNpb24SJw'
     'oEbW9kZRgCIAEoDjITLkFudGVubmFDb250cm9sTW9kZVIEbW9kZRIuCgdhbnRlbm5hGAMgASgL'
     'MhQuQW50ZW5uYUZpcm13YXJlRGF0YVIHYW50ZW5uYRJHChZiYXNlU3RhdGlvbkNvb3JkaW5hdG'
-    'VzGAQgASgLMg8uR3BzQ29vcmRpbmF0ZXNSFmJhc2VTdGF0aW9uQ29vcmRpbmF0ZXM=');
+    'VzGAQgASgLMg8uR3BzQ29vcmRpbmF0ZXNSFmJhc2VTdGF0aW9uQ29vcmRpbmF0ZXMSLgoMcnRr'
+    'Q29ubmVjdGVkGAUgASgOMgouQm9vbFN0YXRlUgxydGtDb25uZWN0ZWQ=');
 

@@ -16,6 +16,7 @@ import 'package:protobuf/protobuf.dart' as $pb;
 import 'base_station.pbenum.dart';
 import 'gps.pb.dart' as $4;
 import 'motor.pb.dart' as $2;
+import 'utils.pbenum.dart' as $0;
 import 'version.pb.dart' as $3;
 
 export 'base_station.pbenum.dart';
@@ -349,6 +350,7 @@ class BaseStationData extends $pb.GeneratedMessage {
     AntennaControlMode? mode,
     AntennaFirmwareData? antenna,
     $4.GpsCoordinates? baseStationCoordinates,
+    $0.BoolState? rtkConnected,
   }) {
     final $result = create();
     if (version != null) {
@@ -363,6 +365,9 @@ class BaseStationData extends $pb.GeneratedMessage {
     if (baseStationCoordinates != null) {
       $result.baseStationCoordinates = baseStationCoordinates;
     }
+    if (rtkConnected != null) {
+      $result.rtkConnected = rtkConnected;
+    }
     return $result;
   }
   BaseStationData._() : super();
@@ -374,6 +379,7 @@ class BaseStationData extends $pb.GeneratedMessage {
     ..e<AntennaControlMode>(2, _omitFieldNames ? '' : 'mode', $pb.PbFieldType.OE, defaultOrMaker: AntennaControlMode.ANTENNA_CONTROL_MODE_UNDEFINED, valueOf: AntennaControlMode.valueOf, enumValues: AntennaControlMode.values)
     ..aOM<AntennaFirmwareData>(3, _omitFieldNames ? '' : 'antenna', subBuilder: AntennaFirmwareData.create)
     ..aOM<$4.GpsCoordinates>(4, _omitFieldNames ? '' : 'baseStationCoordinates', protoName: 'baseStationCoordinates', subBuilder: $4.GpsCoordinates.create)
+    ..e<$0.BoolState>(5, _omitFieldNames ? '' : 'rtkConnected', $pb.PbFieldType.OE, protoName: 'rtkConnected', defaultOrMaker: $0.BoolState.BOOL_UNDEFINED, valueOf: $0.BoolState.valueOf, enumValues: $0.BoolState.values)
     ..hasRequiredFields = false
   ;
 
@@ -439,6 +445,16 @@ class BaseStationData extends $pb.GeneratedMessage {
   void clearBaseStationCoordinates() => clearField(4);
   @$pb.TagNumber(4)
   $4.GpsCoordinates ensureBaseStationCoordinates() => $_ensure(3);
+
+  /// Whether or not the RTK gps is open and being read
+  @$pb.TagNumber(5)
+  $0.BoolState get rtkConnected => $_getN(4);
+  @$pb.TagNumber(5)
+  set rtkConnected($0.BoolState v) { setField(5, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasRtkConnected() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearRtkConnected() => clearField(5);
 }
 
 
