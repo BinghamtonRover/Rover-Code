@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: base_station.proto
 //
-// @dart = 2.12
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
@@ -66,9 +66,10 @@ const BaseStationCommand$json = {
     {'1': 'version', '3': 1, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
     {'1': 'mode', '3': 2, '4': 1, '5': 14, '6': '.AntennaControlMode', '10': 'mode'},
     {'1': 'roverCoordinates', '3': 3, '4': 1, '5': 11, '6': '.GpsCoordinates', '10': 'roverCoordinates'},
-    {'1': 'baseStationCoordinatesOverride', '3': 4, '4': 1, '5': 11, '6': '.GpsCoordinates', '10': 'baseStationCoordinatesOverride'},
-    {'1': 'roverCoordinatesOverrideOverride', '3': 5, '4': 1, '5': 11, '6': '.GpsCoordinates', '10': 'roverCoordinatesOverrideOverride'},
+    {'1': 'baseStationCoordinates', '3': 4, '4': 1, '5': 11, '6': '.GpsCoordinates', '10': 'baseStationCoordinates'},
+    {'1': 'roverCoordinatesOverride', '3': 5, '4': 1, '5': 11, '6': '.GpsCoordinates', '10': 'roverCoordinatesOverride'},
     {'1': 'manualCommand', '3': 6, '4': 1, '5': 11, '6': '.AntennaFirmwareCommand', '10': 'manualCommand'},
+    {'1': 'angleTolerance', '3': 7, '4': 1, '5': 2, '10': 'angleTolerance'},
   ],
 };
 
@@ -76,12 +77,12 @@ const BaseStationCommand$json = {
 final $typed_data.Uint8List baseStationCommandDescriptor = $convert.base64Decode(
     'ChJCYXNlU3RhdGlvbkNvbW1hbmQSIgoHdmVyc2lvbhgBIAEoCzIILlZlcnNpb25SB3ZlcnNpb2'
     '4SJwoEbW9kZRgCIAEoDjITLkFudGVubmFDb250cm9sTW9kZVIEbW9kZRI7ChByb3ZlckNvb3Jk'
-    'aW5hdGVzGAMgASgLMg8uR3BzQ29vcmRpbmF0ZXNSEHJvdmVyQ29vcmRpbmF0ZXMSVwoeYmFzZV'
-    'N0YXRpb25Db29yZGluYXRlc092ZXJyaWRlGAQgASgLMg8uR3BzQ29vcmRpbmF0ZXNSHmJhc2VT'
-    'dGF0aW9uQ29vcmRpbmF0ZXNPdmVycmlkZRJbCiByb3ZlckNvb3JkaW5hdGVzT3ZlcnJpZGVPdm'
-    'VycmlkZRgFIAEoCzIPLkdwc0Nvb3JkaW5hdGVzUiByb3ZlckNvb3JkaW5hdGVzT3ZlcnJpZGVP'
-    'dmVycmlkZRI9Cg1tYW51YWxDb21tYW5kGAYgASgLMhcuQW50ZW5uYUZpcm13YXJlQ29tbWFuZF'
-    'INbWFudWFsQ29tbWFuZA==');
+    'aW5hdGVzGAMgASgLMg8uR3BzQ29vcmRpbmF0ZXNSEHJvdmVyQ29vcmRpbmF0ZXMSRwoWYmFzZV'
+    'N0YXRpb25Db29yZGluYXRlcxgEIAEoCzIPLkdwc0Nvb3JkaW5hdGVzUhZiYXNlU3RhdGlvbkNv'
+    'b3JkaW5hdGVzEksKGHJvdmVyQ29vcmRpbmF0ZXNPdmVycmlkZRgFIAEoCzIPLkdwc0Nvb3JkaW'
+    '5hdGVzUhhyb3ZlckNvb3JkaW5hdGVzT3ZlcnJpZGUSPQoNbWFudWFsQ29tbWFuZBgGIAEoCzIX'
+    'LkFudGVubmFGaXJtd2FyZUNvbW1hbmRSDW1hbnVhbENvbW1hbmQSJgoOYW5nbGVUb2xlcmFuY2'
+    'UYByABKAJSDmFuZ2xlVG9sZXJhbmNl');
 
 @$core.Deprecated('Use baseStationDataDescriptor instead')
 const BaseStationData$json = {
