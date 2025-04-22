@@ -116,8 +116,8 @@ class DeviceBroadcastMessage extends $_dbc.DBCMessage {
   /// The multiplexor for "Device_Broadcast"
   static const String multiplexor = '';
 
-  /// Value of signal "Device_Name"
-  num deviceName;
+  /// Value of signal "Device_Value"
+  num deviceValue;
 
   /// Value of signal "FW_Version_Major"
   num fwVersionMajor;
@@ -125,8 +125,8 @@ class DeviceBroadcastMessage extends $_dbc.DBCMessage {
   /// Value of signal "FW_Version_Minor"
   num fwVersionMinor;
 
-  final $_dbc.DBCSignal _deviceNameSignal = $_dbc.DBCSignal(
-    name: 'Device_Name',
+  final $_dbc.DBCSignal _deviceValueSignal = $_dbc.DBCSignal(
+    name: 'Device_Value',
     signalSignedness: $_dbc.DBCSignalSignedness.UNSIGNED,
     signalType: $_dbc.DBCSignalType.INTEL,
     signalMode: $_dbc.DBCSignalMode.SIGNAL,
@@ -178,24 +178,24 @@ class DeviceBroadcastMessage extends $_dbc.DBCMessage {
 
   @override
   List<$_dbc.DBCSignal> get signals => [
-    _deviceNameSignal,
+    _deviceValueSignal,
     _fwVersionMajorSignal,
     _fwVersionMinorSignal,
   ];
 
   DeviceBroadcastMessage({
-    this.deviceName = 0,
+    this.deviceValue = 0,
     this.fwVersionMajor = 0,
     this.fwVersionMinor = 0,
   });
 
   /// Creates a clone of this [DeviceBroadcastMessage] with the non-null values replaced
   DeviceBroadcastMessage copyWith({
-    num? deviceName,
+    num? deviceValue,
     num? fwVersionMajor,
     num? fwVersionMinor,
   }) => DeviceBroadcastMessage(
-    deviceName: deviceName ?? this.deviceName,
+    deviceValue: deviceValue ?? this.deviceValue,
     fwVersionMajor: fwVersionMajor ?? this.fwVersionMajor,
     fwVersionMinor: fwVersionMinor ?? this.fwVersionMinor,
   );
@@ -205,9 +205,9 @@ class DeviceBroadcastMessage extends $_dbc.DBCMessage {
     final typedBuffer = $_typed.Uint8List.fromList(payload);
     final bitField = $_dbc.BitField.from(typedBuffer.sublist(0, message.messageLength));
 
-    message.deviceName =
-        message._deviceNameSignal.decode(bitField) ??
-        $_math.max(0, message._deviceNameSignal.min);
+    message.deviceValue =
+        message._deviceValueSignal.decode(bitField) ??
+        $_math.max(0, message._deviceValueSignal.min);
     message.fwVersionMajor =
         message._fwVersionMajorSignal.decode(bitField) ??
         $_math.max(0, message._fwVersionMajorSignal.min);
@@ -220,7 +220,7 @@ class DeviceBroadcastMessage extends $_dbc.DBCMessage {
 
   factory DeviceBroadcastMessage.fromJson(Map<String, dynamic> json) =>
       DeviceBroadcastMessage(
-        deviceName: json['Device_Name'] ?? 0,
+        deviceValue: json['Device_Value'] ?? 0,
         fwVersionMajor: json['FW_Version_Major'] ?? 0,
         fwVersionMinor: json['FW_Version_Minor'] ?? 0,
       );
@@ -228,7 +228,7 @@ class DeviceBroadcastMessage extends $_dbc.DBCMessage {
   @override
   $_typed.Uint8List encode() {
     final Map<$_dbc.DBCSignal, num> values = {
-      _deviceNameSignal: deviceName,
+      _deviceValueSignal: deviceValue,
       _fwVersionMajorSignal: fwVersionMajor,
       _fwVersionMinorSignal: fwVersionMinor,
     };
@@ -238,14 +238,14 @@ class DeviceBroadcastMessage extends $_dbc.DBCMessage {
 
   @override
   Map<String, dynamic> toJson() => {
-    'Device_Name': deviceName,
+    'Device_Value': deviceValue,
     'FW_Version_Major': fwVersionMajor,
     'FW_Version_Minor': fwVersionMinor,
   };
 
   @override
   String toString() {
-    return 'Device_Broadcast(\n  Device_Name=$deviceName\n  FW_Version_Major=$fwVersionMajor\n  FW_Version_Minor=$fwVersionMinor\n)';
+    return 'Device_Broadcast(\n  Device_Value=$deviceValue\n  FW_Version_Major=$fwVersionMajor\n  FW_Version_Minor=$fwVersionMinor\n)';
   }
 }
 

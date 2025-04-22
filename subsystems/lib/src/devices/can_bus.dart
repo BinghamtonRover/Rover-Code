@@ -28,9 +28,9 @@ extension on DeviceBroadcastMessage {
   Message toRelayProto() => RelaysData();
 
   Message? toProtoMessage() {
-    if (deviceName.toInt() == Device.DRIVE.value) {
+    if (deviceValue.toInt() == Device.DRIVE.value) {
       return toDriveProto();
-    } else if (deviceName.toInt() == Device.RELAY.value) {
+    } else if (deviceValue.toInt() == Device.RELAY.value) {
       return toRelayProto();
     }
     return null;
@@ -345,11 +345,11 @@ class CanBus extends Service {
   }
 
   void _handleDeviceBroadcast(DeviceBroadcastMessage broadcast) {
-    final device = Device.valueOf(broadcast.deviceName.toInt());
+    final device = Device.valueOf(broadcast.deviceValue.toInt());
     if (device == null) {
       logger.warning(
         "Unknown Device Number",
-        body: "Received broadcast from device ${broadcast.deviceName.toInt()}",
+        body: "Received broadcast from device ${broadcast.deviceValue.toInt()}",
       );
       return;
     }
