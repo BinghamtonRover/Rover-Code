@@ -10,6 +10,7 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
+  coordinate_converter: ^1.2.3
   fixnum: ^1.1.1
   libserialport: ^0.3.0+1
   logger: ^2.0.2
