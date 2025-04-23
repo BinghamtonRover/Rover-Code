@@ -66,9 +66,10 @@ const BaseStationCommand$json = {
     {'1': 'version', '3': 1, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
     {'1': 'mode', '3': 2, '4': 1, '5': 14, '6': '.AntennaControlMode', '10': 'mode'},
     {'1': 'roverCoordinates', '3': 3, '4': 1, '5': 11, '6': '.GpsCoordinates', '10': 'roverCoordinates'},
-    {'1': 'baseStationCoordinatesOverride', '3': 4, '4': 1, '5': 11, '6': '.GpsCoordinates', '10': 'baseStationCoordinatesOverride'},
-    {'1': 'roverCoordinatesOverrideOverride', '3': 5, '4': 1, '5': 11, '6': '.GpsCoordinates', '10': 'roverCoordinatesOverrideOverride'},
+    {'1': 'baseStationCoordinates', '3': 4, '4': 1, '5': 11, '6': '.GpsCoordinates', '10': 'baseStationCoordinates'},
+    {'1': 'roverCoordinatesOverride', '3': 5, '4': 1, '5': 11, '6': '.GpsCoordinates', '10': 'roverCoordinatesOverride'},
     {'1': 'manualCommand', '3': 6, '4': 1, '5': 11, '6': '.AntennaFirmwareCommand', '10': 'manualCommand'},
+    {'1': 'angleTolerance', '3': 7, '4': 1, '5': 2, '10': 'angleTolerance'},
   ],
 };
 
@@ -76,12 +77,12 @@ const BaseStationCommand$json = {
 final $typed_data.Uint8List baseStationCommandDescriptor = $convert.base64Decode(
     'ChJCYXNlU3RhdGlvbkNvbW1hbmQSIgoHdmVyc2lvbhgBIAEoCzIILlZlcnNpb25SB3ZlcnNpb2'
     '4SJwoEbW9kZRgCIAEoDjITLkFudGVubmFDb250cm9sTW9kZVIEbW9kZRI7ChByb3ZlckNvb3Jk'
-    'aW5hdGVzGAMgASgLMg8uR3BzQ29vcmRpbmF0ZXNSEHJvdmVyQ29vcmRpbmF0ZXMSVwoeYmFzZV'
-    'N0YXRpb25Db29yZGluYXRlc092ZXJyaWRlGAQgASgLMg8uR3BzQ29vcmRpbmF0ZXNSHmJhc2VT'
-    'dGF0aW9uQ29vcmRpbmF0ZXNPdmVycmlkZRJbCiByb3ZlckNvb3JkaW5hdGVzT3ZlcnJpZGVPdm'
-    'VycmlkZRgFIAEoCzIPLkdwc0Nvb3JkaW5hdGVzUiByb3ZlckNvb3JkaW5hdGVzT3ZlcnJpZGVP'
-    'dmVycmlkZRI9Cg1tYW51YWxDb21tYW5kGAYgASgLMhcuQW50ZW5uYUZpcm13YXJlQ29tbWFuZF'
-    'INbWFudWFsQ29tbWFuZA==');
+    'aW5hdGVzGAMgASgLMg8uR3BzQ29vcmRpbmF0ZXNSEHJvdmVyQ29vcmRpbmF0ZXMSRwoWYmFzZV'
+    'N0YXRpb25Db29yZGluYXRlcxgEIAEoCzIPLkdwc0Nvb3JkaW5hdGVzUhZiYXNlU3RhdGlvbkNv'
+    'b3JkaW5hdGVzEksKGHJvdmVyQ29vcmRpbmF0ZXNPdmVycmlkZRgFIAEoCzIPLkdwc0Nvb3JkaW'
+    '5hdGVzUhhyb3ZlckNvb3JkaW5hdGVzT3ZlcnJpZGUSPQoNbWFudWFsQ29tbWFuZBgGIAEoCzIX'
+    'LkFudGVubmFGaXJtd2FyZUNvbW1hbmRSDW1hbnVhbENvbW1hbmQSJgoOYW5nbGVUb2xlcmFuY2'
+    'UYByABKAJSDmFuZ2xlVG9sZXJhbmNl');
 
 @$core.Deprecated('Use baseStationDataDescriptor instead')
 const BaseStationData$json = {
@@ -91,6 +92,7 @@ const BaseStationData$json = {
     {'1': 'mode', '3': 2, '4': 1, '5': 14, '6': '.AntennaControlMode', '10': 'mode'},
     {'1': 'antenna', '3': 3, '4': 1, '5': 11, '6': '.AntennaFirmwareData', '10': 'antenna'},
     {'1': 'baseStationCoordinates', '3': 4, '4': 1, '5': 11, '6': '.GpsCoordinates', '10': 'baseStationCoordinates'},
+    {'1': 'rtkConnected', '3': 5, '4': 1, '5': 14, '6': '.BoolState', '10': 'rtkConnected'},
   ],
 };
 
@@ -99,5 +101,6 @@ final $typed_data.Uint8List baseStationDataDescriptor = $convert.base64Decode(
     'Cg9CYXNlU3RhdGlvbkRhdGESIgoHdmVyc2lvbhgBIAEoCzIILlZlcnNpb25SB3ZlcnNpb24SJw'
     'oEbW9kZRgCIAEoDjITLkFudGVubmFDb250cm9sTW9kZVIEbW9kZRIuCgdhbnRlbm5hGAMgASgL'
     'MhQuQW50ZW5uYUZpcm13YXJlRGF0YVIHYW50ZW5uYRJHChZiYXNlU3RhdGlvbkNvb3JkaW5hdG'
-    'VzGAQgASgLMg8uR3BzQ29vcmRpbmF0ZXNSFmJhc2VTdGF0aW9uQ29vcmRpbmF0ZXM=');
+    'VzGAQgASgLMg8uR3BzQ29vcmRpbmF0ZXNSFmJhc2VTdGF0aW9uQ29vcmRpbmF0ZXMSLgoMcnRr'
+    'Q29ubmVjdGVkGAUgASgOMgouQm9vbFN0YXRlUgxydGtDb25uZWN0ZWQ=');
 

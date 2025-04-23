@@ -16,6 +16,7 @@ import 'package:protobuf/protobuf.dart' as $pb;
 import 'base_station.pbenum.dart';
 import 'gps.pb.dart' as $4;
 import 'motor.pb.dart' as $2;
+import 'utils.pbenum.dart' as $0;
 import 'version.pb.dart' as $3;
 
 export 'base_station.pbenum.dart';
@@ -203,9 +204,10 @@ class BaseStationCommand extends $pb.GeneratedMessage {
     $3.Version? version,
     AntennaControlMode? mode,
     $4.GpsCoordinates? roverCoordinates,
-    $4.GpsCoordinates? baseStationCoordinatesOverride,
-    $4.GpsCoordinates? roverCoordinatesOverrideOverride,
+    $4.GpsCoordinates? baseStationCoordinates,
+    $4.GpsCoordinates? roverCoordinatesOverride,
     AntennaFirmwareCommand? manualCommand,
+    $core.double? angleTolerance,
   }) {
     final $result = create();
     if (version != null) {
@@ -217,14 +219,17 @@ class BaseStationCommand extends $pb.GeneratedMessage {
     if (roverCoordinates != null) {
       $result.roverCoordinates = roverCoordinates;
     }
-    if (baseStationCoordinatesOverride != null) {
-      $result.baseStationCoordinatesOverride = baseStationCoordinatesOverride;
+    if (baseStationCoordinates != null) {
+      $result.baseStationCoordinates = baseStationCoordinates;
     }
-    if (roverCoordinatesOverrideOverride != null) {
-      $result.roverCoordinatesOverrideOverride = roverCoordinatesOverrideOverride;
+    if (roverCoordinatesOverride != null) {
+      $result.roverCoordinatesOverride = roverCoordinatesOverride;
     }
     if (manualCommand != null) {
       $result.manualCommand = manualCommand;
+    }
+    if (angleTolerance != null) {
+      $result.angleTolerance = angleTolerance;
     }
     return $result;
   }
@@ -236,9 +241,10 @@ class BaseStationCommand extends $pb.GeneratedMessage {
     ..aOM<$3.Version>(1, _omitFieldNames ? '' : 'version', subBuilder: $3.Version.create)
     ..e<AntennaControlMode>(2, _omitFieldNames ? '' : 'mode', $pb.PbFieldType.OE, defaultOrMaker: AntennaControlMode.ANTENNA_CONTROL_MODE_UNDEFINED, valueOf: AntennaControlMode.valueOf, enumValues: AntennaControlMode.values)
     ..aOM<$4.GpsCoordinates>(3, _omitFieldNames ? '' : 'roverCoordinates', protoName: 'roverCoordinates', subBuilder: $4.GpsCoordinates.create)
-    ..aOM<$4.GpsCoordinates>(4, _omitFieldNames ? '' : 'baseStationCoordinatesOverride', protoName: 'baseStationCoordinatesOverride', subBuilder: $4.GpsCoordinates.create)
-    ..aOM<$4.GpsCoordinates>(5, _omitFieldNames ? '' : 'roverCoordinatesOverrideOverride', protoName: 'roverCoordinatesOverrideOverride', subBuilder: $4.GpsCoordinates.create)
+    ..aOM<$4.GpsCoordinates>(4, _omitFieldNames ? '' : 'baseStationCoordinates', protoName: 'baseStationCoordinates', subBuilder: $4.GpsCoordinates.create)
+    ..aOM<$4.GpsCoordinates>(5, _omitFieldNames ? '' : 'roverCoordinatesOverride', protoName: 'roverCoordinatesOverride', subBuilder: $4.GpsCoordinates.create)
     ..aOM<AntennaFirmwareCommand>(6, _omitFieldNames ? '' : 'manualCommand', protoName: 'manualCommand', subBuilder: AntennaFirmwareCommand.create)
+    ..a<$core.double>(7, _omitFieldNames ? '' : 'angleTolerance', $pb.PbFieldType.OF, protoName: 'angleTolerance')
     ..hasRequiredFields = false
   ;
 
@@ -295,26 +301,26 @@ class BaseStationCommand extends $pb.GeneratedMessage {
   $4.GpsCoordinates ensureRoverCoordinates() => $_ensure(2);
 
   @$pb.TagNumber(4)
-  $4.GpsCoordinates get baseStationCoordinatesOverride => $_getN(3);
+  $4.GpsCoordinates get baseStationCoordinates => $_getN(3);
   @$pb.TagNumber(4)
-  set baseStationCoordinatesOverride($4.GpsCoordinates v) { setField(4, v); }
+  set baseStationCoordinates($4.GpsCoordinates v) { setField(4, v); }
   @$pb.TagNumber(4)
-  $core.bool hasBaseStationCoordinatesOverride() => $_has(3);
+  $core.bool hasBaseStationCoordinates() => $_has(3);
   @$pb.TagNumber(4)
-  void clearBaseStationCoordinatesOverride() => clearField(4);
+  void clearBaseStationCoordinates() => clearField(4);
   @$pb.TagNumber(4)
-  $4.GpsCoordinates ensureBaseStationCoordinatesOverride() => $_ensure(3);
+  $4.GpsCoordinates ensureBaseStationCoordinates() => $_ensure(3);
 
   @$pb.TagNumber(5)
-  $4.GpsCoordinates get roverCoordinatesOverrideOverride => $_getN(4);
+  $4.GpsCoordinates get roverCoordinatesOverride => $_getN(4);
   @$pb.TagNumber(5)
-  set roverCoordinatesOverrideOverride($4.GpsCoordinates v) { setField(5, v); }
+  set roverCoordinatesOverride($4.GpsCoordinates v) { setField(5, v); }
   @$pb.TagNumber(5)
-  $core.bool hasRoverCoordinatesOverrideOverride() => $_has(4);
+  $core.bool hasRoverCoordinatesOverride() => $_has(4);
   @$pb.TagNumber(5)
-  void clearRoverCoordinatesOverrideOverride() => clearField(5);
+  void clearRoverCoordinatesOverride() => clearField(5);
   @$pb.TagNumber(5)
-  $4.GpsCoordinates ensureRoverCoordinatesOverrideOverride() => $_ensure(4);
+  $4.GpsCoordinates ensureRoverCoordinatesOverride() => $_ensure(4);
 
   @$pb.TagNumber(6)
   AntennaFirmwareCommand get manualCommand => $_getN(5);
@@ -326,6 +332,16 @@ class BaseStationCommand extends $pb.GeneratedMessage {
   void clearManualCommand() => clearField(6);
   @$pb.TagNumber(6)
   AntennaFirmwareCommand ensureManualCommand() => $_ensure(5);
+
+  /// The angle tolerance for auto-tracking, in radians
+  @$pb.TagNumber(7)
+  $core.double get angleTolerance => $_getN(6);
+  @$pb.TagNumber(7)
+  set angleTolerance($core.double v) { $_setFloat(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasAngleTolerance() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearAngleTolerance() => clearField(7);
 }
 
 class BaseStationData extends $pb.GeneratedMessage {
@@ -334,6 +350,7 @@ class BaseStationData extends $pb.GeneratedMessage {
     AntennaControlMode? mode,
     AntennaFirmwareData? antenna,
     $4.GpsCoordinates? baseStationCoordinates,
+    $0.BoolState? rtkConnected,
   }) {
     final $result = create();
     if (version != null) {
@@ -348,6 +365,9 @@ class BaseStationData extends $pb.GeneratedMessage {
     if (baseStationCoordinates != null) {
       $result.baseStationCoordinates = baseStationCoordinates;
     }
+    if (rtkConnected != null) {
+      $result.rtkConnected = rtkConnected;
+    }
     return $result;
   }
   BaseStationData._() : super();
@@ -359,6 +379,7 @@ class BaseStationData extends $pb.GeneratedMessage {
     ..e<AntennaControlMode>(2, _omitFieldNames ? '' : 'mode', $pb.PbFieldType.OE, defaultOrMaker: AntennaControlMode.ANTENNA_CONTROL_MODE_UNDEFINED, valueOf: AntennaControlMode.valueOf, enumValues: AntennaControlMode.values)
     ..aOM<AntennaFirmwareData>(3, _omitFieldNames ? '' : 'antenna', subBuilder: AntennaFirmwareData.create)
     ..aOM<$4.GpsCoordinates>(4, _omitFieldNames ? '' : 'baseStationCoordinates', protoName: 'baseStationCoordinates', subBuilder: $4.GpsCoordinates.create)
+    ..e<$0.BoolState>(5, _omitFieldNames ? '' : 'rtkConnected', $pb.PbFieldType.OE, protoName: 'rtkConnected', defaultOrMaker: $0.BoolState.BOOL_UNDEFINED, valueOf: $0.BoolState.valueOf, enumValues: $0.BoolState.values)
     ..hasRequiredFields = false
   ;
 
@@ -424,6 +445,16 @@ class BaseStationData extends $pb.GeneratedMessage {
   void clearBaseStationCoordinates() => clearField(4);
   @$pb.TagNumber(4)
   $4.GpsCoordinates ensureBaseStationCoordinates() => $_ensure(3);
+
+  /// Whether or not the RTK gps is open and being read
+  @$pb.TagNumber(5)
+  $0.BoolState get rtkConnected => $_getN(4);
+  @$pb.TagNumber(5)
+  set rtkConnected($0.BoolState v) { setField(5, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasRtkConnected() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearRtkConnected() => clearField(5);
 }
 
 
