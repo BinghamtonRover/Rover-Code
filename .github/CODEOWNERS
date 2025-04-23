@@ -1,3 +1,13 @@
 # Levi has to review everything
 
 *  @Levi-Lesches
+
+# All PRs require a review from an all software reviewer
+
+*  @BinghamtonRover/software-reviewers
+
+# PRs to specific programs require review from program-specific reviewers
+
+lib/*  @lregueiferos
+bin/*  @lregueiferos
+lidar/*  @mmazer1
