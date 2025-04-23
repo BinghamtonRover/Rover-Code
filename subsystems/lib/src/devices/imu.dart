@@ -23,6 +23,9 @@ class ImuReader extends Service {
     logger: logger,
   );
 
+  /// Whether or not the IMU is connected
+  bool get isConnected => serial.isOpen;
+
   /// The subscription that will be notified when a new serial packet arrives.
   StreamSubscription<List<int>>? subscription;
   StreamSubscription<SubsystemsCommand>? _commandSubscription;
