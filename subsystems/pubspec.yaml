@@ -10,8 +10,7 @@ environment:
 # Add regular dependencies here.
 dependencies:
   args: ^2.6.0
-  burt_network:
-    git: https://github.com/BinghamtonRover/Networking.git
+  burt_network: ^2.7.0
   collection: ^1.19.0
   csv: ^6.0.0
   ffi: ^2.1.3
