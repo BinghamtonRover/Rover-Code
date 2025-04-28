@@ -2321,7 +2321,7 @@ class ArmSetMotorMessage extends $_dbc.DBCMessage {
     factor: 1,
     offset: 0,
     min: 0,
-    max: 8,
+    max: 7,
     unit: '',
   );
 
@@ -2500,7 +2500,7 @@ class ArmMotorMoveDataMessage extends $_dbc.DBCMessage {
     factor: 1,
     offset: 0,
     min: 0,
-    max: 8,
+    max: 7,
     unit: '',
   );
 
@@ -2670,13 +2670,13 @@ class ArmMotorStepDataMessage extends $_dbc.DBCMessage {
     signalMode: $_dbc.DBCSignalMode.SIGNAL,
     multiplexGroup: -1,
     start: 0,
-    length: 4,
-    mapping: [1, 2, 4, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    mappingIndexes: [0, 1, 2, 3],
+    length: 3,
+    mapping: [1, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    mappingIndexes: [0, 1, 2],
     factor: 1,
     offset: 0,
     min: 0,
-    max: 8,
+    max: 7,
     unit: '',
   );
 
@@ -2686,10 +2686,10 @@ class ArmMotorStepDataMessage extends $_dbc.DBCMessage {
     signalType: $_dbc.DBCSignalType.INTEL,
     signalMode: $_dbc.DBCSignalMode.SIGNAL,
     multiplexGroup: -1,
-    start: 4,
+    start: 3,
     length: 24,
-    mapping: [0, 0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288, 1048576, 2097152, 4194304, 8388608, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    mappingIndexes: [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27],
+    mapping: [0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288, 1048576, 2097152, 4194304, 8388608, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    mappingIndexes: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26],
     factor: 1,
     offset: 0,
     min: -8388608,
@@ -2703,10 +2703,10 @@ class ArmMotorStepDataMessage extends $_dbc.DBCMessage {
     signalType: $_dbc.DBCSignalType.INTEL,
     signalMode: $_dbc.DBCSignalMode.SIGNAL,
     multiplexGroup: -1,
-    start: 28,
+    start: 27,
     length: 24,
-    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288, 1048576, 2097152, 4194304, 8388608, 0, 0, 0, 0],
-    mappingIndexes: [28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51],
+    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288, 1048576, 2097152, 4194304, 8388608, 0, 0, 0, 0, 0],
+    mappingIndexes: [27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50],
     factor: 1,
     offset: 0,
     min: -8388608,
@@ -2825,7 +2825,7 @@ class ArmMotorAngleDataMessage extends $_dbc.DBCMessage {
     factor: 1,
     offset: 0,
     min: 0,
-    max: 8,
+    max: 7,
     unit: '',
   );
 
