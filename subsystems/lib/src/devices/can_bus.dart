@@ -12,6 +12,13 @@ extension on num {
   bool get boolValue => this == 1;
 
   BoolState get boolState => boolValue ? BoolState.YES : BoolState.NO;
+
+  BoolState get armBoolState =>
+      this == 1
+          ? BoolState.YES
+          : this == 2
+          ? BoolState.NO
+          : BoolState.BOOL_UNDEFINED;
 }
 
 extension on bool {
@@ -27,11 +34,23 @@ extension on DeviceBroadcastMessage {
 
   Message toRelayProto() => RelaysData();
 
+  Message toArmProto() => ArmData(version: version);
+
+  Message toGripperProto() => GripperData(version: version);
+
+  Message toScienceProto() => ScienceData(version: version);
+
   Message? toProtoMessage() {
     if (deviceValue.toInt() == Device.DRIVE.value) {
       return toDriveProto();
     } else if (deviceValue.toInt() == Device.RELAY.value) {
       return toRelayProto();
+    } else if (deviceValue.toInt() == Device.ARM.value) {
+      return toArmProto();
+    } else if (deviceValue.toInt() == Device.GRIPPER.value) {
+      return toGripperProto();
+    } else if (deviceValue.toInt() == Device.SCIENCE.value) {
+      return toScienceProto();
     }
     return null;
   }
@@ -148,6 +167,119 @@ extension on RelaysCommand {
   List<DBCMessage> toDBC() => [asSetState];
 }
 
+extension on ArmMotorMoveDataMessage {
+  MotorData toMotorData() => MotorData(
+    isMoving: isMoving.armBoolState,
+    isLimitSwitchPressed: isLimitSwitchPressed.armBoolState,
+    direction: MotorDirection.valueOf(motorDirection.toInt()),
+  );
+
+  ArmData toArmProto() {
+    final data = ArmData();
+
+    if (motorValue == ArmMotor.SWIVEL.value) {
+      data.base = toMotorData();
+    } else if (motorValue == ArmMotor.SHOULDER.value) {
+      data.shoulder = toMotorData();
+    } else if (motorValue == ArmMotor.ELBOW.value) {
+      data.elbow = toMotorData();
+    }
+
+    return data;
+  }
+}
+
+extension on ArmMotorStepDataMessage {
+  MotorData toMotorData() => MotorData(
+    currentStep: currentStep.toInt(),
+    targetStep: targetStep.toInt(),
+  );
+
+  ArmData toArmProto() {
+    final data = ArmData();
+
+    if (motorValue == ArmMotor.SWIVEL.value) {
+      data.base = toMotorData();
+    } else if (motorValue == ArmMotor.SHOULDER.value) {
+      data.shoulder = toMotorData();
+    } else if (motorValue == ArmMotor.ELBOW.value) {
+      data.elbow = toMotorData();
+    }
+
+    return data;
+  }
+}
+
+extension on ArmMotorAngleDataMessage {
+  MotorData toMotorData() => MotorData(
+    currentAngle: currentAngle.toDouble(),
+    targetAngle: targetAngle.toDouble(),
+  );
+
+  ArmData toArmProto() {
+    final data = ArmData();
+
+    if (motorValue == ArmMotor.SWIVEL.value) {
+      data.base = toMotorData();
+    } else if (motorValue == ArmMotor.SHOULDER.value) {
+      data.shoulder = toMotorData();
+    } else if (motorValue == ArmMotor.ELBOW.value) {
+      data.elbow = toMotorData();
+    }
+
+    return data;
+  }
+}
+
+extension on ArmCommand {
+  DBCMessage asAsSetSwivel() => ArmSetMotorMessage(
+    motorValue: ArmMotor.SWIVEL.value,
+    angle: swivel.angle,
+    moveRadians: swivel.moveRadians,
+    moveSteps: swivel.moveSteps,
+  );
+
+  DBCMessage asAsSetShoulder() => ArmSetMotorMessage(
+    motorValue: ArmMotor.SHOULDER.value,
+    angle: shoulder.angle,
+    moveRadians: shoulder.moveRadians,
+    moveSteps: shoulder.moveSteps,
+  );
+
+  DBCMessage asAsSetElbow() => ArmSetMotorMessage(
+    motorValue: ArmMotor.ELBOW.value,
+    angle: elbow.angle,
+    moveRadians: elbow.moveRadians,
+    moveSteps: elbow.moveSteps,
+  );
+
+  DBCMessage asSystemAction() => ArmSystemActionMessage(
+    stop: stop.intValue,
+    calibrate: calibrate.intValue,
+    jab: jab.intValue,
+  );
+
+  List<DBCMessage> toDBC() {
+    final output = <DBCMessage>[];
+
+    if (hasSwivel()) {
+      output.add(asAsSetSwivel());
+    }
+    if (hasShoulder()) {
+      output.add(asAsSetShoulder());
+    }
+    if (hasElbow()) {
+      output.add(asAsSetElbow());
+    }
+
+    if (stop == true || calibrate == true || jab == true) {
+      output.add(asSystemAction());
+    }
+
+    return output;
+  }
+}
+
 /// A service to forward messages between CAN and UDP
 ///
 /// Simliar to the firmware service, this service will stream incoming
@@ -183,6 +315,9 @@ class CanBus extends Service {
   StreamSubscription<CanFrame>? _frameSubscription;
   StreamSubscription<DriveCommand>? _driveSubscription;
   StreamSubscription<RelaysCommand>? _relaySubscription;
+  StreamSubscription<ArmCommand>? _armSubscription;
+  StreamSubscription<GripperCommand>? _gripperSubscription;
+  StreamSubscription<ScienceCommand>? _scienceSubscription;
 
   @override
   Future<bool> init() async {
@@ -234,6 +369,24 @@ class CanBus extends Service {
       callback: sendRelaysCommand,
     );
 
+    _armSubscription = collection.server.messages.onMessage(
+      name: ArmCommand().messageName,
+      constructor: ArmCommand.fromBuffer,
+      callback: sendArmCommand,
+    );
+
+    _gripperSubscription = collection.server.messages.onMessage(
+      name: GripperCommand().messageName,
+      constructor: GripperCommand.fromBuffer,
+      callback: sendGripperCommand,
+    );
+
+    _scienceSubscription = collection.server.messages.onMessage(
+      name: ScienceCommand().messageName,
+      constructor: ScienceCommand.fromBuffer,
+      callback: sendScienceCommand,
+    );
+
     return true;
   }
 
@@ -247,6 +400,9 @@ class CanBus extends Service {
 
     await _driveSubscription?.cancel();
     await _relaySubscription?.cancel();
+    await _armSubscription?.cancel();
+    await _gripperSubscription?.cancel();
+    await _scienceSubscription?.cancel();
     await _frameSubscription?.cancel();
 
     deviceHeartbeats.clear();
@@ -284,12 +440,61 @@ class CanBus extends Service {
     return Future.forEach(command.toDBC(), sendDBCMessage);
   }
 
+  /// Sends an arm command over the CAN bus
+  ///
+  /// If [override] is set to false, the command will only be sent if the rover
+  /// has received heartbeats from the arm device. The [override] should only
+  /// be true if this is a stop command.
+  Future<void> sendArmCommand(
+    ArmCommand command, {
+    bool override = false,
+  }) async {
+    if (!_deviceConnected(Device.ARM) && !override) {
+      return;
+    }
+    return Future.forEach(command.toDBC(), sendDBCMessage);
+  }
+
+  /// Sends a gripper command over the CAN bus
+  ///
+  /// If [override] is set to false, the command will only be sent if the rover
+  /// has received heartbeats from the gripper device. The [override] should only
+  /// be true if this is a stop command.
+  Future<void> sendGripperCommand(
+    GripperCommand command, {
+    bool override = false,
+  }) async {
+    if (!_deviceConnected(Device.GRIPPER) && !override) {
+      return;
+    }
+  }
+
+  /// Sends a science command over the CAN bus
+  ///
+  /// If [override] is set to false, the command will only be sent if the rover
+  /// has received heartbeats from the science device. The [override] should only
+  /// be true if this is a stop command.
+  Future<void> sendScienceCommand(
+    ScienceCommand command, {
+    bool override = false,
+  }) async {
+    if (!_deviceConnected(Device.SCIENCE) && !override) {
+      return;
+    }
+  }
+
   /// Sends a message's DBC equivalent over the CAN bus
   Future<void> send(Message message) async {
     if (message is DriveCommand) {
       return sendDriveCommand(message);
     } else if (message is RelaysCommand) {
       return sendRelaysCommand(message);
+    } else if (message is ArmCommand) {
+      return sendArmCommand(message);
+    } else if (message is GripperCommand) {
+      return sendGripperCommand(message);
+    } else if (message is ScienceCommand) {
+      return sendScienceCommand(message);
     }
   }
 
@@ -388,6 +593,18 @@ class CanBus extends Service {
         } else if (id == RelayStateMessage().canId) {
           collection.server.sendMessage(
             RelayStateMessage.decode(data).toRelayProto(),
+          );
+        } else if (id == ArmMotorMoveDataMessage().canId) {
+          collection.server.sendMessage(
+            ArmMotorMoveDataMessage.decode(data).toArmProto(),
+          );
+        } else if (id == ArmMotorStepDataMessage().canId) {
+          collection.server.sendMessage(
+            ArmMotorStepDataMessage.decode(data).toArmProto(),
+          );
+        } else if (id == ArmMotorAngleDataMessage().canId) {
+          collection.server.sendMessage(
+            ArmMotorAngleDataMessage.decode(data).toArmProto(),
           );
         }
       case CanRemoteFrame _:
