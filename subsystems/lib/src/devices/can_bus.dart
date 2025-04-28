@@ -13,12 +13,14 @@ extension on num {
 
   BoolState get boolState => boolValue ? BoolState.YES : BoolState.NO;
 
-  BoolState get armBoolState =>
-      this == 1
-          ? BoolState.YES
-          : this == 2
-          ? BoolState.NO
-          : BoolState.BOOL_UNDEFINED;
+  BoolState get armBoolState {
+    if (this == 1) {
+      return BoolState.YES;
+    } else if (this == 2) {
+      return BoolState.NO;
+    }
+    return BoolState.BOOL_UNDEFINED;
+  }
 }
 
 extension on bool {
