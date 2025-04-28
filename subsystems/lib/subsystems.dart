@@ -99,9 +99,12 @@ class SubsystemsCollection extends Service {
     server.sendMessage(
       SubsystemsData(
         version: Version(major: 1, minor: 0),
-        connectedDevices: firmware.devices
-            .where((e) => e.isReady)
-            .map((firmware) => firmware.device),
+        connectedDevices: <Device>{
+          ...can.connectedDevices,
+          ...firmware.devices
+              .where((e) => e.isReady)
+              .map((firmware) => firmware.device),
+        },
         gpsConnected: gps.isConnected ? BoolState.YES : BoolState.NO,
         imuConnected: imu.isConnected ? BoolState.YES : BoolState.NO,
       ),
