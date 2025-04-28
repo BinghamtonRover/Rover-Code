@@ -34,5 +34,30 @@ class ProtoColor extends $pb.ProtobufEnum {
   const ProtoColor._($core.int v, $core.String n) : super(v, n);
 }
 
+class DriveMotor extends $pb.ProtobufEnum {
+  static const DriveMotor DRIVE_MOTOR_UNDEFINED = DriveMotor._(0, _omitEnumNames ? '' : 'DRIVE_MOTOR_UNDEFINED');
+  static const DriveMotor FRONT_LEFT = DriveMotor._(1, _omitEnumNames ? '' : 'FRONT_LEFT');
+  static const DriveMotor FRONT_RIGHT = DriveMotor._(2, _omitEnumNames ? '' : 'FRONT_RIGHT');
+  static const DriveMotor MIDDLE_LEFT = DriveMotor._(3, _omitEnumNames ? '' : 'MIDDLE_LEFT');
+  static const DriveMotor MIDDLE_RIGHT = DriveMotor._(4, _omitEnumNames ? '' : 'MIDDLE_RIGHT');
+  static const DriveMotor BACK_LEFT = DriveMotor._(5, _omitEnumNames ? '' : 'BACK_LEFT');
+  static const DriveMotor BACK_RIGHT = DriveMotor._(6, _omitEnumNames ? '' : 'BACK_RIGHT');
+
+  static const $core.List<DriveMotor> values = <DriveMotor> [
+    DRIVE_MOTOR_UNDEFINED,
+    FRONT_LEFT,
+    FRONT_RIGHT,
+    MIDDLE_LEFT,
+    MIDDLE_RIGHT,
+    BACK_LEFT,
+    BACK_RIGHT,
+  ];
+
+  static final $core.Map<$core.int, DriveMotor> _byValue = $pb.ProtobufEnum.initByValue(values);
+  static DriveMotor? valueOf($core.int value) => _byValue[value];
+
+  const DriveMotor._($core.int v, $core.String n) : super(v, n);
+}
+
 
 const _omitEnumNames = $core.bool.fromEnvironment('protobuf.omit_enum_names');
