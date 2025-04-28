@@ -1,9 +1,12 @@
 import cv2
 from ultralytics import YOLO
+import torch
 
 class ImageAnalyzer:
   def __init__(self, load_from="trained-model.pt"):
+    torch.cuda.set_device(0)
     self.model = YOLO(load_from, verbose=False)
+    self.model = self.model.cuda()
 
   def has_mallet(self, frame: cv2.Mat, confidence = 0.80) -> bool:
     results = self.model.predict(frame, stream=True, verbose=False)
@@ -11,8 +14,7 @@ class ImageAnalyzer:
       json = result.summary()
       if not json: return False
       object = json[0]
-      print(f"Confidence in analyzer: {object['confidence']}")
-      is_mallet = object['name'] == "mallet" and object['confidence'] > confidence
+      is_mallet = ("mallet" in object['name'].lower()) and object['confidence'] > confidence
       print("Confidence: " + str(object['confidence']))
       if is_mallet: 
         return True
@@ -41,7 +43,7 @@ class ImageAnalyzer:
     return frame
 
 if __name__ == "__main__":
-  camera = ImageAnalyzer()
+  camera = ImageAnalyzer(load_from="trained.pt")
   cam = cv2.VideoCapture(0)
   while True:
     camera.getFrames(cam, show = True)
