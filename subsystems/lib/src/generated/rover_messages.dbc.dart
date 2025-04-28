@@ -2517,7 +2517,7 @@ class ArmMotorMoveDataMessage extends $_dbc.DBCMessage {
     factor: 1,
     offset: 0,
     min: 0,
-    max: 3,
+    max: 2,
     unit: '',
   );
 
@@ -2534,7 +2534,7 @@ class ArmMotorMoveDataMessage extends $_dbc.DBCMessage {
     factor: 1,
     offset: 0,
     min: 0,
-    max: 0,
+    max: 2,
     unit: '',
   );
 
