@@ -2831,7 +2831,7 @@ class ArmMotorAngleDataMessage extends $_dbc.DBCMessage {
 
   final $_dbc.DBCSignal _currentAngleSignal = $_dbc.DBCSignal(
     name: 'Current_Angle',
-    signalSignedness: $_dbc.DBCSignalSignedness.UNSIGNED,
+    signalSignedness: $_dbc.DBCSignalSignedness.SIGNED,
     signalType: $_dbc.DBCSignalType.INTEL,
     signalMode: $_dbc.DBCSignalMode.SIGNAL,
     multiplexGroup: -1,
@@ -2848,7 +2848,7 @@ class ArmMotorAngleDataMessage extends $_dbc.DBCMessage {
 
   final $_dbc.DBCSignal _targetAngleSignal = $_dbc.DBCSignal(
     name: 'Target_Angle',
-    signalSignedness: $_dbc.DBCSignalSignedness.UNSIGNED,
+    signalSignedness: $_dbc.DBCSignalSignedness.SIGNED,
     signalType: $_dbc.DBCSignalType.INTEL,
     signalMode: $_dbc.DBCSignalMode.SIGNAL,
     multiplexGroup: -1,
