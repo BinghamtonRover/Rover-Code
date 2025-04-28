@@ -21,6 +21,8 @@ import 'version.pb.dart' as $2;
 
 export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
+export 'arm.pbenum.dart';
+
 class ArmData extends $pb.GeneratedMessage {
   factory ArmData({
     $0.Coordinates? currentPosition,
