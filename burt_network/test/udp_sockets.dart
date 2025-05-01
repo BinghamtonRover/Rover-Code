@@ -104,4 +104,7 @@ class TestClient extends BurtSocket {
 
   @override
   void onSettings(UpdateSetting settings) { }
+  
+  @override
+  bool get shouldSendTimesync => false;
 }
