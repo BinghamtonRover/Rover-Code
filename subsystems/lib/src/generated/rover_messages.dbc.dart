@@ -154,8 +154,8 @@ class DeviceBroadcastMessage extends $_dbc.DBCMessage {
     mappingIndexes: [5, 6, 7, 8],
     factor: 1,
     offset: 0,
-    min: 0,
-    max: 8,
+    min: 1,
+    max: 15,
     unit: '',
   );
 
@@ -172,7 +172,7 @@ class DeviceBroadcastMessage extends $_dbc.DBCMessage {
     factor: 1,
     offset: 0,
     min: 0,
-    max: 8,
+    max: 15,
     unit: '',
   );
 
@@ -185,7 +185,7 @@ class DeviceBroadcastMessage extends $_dbc.DBCMessage {
 
   DeviceBroadcastMessage({
     this.deviceValue = 0,
-    this.fwVersionMajor = 0,
+    this.fwVersionMajor = 1,
     this.fwVersionMinor = 0,
   });
 
@@ -221,7 +221,7 @@ class DeviceBroadcastMessage extends $_dbc.DBCMessage {
   factory DeviceBroadcastMessage.fromJson(Map<String, dynamic> json) =>
       DeviceBroadcastMessage(
         deviceValue: json['Device_Value'] ?? 0,
-        fwVersionMajor: json['FW_Version_Major'] ?? 0,
+        fwVersionMajor: json['FW_Version_Major'] ?? 1,
         fwVersionMinor: json['FW_Version_Minor'] ?? 0,
       );
 
@@ -604,6 +604,305 @@ class DriveSetLedMessage extends $_dbc.DBCMessage {
   @override
   String toString() {
     return 'Drive_SetLED(\n  Color=$color\n  Blink=$blink\n)';
+  }
+}
+
+class DriveSetSwivelMessage extends $_dbc.DBCMessage {
+  @override
+  String messageName = 'Drive_SetSwivel';
+
+  @override
+  int messageLength = 7;
+
+  @override
+  int canId = 0x12;
+
+  /// Whether or not "Drive_SetSwivel" is multiplex
+  static const bool isMultiplex = false;
+
+  /// The multiplexor for "Drive_SetSwivel"
+  static const String multiplexor = '';
+
+  /// Value of signal "Set_Front_Swivel"
+  num setFrontSwivel;
+
+  /// Value of signal "Set_Front_Tilt"
+  num setFrontTilt;
+
+  /// Value of signal "Set_Rear_Swivel"
+  num setRearSwivel;
+
+  /// Value of signal "Set_Rear_Tilt"
+  num setRearTilt;
+
+  /// Value of signal "Front_Swivel"
+  num frontSwivel;
+
+  /// Value of signal "Front_Tilt"
+  num frontTilt;
+
+  /// Value of signal "Rear_Swivel"
+  num rearSwivel;
+
+  /// Value of signal "Rear_Tilt"
+  num rearTilt;
+
+  final $_dbc.DBCSignal _setFrontSwivelSignal = $_dbc.DBCSignal(
+    name: 'Set_Front_Swivel',
+    signalSignedness: $_dbc.DBCSignalSignedness.UNSIGNED,
+    signalType: $_dbc.DBCSignalType.INTEL,
+    signalMode: $_dbc.DBCSignalMode.SIGNAL,
+    multiplexGroup: -1,
+    start: 0,
+    length: 1,
+    mapping: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    mappingIndexes: [0],
+    factor: 1,
+    offset: 0,
+    min: 0,
+    max: 1,
+    unit: '',
+  );
+
+  final $_dbc.DBCSignal _setFrontTiltSignal = $_dbc.DBCSignal(
+    name: 'Set_Front_Tilt',
+    signalSignedness: $_dbc.DBCSignalSignedness.UNSIGNED,
+    signalType: $_dbc.DBCSignalType.INTEL,
+    signalMode: $_dbc.DBCSignalMode.SIGNAL,
+    multiplexGroup: -1,
+    start: 1,
+    length: 1,
+    mapping: [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    mappingIndexes: [1],
+    factor: 1,
+    offset: 0,
+    min: 0,
+    max: 1,
+    unit: '',
+  );
+
+  final $_dbc.DBCSignal _setRearSwivelSignal = $_dbc.DBCSignal(
+    name: 'Set_Rear_Swivel',
+    signalSignedness: $_dbc.DBCSignalSignedness.UNSIGNED,
+    signalType: $_dbc.DBCSignalType.INTEL,
+    signalMode: $_dbc.DBCSignalMode.SIGNAL,
+    multiplexGroup: -1,
+    start: 2,
+    length: 1,
+    mapping: [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    mappingIndexes: [2],
+    factor: 1,
+    offset: 0,
+    min: 0,
+    max: 1,
+    unit: '',
+  );
+
+  final $_dbc.DBCSignal _setRearTiltSignal = $_dbc.DBCSignal(
+    name: 'Set_Rear_Tilt',
+    signalSignedness: $_dbc.DBCSignalSignedness.UNSIGNED,
+    signalType: $_dbc.DBCSignalType.INTEL,
+    signalMode: $_dbc.DBCSignalMode.SIGNAL,
+    multiplexGroup: -1,
+    start: 3,
+    length: 1,
+    mapping: [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    mappingIndexes: [3],
+    factor: 1,
+    offset: 0,
+    min: 0,
+    max: 1,
+    unit: '',
+  );
+
+  final $_dbc.DBCSignal _frontSwivelSignal = $_dbc.DBCSignal(
+    name: 'Front_Swivel',
+    signalSignedness: $_dbc.DBCSignalSignedness.SIGNED,
+    signalType: $_dbc.DBCSignalType.INTEL,
+    signalMode: $_dbc.DBCSignalMode.SIGNAL,
+    multiplexGroup: -1,
+    start: 4,
+    length: 12,
+    mapping: [0, 0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    mappingIndexes: [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+    factor: 0.044,
+    offset: 0,
+    min: -90,
+    max: 90,
+    unit: '°',
+  );
+
+  final $_dbc.DBCSignal _frontTiltSignal = $_dbc.DBCSignal(
+    name: 'Front_Tilt',
+    signalSignedness: $_dbc.DBCSignalSignedness.SIGNED,
+    signalType: $_dbc.DBCSignalType.INTEL,
+    signalMode: $_dbc.DBCSignalMode.SIGNAL,
+    multiplexGroup: -1,
+    start: 16,
+    length: 12,
+    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    mappingIndexes: [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27],
+    factor: 0.044,
+    offset: 0,
+    min: -90,
+    max: 90,
+    unit: '°',
+  );
+
+  final $_dbc.DBCSignal _rearSwivelSignal = $_dbc.DBCSignal(
+    name: 'Rear_Swivel',
+    signalSignedness: $_dbc.DBCSignalSignedness.SIGNED,
+    signalType: $_dbc.DBCSignalType.INTEL,
+    signalMode: $_dbc.DBCSignalMode.SIGNAL,
+    multiplexGroup: -1,
+    start: 28,
+    length: 12,
+    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    mappingIndexes: [28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39],
+    factor: 0.044,
+    offset: 0,
+    min: -90,
+    max: 90,
+    unit: '°',
+  );
+
+  final $_dbc.DBCSignal _rearTiltSignal = $_dbc.DBCSignal(
+    name: 'Rear_Tilt',
+    signalSignedness: $_dbc.DBCSignalSignedness.SIGNED,
+    signalType: $_dbc.DBCSignalType.INTEL,
+    signalMode: $_dbc.DBCSignalMode.SIGNAL,
+    multiplexGroup: -1,
+    start: 40,
+    length: 12,
+    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 0, 0, 0, 0],
+    mappingIndexes: [40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51],
+    factor: 0.044,
+    offset: 0,
+    min: -90,
+    max: 90,
+    unit: '°',
+  );
+
+  @override
+  List<$_dbc.DBCSignal> get signals => [
+    _setFrontSwivelSignal,
+    _setFrontTiltSignal,
+    _setRearSwivelSignal,
+    _setRearTiltSignal,
+    _frontSwivelSignal,
+    _frontTiltSignal,
+    _rearSwivelSignal,
+    _rearTiltSignal,
+  ];
+
+  DriveSetSwivelMessage({
+    this.setFrontSwivel = 0,
+    this.setFrontTilt = 0,
+    this.setRearSwivel = 0,
+    this.setRearTilt = 0,
+    this.frontSwivel = 0,
+    this.frontTilt = 0,
+    this.rearSwivel = 0,
+    this.rearTilt = 0,
+  });
+
+  /// Creates a clone of this [DriveSetSwivelMessage] with the non-null values replaced
+  DriveSetSwivelMessage copyWith({
+    num? setFrontSwivel,
+    num? setFrontTilt,
+    num? setRearSwivel,
+    num? setRearTilt,
+    num? frontSwivel,
+    num? frontTilt,
+    num? rearSwivel,
+    num? rearTilt,
+  }) => DriveSetSwivelMessage(
+    setFrontSwivel: setFrontSwivel ?? this.setFrontSwivel,
+    setFrontTilt: setFrontTilt ?? this.setFrontTilt,
+    setRearSwivel: setRearSwivel ?? this.setRearSwivel,
+    setRearTilt: setRearTilt ?? this.setRearTilt,
+    frontSwivel: frontSwivel ?? this.frontSwivel,
+    frontTilt: frontTilt ?? this.frontTilt,
+    rearSwivel: rearSwivel ?? this.rearSwivel,
+    rearTilt: rearTilt ?? this.rearTilt,
+  );
+
+  factory DriveSetSwivelMessage.decode(List<int> payload) {
+    final message = DriveSetSwivelMessage();
+    final typedBuffer = $_typed.Uint8List.fromList(payload);
+    final bitField = $_dbc.BitField.from(typedBuffer.sublist(0, message.messageLength));
+
+    message.setFrontSwivel =
+        message._setFrontSwivelSignal.decode(bitField) ??
+        $_math.max(0, message._setFrontSwivelSignal.min);
+    message.setFrontTilt =
+        message._setFrontTiltSignal.decode(bitField) ??
+        $_math.max(0, message._setFrontTiltSignal.min);
+    message.setRearSwivel =
+        message._setRearSwivelSignal.decode(bitField) ??
+        $_math.max(0, message._setRearSwivelSignal.min);
+    message.setRearTilt =
+        message._setRearTiltSignal.decode(bitField) ??
+        $_math.max(0, message._setRearTiltSignal.min);
+    message.frontSwivel =
+        message._frontSwivelSignal.decode(bitField) ??
+        $_math.max(0, message._frontSwivelSignal.min);
+    message.frontTilt =
+        message._frontTiltSignal.decode(bitField) ??
+        $_math.max(0, message._frontTiltSignal.min);
+    message.rearSwivel =
+        message._rearSwivelSignal.decode(bitField) ??
+        $_math.max(0, message._rearSwivelSignal.min);
+    message.rearTilt =
+        message._rearTiltSignal.decode(bitField) ??
+        $_math.max(0, message._rearTiltSignal.min);
+
+    return message;
+  }
+
+  factory DriveSetSwivelMessage.fromJson(Map<String, dynamic> json) =>
+      DriveSetSwivelMessage(
+        setFrontSwivel: json['Set_Front_Swivel'] ?? 0,
+        setFrontTilt: json['Set_Front_Tilt'] ?? 0,
+        setRearSwivel: json['Set_Rear_Swivel'] ?? 0,
+        setRearTilt: json['Set_Rear_Tilt'] ?? 0,
+        frontSwivel: json['Front_Swivel'] ?? 0,
+        frontTilt: json['Front_Tilt'] ?? 0,
+        rearSwivel: json['Rear_Swivel'] ?? 0,
+        rearTilt: json['Rear_Tilt'] ?? 0,
+      );
+
+  @override
+  $_typed.Uint8List encode() {
+    final Map<$_dbc.DBCSignal, num> values = {
+      _setFrontSwivelSignal: setFrontSwivel,
+      _setFrontTiltSignal: setFrontTilt,
+      _setRearSwivelSignal: setRearSwivel,
+      _setRearTiltSignal: setRearTilt,
+      _frontSwivelSignal: frontSwivel,
+      _frontTiltSignal: frontTilt,
+      _rearSwivelSignal: rearSwivel,
+      _rearTiltSignal: rearTilt,
+    };
+
+    return encodeWithValues(values);
+  }
+
+  @override
+  Map<String, dynamic> toJson() => {
+    'Set_Front_Swivel': setFrontSwivel,
+    'Set_Front_Tilt': setFrontTilt,
+    'Set_Rear_Swivel': setRearSwivel,
+    'Set_Rear_Tilt': setRearTilt,
+    'Front_Swivel': frontSwivel,
+    'Front_Tilt': frontTilt,
+    'Rear_Swivel': rearSwivel,
+    'Rear_Tilt': rearTilt,
+  };
+
+  @override
+  String toString() {
+    return 'Drive_SetSwivel(\n  Set_Front_Swivel=$setFrontSwivel\n  Set_Front_Tilt=$setFrontTilt\n  Set_Rear_Swivel=$setRearSwivel\n  Set_Rear_Tilt=$setRearTilt\n  Front_Swivel=$frontSwivel\n  Front_Tilt=$frontTilt\n  Rear_Swivel=$rearSwivel\n  Rear_Tilt=$rearTilt\n)';
   }
 }
 
@@ -1200,6 +1499,215 @@ class DriveSwivelMessage extends $_dbc.DBCMessage {
   @override
   String toString() {
     return 'Drive_Swivel(\n  Front_Swivel=$frontSwivel\n  Front_Tilt=$frontTilt\n  Rear_Swivel=$rearSwivel\n  Rear_Tilt=$rearTilt\n)';
+  }
+}
+
+class DriveMotorDataMessage extends $_dbc.DBCMessage {
+  @override
+  String messageName = 'Drive_Motor_Data';
+
+  @override
+  int messageLength = 8;
+
+  @override
+  int canId = 0x19;
+
+  /// Whether or not "Drive_Motor_Data" is multiplex
+  static const bool isMultiplex = false;
+
+  /// The multiplexor for "Drive_Motor_Data"
+  static const String multiplexor = '';
+
+  /// Value of signal "Motor_Value"
+  num motorValue;
+
+  /// Value of signal "Motor_Position"
+  num motorPosition;
+
+  /// Value of signal "Motor_Speed"
+  num motorSpeed;
+
+  /// Value of signal "Motor_Current"
+  num motorCurrent;
+
+  /// Value of signal "Motor_Temperature"
+  num motorTemperature;
+
+  final $_dbc.DBCSignal _motorValueSignal = $_dbc.DBCSignal(
+    name: 'Motor_Value',
+    signalSignedness: $_dbc.DBCSignalSignedness.UNSIGNED,
+    signalType: $_dbc.DBCSignalType.INTEL,
+    signalMode: $_dbc.DBCSignalMode.SIGNAL,
+    multiplexGroup: -1,
+    start: 0,
+    length: 3,
+    mapping: [1, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    mappingIndexes: [0, 1, 2],
+    factor: 1,
+    offset: 0,
+    min: 0,
+    max: 6,
+    unit: '',
+  );
+
+  final $_dbc.DBCSignal _motorPositionSignal = $_dbc.DBCSignal(
+    name: 'Motor_Position',
+    signalSignedness: $_dbc.DBCSignalSignedness.SIGNED,
+    signalType: $_dbc.DBCSignalType.INTEL,
+    signalMode: $_dbc.DBCSignalMode.SIGNAL,
+    multiplexGroup: -1,
+    start: 3,
+    length: 16,
+    mapping: [0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    mappingIndexes: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+    factor: 0.1,
+    offset: 0,
+    min: -3200,
+    max: 3200,
+    unit: '°',
+  );
+
+  final $_dbc.DBCSignal _motorSpeedSignal = $_dbc.DBCSignal(
+    name: 'Motor_Speed',
+    signalSignedness: $_dbc.DBCSignalSignedness.SIGNED,
+    signalType: $_dbc.DBCSignalType.INTEL,
+    signalMode: $_dbc.DBCSignalMode.SIGNAL,
+    multiplexGroup: -1,
+    start: 19,
+    length: 16,
+    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    mappingIndexes: [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34],
+    factor: 10,
+    offset: 0,
+    min: -320000,
+    max: 320000,
+    unit: 'RPM',
+  );
+
+  final $_dbc.DBCSignal _motorCurrentSignal = $_dbc.DBCSignal(
+    name: 'Motor_Current',
+    signalSignedness: $_dbc.DBCSignalSignedness.SIGNED,
+    signalType: $_dbc.DBCSignalType.INTEL,
+    signalMode: $_dbc.DBCSignalMode.SIGNAL,
+    multiplexGroup: -1,
+    start: 35,
+    length: 16,
+    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    mappingIndexes: [35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50],
+    factor: 0.01,
+    offset: 0,
+    min: -60,
+    max: 60,
+    unit: 'A',
+  );
+
+  final $_dbc.DBCSignal _motorTemperatureSignal = $_dbc.DBCSignal(
+    name: 'Motor_Temperature',
+    signalSignedness: $_dbc.DBCSignalSignedness.SIGNED,
+    signalType: $_dbc.DBCSignalType.INTEL,
+    signalMode: $_dbc.DBCSignalMode.SIGNAL,
+    multiplexGroup: -1,
+    start: 51,
+    length: 8,
+    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 0, 0, 0, 0, 0],
+    mappingIndexes: [51, 52, 53, 54, 55, 56, 57, 58],
+    factor: 1,
+    offset: 0,
+    min: -20,
+    max: 127,
+    unit: '°C',
+  );
+
+  @override
+  List<$_dbc.DBCSignal> get signals => [
+    _motorValueSignal,
+    _motorPositionSignal,
+    _motorSpeedSignal,
+    _motorCurrentSignal,
+    _motorTemperatureSignal,
+  ];
+
+  DriveMotorDataMessage({
+    this.motorValue = 0,
+    this.motorPosition = 0,
+    this.motorSpeed = 0,
+    this.motorCurrent = 0,
+    this.motorTemperature = 0,
+  });
+
+  /// Creates a clone of this [DriveMotorDataMessage] with the non-null values replaced
+  DriveMotorDataMessage copyWith({
+    num? motorValue,
+    num? motorPosition,
+    num? motorSpeed,
+    num? motorCurrent,
+    num? motorTemperature,
+  }) => DriveMotorDataMessage(
+    motorValue: motorValue ?? this.motorValue,
+    motorPosition: motorPosition ?? this.motorPosition,
+    motorSpeed: motorSpeed ?? this.motorSpeed,
+    motorCurrent: motorCurrent ?? this.motorCurrent,
+    motorTemperature: motorTemperature ?? this.motorTemperature,
+  );
+
+  factory DriveMotorDataMessage.decode(List<int> payload) {
+    final message = DriveMotorDataMessage();
+    final typedBuffer = $_typed.Uint8List.fromList(payload);
+    final bitField = $_dbc.BitField.from(typedBuffer.sublist(0, message.messageLength));
+
+    message.motorValue =
+        message._motorValueSignal.decode(bitField) ??
+        $_math.max(0, message._motorValueSignal.min);
+    message.motorPosition =
+        message._motorPositionSignal.decode(bitField) ??
+        $_math.max(0, message._motorPositionSignal.min);
+    message.motorSpeed =
+        message._motorSpeedSignal.decode(bitField) ??
+        $_math.max(0, message._motorSpeedSignal.min);
+    message.motorCurrent =
+        message._motorCurrentSignal.decode(bitField) ??
+        $_math.max(0, message._motorCurrentSignal.min);
+    message.motorTemperature =
+        message._motorTemperatureSignal.decode(bitField) ??
+        $_math.max(0, message._motorTemperatureSignal.min);
+
+    return message;
+  }
+
+  factory DriveMotorDataMessage.fromJson(Map<String, dynamic> json) =>
+      DriveMotorDataMessage(
+        motorValue: json['Motor_Value'] ?? 0,
+        motorPosition: json['Motor_Position'] ?? 0,
+        motorSpeed: json['Motor_Speed'] ?? 0,
+        motorCurrent: json['Motor_Current'] ?? 0,
+        motorTemperature: json['Motor_Temperature'] ?? 0,
+      );
+
+  @override
+  $_typed.Uint8List encode() {
+    final Map<$_dbc.DBCSignal, num> values = {
+      _motorValueSignal: motorValue,
+      _motorPositionSignal: motorPosition,
+      _motorSpeedSignal: motorSpeed,
+      _motorCurrentSignal: motorCurrent,
+      _motorTemperatureSignal: motorTemperature,
+    };
+
+    return encodeWithValues(values);
+  }
+
+  @override
+  Map<String, dynamic> toJson() => {
+    'Motor_Value': motorValue,
+    'Motor_Position': motorPosition,
+    'Motor_Speed': motorSpeed,
+    'Motor_Current': motorCurrent,
+    'Motor_Temperature': motorTemperature,
+  };
+
+  @override
+  String toString() {
+    return 'Drive_Motor_Data(\n  Motor_Value=$motorValue\n  Motor_Position=$motorPosition\n  Motor_Speed=$motorSpeed\n  Motor_Current=$motorCurrent\n  Motor_Temperature=$motorTemperature\n)';
   }
 }
 
@@ -1978,305 +2486,6 @@ class RelayStateMessage extends $_dbc.DBCMessage {
   @override
   String toString() {
     return 'Relay_State(\n  Front_Left_Motor=$frontLeftMotor\n  Front_Right_Motor=$frontRightMotor\n  Back_Left_Motor=$backLeftMotor\n  Back_Right_Motor=$backRightMotor\n  Drive=$drive\n  Arm=$arm\n  Science=$science\n  Physical_Override=$physicalOverride\n)';
-  }
-}
-
-class DriveSetSwivelMessage extends $_dbc.DBCMessage {
-  @override
-  String messageName = 'Drive_SetSwivel';
-
-  @override
-  int messageLength = 7;
-
-  @override
-  int canId = 0x12;
-
-  /// Whether or not "Drive_SetSwivel" is multiplex
-  static const bool isMultiplex = false;
-
-  /// The multiplexor for "Drive_SetSwivel"
-  static const String multiplexor = '';
-
-  /// Value of signal "Set_Front_Swivel"
-  num setFrontSwivel;
-
-  /// Value of signal "Set_Front_Tilt"
-  num setFrontTilt;
-
-  /// Value of signal "Set_Rear_Swivel"
-  num setRearSwivel;
-
-  /// Value of signal "Set_Rear_Tilt"
-  num setRearTilt;
-
-  /// Value of signal "Front_Swivel"
-  num frontSwivel;
-
-  /// Value of signal "Front_Tilt"
-  num frontTilt;
-
-  /// Value of signal "Rear_Swivel"
-  num rearSwivel;
-
-  /// Value of signal "Rear_Tilt"
-  num rearTilt;
-
-  final $_dbc.DBCSignal _setFrontSwivelSignal = $_dbc.DBCSignal(
-    name: 'Set_Front_Swivel',
-    signalSignedness: $_dbc.DBCSignalSignedness.UNSIGNED,
-    signalType: $_dbc.DBCSignalType.INTEL,
-    signalMode: $_dbc.DBCSignalMode.SIGNAL,
-    multiplexGroup: -1,
-    start: 0,
-    length: 1,
-    mapping: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    mappingIndexes: [0],
-    factor: 1,
-    offset: 0,
-    min: 0,
-    max: 1,
-    unit: '',
-  );
-
-  final $_dbc.DBCSignal _setFrontTiltSignal = $_dbc.DBCSignal(
-    name: 'Set_Front_Tilt',
-    signalSignedness: $_dbc.DBCSignalSignedness.UNSIGNED,
-    signalType: $_dbc.DBCSignalType.INTEL,
-    signalMode: $_dbc.DBCSignalMode.SIGNAL,
-    multiplexGroup: -1,
-    start: 1,
-    length: 1,
-    mapping: [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    mappingIndexes: [1],
-    factor: 1,
-    offset: 0,
-    min: 0,
-    max: 1,
-    unit: '',
-  );
-
-  final $_dbc.DBCSignal _setRearSwivelSignal = $_dbc.DBCSignal(
-    name: 'Set_Rear_Swivel',
-    signalSignedness: $_dbc.DBCSignalSignedness.UNSIGNED,
-    signalType: $_dbc.DBCSignalType.INTEL,
-    signalMode: $_dbc.DBCSignalMode.SIGNAL,
-    multiplexGroup: -1,
-    start: 2,
-    length: 1,
-    mapping: [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    mappingIndexes: [2],
-    factor: 1,
-    offset: 0,
-    min: 0,
-    max: 1,
-    unit: '',
-  );
-
-  final $_dbc.DBCSignal _setRearTiltSignal = $_dbc.DBCSignal(
-    name: 'Set_Rear_Tilt',
-    signalSignedness: $_dbc.DBCSignalSignedness.UNSIGNED,
-    signalType: $_dbc.DBCSignalType.INTEL,
-    signalMode: $_dbc.DBCSignalMode.SIGNAL,
-    multiplexGroup: -1,
-    start: 3,
-    length: 1,
-    mapping: [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    mappingIndexes: [3],
-    factor: 1,
-    offset: 0,
-    min: 0,
-    max: 1,
-    unit: '',
-  );
-
-  final $_dbc.DBCSignal _frontSwivelSignal = $_dbc.DBCSignal(
-    name: 'Front_Swivel',
-    signalSignedness: $_dbc.DBCSignalSignedness.SIGNED,
-    signalType: $_dbc.DBCSignalType.INTEL,
-    signalMode: $_dbc.DBCSignalMode.SIGNAL,
-    multiplexGroup: -1,
-    start: 4,
-    length: 12,
-    mapping: [0, 0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    mappingIndexes: [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-    factor: 0.044,
-    offset: 0,
-    min: -90,
-    max: 90,
-    unit: '°',
-  );
-
-  final $_dbc.DBCSignal _frontTiltSignal = $_dbc.DBCSignal(
-    name: 'Front_Tilt',
-    signalSignedness: $_dbc.DBCSignalSignedness.SIGNED,
-    signalType: $_dbc.DBCSignalType.INTEL,
-    signalMode: $_dbc.DBCSignalMode.SIGNAL,
-    multiplexGroup: -1,
-    start: 16,
-    length: 12,
-    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    mappingIndexes: [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27],
-    factor: 0.044,
-    offset: 0,
-    min: -90,
-    max: 90,
-    unit: '°',
-  );
-
-  final $_dbc.DBCSignal _rearSwivelSignal = $_dbc.DBCSignal(
-    name: 'Rear_Swivel',
-    signalSignedness: $_dbc.DBCSignalSignedness.SIGNED,
-    signalType: $_dbc.DBCSignalType.INTEL,
-    signalMode: $_dbc.DBCSignalMode.SIGNAL,
-    multiplexGroup: -1,
-    start: 28,
-    length: 12,
-    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    mappingIndexes: [28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39],
-    factor: 0.044,
-    offset: 0,
-    min: -90,
-    max: 90,
-    unit: '°',
-  );
-
-  final $_dbc.DBCSignal _rearTiltSignal = $_dbc.DBCSignal(
-    name: 'Rear_Tilt',
-    signalSignedness: $_dbc.DBCSignalSignedness.SIGNED,
-    signalType: $_dbc.DBCSignalType.INTEL,
-    signalMode: $_dbc.DBCSignalMode.SIGNAL,
-    multiplexGroup: -1,
-    start: 40,
-    length: 12,
-    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 0, 0, 0, 0],
-    mappingIndexes: [40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51],
-    factor: 0.044,
-    offset: 0,
-    min: -90,
-    max: 90,
-    unit: '°',
-  );
-
-  @override
-  List<$_dbc.DBCSignal> get signals => [
-    _setFrontSwivelSignal,
-    _setFrontTiltSignal,
-    _setRearSwivelSignal,
-    _setRearTiltSignal,
-    _frontSwivelSignal,
-    _frontTiltSignal,
-    _rearSwivelSignal,
-    _rearTiltSignal,
-  ];
-
-  DriveSetSwivelMessage({
-    this.setFrontSwivel = 0,
-    this.setFrontTilt = 0,
-    this.setRearSwivel = 0,
-    this.setRearTilt = 0,
-    this.frontSwivel = 0,
-    this.frontTilt = 0,
-    this.rearSwivel = 0,
-    this.rearTilt = 0,
-  });
-
-  /// Creates a clone of this [DriveSetSwivelMessage] with the non-null values replaced
-  DriveSetSwivelMessage copyWith({
-    num? setFrontSwivel,
-    num? setFrontTilt,
-    num? setRearSwivel,
-    num? setRearTilt,
-    num? frontSwivel,
-    num? frontTilt,
-    num? rearSwivel,
-    num? rearTilt,
-  }) => DriveSetSwivelMessage(
-    setFrontSwivel: setFrontSwivel ?? this.setFrontSwivel,
-    setFrontTilt: setFrontTilt ?? this.setFrontTilt,
-    setRearSwivel: setRearSwivel ?? this.setRearSwivel,
-    setRearTilt: setRearTilt ?? this.setRearTilt,
-    frontSwivel: frontSwivel ?? this.frontSwivel,
-    frontTilt: frontTilt ?? this.frontTilt,
-    rearSwivel: rearSwivel ?? this.rearSwivel,
-    rearTilt: rearTilt ?? this.rearTilt,
-  );
-
-  factory DriveSetSwivelMessage.decode(List<int> payload) {
-    final message = DriveSetSwivelMessage();
-    final typedBuffer = $_typed.Uint8List.fromList(payload);
-    final bitField = $_dbc.BitField.from(typedBuffer.sublist(0, message.messageLength));
-
-    message.setFrontSwivel =
-        message._setFrontSwivelSignal.decode(bitField) ??
-        $_math.max(0, message._setFrontSwivelSignal.min);
-    message.setFrontTilt =
-        message._setFrontTiltSignal.decode(bitField) ??
-        $_math.max(0, message._setFrontTiltSignal.min);
-    message.setRearSwivel =
-        message._setRearSwivelSignal.decode(bitField) ??
-        $_math.max(0, message._setRearSwivelSignal.min);
-    message.setRearTilt =
-        message._setRearTiltSignal.decode(bitField) ??
-        $_math.max(0, message._setRearTiltSignal.min);
-    message.frontSwivel =
-        message._frontSwivelSignal.decode(bitField) ??
-        $_math.max(0, message._frontSwivelSignal.min);
-    message.frontTilt =
-        message._frontTiltSignal.decode(bitField) ??
-        $_math.max(0, message._frontTiltSignal.min);
-    message.rearSwivel =
-        message._rearSwivelSignal.decode(bitField) ??
-        $_math.max(0, message._rearSwivelSignal.min);
-    message.rearTilt =
-        message._rearTiltSignal.decode(bitField) ??
-        $_math.max(0, message._rearTiltSignal.min);
-
-    return message;
-  }
-
-  factory DriveSetSwivelMessage.fromJson(Map<String, dynamic> json) =>
-      DriveSetSwivelMessage(
-        setFrontSwivel: json['Set_Front_Swivel'] ?? 0,
-        setFrontTilt: json['Set_Front_Tilt'] ?? 0,
-        setRearSwivel: json['Set_Rear_Swivel'] ?? 0,
-        setRearTilt: json['Set_Rear_Tilt'] ?? 0,
-        frontSwivel: json['Front_Swivel'] ?? 0,
-        frontTilt: json['Front_Tilt'] ?? 0,
-        rearSwivel: json['Rear_Swivel'] ?? 0,
-        rearTilt: json['Rear_Tilt'] ?? 0,
-      );
-
-  @override
-  $_typed.Uint8List encode() {
-    final Map<$_dbc.DBCSignal, num> values = {
-      _setFrontSwivelSignal: setFrontSwivel,
-      _setFrontTiltSignal: setFrontTilt,
-      _setRearSwivelSignal: setRearSwivel,
-      _setRearTiltSignal: setRearTilt,
-      _frontSwivelSignal: frontSwivel,
-      _frontTiltSignal: frontTilt,
-      _rearSwivelSignal: rearSwivel,
-      _rearTiltSignal: rearTilt,
-    };
-
-    return encodeWithValues(values);
-  }
-
-  @override
-  Map<String, dynamic> toJson() => {
-    'Set_Front_Swivel': setFrontSwivel,
-    'Set_Front_Tilt': setFrontTilt,
-    'Set_Rear_Swivel': setRearSwivel,
-    'Set_Rear_Tilt': setRearTilt,
-    'Front_Swivel': frontSwivel,
-    'Front_Tilt': frontTilt,
-    'Rear_Swivel': rearSwivel,
-    'Rear_Tilt': rearTilt,
-  };
-
-  @override
-  String toString() {
-    return 'Drive_SetSwivel(\n  Set_Front_Swivel=$setFrontSwivel\n  Set_Front_Tilt=$setFrontTilt\n  Set_Rear_Swivel=$setRearSwivel\n  Set_Rear_Tilt=$setRearTilt\n  Front_Swivel=$frontSwivel\n  Front_Tilt=$frontTilt\n  Rear_Swivel=$rearSwivel\n  Rear_Tilt=$rearTilt\n)';
   }
 }
 
