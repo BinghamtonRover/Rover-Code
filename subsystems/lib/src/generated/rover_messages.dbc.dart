@@ -19,7 +19,7 @@ class RoverHeartbeatMessage extends $_dbc.DBCMessage {
   int messageLength = 1;
 
   @override
-  int canId = 0x0;
+  int canId = 0x1;
 
   /// Whether or not "Rover_Heartbeat" is multiplex
   static const bool isMultiplex = false;
@@ -108,7 +108,7 @@ class DeviceBroadcastMessage extends $_dbc.DBCMessage {
   int messageLength = 2;
 
   @override
-  int canId = 0x1;
+  int canId = 0x2;
 
   /// Whether or not "Device_Broadcast" is multiplex
   static const bool isMultiplex = false;
@@ -490,7 +490,7 @@ class DriveSetSpeedsMessage extends $_dbc.DBCMessage {
 
 class DriveSetLedMessage extends $_dbc.DBCMessage {
   @override
-  String messageName = 'Drive_SetLED';
+  String messageName = 'Drive_Set_LED';
 
   @override
   int messageLength = 1;
@@ -498,10 +498,10 @@ class DriveSetLedMessage extends $_dbc.DBCMessage {
   @override
   int canId = 0x11;
 
-  /// Whether or not "Drive_SetLED" is multiplex
+  /// Whether or not "Drive_Set_LED" is multiplex
   static const bool isMultiplex = false;
 
-  /// The multiplexor for "Drive_SetLED"
+  /// The multiplexor for "Drive_Set_LED"
   static const String multiplexor = '';
 
   /// Value of signal "Color"
@@ -603,13 +603,13 @@ class DriveSetLedMessage extends $_dbc.DBCMessage {
 
   @override
   String toString() {
-    return 'Drive_SetLED(\n  Color=$color\n  Blink=$blink\n)';
+    return 'Drive_Set_LED(\n  Color=$color\n  Blink=$blink\n)';
   }
 }
 
 class DriveSetSwivelMessage extends $_dbc.DBCMessage {
   @override
-  String messageName = 'Drive_SetSwivel';
+  String messageName = 'Drive_Set_Swivel';
 
   @override
   int messageLength = 7;
@@ -617,10 +617,10 @@ class DriveSetSwivelMessage extends $_dbc.DBCMessage {
   @override
   int canId = 0x12;
 
-  /// Whether or not "Drive_SetSwivel" is multiplex
+  /// Whether or not "Drive_Set_Swivel" is multiplex
   static const bool isMultiplex = false;
 
-  /// The multiplexor for "Drive_SetSwivel"
+  /// The multiplexor for "Drive_Set_Swivel"
   static const String multiplexor = '';
 
   /// Value of signal "Set_Front_Swivel"
@@ -902,13 +902,13 @@ class DriveSetSwivelMessage extends $_dbc.DBCMessage {
 
   @override
   String toString() {
-    return 'Drive_SetSwivel(\n  Set_Front_Swivel=$setFrontSwivel\n  Set_Front_Tilt=$setFrontTilt\n  Set_Rear_Swivel=$setRearSwivel\n  Set_Rear_Tilt=$setRearTilt\n  Front_Swivel=$frontSwivel\n  Front_Tilt=$frontTilt\n  Rear_Swivel=$rearSwivel\n  Rear_Tilt=$rearTilt\n)';
+    return 'Drive_Set_Swivel(\n  Set_Front_Swivel=$setFrontSwivel\n  Set_Front_Tilt=$setFrontTilt\n  Set_Rear_Swivel=$setRearSwivel\n  Set_Rear_Tilt=$setRearTilt\n  Front_Swivel=$frontSwivel\n  Front_Tilt=$frontTilt\n  Rear_Swivel=$rearSwivel\n  Rear_Tilt=$rearTilt\n)';
   }
 }
 
-class DriveLedMessage extends $_dbc.DBCMessage {
+class DriveLedDataMessage extends $_dbc.DBCMessage {
   @override
-  String messageName = 'Drive_LED';
+  String messageName = 'Drive_LED_Data';
 
   @override
   int messageLength = 1;
@@ -916,10 +916,10 @@ class DriveLedMessage extends $_dbc.DBCMessage {
   @override
   int canId = 0x17;
 
-  /// Whether or not "Drive_LED" is multiplex
+  /// Whether or not "Drive_LED_Data" is multiplex
   static const bool isMultiplex = false;
 
-  /// The multiplexor for "Drive_LED"
+  /// The multiplexor for "Drive_LED_Data"
   static const String multiplexor = '';
 
   /// Value of signal "Color"
@@ -968,22 +968,22 @@ class DriveLedMessage extends $_dbc.DBCMessage {
     _blinkSignal,
   ];
 
-  DriveLedMessage({
+  DriveLedDataMessage({
     this.color = 0,
     this.blink = 0,
   });
 
-  /// Creates a clone of this [DriveLedMessage] with the non-null values replaced
-  DriveLedMessage copyWith({
+  /// Creates a clone of this [DriveLedDataMessage] with the non-null values replaced
+  DriveLedDataMessage copyWith({
     num? color,
     num? blink,
-  }) => DriveLedMessage(
+  }) => DriveLedDataMessage(
     color: color ?? this.color,
     blink: blink ?? this.blink,
   );
 
-  factory DriveLedMessage.decode(List<int> payload) {
-    final message = DriveLedMessage();
+  factory DriveLedDataMessage.decode(List<int> payload) {
+    final message = DriveLedDataMessage();
     final typedBuffer = $_typed.Uint8List.fromList(payload);
     final bitField = $_dbc.BitField.from(typedBuffer.sublist(0, message.messageLength));
 
@@ -997,8 +997,8 @@ class DriveLedMessage extends $_dbc.DBCMessage {
     return message;
   }
 
-  factory DriveLedMessage.fromJson(Map<String, dynamic> json) =>
-      DriveLedMessage(
+  factory DriveLedDataMessage.fromJson(Map<String, dynamic> json) =>
+      DriveLedDataMessage(
         color: json['Color'] ?? 0,
         blink: json['Blink'] ?? 0,
       );
@@ -1021,13 +1021,13 @@ class DriveLedMessage extends $_dbc.DBCMessage {
 
   @override
   String toString() {
-    return 'Drive_LED(\n  Color=$color\n  Blink=$blink\n)';
+    return 'Drive_LED_Data(\n  Color=$color\n  Blink=$blink\n)';
   }
 }
 
-class DriveAppliedOutputMessage extends $_dbc.DBCMessage {
+class DriveAppliedOutputDataMessage extends $_dbc.DBCMessage {
   @override
-  String messageName = 'Drive_Applied_Output';
+  String messageName = 'Drive_Applied_Output_Data';
 
   @override
   int messageLength = 6;
@@ -1035,10 +1035,10 @@ class DriveAppliedOutputMessage extends $_dbc.DBCMessage {
   @override
   int canId = 0x15;
 
-  /// Whether or not "Drive_Applied_Output" is multiplex
+  /// Whether or not "Drive_Applied_Output_Data" is multiplex
   static const bool isMultiplex = false;
 
-  /// The multiplexor for "Drive_Applied_Output"
+  /// The multiplexor for "Drive_Applied_Output_Data"
   static const String multiplexor = '';
 
   /// Value of signal "Throttle"
@@ -1108,25 +1108,25 @@ class DriveAppliedOutputMessage extends $_dbc.DBCMessage {
     _rightSpeedSignal,
   ];
 
-  DriveAppliedOutputMessage({
+  DriveAppliedOutputDataMessage({
     this.throttle = 0,
     this.leftSpeed = 0,
     this.rightSpeed = 0,
   });
 
-  /// Creates a clone of this [DriveAppliedOutputMessage] with the non-null values replaced
-  DriveAppliedOutputMessage copyWith({
+  /// Creates a clone of this [DriveAppliedOutputDataMessage] with the non-null values replaced
+  DriveAppliedOutputDataMessage copyWith({
     num? throttle,
     num? leftSpeed,
     num? rightSpeed,
-  }) => DriveAppliedOutputMessage(
+  }) => DriveAppliedOutputDataMessage(
     throttle: throttle ?? this.throttle,
     leftSpeed: leftSpeed ?? this.leftSpeed,
     rightSpeed: rightSpeed ?? this.rightSpeed,
   );
 
-  factory DriveAppliedOutputMessage.decode(List<int> payload) {
-    final message = DriveAppliedOutputMessage();
+  factory DriveAppliedOutputDataMessage.decode(List<int> payload) {
+    final message = DriveAppliedOutputDataMessage();
     final typedBuffer = $_typed.Uint8List.fromList(payload);
     final bitField = $_dbc.BitField.from(typedBuffer.sublist(0, message.messageLength));
 
@@ -1143,8 +1143,8 @@ class DriveAppliedOutputMessage extends $_dbc.DBCMessage {
     return message;
   }
 
-  factory DriveAppliedOutputMessage.fromJson(Map<String, dynamic> json) =>
-      DriveAppliedOutputMessage(
+  factory DriveAppliedOutputDataMessage.fromJson(Map<String, dynamic> json) =>
+      DriveAppliedOutputDataMessage(
         throttle: json['Throttle'] ?? 0,
         leftSpeed: json['Left_Speed'] ?? 0,
         rightSpeed: json['Right_Speed'] ?? 0,
@@ -1170,13 +1170,13 @@ class DriveAppliedOutputMessage extends $_dbc.DBCMessage {
 
   @override
   String toString() {
-    return 'Drive_Applied_Output(\n  Throttle=$throttle\n  Left_Speed=$leftSpeed\n  Right_Speed=$rightSpeed\n)';
+    return 'Drive_Applied_Output_Data(\n  Throttle=$throttle\n  Left_Speed=$leftSpeed\n  Right_Speed=$rightSpeed\n)';
   }
 }
 
-class DriveBatteryMessage extends $_dbc.DBCMessage {
+class DriveBatteryDataMessage extends $_dbc.DBCMessage {
   @override
-  String messageName = 'Drive_Battery';
+  String messageName = 'Drive_Battery_Data';
 
   @override
   int messageLength = 6;
@@ -1184,10 +1184,10 @@ class DriveBatteryMessage extends $_dbc.DBCMessage {
   @override
   int canId = 0x16;
 
-  /// Whether or not "Drive_Battery" is multiplex
+  /// Whether or not "Drive_Battery_Data" is multiplex
   static const bool isMultiplex = false;
 
-  /// The multiplexor for "Drive_Battery"
+  /// The multiplexor for "Drive_Battery_Data"
   static const String multiplexor = '';
 
   /// Value of signal "Voltage"
@@ -1257,25 +1257,25 @@ class DriveBatteryMessage extends $_dbc.DBCMessage {
     _currentSignal,
   ];
 
-  DriveBatteryMessage({
+  DriveBatteryDataMessage({
     this.voltage = 0,
     this.temperature = 50,
     this.current = 0,
   });
 
-  /// Creates a clone of this [DriveBatteryMessage] with the non-null values replaced
-  DriveBatteryMessage copyWith({
+  /// Creates a clone of this [DriveBatteryDataMessage] with the non-null values replaced
+  DriveBatteryDataMessage copyWith({
     num? voltage,
     num? temperature,
     num? current,
-  }) => DriveBatteryMessage(
+  }) => DriveBatteryDataMessage(
     voltage: voltage ?? this.voltage,
     temperature: temperature ?? this.temperature,
     current: current ?? this.current,
   );
 
-  factory DriveBatteryMessage.decode(List<int> payload) {
-    final message = DriveBatteryMessage();
+  factory DriveBatteryDataMessage.decode(List<int> payload) {
+    final message = DriveBatteryDataMessage();
     final typedBuffer = $_typed.Uint8List.fromList(payload);
     final bitField = $_dbc.BitField.from(typedBuffer.sublist(0, message.messageLength));
 
@@ -1292,8 +1292,8 @@ class DriveBatteryMessage extends $_dbc.DBCMessage {
     return message;
   }
 
-  factory DriveBatteryMessage.fromJson(Map<String, dynamic> json) =>
-      DriveBatteryMessage(
+  factory DriveBatteryDataMessage.fromJson(Map<String, dynamic> json) =>
+      DriveBatteryDataMessage(
         voltage: json['Voltage'] ?? 0,
         temperature: json['Temperature'] ?? 50,
         current: json['Current'] ?? 0,
@@ -1319,13 +1319,13 @@ class DriveBatteryMessage extends $_dbc.DBCMessage {
 
   @override
   String toString() {
-    return 'Drive_Battery(\n  Voltage=$voltage\n  Temperature=$temperature\n  Current=$current\n)';
+    return 'Drive_Battery_Data(\n  Voltage=$voltage\n  Temperature=$temperature\n  Current=$current\n)';
   }
 }
 
-class DriveSwivelMessage extends $_dbc.DBCMessage {
+class DriveSwivelDataMessage extends $_dbc.DBCMessage {
   @override
-  String messageName = 'Drive_Swivel';
+  String messageName = 'Drive_Swivel_Data';
 
   @override
   int messageLength = 6;
@@ -1333,10 +1333,10 @@ class DriveSwivelMessage extends $_dbc.DBCMessage {
   @override
   int canId = 0x18;
 
-  /// Whether or not "Drive_Swivel" is multiplex
+  /// Whether or not "Drive_Swivel_Data" is multiplex
   static const bool isMultiplex = false;
 
-  /// The multiplexor for "Drive_Swivel"
+  /// The multiplexor for "Drive_Swivel_Data"
   static const String multiplexor = '';
 
   /// Value of signal "Front_Swivel"
@@ -1427,28 +1427,28 @@ class DriveSwivelMessage extends $_dbc.DBCMessage {
     _rearTiltSignal,
   ];
 
-  DriveSwivelMessage({
+  DriveSwivelDataMessage({
     this.frontSwivel = 0,
     this.frontTilt = 0,
     this.rearSwivel = 0,
     this.rearTilt = 0,
   });
 
-  /// Creates a clone of this [DriveSwivelMessage] with the non-null values replaced
-  DriveSwivelMessage copyWith({
+  /// Creates a clone of this [DriveSwivelDataMessage] with the non-null values replaced
+  DriveSwivelDataMessage copyWith({
     num? frontSwivel,
     num? frontTilt,
     num? rearSwivel,
     num? rearTilt,
-  }) => DriveSwivelMessage(
+  }) => DriveSwivelDataMessage(
     frontSwivel: frontSwivel ?? this.frontSwivel,
     frontTilt: frontTilt ?? this.frontTilt,
     rearSwivel: rearSwivel ?? this.rearSwivel,
     rearTilt: rearTilt ?? this.rearTilt,
   );
 
-  factory DriveSwivelMessage.decode(List<int> payload) {
-    final message = DriveSwivelMessage();
+  factory DriveSwivelDataMessage.decode(List<int> payload) {
+    final message = DriveSwivelDataMessage();
     final typedBuffer = $_typed.Uint8List.fromList(payload);
     final bitField = $_dbc.BitField.from(typedBuffer.sublist(0, message.messageLength));
 
@@ -1468,8 +1468,8 @@ class DriveSwivelMessage extends $_dbc.DBCMessage {
     return message;
   }
 
-  factory DriveSwivelMessage.fromJson(Map<String, dynamic> json) =>
-      DriveSwivelMessage(
+  factory DriveSwivelDataMessage.fromJson(Map<String, dynamic> json) =>
+      DriveSwivelDataMessage(
         frontSwivel: json['Front_Swivel'] ?? 0,
         frontTilt: json['Front_Tilt'] ?? 0,
         rearSwivel: json['Rear_Swivel'] ?? 0,
@@ -1498,7 +1498,7 @@ class DriveSwivelMessage extends $_dbc.DBCMessage {
 
   @override
   String toString() {
-    return 'Drive_Swivel(\n  Front_Swivel=$frontSwivel\n  Front_Tilt=$frontTilt\n  Rear_Swivel=$rearSwivel\n  Rear_Tilt=$rearTilt\n)';
+    return 'Drive_Swivel_Data(\n  Front_Swivel=$frontSwivel\n  Front_Tilt=$frontTilt\n  Rear_Swivel=$rearSwivel\n  Rear_Tilt=$rearTilt\n)';
   }
 }
 
@@ -2190,9 +2190,9 @@ class RelaySetStateMessage extends $_dbc.DBCMessage {
   }
 }
 
-class RelayStateMessage extends $_dbc.DBCMessage {
+class RelayStateDataMessage extends $_dbc.DBCMessage {
   @override
-  String messageName = 'Relay_State';
+  String messageName = 'Relay_State_Data';
 
   @override
   int messageLength = 1;
@@ -2200,10 +2200,10 @@ class RelayStateMessage extends $_dbc.DBCMessage {
   @override
   int canId = 0x25;
 
-  /// Whether or not "Relay_State" is multiplex
+  /// Whether or not "Relay_State_Data" is multiplex
   static const bool isMultiplex = false;
 
-  /// The multiplexor for "Relay_State"
+  /// The multiplexor for "Relay_State_Data"
   static const String multiplexor = '';
 
   /// Value of signal "Front_Left_Motor"
@@ -2378,7 +2378,7 @@ class RelayStateMessage extends $_dbc.DBCMessage {
     _physicalOverrideSignal,
   ];
 
-  RelayStateMessage({
+  RelayStateDataMessage({
     this.frontLeftMotor = 0,
     this.frontRightMotor = 0,
     this.backLeftMotor = 0,
@@ -2389,8 +2389,8 @@ class RelayStateMessage extends $_dbc.DBCMessage {
     this.physicalOverride = 0,
   });
 
-  /// Creates a clone of this [RelayStateMessage] with the non-null values replaced
-  RelayStateMessage copyWith({
+  /// Creates a clone of this [RelayStateDataMessage] with the non-null values replaced
+  RelayStateDataMessage copyWith({
     num? frontLeftMotor,
     num? frontRightMotor,
     num? backLeftMotor,
@@ -2399,7 +2399,7 @@ class RelayStateMessage extends $_dbc.DBCMessage {
     num? arm,
     num? science,
     num? physicalOverride,
-  }) => RelayStateMessage(
+  }) => RelayStateDataMessage(
     frontLeftMotor: frontLeftMotor ?? this.frontLeftMotor,
     frontRightMotor: frontRightMotor ?? this.frontRightMotor,
     backLeftMotor: backLeftMotor ?? this.backLeftMotor,
@@ -2410,8 +2410,8 @@ class RelayStateMessage extends $_dbc.DBCMessage {
     physicalOverride: physicalOverride ?? this.physicalOverride,
   );
 
-  factory RelayStateMessage.decode(List<int> payload) {
-    final message = RelayStateMessage();
+  factory RelayStateDataMessage.decode(List<int> payload) {
+    final message = RelayStateDataMessage();
     final typedBuffer = $_typed.Uint8List.fromList(payload);
     final bitField = $_dbc.BitField.from(typedBuffer.sublist(0, message.messageLength));
 
@@ -2443,8 +2443,8 @@ class RelayStateMessage extends $_dbc.DBCMessage {
     return message;
   }
 
-  factory RelayStateMessage.fromJson(Map<String, dynamic> json) =>
-      RelayStateMessage(
+  factory RelayStateDataMessage.fromJson(Map<String, dynamic> json) =>
+      RelayStateDataMessage(
         frontLeftMotor: json['Front_Left_Motor'] ?? 0,
         frontRightMotor: json['Front_Right_Motor'] ?? 0,
         backLeftMotor: json['Back_Left_Motor'] ?? 0,
@@ -2485,7 +2485,7 @@ class RelayStateMessage extends $_dbc.DBCMessage {
 
   @override
   String toString() {
-    return 'Relay_State(\n  Front_Left_Motor=$frontLeftMotor\n  Front_Right_Motor=$frontRightMotor\n  Back_Left_Motor=$backLeftMotor\n  Back_Right_Motor=$backRightMotor\n  Drive=$drive\n  Arm=$arm\n  Science=$science\n  Physical_Override=$physicalOverride\n)';
+    return 'Relay_State_Data(\n  Front_Left_Motor=$frontLeftMotor\n  Front_Right_Motor=$frontRightMotor\n  Back_Left_Motor=$backLeftMotor\n  Back_Right_Motor=$backRightMotor\n  Drive=$drive\n  Arm=$arm\n  Science=$science\n  Physical_Override=$physicalOverride\n)';
   }
 }
 
@@ -3145,9 +3145,9 @@ class ArmMotorAngleDataMessage extends $_dbc.DBCMessage {
   }
 }
 
-class ArmSystemActionMessage extends $_dbc.DBCMessage {
+class ArmSetSystemActionMessage extends $_dbc.DBCMessage {
   @override
-  String messageName = 'Arm_System_Action';
+  String messageName = 'Arm_Set_System_Action';
 
   @override
   int messageLength = 1;
@@ -3155,10 +3155,10 @@ class ArmSystemActionMessage extends $_dbc.DBCMessage {
   @override
   int canId = 0x31;
 
-  /// Whether or not "Arm_System_Action" is multiplex
+  /// Whether or not "Arm_Set_System_Action" is multiplex
   static const bool isMultiplex = false;
 
-  /// The multiplexor for "Arm_System_Action"
+  /// The multiplexor for "Arm_Set_System_Action"
   static const String multiplexor = '';
 
   /// Value of signal "Stop"
@@ -3228,25 +3228,25 @@ class ArmSystemActionMessage extends $_dbc.DBCMessage {
     _jabSignal,
   ];
 
-  ArmSystemActionMessage({
+  ArmSetSystemActionMessage({
     this.stop = 0,
     this.calibrate = 0,
     this.jab = 0,
   });
 
-  /// Creates a clone of this [ArmSystemActionMessage] with the non-null values replaced
-  ArmSystemActionMessage copyWith({
+  /// Creates a clone of this [ArmSetSystemActionMessage] with the non-null values replaced
+  ArmSetSystemActionMessage copyWith({
     num? stop,
     num? calibrate,
     num? jab,
-  }) => ArmSystemActionMessage(
+  }) => ArmSetSystemActionMessage(
     stop: stop ?? this.stop,
     calibrate: calibrate ?? this.calibrate,
     jab: jab ?? this.jab,
   );
 
-  factory ArmSystemActionMessage.decode(List<int> payload) {
-    final message = ArmSystemActionMessage();
+  factory ArmSetSystemActionMessage.decode(List<int> payload) {
+    final message = ArmSetSystemActionMessage();
     final typedBuffer = $_typed.Uint8List.fromList(payload);
     final bitField = $_dbc.BitField.from(typedBuffer.sublist(0, message.messageLength));
 
@@ -3263,8 +3263,8 @@ class ArmSystemActionMessage extends $_dbc.DBCMessage {
     return message;
   }
 
-  factory ArmSystemActionMessage.fromJson(Map<String, dynamic> json) =>
-      ArmSystemActionMessage(
+  factory ArmSetSystemActionMessage.fromJson(Map<String, dynamic> json) =>
+      ArmSetSystemActionMessage(
         stop: json['Stop'] ?? 0,
         calibrate: json['Calibrate'] ?? 0,
         jab: json['Jab'] ?? 0,
@@ -3290,6 +3290,6 @@ class ArmSystemActionMessage extends $_dbc.DBCMessage {
 
   @override
   String toString() {
-    return 'Arm_System_Action(\n  Stop=$stop\n  Calibrate=$calibrate\n  Jab=$jab\n)';
+    return 'Arm_Set_System_Action(\n  Stop=$stop\n  Calibrate=$calibrate\n  Jab=$jab\n)';
   }
 }
