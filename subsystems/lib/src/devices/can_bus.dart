@@ -61,7 +61,7 @@ extension on DeviceBroadcastMessage {
       Version(major: fwVersionMajor.toInt(), minor: fwVersionMinor.toInt());
 }
 
-extension on DriveAppliedOutputMessage {
+extension on DriveAppliedOutputDataMessage {
   DriveData toDriveProto() => DriveData(
     throttle: throttle.toDouble(),
     left: leftSpeed.toDouble(),
@@ -72,7 +72,7 @@ extension on DriveAppliedOutputMessage {
   );
 }
 
-extension on DriveBatteryMessage {
+extension on DriveBatteryDataMessage {
   DriveData toDriveProto() => DriveData(
     batteryVoltage: voltage.toDouble(),
     batteryTemperature: temperature.toDouble(),
@@ -80,12 +80,12 @@ extension on DriveBatteryMessage {
   );
 }
 
-extension on DriveLedMessage {
+extension on DriveLedDataMessage {
   DriveData toDriveProto() =>
       DriveData(color: ProtoColor.valueOf(color.toInt()));
 }
 
-extension on DriveSwivelMessage {
+extension on DriveSwivelDataMessage {
   DriveData toDriveProto() => DriveData(
     frontSwivel: frontSwivel.toDouble(),
     frontTilt: frontTilt.toDouble(),
@@ -136,7 +136,7 @@ extension on DriveCommand {
   }
 }
 
-extension on RelayStateMessage {
+extension on RelayStateDataMessage {
   RelaysData toRelayProto() => RelaysData(
     frontLeftMotor: frontLeftMotor.boolState,
     frontRightMotor: frontRightMotor.boolState,
@@ -255,7 +255,7 @@ extension on ArmCommand {
     moveSteps: elbow.moveSteps,
   );
 
-  DBCMessage asSystemAction() => ArmSystemActionMessage(
+  DBCMessage asSystemAction() => ArmSetSystemActionMessage(
     stop: stop.intValue,
     calibrate: calibrate.intValue,
     jab: jab.intValue,
@@ -576,25 +576,25 @@ class CanBus extends Service {
       case CanDataFrame(:final id, :final data):
         if (id == DeviceBroadcastMessage().canId) {
           _handleDeviceBroadcast(DeviceBroadcastMessage.decode(data));
-        } else if (id == DriveAppliedOutputMessage().canId) {
+        } else if (id == DriveAppliedOutputDataMessage().canId) {
           collection.server.sendMessage(
-            DriveAppliedOutputMessage.decode(data).toDriveProto(),
+            DriveAppliedOutputDataMessage.decode(data).toDriveProto(),
           );
-        } else if (id == DriveBatteryMessage().canId) {
+        } else if (id == DriveBatteryDataMessage().canId) {
           collection.server.sendMessage(
-            DriveBatteryMessage.decode(data).toDriveProto(),
+            DriveBatteryDataMessage.decode(data).toDriveProto(),
           );
-        } else if (id == DriveLedMessage().canId) {
+        } else if (id == DriveLedDataMessage().canId) {
           collection.server.sendMessage(
-            DriveLedMessage.decode(data).toDriveProto(),
+            DriveLedDataMessage.decode(data).toDriveProto(),
           );
-        } else if (id == DriveSwivelMessage().canId) {
+        } else if (id == DriveSwivelDataMessage().canId) {
           collection.server.sendMessage(
-            DriveSwivelMessage.decode(data).toDriveProto(),
+            DriveSwivelDataMessage.decode(data).toDriveProto(),
           );
-        } else if (id == RelayStateMessage().canId) {
+        } else if (id == RelayStateDataMessage().canId) {
           collection.server.sendMessage(
-            RelayStateMessage.decode(data).toRelayProto(),
+            RelayStateDataMessage.decode(data).toRelayProto(),
           );
         } else if (id == ArmMotorMoveDataMessage().canId) {
           collection.server.sendMessage(
