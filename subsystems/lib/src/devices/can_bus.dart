@@ -9,18 +9,8 @@ import "package:subsystems/src/generated/rover_messages.dbc.dart";
 import "package:subsystems/subsystems.dart" hide CanSocket;
 
 extension on num {
-  bool get boolValue => this == 1;
-
-  BoolState get boolState => boolValue ? BoolState.YES : BoolState.NO;
-
-  BoolState get armBoolState {
-    if (this == 1) {
-      return BoolState.YES;
-    } else if (this == 2) {
-      return BoolState.NO;
-    }
-    return BoolState.BOOL_UNDEFINED;
-  }
+  BoolState get armBoolState =>
+      BoolState.valueOf(toInt()) ?? BoolState.BOOL_UNDEFINED;
 }
 
 extension on bool {
@@ -137,33 +127,29 @@ extension on DriveCommand {
 }
 
 extension on RelayStateDataMessage {
+  BoolState intToBoolState(num value) =>
+      value == 1 ? BoolState.YES : BoolState.NO;
+
   RelaysData toRelayProto() => RelaysData(
-    frontLeftMotor: frontLeftMotor.boolState,
-    frontRightMotor: frontRightMotor.boolState,
-    backLeftMotor: backLeftMotor.boolState,
-    backRightMotor: backRightMotor.boolState,
-    arm: arm.boolState,
-    drive: drive.boolState,
-    science: science.boolState,
+    frontLeftMotor: intToBoolState(frontLeftMotor),
+    frontRightMotor: intToBoolState(frontRightMotor),
+    backLeftMotor: intToBoolState(backLeftMotor),
+    backRightMotor: intToBoolState(backRightMotor),
+    arm: intToBoolState(arm),
+    drive: intToBoolState(drive),
+    science: intToBoolState(science),
   );
 }
 
 extension on RelaysCommand {
   DBCMessage get asSetState => RelaySetStateMessage(
-    updateArm: hasArm().intValue,
-    arm: arm.intValue,
-    updateFrontLeftMotor: hasFrontLeftMotor().intValue,
-    frontLeftMotor: frontLeftMotor.intValue,
-    updateFrontRightMotor: hasFrontRightMotor().intValue,
-    frontRightMotor: frontRightMotor.intValue,
-    updateBackLeftMotor: hasBackLeftMotor().intValue,
-    backLeftMotor: backLeftMotor.intValue,
-    updateBackRightMotor: hasBackRightMotor().intValue,
-    backRightMotor: backRightMotor.intValue,
-    updateDrive: hasDrive().intValue,
-    drive: drive.intValue,
-    updateScience: hasScience().intValue,
-    science: science.intValue,
+    arm: arm.value,
+    frontLeftMotor: frontLeftMotor.value,
+    frontRightMotor: frontRightMotor.value,
+    backLeftMotor: backLeftMotor.value,
+    backRightMotor: backRightMotor.value,
+    drive: drive.value,
+    science: science.value,
   );
 
   List<DBCMessage> toDBC() => [asSetState];
