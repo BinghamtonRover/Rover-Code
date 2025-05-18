@@ -1727,64 +1727,26 @@ class RelaySetStateMessage extends $_dbc.DBCMessage {
   /// The multiplexor for "Relay_Set_State"
   static const String multiplexor = '';
 
-  /// Value of signal "Update_Front_Left_Motor"
-  num updateFrontLeftMotor;
-
   /// Value of signal "Front_Left_Motor"
   num frontLeftMotor;
-
-  /// Value of signal "Update_Front_Right_Motor"
-  num updateFrontRightMotor;
 
   /// Value of signal "Front_Right_Motor"
   num frontRightMotor;
 
-  /// Value of signal "Update_Back_Left_Motor"
-  num updateBackLeftMotor;
-
   /// Value of signal "Back_Left_Motor"
   num backLeftMotor;
-
-  /// Value of signal "Update_Back_Right_Motor"
-  num updateBackRightMotor;
 
   /// Value of signal "Back_Right_Motor"
   num backRightMotor;
 
-  /// Value of signal "Update_Arm"
-  num updateArm;
-
   /// Value of signal "Arm"
   num arm;
-
-  /// Value of signal "Update_Science"
-  num updateScience;
 
   /// Value of signal "Science"
   num science;
 
-  /// Value of signal "Update_Drive"
-  num updateDrive;
-
   /// Value of signal "Drive"
   num drive;
-
-  final $_dbc.DBCSignal _updateFrontLeftMotorSignal = $_dbc.DBCSignal(
-    name: 'Update_Front_Left_Motor',
-    signalSignedness: $_dbc.DBCSignalSignedness.UNSIGNED,
-    signalType: $_dbc.DBCSignalType.INTEL,
-    signalMode: $_dbc.DBCSignalMode.SIGNAL,
-    multiplexGroup: -1,
-    start: 0,
-    length: 1,
-    mapping: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    mappingIndexes: [0],
-    factor: 1,
-    offset: 0,
-    min: 0,
-    max: 1,
-    unit: '',
-  );
 
   final $_dbc.DBCSignal _frontLeftMotorSignal = $_dbc.DBCSignal(
     name: 'Front_Left_Motor',
@@ -1792,31 +1754,14 @@ class RelaySetStateMessage extends $_dbc.DBCMessage {
     signalType: $_dbc.DBCSignalType.INTEL,
     signalMode: $_dbc.DBCSignalMode.SIGNAL,
     multiplexGroup: -1,
-    start: 1,
-    length: 1,
-    mapping: [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    mappingIndexes: [1],
+    start: 0,
+    length: 2,
+    mapping: [1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    mappingIndexes: [0, 1],
     factor: 1,
     offset: 0,
     min: 0,
-    max: 1,
-    unit: '',
-  );
-
-  final $_dbc.DBCSignal _updateFrontRightMotorSignal = $_dbc.DBCSignal(
-    name: 'Update_Front_Right_Motor',
-    signalSignedness: $_dbc.DBCSignalSignedness.UNSIGNED,
-    signalType: $_dbc.DBCSignalType.INTEL,
-    signalMode: $_dbc.DBCSignalMode.SIGNAL,
-    multiplexGroup: -1,
-    start: 2,
-    length: 1,
-    mapping: [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    mappingIndexes: [2],
-    factor: 1,
-    offset: 0,
-    min: 0,
-    max: 1,
+    max: 3,
     unit: '',
   );
 
@@ -1826,31 +1771,14 @@ class RelaySetStateMessage extends $_dbc.DBCMessage {
     signalType: $_dbc.DBCSignalType.INTEL,
     signalMode: $_dbc.DBCSignalMode.SIGNAL,
     multiplexGroup: -1,
-    start: 3,
-    length: 1,
-    mapping: [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    mappingIndexes: [3],
+    start: 2,
+    length: 2,
+    mapping: [0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    mappingIndexes: [2, 3],
     factor: 1,
     offset: 0,
     min: 0,
-    max: 1,
-    unit: '',
-  );
-
-  final $_dbc.DBCSignal _updateBackLeftMotorSignal = $_dbc.DBCSignal(
-    name: 'Update_Back_Left_Motor',
-    signalSignedness: $_dbc.DBCSignalSignedness.UNSIGNED,
-    signalType: $_dbc.DBCSignalType.INTEL,
-    signalMode: $_dbc.DBCSignalMode.SIGNAL,
-    multiplexGroup: -1,
-    start: 4,
-    length: 1,
-    mapping: [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    mappingIndexes: [4],
-    factor: 1,
-    offset: 0,
-    min: 0,
-    max: 1,
+    max: 3,
     unit: '',
   );
 
@@ -1860,31 +1788,14 @@ class RelaySetStateMessage extends $_dbc.DBCMessage {
     signalType: $_dbc.DBCSignalType.INTEL,
     signalMode: $_dbc.DBCSignalMode.SIGNAL,
     multiplexGroup: -1,
-    start: 5,
-    length: 1,
-    mapping: [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    mappingIndexes: [5],
+    start: 4,
+    length: 2,
+    mapping: [0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    mappingIndexes: [4, 5],
     factor: 1,
     offset: 0,
     min: 0,
-    max: 1,
-    unit: '',
-  );
-
-  final $_dbc.DBCSignal _updateBackRightMotorSignal = $_dbc.DBCSignal(
-    name: 'Update_Back_Right_Motor',
-    signalSignedness: $_dbc.DBCSignalSignedness.UNSIGNED,
-    signalType: $_dbc.DBCSignalType.INTEL,
-    signalMode: $_dbc.DBCSignalMode.SIGNAL,
-    multiplexGroup: -1,
-    start: 6,
-    length: 1,
-    mapping: [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    mappingIndexes: [6],
-    factor: 1,
-    offset: 0,
-    min: 0,
-    max: 1,
+    max: 3,
     unit: '',
   );
 
@@ -1894,31 +1805,14 @@ class RelaySetStateMessage extends $_dbc.DBCMessage {
     signalType: $_dbc.DBCSignalType.INTEL,
     signalMode: $_dbc.DBCSignalMode.SIGNAL,
     multiplexGroup: -1,
-    start: 7,
-    length: 1,
-    mapping: [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-    mappingIndexes: [7],
+    start: 6,
+    length: 2,
+    mapping: [0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0],
+    mappingIndexes: [6, 7],
     factor: 1,
     offset: 0,
     min: 0,
-    max: 1,
-    unit: '',
-  );
-
-  final $_dbc.DBCSignal _updateArmSignal = $_dbc.DBCSignal(
-    name: 'Update_Arm',
-    signalSignedness: $_dbc.DBCSignalSignedness.UNSIGNED,
-    signalType: $_dbc.DBCSignalType.INTEL,
-    signalMode: $_dbc.DBCSignalMode.SIGNAL,
-    multiplexGroup: -1,
-    start: 8,
-    length: 1,
-    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-    mappingIndexes: [8],
-    factor: 1,
-    offset: 0,
-    min: 0,
-    max: 1,
+    max: 3,
     unit: '',
   );
 
@@ -1928,31 +1822,14 @@ class RelaySetStateMessage extends $_dbc.DBCMessage {
     signalType: $_dbc.DBCSignalType.INTEL,
     signalMode: $_dbc.DBCSignalMode.SIGNAL,
     multiplexGroup: -1,
-    start: 9,
-    length: 1,
-    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-    mappingIndexes: [9],
+    start: 8,
+    length: 2,
+    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0],
+    mappingIndexes: [8, 9],
     factor: 1,
     offset: 0,
     min: 0,
-    max: 1,
-    unit: '',
-  );
-
-  final $_dbc.DBCSignal _updateScienceSignal = $_dbc.DBCSignal(
-    name: 'Update_Science',
-    signalSignedness: $_dbc.DBCSignalSignedness.UNSIGNED,
-    signalType: $_dbc.DBCSignalType.INTEL,
-    signalMode: $_dbc.DBCSignalMode.SIGNAL,
-    multiplexGroup: -1,
-    start: 10,
-    length: 1,
-    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-    mappingIndexes: [10],
-    factor: 1,
-    offset: 0,
-    min: 0,
-    max: 1,
+    max: 3,
     unit: '',
   );
 
@@ -1962,31 +1839,14 @@ class RelaySetStateMessage extends $_dbc.DBCMessage {
     signalType: $_dbc.DBCSignalType.INTEL,
     signalMode: $_dbc.DBCSignalMode.SIGNAL,
     multiplexGroup: -1,
-    start: 11,
-    length: 1,
-    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-    mappingIndexes: [11],
+    start: 10,
+    length: 2,
+    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0],
+    mappingIndexes: [10, 11],
     factor: 1,
     offset: 0,
     min: 0,
-    max: 1,
-    unit: '',
-  );
-
-  final $_dbc.DBCSignal _updateDriveSignal = $_dbc.DBCSignal(
-    name: 'Update_Drive',
-    signalSignedness: $_dbc.DBCSignalSignedness.UNSIGNED,
-    signalType: $_dbc.DBCSignalType.INTEL,
-    signalMode: $_dbc.DBCSignalMode.SIGNAL,
-    multiplexGroup: -1,
-    start: 12,
-    length: 1,
-    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-    mappingIndexes: [12],
-    factor: 1,
-    offset: 0,
-    min: 0,
-    max: 1,
+    max: 3,
     unit: '',
   );
 
@@ -1996,82 +1856,54 @@ class RelaySetStateMessage extends $_dbc.DBCMessage {
     signalType: $_dbc.DBCSignalType.INTEL,
     signalMode: $_dbc.DBCSignalMode.SIGNAL,
     multiplexGroup: -1,
-    start: 13,
-    length: 1,
-    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
-    mappingIndexes: [13],
+    start: 12,
+    length: 2,
+    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0],
+    mappingIndexes: [12, 13],
     factor: 1,
     offset: 0,
     min: 0,
-    max: 1,
+    max: 3,
     unit: '',
   );
 
   @override
   List<$_dbc.DBCSignal> get signals => [
-    _updateFrontLeftMotorSignal,
     _frontLeftMotorSignal,
-    _updateFrontRightMotorSignal,
     _frontRightMotorSignal,
-    _updateBackLeftMotorSignal,
     _backLeftMotorSignal,
-    _updateBackRightMotorSignal,
     _backRightMotorSignal,
-    _updateArmSignal,
     _armSignal,
-    _updateScienceSignal,
     _scienceSignal,
-    _updateDriveSignal,
     _driveSignal,
   ];
 
   RelaySetStateMessage({
-    this.updateFrontLeftMotor = 0,
     this.frontLeftMotor = 0,
-    this.updateFrontRightMotor = 0,
     this.frontRightMotor = 0,
-    this.updateBackLeftMotor = 0,
     this.backLeftMotor = 0,
-    this.updateBackRightMotor = 0,
     this.backRightMotor = 0,
-    this.updateArm = 0,
     this.arm = 0,
-    this.updateScience = 0,
     this.science = 0,
-    this.updateDrive = 0,
     this.drive = 0,
   });
 
   /// Creates a clone of this [RelaySetStateMessage] with the non-null values replaced
   RelaySetStateMessage copyWith({
-    num? updateFrontLeftMotor,
     num? frontLeftMotor,
-    num? updateFrontRightMotor,
     num? frontRightMotor,
-    num? updateBackLeftMotor,
     num? backLeftMotor,
-    num? updateBackRightMotor,
     num? backRightMotor,
-    num? updateArm,
     num? arm,
-    num? updateScience,
     num? science,
-    num? updateDrive,
     num? drive,
   }) => RelaySetStateMessage(
-    updateFrontLeftMotor: updateFrontLeftMotor ?? this.updateFrontLeftMotor,
     frontLeftMotor: frontLeftMotor ?? this.frontLeftMotor,
-    updateFrontRightMotor: updateFrontRightMotor ?? this.updateFrontRightMotor,
     frontRightMotor: frontRightMotor ?? this.frontRightMotor,
-    updateBackLeftMotor: updateBackLeftMotor ?? this.updateBackLeftMotor,
     backLeftMotor: backLeftMotor ?? this.backLeftMotor,
-    updateBackRightMotor: updateBackRightMotor ?? this.updateBackRightMotor,
     backRightMotor: backRightMotor ?? this.backRightMotor,
-    updateArm: updateArm ?? this.updateArm,
     arm: arm ?? this.arm,
-    updateScience: updateScience ?? this.updateScience,
     science: science ?? this.science,
-    updateDrive: updateDrive ?? this.updateDrive,
     drive: drive ?? this.drive,
   );
 
@@ -2080,45 +1912,24 @@ class RelaySetStateMessage extends $_dbc.DBCMessage {
     final typedBuffer = $_typed.Uint8List.fromList(payload);
     final bitField = $_dbc.BitField.from(typedBuffer.sublist(0, message.messageLength));
 
-    message.updateFrontLeftMotor =
-        message._updateFrontLeftMotorSignal.decode(bitField) ??
-        $_math.max(0, message._updateFrontLeftMotorSignal.min);
     message.frontLeftMotor =
         message._frontLeftMotorSignal.decode(bitField) ??
         $_math.max(0, message._frontLeftMotorSignal.min);
-    message.updateFrontRightMotor =
-        message._updateFrontRightMotorSignal.decode(bitField) ??
-        $_math.max(0, message._updateFrontRightMotorSignal.min);
     message.frontRightMotor =
         message._frontRightMotorSignal.decode(bitField) ??
         $_math.max(0, message._frontRightMotorSignal.min);
-    message.updateBackLeftMotor =
-        message._updateBackLeftMotorSignal.decode(bitField) ??
-        $_math.max(0, message._updateBackLeftMotorSignal.min);
     message.backLeftMotor =
         message._backLeftMotorSignal.decode(bitField) ??
         $_math.max(0, message._backLeftMotorSignal.min);
-    message.updateBackRightMotor =
-        message._updateBackRightMotorSignal.decode(bitField) ??
-        $_math.max(0, message._updateBackRightMotorSignal.min);
     message.backRightMotor =
         message._backRightMotorSignal.decode(bitField) ??
         $_math.max(0, message._backRightMotorSignal.min);
-    message.updateArm =
-        message._updateArmSignal.decode(bitField) ??
-        $_math.max(0, message._updateArmSignal.min);
     message.arm =
         message._armSignal.decode(bitField) ??
         $_math.max(0, message._armSignal.min);
-    message.updateScience =
-        message._updateScienceSignal.decode(bitField) ??
-        $_math.max(0, message._updateScienceSignal.min);
     message.science =
         message._scienceSignal.decode(bitField) ??
         $_math.max(0, message._scienceSignal.min);
-    message.updateDrive =
-        message._updateDriveSignal.decode(bitField) ??
-        $_math.max(0, message._updateDriveSignal.min);
     message.drive =
         message._driveSignal.decode(bitField) ??
         $_math.max(0, message._driveSignal.min);
@@ -2128,38 +1939,24 @@ class RelaySetStateMessage extends $_dbc.DBCMessage {
 
   factory RelaySetStateMessage.fromJson(Map<String, dynamic> json) =>
       RelaySetStateMessage(
-        updateFrontLeftMotor: json['Update_Front_Left_Motor'] ?? 0,
         frontLeftMotor: json['Front_Left_Motor'] ?? 0,
-        updateFrontRightMotor: json['Update_Front_Right_Motor'] ?? 0,
         frontRightMotor: json['Front_Right_Motor'] ?? 0,
-        updateBackLeftMotor: json['Update_Back_Left_Motor'] ?? 0,
         backLeftMotor: json['Back_Left_Motor'] ?? 0,
-        updateBackRightMotor: json['Update_Back_Right_Motor'] ?? 0,
         backRightMotor: json['Back_Right_Motor'] ?? 0,
-        updateArm: json['Update_Arm'] ?? 0,
         arm: json['Arm'] ?? 0,
-        updateScience: json['Update_Science'] ?? 0,
         science: json['Science'] ?? 0,
-        updateDrive: json['Update_Drive'] ?? 0,
         drive: json['Drive'] ?? 0,
       );
 
   @override
   $_typed.Uint8List encode() {
     final Map<$_dbc.DBCSignal, num> values = {
-      _updateFrontLeftMotorSignal: updateFrontLeftMotor,
       _frontLeftMotorSignal: frontLeftMotor,
-      _updateFrontRightMotorSignal: updateFrontRightMotor,
       _frontRightMotorSignal: frontRightMotor,
-      _updateBackLeftMotorSignal: updateBackLeftMotor,
       _backLeftMotorSignal: backLeftMotor,
-      _updateBackRightMotorSignal: updateBackRightMotor,
       _backRightMotorSignal: backRightMotor,
-      _updateArmSignal: updateArm,
       _armSignal: arm,
-      _updateScienceSignal: updateScience,
       _scienceSignal: science,
-      _updateDriveSignal: updateDrive,
       _driveSignal: drive,
     };
 
@@ -2168,25 +1965,18 @@ class RelaySetStateMessage extends $_dbc.DBCMessage {
 
   @override
   Map<String, dynamic> toJson() => {
-    'Update_Front_Left_Motor': updateFrontLeftMotor,
     'Front_Left_Motor': frontLeftMotor,
-    'Update_Front_Right_Motor': updateFrontRightMotor,
     'Front_Right_Motor': frontRightMotor,
-    'Update_Back_Left_Motor': updateBackLeftMotor,
     'Back_Left_Motor': backLeftMotor,
-    'Update_Back_Right_Motor': updateBackRightMotor,
     'Back_Right_Motor': backRightMotor,
-    'Update_Arm': updateArm,
     'Arm': arm,
-    'Update_Science': updateScience,
     'Science': science,
-    'Update_Drive': updateDrive,
     'Drive': drive,
   };
 
   @override
   String toString() {
-    return 'Relay_Set_State(\n  Update_Front_Left_Motor=$updateFrontLeftMotor\n  Front_Left_Motor=$frontLeftMotor\n  Update_Front_Right_Motor=$updateFrontRightMotor\n  Front_Right_Motor=$frontRightMotor\n  Update_Back_Left_Motor=$updateBackLeftMotor\n  Back_Left_Motor=$backLeftMotor\n  Update_Back_Right_Motor=$updateBackRightMotor\n  Back_Right_Motor=$backRightMotor\n  Update_Arm=$updateArm\n  Arm=$arm\n  Update_Science=$updateScience\n  Science=$science\n  Update_Drive=$updateDrive\n  Drive=$drive\n)';
+    return 'Relay_Set_State(\n  Front_Left_Motor=$frontLeftMotor\n  Front_Right_Motor=$frontRightMotor\n  Back_Left_Motor=$backLeftMotor\n  Back_Right_Motor=$backRightMotor\n  Arm=$arm\n  Science=$science\n  Drive=$drive\n)';
   }
 }
 
