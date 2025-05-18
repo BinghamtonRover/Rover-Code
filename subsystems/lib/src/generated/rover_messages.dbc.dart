@@ -1179,7 +1179,7 @@ class DriveBatteryDataMessage extends $_dbc.DBCMessage {
   String messageName = 'Drive_Battery_Data';
 
   @override
-  int messageLength = 6;
+  int messageLength = 5;
 
   @override
   int canId = 0x16;
@@ -1206,13 +1206,13 @@ class DriveBatteryDataMessage extends $_dbc.DBCMessage {
     signalMode: $_dbc.DBCSignalMode.SIGNAL,
     multiplexGroup: -1,
     start: 0,
-    length: 16,
-    mapping: [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    mappingIndexes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-    factor: 0.00055,
+    length: 10,
+    mapping: [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    mappingIndexes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    factor: 0.03548387097,
     offset: 0,
     min: 0,
-    max: 36,
+    max: 36.3,
     unit: 'V',
   );
 
@@ -1222,10 +1222,10 @@ class DriveBatteryDataMessage extends $_dbc.DBCMessage {
     signalType: $_dbc.DBCSignalType.INTEL,
     signalMode: $_dbc.DBCSignalMode.SIGNAL,
     multiplexGroup: -1,
-    start: 16,
+    start: 10,
     length: 12,
-    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    mappingIndexes: [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27],
+    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    mappingIndexes: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21],
     factor: 0.09,
     offset: 50,
     min: -40,
@@ -1239,10 +1239,10 @@ class DriveBatteryDataMessage extends $_dbc.DBCMessage {
     signalType: $_dbc.DBCSignalType.INTEL,
     signalMode: $_dbc.DBCSignalMode.SIGNAL,
     multiplexGroup: -1,
-    start: 28,
+    start: 22,
     length: 16,
-    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 0, 0, 0, 0],
-    mappingIndexes: [28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43],
+    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 0, 0],
+    mappingIndexes: [22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37],
     factor: 0.1,
     offset: 0,
     min: 0,
