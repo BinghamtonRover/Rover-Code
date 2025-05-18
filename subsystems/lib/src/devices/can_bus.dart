@@ -338,9 +338,17 @@ class CanBus extends Service {
       "bitrate",
       "500000",
     ]);
-    device = LinuxCan.instance.devices.singleWhere(
-      (device) => device.networkInterface.name == "can0",
-    );
+    try {
+      device = LinuxCan.instance.devices.singleWhere(
+        (device) => device.networkInterface.name == "can0",
+      );
+    } catch (e) {
+      if (e is StateError) {
+        logger.error("No CAN Interface found named can0");
+        return false;
+      }
+      rethrow;
+    }
     if (!device!.isUp) {
       logger.error("CAN0 is not up", body: "Device state: ${device!.state}");
       return false;
