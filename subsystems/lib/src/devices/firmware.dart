@@ -24,7 +24,7 @@ final nameToDevice = <String, Device>{
 /// This service relies on the [BurtFirmwareSerial] class defined in `package:burt_network`. That
 /// class takes care of connecting to, identifying, and streaming from a firmware device. This
 /// service is responsible for routing incoming UDP messages to the correct firmware device
-/// ([_sendToSerial]), and forwarding serial messages to the Dashboard ([RoverSocket.sendWrapper]).
+/// ([sendToSerial]), and forwarding serial messages to the Dashboard ([RoverSocket.sendWrapper]).
 class FirmwareManager extends Service {
   /// Subscriptions to each of the firmware devices.
   final List<StreamSubscription<WrappedMessage>> _subscriptions = [];
@@ -35,13 +35,17 @@ class FirmwareManager extends Service {
   @override
   Future<bool> init() async {
     devices = await getFirmwareDevices();
-    collection.server.messages.listen(_sendToSerial);
     var result = true;
     for (final device in devices) {
       logger.debug("Initializing device: ${device.port}");
       result &= await device.init();
       if (!device.isReady) continue;
-      final subscription = device.messages.listen(collection.server.sendWrapper);
+      final subscription = device.messages.listen((message) {
+        // Don't send data if the device is also connected via CAN
+        if (!collection.can.deviceConnected(device.device)) {
+          collection.server.sendWrapper(message);
+        }
+      });
       _subscriptions.add(subscription);
     }
     return result;
@@ -60,7 +64,7 @@ class FirmwareManager extends Service {
   /// Sends a [WrappedMessage] to the correct Serial device.
   ///
   /// The notes on [sendMessage] apply here as well.
-  void _sendToSerial(WrappedMessage wrapper) {
+  void sendToSerial(WrappedMessage wrapper) {
     final device = nameToDevice[wrapper.name];
     if (device == null) return;
     final serial = devices.firstWhereOrNull((s) => s.device == device);
@@ -73,5 +77,5 @@ class FirmwareManager extends Service {
   /// This does nothing if the appropriate device is not connected. Specifically, this is not an
   /// error because the Dashboard may be used during testing, when the hardware devices may not be
   /// assembled, connected, or functional yet.
-  void sendMessage(Message message) => _sendToSerial(message.wrap());
+  void sendMessage(Message message) => sendToSerial(message.wrap());
 }

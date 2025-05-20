@@ -40,6 +40,8 @@ class SubsystemsCollection extends Service {
   /// Timer for sending the subsystems status
   Timer? dataSendTimer;
 
+  StreamSubscription<WrappedMessage>? _messageSubscription;
+
   @override
   Future<bool> init() async {
     await server.init();
@@ -49,6 +51,13 @@ class SubsystemsCollection extends Service {
       const Duration(milliseconds: 250),
       sendStatus,
     );
+    _messageSubscription = server.messages.listen((message) async {
+      if (await can.sendWrapper(message)) {
+        return;
+      } else {
+        firmware.sendToSerial(message);
+      }
+    });
     try {
       result &= await firmware.init();
       result &= await gps.init();
@@ -71,6 +80,7 @@ class SubsystemsCollection extends Service {
   Future<void> dispose() async {
     logger.info("Shutting down...");
     await onDisconnect();
+    await _messageSubscription?.cancel();
     isReady = false;
     await firmware.dispose();
     await imu.dispose();
