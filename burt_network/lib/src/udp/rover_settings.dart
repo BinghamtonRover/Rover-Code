@@ -9,6 +9,13 @@ mixin RoverSettings on BurtSocket {
   /// Whether this code is being run in a test environment.
   static bool isTest = false;
 
+  /// Whether or not the socket's service is currently restarting
+  ///
+  /// If multiple restart commands come in too quickly,
+  /// it could cause errors within the service, this ensures
+  /// that only one restart happens at a time
+  bool _isRestarting = false;
+
   /// Handles an [UpdateSetting] command and updates the appropriate setting.
   ///
   /// Also sends a handshake response to indicate the message was received.
@@ -31,7 +38,10 @@ mixin RoverSettings on BurtSocket {
 
   /// Restarts this program, usually by disposing and re-initializing the collection.
   Future<void> restart() async {
+    if (_isRestarting) return;
+    _isRestarting = true;
     await collection?.dispose();
     await collection?.init();
+    _isRestarting = false;
   }
 }

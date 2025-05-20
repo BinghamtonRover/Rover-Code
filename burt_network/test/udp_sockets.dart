@@ -105,3 +105,20 @@ class TestClient extends BurtSocket {
   @override
   void onSettings(UpdateSetting settings) { }
 }
+
+class RestartTrackingService extends Service {
+  int disposedCount = 0;
+  int initCount = 0;
+
+  @override
+  Future<bool> init() async {
+    initCount++;
+    return true;
+  }
+
+  @override
+  Future<void> dispose() async {
+    disposedCount++;
+    await Future<void>.delayed(const Duration(milliseconds: 500));
+  }
+}
