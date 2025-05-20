@@ -300,12 +300,10 @@ class CanBus extends Service {
   Timer? _sendHeartbeatTimer;
   Timer? _checkHeartbeatsTimer;
 
+  bool _shouldReset = false;
+  bool _heartbeatSendSuccessful = false;
+
   StreamSubscription<CanFrame>? _frameSubscription;
-  StreamSubscription<DriveCommand>? _driveSubscription;
-  StreamSubscription<RelaysCommand>? _relaySubscription;
-  StreamSubscription<ArmCommand>? _armSubscription;
-  StreamSubscription<GripperCommand>? _gripperSubscription;
-  StreamSubscription<ScienceCommand>? _scienceSubscription;
 
   @override
   Future<bool> init() async {
@@ -318,12 +316,22 @@ class CanBus extends Service {
       "link",
       "set",
       "can0",
-      "up",
       "type",
       "can",
       "bitrate",
       "500000",
     ]);
+    final upResult = await Process.run("sudo", [
+      "ip",
+      "link",
+      "set",
+      "can0",
+      "up",
+    ]);
+    if (upResult.exitCode != 0) {
+      logger.error("Could not set Can0 up", body: upResult.stderr);
+      return false;
+    }
     try {
       device = LinuxCan.instance.devices.singleWhere(
         (device) => device.networkInterface.name == "can0",
@@ -352,37 +360,6 @@ class CanBus extends Service {
       heartbeatTimeout,
       (_) => checkHeartbeats(),
     );
-
-    _driveSubscription = collection.server.messages.onMessage(
-      name: DriveCommand().messageName,
-      constructor: DriveCommand.fromBuffer,
-      callback: sendDriveCommand,
-    );
-
-    _relaySubscription = collection.server.messages.onMessage(
-      name: RelaysCommand().messageName,
-      constructor: RelaysCommand.fromBuffer,
-      callback: sendRelaysCommand,
-    );
-
-    _armSubscription = collection.server.messages.onMessage(
-      name: ArmCommand().messageName,
-      constructor: ArmCommand.fromBuffer,
-      callback: sendArmCommand,
-    );
-
-    _gripperSubscription = collection.server.messages.onMessage(
-      name: GripperCommand().messageName,
-      constructor: GripperCommand.fromBuffer,
-      callback: sendGripperCommand,
-    );
-
-    _scienceSubscription = collection.server.messages.onMessage(
-      name: ScienceCommand().messageName,
-      constructor: ScienceCommand.fromBuffer,
-      callback: sendScienceCommand,
-    );
-
     return true;
   }
 
@@ -394,110 +371,148 @@ class CanBus extends Service {
     await socket?.close();
     socket = null;
 
-    await _driveSubscription?.cancel();
-    await _relaySubscription?.cancel();
-    await _armSubscription?.cancel();
-    await _gripperSubscription?.cancel();
-    await _scienceSubscription?.cancel();
     await _frameSubscription?.cancel();
 
     deviceHeartbeats.clear();
   }
 
-  bool _deviceConnected(Device device) => deviceHeartbeats.containsKey(device);
+  /// Whether or not a broadcast message has been received from [device] within
+  /// the past [heartbeatTimeout] amount of time
+  bool deviceConnected(Device device) => deviceHeartbeats.containsKey(device);
+
+  /// Sends the [dbcMessages] over the CAN bus only if a broadcast message has been
+  /// received from [device] and [override] is set to false
+  Future<bool> _sendDeviceCommand({
+    required Device device,
+    required Iterable<DBCMessage> dbcMessages,
+    bool override = false,
+  }) async {
+    if ((!deviceConnected(device) || !_heartbeatSendSuccessful) && !override) {
+      return false;
+    }
+    return !(await Future.wait(
+      dbcMessages.map(sendDBCMessage),
+    )).contains(false);
+  }
 
   /// Sends a drive command over the CAN bus
   ///
   /// If [override] is set to false, the command will only be sent if the rover
   /// has received heartbeats from the drive device. The [override] should only
   /// be true if this is a stop command.
-  Future<void> sendDriveCommand(
+  ///
+  /// Returs whether or not the command was sent over the bus
+  Future<bool> sendDriveCommand(
     DriveCommand command, {
     bool override = false,
-  }) async {
-    if (!_deviceConnected(Device.DRIVE) && !override) {
-      return;
-    }
-    return Future.forEach(command.toDBC(), sendDBCMessage);
-  }
+  }) => _sendDeviceCommand(
+    device: Device.DRIVE,
+    dbcMessages: command.toDBC(),
+    override: override,
+  );
 
   /// Sends a relay command over the CAN bus
   ///
   /// If [override] is set to false, the command will only be sent if the rover
   /// has received heartbeats from the relay device. The [override] should only
   /// be true if this is a stop command.
-  Future<void> sendRelaysCommand(
+  ///
+  /// Returs whether or not the command was sent over the bus
+  Future<bool> sendRelaysCommand(
     RelaysCommand command, {
     bool override = false,
-  }) async {
-    if (!_deviceConnected(Device.RELAY) && !override) {
-      return;
-    }
-    return Future.forEach(command.toDBC(), sendDBCMessage);
-  }
+  }) => _sendDeviceCommand(
+    device: Device.RELAY,
+    dbcMessages: command.toDBC(),
+    override: override,
+  );
 
   /// Sends an arm command over the CAN bus
   ///
   /// If [override] is set to false, the command will only be sent if the rover
   /// has received heartbeats from the arm device. The [override] should only
   /// be true if this is a stop command.
-  Future<void> sendArmCommand(
-    ArmCommand command, {
-    bool override = false,
-  }) async {
-    if (!_deviceConnected(Device.ARM) && !override) {
-      return;
-    }
-    return Future.forEach(command.toDBC(), sendDBCMessage);
-  }
+  ///
+  /// Returs whether or not the command was sent over the bus
+  Future<bool> sendArmCommand(ArmCommand command, {bool override = false}) =>
+      _sendDeviceCommand(
+        device: Device.ARM,
+        dbcMessages: command.toDBC(),
+        override: override,
+      );
 
   /// Sends a gripper command over the CAN bus
   ///
   /// If [override] is set to false, the command will only be sent if the rover
   /// has received heartbeats from the gripper device. The [override] should only
   /// be true if this is a stop command.
-  Future<void> sendGripperCommand(
+  ///
+  /// Returs whether or not the command was sent over the bus
+  Future<bool> sendGripperCommand(
     GripperCommand command, {
     bool override = false,
-  }) async {
-    if (!_deviceConnected(Device.GRIPPER) && !override) {
-      return;
-    }
-  }
+  }) => _sendDeviceCommand(
+    device: Device.GRIPPER,
+    dbcMessages: [],
+    override: override,
+  );
 
   /// Sends a science command over the CAN bus
   ///
   /// If [override] is set to false, the command will only be sent if the rover
   /// has received heartbeats from the science device. The [override] should only
   /// be true if this is a stop command.
-  Future<void> sendScienceCommand(
+  ///
+  /// Returs whether or not the command was sent over the bus
+  Future<bool> sendScienceCommand(
     ScienceCommand command, {
     bool override = false,
-  }) async {
-    if (!_deviceConnected(Device.SCIENCE) && !override) {
-      return;
+  }) => _sendDeviceCommand(
+    device: Device.SCIENCE,
+    dbcMessages: [],
+    override: override,
+  );
+
+  /// Sends a wrapped message over the CAN bus, returns
+  /// whether or not the message was successfully sent
+  Future<bool> sendWrapper(WrappedMessage message) async {
+    if (message.name == DriveCommand().messageName) {
+      return sendMessage(DriveCommand.fromBuffer(message.data));
+    } else if (message.name == RelaysCommand().messageName) {
+      return sendMessage(RelaysCommand.fromBuffer(message.data));
+    } else if (message.name == ArmCommand().messageName) {
+      return sendMessage(ArmCommand.fromBuffer(message.data));
+    } else if (message.name == GripperCommand().messageName) {
+      return sendMessage(GripperCommand.fromBuffer(message.data));
+    } else if (message.name == ScienceCommand().messageName) {
+      return sendMessage(ScienceCommand.fromBuffer(message.data));
     }
+    return false;
   }
 
   /// Sends a message's DBC equivalent over the CAN bus
-  Future<void> send(Message message) async {
-    if (message is DriveCommand) {
-      return sendDriveCommand(message);
-    } else if (message is RelaysCommand) {
-      return sendRelaysCommand(message);
-    } else if (message is ArmCommand) {
-      return sendArmCommand(message);
-    } else if (message is GripperCommand) {
-      return sendGripperCommand(message);
-    } else if (message is ScienceCommand) {
-      return sendScienceCommand(message);
-    }
-  }
+  ///
+  /// Returns whether or not the message was sent over the bus
+  Future<bool> sendMessage(Message message) => switch (message) {
+    DriveCommand() => sendDriveCommand(message),
+    RelaysCommand() => sendRelaysCommand(message),
+    ArmCommand() => sendArmCommand(message),
+    GripperCommand() => sendGripperCommand(message),
+    ScienceCommand() => sendScienceCommand(message),
+    _ => Future.value(false),
+  };
 
   /// Sends a heartbeat message over the CAN bus
-  Future<void> sendHeartbeat() {
+  Future<bool> sendHeartbeat() async {
+    if (_shouldReset) {
+      await dispose();
+      await Future<void>.delayed(const Duration(milliseconds: 1000));
+      await init();
+      _shouldReset = false;
+      return false;
+    }
     final heartbeat = RoverHeartbeatMessage();
-    return sendDBCMessage(heartbeat);
+    return _heartbeatSendSuccessful = await sendDBCMessage(heartbeat);
   }
 
   /// Checks all device's heartbeats and determines if they are still connected
@@ -516,33 +531,35 @@ class CanBus extends Service {
   }
 
   /// Sends a DBC message over the CAN bus
-  Future<void> sendDBCMessage(DBCMessage message) async {
+  ///
+  /// Returns whether or not the message was successfully sent
+  Future<bool> sendDBCMessage(DBCMessage message) async {
     if (socket == null) {
-      return;
+      return false;
     }
-    if (!(device?.isUp ?? false)) {
+    if (!(device?.isUp ?? true)) {
       logger.warning(
         "Device is not up while trying to send message, restarting CAN socket",
       );
-      await dispose();
-      await Future<void>.delayed(const Duration(milliseconds: 1000));
-      await init();
-      return;
+      _shouldReset = true;
+      return false;
     }
-    return socket
+    var success = true;
+    await socket
         ?.send(CanFrame.standard(id: message.canId, data: message.encode()))
-        .catchError((Object e) async {
+        .catchError((Object e) {
+          success = false;
           if (e.toString().contains("No buffer space")) {
             logger.debug("Error when sending CAN message", body: e.toString());
           } else {
             logger.error("Error when sending CAN message", body: e.toString());
           }
 
-          if (!(device?.isUp ?? false)) {
-            await dispose();
-            await init();
+          if (!(device?.isUp ?? true)) {
+            _shouldReset = true;
           }
         });
+    return success;
   }
 
   void _handleDeviceBroadcast(DeviceBroadcastMessage broadcast) {
