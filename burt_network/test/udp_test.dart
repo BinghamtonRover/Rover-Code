@@ -1,3 +1,4 @@
+import "dart:async";
 import "dart:io";
 import "package:burt_network/burt_network.dart";
 import "package:test/test.dart";
@@ -186,12 +187,38 @@ void main() => group("ProtoSocket:", () {
     await server.dispose();
   });
 
+  test("Only one restart happens at a time", () async {
+    final restartService = RestartTrackingService();
+    final socket = RoverSocket(
+      collection: restartService,
+      device: Device.DEVICE_UNDEFINED,
+      port: 8013,
+    );
+
+    final restartFuture = socket.restart();
+    unawaited(socket.restart());
+
+    expect(restartService.disposedCount, 1);
+    expect(restartService.initCount, 0);
+
+    await restartFuture;
+
+    expect(restartService.disposedCount, 1);
+    expect(restartService.initCount, 1);
+
+    // Restarts can happen after each other
+    await socket.restart();
+
+    expect(restartService.disposedCount, 2);
+    expect(restartService.initCount, 2);
+  });
+
   group("tryHandshake", () {
     test("works with successful handshakes", () async {
-      final socket1Info = SocketInfo(address: InternetAddress.loopbackIPv4, port: 8013);
-      final socket2Info = SocketInfo(address: InternetAddress.loopbackIPv4, port: 8014);
-      final socket1 = TestServer(port: 8013);
-      final socket2 = EchoSocket(port: 8014, destination: socket1Info);
+      final socket1Info = SocketInfo(address: InternetAddress.loopbackIPv4, port: 8014);
+      final socket2Info = SocketInfo(address: InternetAddress.loopbackIPv4, port: 8015);
+      final socket1 = TestServer(port: 8014);
+      final socket2 = EchoSocket(port: 8015, destination: socket1Info);
       await socket1.init();
       await socket2.init();
 
