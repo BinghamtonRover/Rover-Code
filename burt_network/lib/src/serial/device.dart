@@ -28,13 +28,24 @@ class SerialDevice extends Service {
 	/// The controller for [stream].
 	final _controller = StreamController<Uint8List>.broadcast();
 
-	/// Opens a new serial connection with the given port name and baud rate.
-	SerialDevice({
+  /// Opens a new serial connection with the given port name and configuration settings.
+  SerialDevice({
     required String portName,
-		required this.readInterval,
+    required this.readInterval,
     required this.logger,
     int baudRate = 9600,
-	}) : _port = DelegateSerialPort(portName, baudRate: baudRate);
+    int? parity,
+    int? stopBits,
+    int? dtr,
+    int? xonXoff,
+  }) : _port = DelegateSerialPort(
+         portName,
+         baudRate: baudRate,
+         parity: parity,
+         stopBits: stopBits,
+         dtr: dtr,
+         xonXoff: xonXoff,
+       );
 
   /// Opens a serial connection on the given port.
   SerialDevice.fromPort(this._port, {required this.readInterval, required this.logger});

@@ -102,6 +102,9 @@ class GpsReader extends Service {
     readInterval: const Duration(milliseconds: 250),
     logger: logger,
     baudRate: 38400,
+    parity: 0,
+    stopBits: 1,
+    xonXoff: 0,
   );
 
   /// Whether or not the GPS device is connected

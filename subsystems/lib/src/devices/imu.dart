@@ -21,6 +21,9 @@ class ImuReader extends Service {
     portName: imuPort,
     readInterval: const Duration(milliseconds: 10),
     logger: logger,
+    baudRate: 115200,
+    parity: 0,
+    xonXoff: 0,
   );
 
   /// Whether or not the IMU is connected
