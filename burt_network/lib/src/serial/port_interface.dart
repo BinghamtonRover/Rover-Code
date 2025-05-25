@@ -1,6 +1,8 @@
 import "dart:typed_data";
 
 import "package:burt_network/burt_network.dart";
+import "package:libserialport/libserialport.dart"
+    show SerialPortDtr, SerialPortParity, SerialPortXonXoff;
 
 export "port_delegate.dart";
 
@@ -12,8 +14,33 @@ abstract class SerialPortInterface extends Service {
   /// The baud rate to communicate with the Serial device.
   final int baudRate;
 
+  /// The parity configuration for the serial port, null if the default value should be used
+  ///
+  /// See [SerialPortParity]
+  final int? parity;
+
+  /// The stop bits configuration for the serial port, null if the default value should be used
+  final int? stopBits;
+
+  /// The DTR configuration for the port, null if the default value should be used
+  ///
+  /// See [SerialPortDtr]
+  final int? dtr;
+
+  /// The XON/XOFF configuration for the port, null if the default value should be used
+  ///
+  /// See [SerialPortXonXoff]
+  final int? xonXoff;
+
   /// Creates a serial port at the given name.
-  SerialPortInterface(this.portName, {this.baudRate = 9600});
+  SerialPortInterface(
+    this.portName, {
+    this.baudRate = 9600,
+    this.parity,
+    this.stopBits,
+    this.dtr,
+    this.xonXoff,
+  });
 
   /// Whether this port is open.
   bool get isOpen;
