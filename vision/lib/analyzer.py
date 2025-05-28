@@ -5,8 +5,12 @@ import torch
 class ImageAnalyzer:
   def __init__(self, load_from="trained-model.pt"):
     torch.cuda.set_device(0)
-    self.model = YOLO(load_from, verbose=False)
-    self.model = self.model.cuda()
+    if torch.cuda.is_available():
+        torch.cuda.set_device(0)
+        self.device = "cuda"
+    else:
+        self.device = "cpu"
+        print("CUDA not available - using CPU")
 
   def has_mallet(self, frame: cv2.Mat, confidence = 0.80) -> bool:
     results = self.model.predict(frame, stream=True, verbose=False)
