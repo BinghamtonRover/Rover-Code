@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: utils.proto
 //
-// @dart = 2.12
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
@@ -29,10 +29,10 @@ class BoolState extends $pb.ProtobufEnum {
     OFF,
   ];
 
-  static final $core.Map<$core.int, BoolState> _byValue = $pb.ProtobufEnum.initByValue(values);
-  static BoolState? valueOf($core.int value) => _byValue[value];
+  static final $core.List<BoolState?> _byValue = $pb.ProtobufEnum.$_initByValueList(values, 2);
+  static BoolState? valueOf($core.int value) =>  value < 0 || value >= _byValue.length ? null : _byValue[value];
 
-  const BoolState._($core.int v, $core.String n) : super(v, n);
+  const BoolState._(super.v, super.n);
 }
 
 

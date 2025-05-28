@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: motor.proto
 //
-// @dart = 2.12
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
@@ -14,14 +14,16 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'motor.pbenum.dart';
-import 'utils.pbenum.dart' as $0;
+import 'utils.pbenum.dart' as $3;
+
+export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
 export 'motor.pbenum.dart';
 
 class MotorData extends $pb.GeneratedMessage {
   factory MotorData({
-    $0.BoolState? isMoving,
-    $0.BoolState? isLimitSwitchPressed,
+    $3.BoolState? isMoving,
+    $3.BoolState? isLimitSwitchPressed,
     MotorDirection? direction,
     $core.int? currentStep,
     $core.int? targetStep,
@@ -57,8 +59,8 @@ class MotorData extends $pb.GeneratedMessage {
   factory MotorData.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'MotorData', createEmptyInstance: create)
-    ..e<$0.BoolState>(1, _omitFieldNames ? '' : 'isMoving', $pb.PbFieldType.OE, defaultOrMaker: $0.BoolState.BOOL_UNDEFINED, valueOf: $0.BoolState.valueOf, enumValues: $0.BoolState.values)
-    ..e<$0.BoolState>(2, _omitFieldNames ? '' : 'isLimitSwitchPressed', $pb.PbFieldType.OE, defaultOrMaker: $0.BoolState.BOOL_UNDEFINED, valueOf: $0.BoolState.valueOf, enumValues: $0.BoolState.values)
+    ..e<$3.BoolState>(1, _omitFieldNames ? '' : 'isMoving', $pb.PbFieldType.OE, defaultOrMaker: $3.BoolState.BOOL_UNDEFINED, valueOf: $3.BoolState.valueOf, enumValues: $3.BoolState.values)
+    ..e<$3.BoolState>(2, _omitFieldNames ? '' : 'isLimitSwitchPressed', $pb.PbFieldType.OE, defaultOrMaker: $3.BoolState.BOOL_UNDEFINED, valueOf: $3.BoolState.valueOf, enumValues: $3.BoolState.values)
     ..e<MotorDirection>(3, _omitFieldNames ? '' : 'direction', $pb.PbFieldType.OE, defaultOrMaker: MotorDirection.MOTOR_DIRECTION_UNDEFINED, valueOf: MotorDirection.valueOf, enumValues: MotorDirection.values)
     ..a<$core.int>(4, _omitFieldNames ? '' : 'currentStep', $pb.PbFieldType.O3)
     ..a<$core.int>(5, _omitFieldNames ? '' : 'targetStep', $pb.PbFieldType.O3)
@@ -67,15 +69,9 @@ class MotorData extends $pb.GeneratedMessage {
     ..hasRequiredFields = false
   ;
 
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   MotorData clone() => MotorData()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   MotorData copyWith(void Function(MotorData) updates) => super.copyWith((message) => updates(message as MotorData)) as MotorData;
 
   $pb.BuilderInfo get info_ => _i;
@@ -89,31 +85,31 @@ class MotorData extends $pb.GeneratedMessage {
   static MotorData? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $0.BoolState get isMoving => $_getN(0);
+  $3.BoolState get isMoving => $_getN(0);
   @$pb.TagNumber(1)
-  set isMoving($0.BoolState v) { setField(1, v); }
+  set isMoving($3.BoolState v) { $_setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasIsMoving() => $_has(0);
   @$pb.TagNumber(1)
-  void clearIsMoving() => clearField(1);
+  void clearIsMoving() => $_clearField(1);
 
   @$pb.TagNumber(2)
-  $0.BoolState get isLimitSwitchPressed => $_getN(1);
+  $3.BoolState get isLimitSwitchPressed => $_getN(1);
   @$pb.TagNumber(2)
-  set isLimitSwitchPressed($0.BoolState v) { setField(2, v); }
+  set isLimitSwitchPressed($3.BoolState v) { $_setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasIsLimitSwitchPressed() => $_has(1);
   @$pb.TagNumber(2)
-  void clearIsLimitSwitchPressed() => clearField(2);
+  void clearIsLimitSwitchPressed() => $_clearField(2);
 
   @$pb.TagNumber(3)
   MotorDirection get direction => $_getN(2);
   @$pb.TagNumber(3)
-  set direction(MotorDirection v) { setField(3, v); }
+  set direction(MotorDirection v) { $_setField(3, v); }
   @$pb.TagNumber(3)
   $core.bool hasDirection() => $_has(2);
   @$pb.TagNumber(3)
-  void clearDirection() => clearField(3);
+  void clearDirection() => $_clearField(3);
 
   @$pb.TagNumber(4)
   $core.int get currentStep => $_getIZ(3);
@@ -122,7 +118,7 @@ class MotorData extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasCurrentStep() => $_has(3);
   @$pb.TagNumber(4)
-  void clearCurrentStep() => clearField(4);
+  void clearCurrentStep() => $_clearField(4);
 
   @$pb.TagNumber(5)
   $core.int get targetStep => $_getIZ(4);
@@ -131,7 +127,7 @@ class MotorData extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   $core.bool hasTargetStep() => $_has(4);
   @$pb.TagNumber(5)
-  void clearTargetStep() => clearField(5);
+  void clearTargetStep() => $_clearField(5);
 
   @$pb.TagNumber(6)
   $core.double get currentAngle => $_getN(5);
@@ -140,7 +136,7 @@ class MotorData extends $pb.GeneratedMessage {
   @$pb.TagNumber(6)
   $core.bool hasCurrentAngle() => $_has(5);
   @$pb.TagNumber(6)
-  void clearCurrentAngle() => clearField(6);
+  void clearCurrentAngle() => $_clearField(6);
 
   @$pb.TagNumber(7)
   $core.double get targetAngle => $_getN(6);
@@ -149,7 +145,7 @@ class MotorData extends $pb.GeneratedMessage {
   @$pb.TagNumber(7)
   $core.bool hasTargetAngle() => $_has(6);
   @$pb.TagNumber(7)
-  void clearTargetAngle() => clearField(7);
+  void clearTargetAngle() => $_clearField(7);
 }
 
 class MotorCommand extends $pb.GeneratedMessage {
@@ -181,15 +177,9 @@ class MotorCommand extends $pb.GeneratedMessage {
     ..hasRequiredFields = false
   ;
 
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   MotorCommand clone() => MotorCommand()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   MotorCommand copyWith(void Function(MotorCommand) updates) => super.copyWith((message) => updates(message as MotorCommand)) as MotorCommand;
 
   $pb.BuilderInfo get info_ => _i;
@@ -210,7 +200,7 @@ class MotorCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasMoveSteps() => $_has(0);
   @$pb.TagNumber(1)
-  void clearMoveSteps() => clearField(1);
+  void clearMoveSteps() => $_clearField(1);
 
   /// Precise control: Move by radians
   @$pb.TagNumber(2)
@@ -220,7 +210,7 @@ class MotorCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasMoveRadians() => $_has(1);
   @$pb.TagNumber(2)
-  void clearMoveRadians() => clearField(2);
+  void clearMoveRadians() => $_clearField(2);
 
   /// / An angle to go to. Useful in IK.
   @$pb.TagNumber(3)
@@ -230,7 +220,7 @@ class MotorCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasAngle() => $_has(2);
   @$pb.TagNumber(3)
-  void clearAngle() => clearField(3);
+  void clearAngle() => $_clearField(3);
 }
 
 

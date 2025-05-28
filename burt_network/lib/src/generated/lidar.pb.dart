@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: lidar.proto
 //
-// @dart = 2.12
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
@@ -13,7 +13,9 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'version.pb.dart' as $3;
+import 'version.pb.dart' as $2;
+
+export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
 class LidarCartesianPoint extends $pb.GeneratedMessage {
   factory LidarCartesianPoint({
@@ -39,15 +41,9 @@ class LidarCartesianPoint extends $pb.GeneratedMessage {
     ..hasRequiredFields = false
   ;
 
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   LidarCartesianPoint clone() => LidarCartesianPoint()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   LidarCartesianPoint copyWith(void Function(LidarCartesianPoint) updates) => super.copyWith((message) => updates(message as LidarCartesianPoint)) as LidarCartesianPoint;
 
   $pb.BuilderInfo get info_ => _i;
@@ -67,7 +63,7 @@ class LidarCartesianPoint extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasX() => $_has(0);
   @$pb.TagNumber(1)
-  void clearX() => clearField(1);
+  void clearX() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.double get y => $_getN(1);
@@ -76,7 +72,7 @@ class LidarCartesianPoint extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasY() => $_has(1);
   @$pb.TagNumber(2)
-  void clearY() => clearField(2);
+  void clearY() => $_clearField(2);
 }
 
 class LidarPolarPoint extends $pb.GeneratedMessage {
@@ -103,15 +99,9 @@ class LidarPolarPoint extends $pb.GeneratedMessage {
     ..hasRequiredFields = false
   ;
 
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   LidarPolarPoint clone() => LidarPolarPoint()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   LidarPolarPoint copyWith(void Function(LidarPolarPoint) updates) => super.copyWith((message) => updates(message as LidarPolarPoint)) as LidarPolarPoint;
 
   $pb.BuilderInfo get info_ => _i;
@@ -131,7 +121,7 @@ class LidarPolarPoint extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasAngle() => $_has(0);
   @$pb.TagNumber(1)
-  void clearAngle() => clearField(1);
+  void clearAngle() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.double get distance => $_getN(1);
@@ -140,14 +130,14 @@ class LidarPolarPoint extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasDistance() => $_has(1);
   @$pb.TagNumber(2)
-  void clearDistance() => clearField(2);
+  void clearDistance() => $_clearField(2);
 }
 
 class LidarPointCloud extends $pb.GeneratedMessage {
   factory LidarPointCloud({
     $core.Iterable<LidarCartesianPoint>? cartesian,
     $core.Iterable<LidarPolarPoint>? polar,
-    $3.Version? version,
+    $2.Version? version,
   }) {
     final $result = create();
     if (cartesian != null) {
@@ -168,19 +158,13 @@ class LidarPointCloud extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'LidarPointCloud', createEmptyInstance: create)
     ..pc<LidarCartesianPoint>(1, _omitFieldNames ? '' : 'cartesian', $pb.PbFieldType.PM, subBuilder: LidarCartesianPoint.create)
     ..pc<LidarPolarPoint>(2, _omitFieldNames ? '' : 'polar', $pb.PbFieldType.PM, subBuilder: LidarPolarPoint.create)
-    ..aOM<$3.Version>(3, _omitFieldNames ? '' : 'version', subBuilder: $3.Version.create)
+    ..aOM<$2.Version>(3, _omitFieldNames ? '' : 'version', subBuilder: $2.Version.create)
     ..hasRequiredFields = false
   ;
 
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   LidarPointCloud clone() => LidarPointCloud()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   LidarPointCloud copyWith(void Function(LidarPointCloud) updates) => super.copyWith((message) => updates(message as LidarPointCloud)) as LidarPointCloud;
 
   $pb.BuilderInfo get info_ => _i;
@@ -194,21 +178,21 @@ class LidarPointCloud extends $pb.GeneratedMessage {
   static LidarPointCloud? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<LidarCartesianPoint> get cartesian => $_getList(0);
+  $pb.PbList<LidarCartesianPoint> get cartesian => $_getList(0);
 
   @$pb.TagNumber(2)
-  $core.List<LidarPolarPoint> get polar => $_getList(1);
+  $pb.PbList<LidarPolarPoint> get polar => $_getList(1);
 
   @$pb.TagNumber(3)
-  $3.Version get version => $_getN(2);
+  $2.Version get version => $_getN(2);
   @$pb.TagNumber(3)
-  set version($3.Version v) { setField(3, v); }
+  set version($2.Version v) { $_setField(3, v); }
   @$pb.TagNumber(3)
   $core.bool hasVersion() => $_has(2);
   @$pb.TagNumber(3)
-  void clearVersion() => clearField(3);
+  void clearVersion() => $_clearField(3);
   @$pb.TagNumber(3)
-  $3.Version ensureVersion() => $_ensure(2);
+  $2.Version ensureVersion() => $_ensure(2);
 }
 
 

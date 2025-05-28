@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: logs.proto
 //
-// @dart = 2.12
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
@@ -15,6 +15,8 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'core.pbenum.dart' as $6;
 import 'logs.pbenum.dart';
+
+export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
 export 'logs.pbenum.dart';
 
@@ -52,15 +54,9 @@ class BurtLog extends $pb.GeneratedMessage {
     ..hasRequiredFields = false
   ;
 
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   BurtLog clone() => BurtLog()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   BurtLog copyWith(void Function(BurtLog) updates) => super.copyWith((message) => updates(message as BurtLog)) as BurtLog;
 
   $pb.BuilderInfo get info_ => _i;
@@ -76,11 +72,11 @@ class BurtLog extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   BurtLogLevel get level => $_getN(0);
   @$pb.TagNumber(1)
-  set level(BurtLogLevel v) { setField(1, v); }
+  set level(BurtLogLevel v) { $_setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasLevel() => $_has(0);
   @$pb.TagNumber(1)
-  void clearLevel() => clearField(1);
+  void clearLevel() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get title => $_getSZ(1);
@@ -89,7 +85,7 @@ class BurtLog extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasTitle() => $_has(1);
   @$pb.TagNumber(2)
-  void clearTitle() => clearField(2);
+  void clearTitle() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.String get body => $_getSZ(2);
@@ -98,16 +94,16 @@ class BurtLog extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasBody() => $_has(2);
   @$pb.TagNumber(3)
-  void clearBody() => clearField(3);
+  void clearBody() => $_clearField(3);
 
   @$pb.TagNumber(4)
   $6.Device get device => $_getN(3);
   @$pb.TagNumber(4)
-  set device($6.Device v) { setField(4, v); }
+  set device($6.Device v) { $_setField(4, v); }
   @$pb.TagNumber(4)
   $core.bool hasDevice() => $_has(3);
   @$pb.TagNumber(4)
-  void clearDevice() => clearField(4);
+  void clearDevice() => $_clearField(4);
 }
 
 

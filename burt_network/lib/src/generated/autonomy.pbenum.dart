@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: autonomy.proto
 //
-// @dart = 2.12
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
@@ -34,10 +34,10 @@ class AutonomyState extends $pb.ProtobufEnum {
     ABORTING,
   ];
 
-  static final $core.Map<$core.int, AutonomyState> _byValue = $pb.ProtobufEnum.initByValue(values);
-  static AutonomyState? valueOf($core.int value) => _byValue[value];
+  static final $core.List<AutonomyState?> _byValue = $pb.ProtobufEnum.$_initByValueList(values, 8);
+  static AutonomyState? valueOf($core.int value) =>  value < 0 || value >= _byValue.length ? null : _byValue[value];
 
-  const AutonomyState._($core.int v, $core.String n) : super(v, n);
+  const AutonomyState._(super.v, super.n);
 }
 
 class AutonomyTask extends $pb.ProtobufEnum {
@@ -53,10 +53,10 @@ class AutonomyTask extends $pb.ProtobufEnum {
     BETWEEN_GATES,
   ];
 
-  static final $core.Map<$core.int, AutonomyTask> _byValue = $pb.ProtobufEnum.initByValue(values);
-  static AutonomyTask? valueOf($core.int value) => _byValue[value];
+  static final $core.List<AutonomyTask?> _byValue = $pb.ProtobufEnum.$_initByValueList(values, 3);
+  static AutonomyTask? valueOf($core.int value) =>  value < 0 || value >= _byValue.length ? null : _byValue[value];
 
-  const AutonomyTask._($core.int v, $core.String n) : super(v, n);
+  const AutonomyTask._(super.v, super.n);
 }
 
 

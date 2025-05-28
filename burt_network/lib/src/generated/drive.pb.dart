@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: drive.proto
 //
-// @dart = 2.12
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
@@ -15,8 +15,10 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'drive.pbenum.dart';
 import 'status.pbenum.dart' as $5;
-import 'utils.pbenum.dart' as $0;
-import 'version.pb.dart' as $3;
+import 'utils.pbenum.dart' as $3;
+import 'version.pb.dart' as $2;
+
+export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
 export 'drive.pbenum.dart';
 
@@ -33,9 +35,9 @@ class DriveCommand extends $pb.GeneratedMessage {
     $core.double? rearSwivel,
     $core.double? rearTilt,
     $5.RoverStatus? status,
-    $3.Version? version,
+    $2.Version? version,
     ProtoColor? color,
-    $0.BoolState? blink,
+    $3.BoolState? blink,
   }) {
     final $result = create();
     if (throttle != null) {
@@ -98,21 +100,15 @@ class DriveCommand extends $pb.GeneratedMessage {
     ..a<$core.double>(9, _omitFieldNames ? '' : 'rearSwivel', $pb.PbFieldType.OF)
     ..a<$core.double>(10, _omitFieldNames ? '' : 'rearTilt', $pb.PbFieldType.OF)
     ..e<$5.RoverStatus>(11, _omitFieldNames ? '' : 'status', $pb.PbFieldType.OE, defaultOrMaker: $5.RoverStatus.DISCONNECTED, valueOf: $5.RoverStatus.valueOf, enumValues: $5.RoverStatus.values)
-    ..aOM<$3.Version>(12, _omitFieldNames ? '' : 'version', subBuilder: $3.Version.create)
+    ..aOM<$2.Version>(12, _omitFieldNames ? '' : 'version', subBuilder: $2.Version.create)
     ..e<ProtoColor>(13, _omitFieldNames ? '' : 'color', $pb.PbFieldType.OE, defaultOrMaker: ProtoColor.PROTO_COLOR_UNDEFINED, valueOf: ProtoColor.valueOf, enumValues: ProtoColor.values)
-    ..e<$0.BoolState>(14, _omitFieldNames ? '' : 'blink', $pb.PbFieldType.OE, defaultOrMaker: $0.BoolState.BOOL_UNDEFINED, valueOf: $0.BoolState.valueOf, enumValues: $0.BoolState.values)
+    ..e<$3.BoolState>(14, _omitFieldNames ? '' : 'blink', $pb.PbFieldType.OE, defaultOrMaker: $3.BoolState.BOOL_UNDEFINED, valueOf: $3.BoolState.valueOf, enumValues: $3.BoolState.values)
     ..hasRequiredFields = false
   ;
 
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   DriveCommand clone() => DriveCommand()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   DriveCommand copyWith(void Function(DriveCommand) updates) => super.copyWith((message) => updates(message as DriveCommand)) as DriveCommand;
 
   $pb.BuilderInfo get info_ => _i;
@@ -133,7 +129,7 @@ class DriveCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasThrottle() => $_has(0);
   @$pb.TagNumber(1)
-  void clearThrottle() => clearField(1);
+  void clearThrottle() => $_clearField(1);
 
   /// Speed of the left wheels, as a percentage of [throttle].
   @$pb.TagNumber(2)
@@ -143,7 +139,7 @@ class DriveCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasLeft() => $_has(1);
   @$pb.TagNumber(2)
-  void clearLeft() => clearField(2);
+  void clearLeft() => $_clearField(2);
 
   /// Speed of the right wheels, as a percentage of [throttle].
   @$pb.TagNumber(3)
@@ -153,7 +149,7 @@ class DriveCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasRight() => $_has(2);
   @$pb.TagNumber(3)
-  void clearRight() => clearField(3);
+  void clearRight() => $_clearField(3);
 
   /// Indicates that [left] = 0 is valid, even though 0 usually means no value.
   @$pb.TagNumber(4)
@@ -163,7 +159,7 @@ class DriveCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasSetLeft() => $_has(3);
   @$pb.TagNumber(4)
-  void clearSetLeft() => clearField(4);
+  void clearSetLeft() => $_clearField(4);
 
   /// Indicates that [right] = 0 is valid, even though 0 usually means no value.
   @$pb.TagNumber(5)
@@ -173,7 +169,7 @@ class DriveCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   $core.bool hasSetRight() => $_has(4);
   @$pb.TagNumber(5)
-  void clearSetRight() => clearField(5);
+  void clearSetRight() => $_clearField(5);
 
   /// Indicates that [throttle] = 0 is valid, even though 0 usually means no value.
   @$pb.TagNumber(6)
@@ -183,7 +179,7 @@ class DriveCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(6)
   $core.bool hasSetThrottle() => $_has(5);
   @$pb.TagNumber(6)
-  void clearSetThrottle() => clearField(6);
+  void clearSetThrottle() => $_clearField(6);
 
   @$pb.TagNumber(7)
   $core.double get frontSwivel => $_getN(6);
@@ -192,7 +188,7 @@ class DriveCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(7)
   $core.bool hasFrontSwivel() => $_has(6);
   @$pb.TagNumber(7)
-  void clearFrontSwivel() => clearField(7);
+  void clearFrontSwivel() => $_clearField(7);
 
   @$pb.TagNumber(8)
   $core.double get frontTilt => $_getN(7);
@@ -201,7 +197,7 @@ class DriveCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(8)
   $core.bool hasFrontTilt() => $_has(7);
   @$pb.TagNumber(8)
-  void clearFrontTilt() => clearField(8);
+  void clearFrontTilt() => $_clearField(8);
 
   @$pb.TagNumber(9)
   $core.double get rearSwivel => $_getN(8);
@@ -210,7 +206,7 @@ class DriveCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(9)
   $core.bool hasRearSwivel() => $_has(8);
   @$pb.TagNumber(9)
-  void clearRearSwivel() => clearField(9);
+  void clearRearSwivel() => $_clearField(9);
 
   @$pb.TagNumber(10)
   $core.double get rearTilt => $_getN(9);
@@ -219,45 +215,45 @@ class DriveCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(10)
   $core.bool hasRearTilt() => $_has(9);
   @$pb.TagNumber(10)
-  void clearRearTilt() => clearField(10);
+  void clearRearTilt() => $_clearField(10);
 
   @$pb.TagNumber(11)
   $5.RoverStatus get status => $_getN(10);
   @$pb.TagNumber(11)
-  set status($5.RoverStatus v) { setField(11, v); }
+  set status($5.RoverStatus v) { $_setField(11, v); }
   @$pb.TagNumber(11)
   $core.bool hasStatus() => $_has(10);
   @$pb.TagNumber(11)
-  void clearStatus() => clearField(11);
+  void clearStatus() => $_clearField(11);
 
   @$pb.TagNumber(12)
-  $3.Version get version => $_getN(11);
+  $2.Version get version => $_getN(11);
   @$pb.TagNumber(12)
-  set version($3.Version v) { setField(12, v); }
+  set version($2.Version v) { $_setField(12, v); }
   @$pb.TagNumber(12)
   $core.bool hasVersion() => $_has(11);
   @$pb.TagNumber(12)
-  void clearVersion() => clearField(12);
+  void clearVersion() => $_clearField(12);
   @$pb.TagNumber(12)
-  $3.Version ensureVersion() => $_ensure(11);
+  $2.Version ensureVersion() => $_ensure(11);
 
   @$pb.TagNumber(13)
   ProtoColor get color => $_getN(12);
   @$pb.TagNumber(13)
-  set color(ProtoColor v) { setField(13, v); }
+  set color(ProtoColor v) { $_setField(13, v); }
   @$pb.TagNumber(13)
   $core.bool hasColor() => $_has(12);
   @$pb.TagNumber(13)
-  void clearColor() => clearField(13);
+  void clearColor() => $_clearField(13);
 
   @$pb.TagNumber(14)
-  $0.BoolState get blink => $_getN(13);
+  $3.BoolState get blink => $_getN(13);
   @$pb.TagNumber(14)
-  set blink($0.BoolState v) { setField(14, v); }
+  set blink($3.BoolState v) { $_setField(14, v); }
   @$pb.TagNumber(14)
   $core.bool hasBlink() => $_has(13);
   @$pb.TagNumber(14)
-  void clearBlink() => clearField(14);
+  void clearBlink() => $_clearField(14);
 }
 
 class DriveData extends $pb.GeneratedMessage {
@@ -275,7 +271,7 @@ class DriveData extends $pb.GeneratedMessage {
     $core.double? batteryVoltage,
     $core.double? batteryCurrent,
     $core.double? batteryTemperature,
-    $3.Version? version,
+    $2.Version? version,
     $core.double? backLeft,
     $core.double? middleLeft,
     $core.double? frontLeft,
@@ -372,7 +368,7 @@ class DriveData extends $pb.GeneratedMessage {
     ..a<$core.double>(11, _omitFieldNames ? '' : 'batteryVoltage', $pb.PbFieldType.OF)
     ..a<$core.double>(12, _omitFieldNames ? '' : 'batteryCurrent', $pb.PbFieldType.OF)
     ..a<$core.double>(13, _omitFieldNames ? '' : 'batteryTemperature', $pb.PbFieldType.OF)
-    ..aOM<$3.Version>(14, _omitFieldNames ? '' : 'version', subBuilder: $3.Version.create)
+    ..aOM<$2.Version>(14, _omitFieldNames ? '' : 'version', subBuilder: $2.Version.create)
     ..a<$core.double>(15, _omitFieldNames ? '' : 'backLeft', $pb.PbFieldType.OF)
     ..a<$core.double>(16, _omitFieldNames ? '' : 'middleLeft', $pb.PbFieldType.OF)
     ..a<$core.double>(17, _omitFieldNames ? '' : 'frontLeft', $pb.PbFieldType.OF)
@@ -384,15 +380,9 @@ class DriveData extends $pb.GeneratedMessage {
     ..hasRequiredFields = false
   ;
 
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   DriveData clone() => DriveData()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   DriveData copyWith(void Function(DriveData) updates) => super.copyWith((message) => updates(message as DriveData)) as DriveData;
 
   $pb.BuilderInfo get info_ => _i;
@@ -413,7 +403,7 @@ class DriveData extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasThrottle() => $_has(0);
   @$pb.TagNumber(1)
-  void clearThrottle() => clearField(1);
+  void clearThrottle() => $_clearField(1);
 
   /// Speed of the left wheels, as a percentage of [throttle].
   @$pb.TagNumber(2)
@@ -423,7 +413,7 @@ class DriveData extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasLeft() => $_has(1);
   @$pb.TagNumber(2)
-  void clearLeft() => clearField(2);
+  void clearLeft() => $_clearField(2);
 
   /// Speed of the right wheels, as a percentage of [throttle].
   @$pb.TagNumber(3)
@@ -433,7 +423,7 @@ class DriveData extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasRight() => $_has(2);
   @$pb.TagNumber(3)
-  void clearRight() => clearField(3);
+  void clearRight() => $_clearField(3);
 
   /// Indicates that [left] = 0 is valid, even though 0 usually means no value.
   @$pb.TagNumber(4)
@@ -443,7 +433,7 @@ class DriveData extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasSetLeft() => $_has(3);
   @$pb.TagNumber(4)
-  void clearSetLeft() => clearField(4);
+  void clearSetLeft() => $_clearField(4);
 
   /// Indicates that [right] = 0 is valid, even though 0 usually means no value.
   @$pb.TagNumber(5)
@@ -453,7 +443,7 @@ class DriveData extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   $core.bool hasSetRight() => $_has(4);
   @$pb.TagNumber(5)
-  void clearSetRight() => clearField(5);
+  void clearSetRight() => $_clearField(5);
 
   /// Indicates that [throttle] = 0 is valid, even though 0 usually means no value.
   @$pb.TagNumber(6)
@@ -463,7 +453,7 @@ class DriveData extends $pb.GeneratedMessage {
   @$pb.TagNumber(6)
   $core.bool hasSetThrottle() => $_has(5);
   @$pb.TagNumber(6)
-  void clearSetThrottle() => clearField(6);
+  void clearSetThrottle() => $_clearField(6);
 
   @$pb.TagNumber(7)
   $core.double get frontSwivel => $_getN(6);
@@ -472,7 +462,7 @@ class DriveData extends $pb.GeneratedMessage {
   @$pb.TagNumber(7)
   $core.bool hasFrontSwivel() => $_has(6);
   @$pb.TagNumber(7)
-  void clearFrontSwivel() => clearField(7);
+  void clearFrontSwivel() => $_clearField(7);
 
   @$pb.TagNumber(8)
   $core.double get frontTilt => $_getN(7);
@@ -481,7 +471,7 @@ class DriveData extends $pb.GeneratedMessage {
   @$pb.TagNumber(8)
   $core.bool hasFrontTilt() => $_has(7);
   @$pb.TagNumber(8)
-  void clearFrontTilt() => clearField(8);
+  void clearFrontTilt() => $_clearField(8);
 
   @$pb.TagNumber(9)
   $core.double get rearSwivel => $_getN(8);
@@ -490,7 +480,7 @@ class DriveData extends $pb.GeneratedMessage {
   @$pb.TagNumber(9)
   $core.bool hasRearSwivel() => $_has(8);
   @$pb.TagNumber(9)
-  void clearRearSwivel() => clearField(9);
+  void clearRearSwivel() => $_clearField(9);
 
   @$pb.TagNumber(10)
   $core.double get rearTilt => $_getN(9);
@@ -499,7 +489,7 @@ class DriveData extends $pb.GeneratedMessage {
   @$pb.TagNumber(10)
   $core.bool hasRearTilt() => $_has(9);
   @$pb.TagNumber(10)
-  void clearRearTilt() => clearField(10);
+  void clearRearTilt() => $_clearField(10);
 
   /// Vitals for the whole rover
   @$pb.TagNumber(11)
@@ -509,7 +499,7 @@ class DriveData extends $pb.GeneratedMessage {
   @$pb.TagNumber(11)
   $core.bool hasBatteryVoltage() => $_has(10);
   @$pb.TagNumber(11)
-  void clearBatteryVoltage() => clearField(11);
+  void clearBatteryVoltage() => $_clearField(11);
 
   @$pb.TagNumber(12)
   $core.double get batteryCurrent => $_getN(11);
@@ -518,7 +508,7 @@ class DriveData extends $pb.GeneratedMessage {
   @$pb.TagNumber(12)
   $core.bool hasBatteryCurrent() => $_has(11);
   @$pb.TagNumber(12)
-  void clearBatteryCurrent() => clearField(12);
+  void clearBatteryCurrent() => $_clearField(12);
 
   @$pb.TagNumber(13)
   $core.double get batteryTemperature => $_getN(12);
@@ -527,18 +517,18 @@ class DriveData extends $pb.GeneratedMessage {
   @$pb.TagNumber(13)
   $core.bool hasBatteryTemperature() => $_has(12);
   @$pb.TagNumber(13)
-  void clearBatteryTemperature() => clearField(13);
+  void clearBatteryTemperature() => $_clearField(13);
 
   @$pb.TagNumber(14)
-  $3.Version get version => $_getN(13);
+  $2.Version get version => $_getN(13);
   @$pb.TagNumber(14)
-  set version($3.Version v) { setField(14, v); }
+  set version($2.Version v) { $_setField(14, v); }
   @$pb.TagNumber(14)
   $core.bool hasVersion() => $_has(13);
   @$pb.TagNumber(14)
-  void clearVersion() => clearField(14);
+  void clearVersion() => $_clearField(14);
   @$pb.TagNumber(14)
-  $3.Version ensureVersion() => $_ensure(13);
+  $2.Version ensureVersion() => $_ensure(13);
 
   /// Information about each wheel in rpm
   @$pb.TagNumber(15)
@@ -548,7 +538,7 @@ class DriveData extends $pb.GeneratedMessage {
   @$pb.TagNumber(15)
   $core.bool hasBackLeft() => $_has(14);
   @$pb.TagNumber(15)
-  void clearBackLeft() => clearField(15);
+  void clearBackLeft() => $_clearField(15);
 
   @$pb.TagNumber(16)
   $core.double get middleLeft => $_getN(15);
@@ -557,7 +547,7 @@ class DriveData extends $pb.GeneratedMessage {
   @$pb.TagNumber(16)
   $core.bool hasMiddleLeft() => $_has(15);
   @$pb.TagNumber(16)
-  void clearMiddleLeft() => clearField(16);
+  void clearMiddleLeft() => $_clearField(16);
 
   @$pb.TagNumber(17)
   $core.double get frontLeft => $_getN(16);
@@ -566,7 +556,7 @@ class DriveData extends $pb.GeneratedMessage {
   @$pb.TagNumber(17)
   $core.bool hasFrontLeft() => $_has(16);
   @$pb.TagNumber(17)
-  void clearFrontLeft() => clearField(17);
+  void clearFrontLeft() => $_clearField(17);
 
   @$pb.TagNumber(18)
   $core.double get backRight => $_getN(17);
@@ -575,7 +565,7 @@ class DriveData extends $pb.GeneratedMessage {
   @$pb.TagNumber(18)
   $core.bool hasBackRight() => $_has(17);
   @$pb.TagNumber(18)
-  void clearBackRight() => clearField(18);
+  void clearBackRight() => $_clearField(18);
 
   @$pb.TagNumber(19)
   $core.double get middleRight => $_getN(18);
@@ -584,7 +574,7 @@ class DriveData extends $pb.GeneratedMessage {
   @$pb.TagNumber(19)
   $core.bool hasMiddleRight() => $_has(18);
   @$pb.TagNumber(19)
-  void clearMiddleRight() => clearField(19);
+  void clearMiddleRight() => $_clearField(19);
 
   @$pb.TagNumber(20)
   $core.double get frontRight => $_getN(19);
@@ -593,25 +583,25 @@ class DriveData extends $pb.GeneratedMessage {
   @$pb.TagNumber(20)
   $core.bool hasFrontRight() => $_has(19);
   @$pb.TagNumber(20)
-  void clearFrontRight() => clearField(20);
+  void clearFrontRight() => $_clearField(20);
 
   @$pb.TagNumber(21)
   ProtoColor get color => $_getN(20);
   @$pb.TagNumber(21)
-  set color(ProtoColor v) { setField(21, v); }
+  set color(ProtoColor v) { $_setField(21, v); }
   @$pb.TagNumber(21)
   $core.bool hasColor() => $_has(20);
   @$pb.TagNumber(21)
-  void clearColor() => clearField(21);
+  void clearColor() => $_clearField(21);
 
   @$pb.TagNumber(22)
   $5.RoverStatus get status => $_getN(21);
   @$pb.TagNumber(22)
-  set status($5.RoverStatus v) { setField(22, v); }
+  set status($5.RoverStatus v) { $_setField(22, v); }
   @$pb.TagNumber(22)
   $core.bool hasStatus() => $_has(21);
   @$pb.TagNumber(22)
-  void clearStatus() => clearField(22);
+  void clearStatus() => $_clearField(22);
 }
 
 

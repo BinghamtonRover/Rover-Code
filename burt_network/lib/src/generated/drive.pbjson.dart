@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: drive.proto
 //
-// @dart = 2.12
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
@@ -29,6 +29,26 @@ const ProtoColor$json = {
 final $typed_data.Uint8List protoColorDescriptor = $convert.base64Decode(
     'CgpQcm90b0NvbG9yEhkKFVBST1RPX0NPTE9SX1VOREVGSU5FRBAAEgcKA1JFRBABEgkKBUdSRU'
     'VOEAISCAoEQkxVRRADEgkKBVVOTElUEAQ=');
+
+@$core.Deprecated('Use driveMotorDescriptor instead')
+const DriveMotor$json = {
+  '1': 'DriveMotor',
+  '2': [
+    {'1': 'DRIVE_MOTOR_UNDEFINED', '2': 0},
+    {'1': 'FRONT_LEFT', '2': 1},
+    {'1': 'FRONT_RIGHT', '2': 2},
+    {'1': 'MIDDLE_LEFT', '2': 3},
+    {'1': 'MIDDLE_RIGHT', '2': 4},
+    {'1': 'BACK_LEFT', '2': 5},
+    {'1': 'BACK_RIGHT', '2': 6},
+  ],
+};
+
+/// Descriptor for `DriveMotor`. Decode as a `google.protobuf.EnumDescriptorProto`.
+final $typed_data.Uint8List driveMotorDescriptor = $convert.base64Decode(
+    'CgpEcml2ZU1vdG9yEhkKFURSSVZFX01PVE9SX1VOREVGSU5FRBAAEg4KCkZST05UX0xFRlQQAR'
+    'IPCgtGUk9OVF9SSUdIVBACEg8KC01JRERMRV9MRUZUEAMSEAoMTUlERExFX1JJR0hUEAQSDQoJ'
+    'QkFDS19MRUZUEAUSDgoKQkFDS19SSUdIVBAG');
 
 @$core.Deprecated('Use driveCommandDescriptor instead')
 const DriveCommand$json = {

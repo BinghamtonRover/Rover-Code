@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: video.proto
 //
-// @dart = 2.12
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
@@ -34,10 +34,10 @@ class CameraStatus extends $pb.ProtobufEnum {
     CAMERA_HAS_NO_NAME,
   ];
 
-  static final $core.Map<$core.int, CameraStatus> _byValue = $pb.ProtobufEnum.initByValue(values);
-  static CameraStatus? valueOf($core.int value) => _byValue[value];
+  static final $core.List<CameraStatus?> _byValue = $pb.ProtobufEnum.$_initByValueList(values, 7);
+  static CameraStatus? valueOf($core.int value) =>  value < 0 || value >= _byValue.length ? null : _byValue[value];
 
-  const CameraStatus._($core.int v, $core.String n) : super(v, n);
+  const CameraStatus._(super.v, super.n);
 }
 
 class CameraName extends $pb.ProtobufEnum {
@@ -63,10 +63,10 @@ class CameraName extends $pb.ProtobufEnum {
     BOTTOM_RIGHT,
   ];
 
-  static final $core.Map<$core.int, CameraName> _byValue = $pb.ProtobufEnum.initByValue(values);
-  static CameraName? valueOf($core.int value) => _byValue[value];
+  static final $core.List<CameraName?> _byValue = $pb.ProtobufEnum.$_initByValueList(values, 8);
+  static CameraName? valueOf($core.int value) =>  value < 0 || value >= _byValue.length ? null : _byValue[value];
 
-  const CameraName._($core.int v, $core.String n) : super(v, n);
+  const CameraName._(super.v, super.n);
 }
 
 

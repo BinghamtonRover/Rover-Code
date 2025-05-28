@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: science.proto
 //
-// @dart = 2.12
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
@@ -14,7 +14,9 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'science.pbenum.dart';
-import 'version.pb.dart' as $3;
+import 'version.pb.dart' as $2;
+
+export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
 export 'science.pbenum.dart';
 
@@ -32,7 +34,7 @@ class ScienceCommand extends $pb.GeneratedMessage {
     $core.bool? stop,
     $core.int? sample,
     ScienceState? state,
-    $3.Version? version,
+    $2.Version? version,
   }) {
     final $result = create();
     if (carouselMotor != null) {
@@ -89,19 +91,13 @@ class ScienceCommand extends $pb.GeneratedMessage {
     ..aOB(9, _omitFieldNames ? '' : 'stop')
     ..a<$core.int>(10, _omitFieldNames ? '' : 'sample', $pb.PbFieldType.O3)
     ..e<ScienceState>(11, _omitFieldNames ? '' : 'state', $pb.PbFieldType.OE, defaultOrMaker: ScienceState.SCIENCE_STATE_UNDEFINED, valueOf: ScienceState.valueOf, enumValues: ScienceState.values)
-    ..aOM<$3.Version>(12, _omitFieldNames ? '' : 'version', subBuilder: $3.Version.create)
+    ..aOM<$2.Version>(12, _omitFieldNames ? '' : 'version', subBuilder: $2.Version.create)
     ..hasRequiredFields = false
   ;
 
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   ScienceCommand clone() => ScienceCommand()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   ScienceCommand copyWith(void Function(ScienceCommand) updates) => super.copyWith((message) => updates(message as ScienceCommand)) as ScienceCommand;
 
   $pb.BuilderInfo get info_ => _i;
@@ -122,7 +118,7 @@ class ScienceCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasCarouselMotor() => $_has(0);
   @$pb.TagNumber(1)
-  void clearCarouselMotor() => clearField(1);
+  void clearCarouselMotor() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.double get scoopMotor => $_getN(1);
@@ -131,7 +127,7 @@ class ScienceCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasScoopMotor() => $_has(1);
   @$pb.TagNumber(2)
-  void clearScoopMotor() => clearField(2);
+  void clearScoopMotor() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.double get subsurfaceMotor => $_getN(2);
@@ -140,44 +136,44 @@ class ScienceCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasSubsurfaceMotor() => $_has(2);
   @$pb.TagNumber(3)
-  void clearSubsurfaceMotor() => clearField(3);
+  void clearSubsurfaceMotor() => $_clearField(3);
 
   /// Control over other hardware
   @$pb.TagNumber(4)
   PumpState get pumps => $_getN(3);
   @$pb.TagNumber(4)
-  set pumps(PumpState v) { setField(4, v); }
+  set pumps(PumpState v) { $_setField(4, v); }
   @$pb.TagNumber(4)
   $core.bool hasPumps() => $_has(3);
   @$pb.TagNumber(4)
-  void clearPumps() => clearField(4);
+  void clearPumps() => $_clearField(4);
 
   @$pb.TagNumber(5)
   ServoState get funnel => $_getN(4);
   @$pb.TagNumber(5)
-  set funnel(ServoState v) { setField(5, v); }
+  set funnel(ServoState v) { $_setField(5, v); }
   @$pb.TagNumber(5)
   $core.bool hasFunnel() => $_has(4);
   @$pb.TagNumber(5)
-  void clearFunnel() => clearField(5);
+  void clearFunnel() => $_clearField(5);
 
   @$pb.TagNumber(6)
   ServoState get scoop => $_getN(5);
   @$pb.TagNumber(6)
-  set scoop(ServoState v) { setField(6, v); }
+  set scoop(ServoState v) { $_setField(6, v); }
   @$pb.TagNumber(6)
   $core.bool hasScoop() => $_has(5);
   @$pb.TagNumber(6)
-  void clearScoop() => clearField(6);
+  void clearScoop() => $_clearField(6);
 
   @$pb.TagNumber(7)
   CarouselCommand get carousel => $_getN(6);
   @$pb.TagNumber(7)
-  set carousel(CarouselCommand v) { setField(7, v); }
+  set carousel(CarouselCommand v) { $_setField(7, v); }
   @$pb.TagNumber(7)
   $core.bool hasCarousel() => $_has(6);
   @$pb.TagNumber(7)
-  void clearCarousel() => clearField(7);
+  void clearCarousel() => $_clearField(7);
 
   /// High level commands
   @$pb.TagNumber(8)
@@ -187,7 +183,7 @@ class ScienceCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(8)
   $core.bool hasCalibrate() => $_has(7);
   @$pb.TagNumber(8)
-  void clearCalibrate() => clearField(8);
+  void clearCalibrate() => $_clearField(8);
 
   @$pb.TagNumber(9)
   $core.bool get stop => $_getBF(8);
@@ -196,7 +192,7 @@ class ScienceCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(9)
   $core.bool hasStop() => $_has(8);
   @$pb.TagNumber(9)
-  void clearStop() => clearField(9);
+  void clearStop() => $_clearField(9);
 
   @$pb.TagNumber(10)
   $core.int get sample => $_getIZ(9);
@@ -205,27 +201,27 @@ class ScienceCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(10)
   $core.bool hasSample() => $_has(9);
   @$pb.TagNumber(10)
-  void clearSample() => clearField(10);
+  void clearSample() => $_clearField(10);
 
   @$pb.TagNumber(11)
   ScienceState get state => $_getN(10);
   @$pb.TagNumber(11)
-  set state(ScienceState v) { setField(11, v); }
+  set state(ScienceState v) { $_setField(11, v); }
   @$pb.TagNumber(11)
   $core.bool hasState() => $_has(10);
   @$pb.TagNumber(11)
-  void clearState() => clearField(11);
+  void clearState() => $_clearField(11);
 
   @$pb.TagNumber(12)
-  $3.Version get version => $_getN(11);
+  $2.Version get version => $_getN(11);
   @$pb.TagNumber(12)
-  set version($3.Version v) { setField(12, v); }
+  set version($2.Version v) { $_setField(12, v); }
   @$pb.TagNumber(12)
   $core.bool hasVersion() => $_has(11);
   @$pb.TagNumber(12)
-  void clearVersion() => clearField(12);
+  void clearVersion() => $_clearField(12);
   @$pb.TagNumber(12)
-  $3.Version ensureVersion() => $_ensure(11);
+  $2.Version ensureVersion() => $_ensure(11);
 }
 
 /// / Data coming from the science subsystem.
@@ -236,7 +232,7 @@ class ScienceData extends $pb.GeneratedMessage {
     $core.double? co2,
     $core.double? humidity,
     $core.double? temperature,
-    $3.Version? version,
+    $2.Version? version,
   }) {
     final $result = create();
     if (sample != null) {
@@ -269,19 +265,13 @@ class ScienceData extends $pb.GeneratedMessage {
     ..a<$core.double>(3, _omitFieldNames ? '' : 'co2', $pb.PbFieldType.OF)
     ..a<$core.double>(4, _omitFieldNames ? '' : 'humidity', $pb.PbFieldType.OF)
     ..a<$core.double>(5, _omitFieldNames ? '' : 'temperature', $pb.PbFieldType.OF)
-    ..aOM<$3.Version>(6, _omitFieldNames ? '' : 'version', subBuilder: $3.Version.create)
+    ..aOM<$2.Version>(6, _omitFieldNames ? '' : 'version', subBuilder: $2.Version.create)
     ..hasRequiredFields = false
   ;
 
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   ScienceData clone() => ScienceData()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   ScienceData copyWith(void Function(ScienceData) updates) => super.copyWith((message) => updates(message as ScienceData)) as ScienceData;
 
   $pb.BuilderInfo get info_ => _i;
@@ -302,16 +292,16 @@ class ScienceData extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasSample() => $_has(0);
   @$pb.TagNumber(1)
-  void clearSample() => clearField(1);
+  void clearSample() => $_clearField(1);
 
   @$pb.TagNumber(2)
   ScienceState get state => $_getN(1);
   @$pb.TagNumber(2)
-  set state(ScienceState v) { setField(2, v); }
+  set state(ScienceState v) { $_setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasState() => $_has(1);
   @$pb.TagNumber(2)
-  void clearState() => clearField(2);
+  void clearState() => $_clearField(2);
 
   /// Sensor data
   @$pb.TagNumber(3)
@@ -321,7 +311,7 @@ class ScienceData extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasCo2() => $_has(2);
   @$pb.TagNumber(3)
-  void clearCo2() => clearField(3);
+  void clearCo2() => $_clearField(3);
 
   @$pb.TagNumber(4)
   $core.double get humidity => $_getN(3);
@@ -330,7 +320,7 @@ class ScienceData extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasHumidity() => $_has(3);
   @$pb.TagNumber(4)
-  void clearHumidity() => clearField(4);
+  void clearHumidity() => $_clearField(4);
 
   @$pb.TagNumber(5)
   $core.double get temperature => $_getN(4);
@@ -339,18 +329,18 @@ class ScienceData extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   $core.bool hasTemperature() => $_has(4);
   @$pb.TagNumber(5)
-  void clearTemperature() => clearField(5);
+  void clearTemperature() => $_clearField(5);
 
   @$pb.TagNumber(6)
-  $3.Version get version => $_getN(5);
+  $2.Version get version => $_getN(5);
   @$pb.TagNumber(6)
-  set version($3.Version v) { setField(6, v); }
+  set version($2.Version v) { $_setField(6, v); }
   @$pb.TagNumber(6)
   $core.bool hasVersion() => $_has(5);
   @$pb.TagNumber(6)
-  void clearVersion() => clearField(6);
+  void clearVersion() => $_clearField(6);
   @$pb.TagNumber(6)
-  $3.Version ensureVersion() => $_ensure(5);
+  $2.Version ensureVersion() => $_ensure(5);
 }
 
 
