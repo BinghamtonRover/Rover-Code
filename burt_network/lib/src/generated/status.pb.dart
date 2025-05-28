@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: status.proto
 //
-// @dart = 2.12
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
@@ -14,6 +14,8 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'status.pbenum.dart';
+
+export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
 export 'status.pbenum.dart';
 
@@ -40,15 +42,9 @@ class UpdateSetting extends $pb.GeneratedMessage {
     ..hasRequiredFields = false
   ;
 
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   UpdateSetting clone() => UpdateSetting()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   UpdateSetting copyWith(void Function(UpdateSetting) updates) => super.copyWith((message) => updates(message as UpdateSetting)) as UpdateSetting;
 
   $pb.BuilderInfo get info_ => _i;
@@ -64,11 +60,11 @@ class UpdateSetting extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   RoverStatus get status => $_getN(0);
   @$pb.TagNumber(1)
-  set status(RoverStatus v) { setField(1, v); }
+  set status(RoverStatus v) { $_setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasStatus() => $_has(0);
   @$pb.TagNumber(1)
-  void clearStatus() => clearField(1);
+  void clearStatus() => $_clearField(1);
 }
 
 

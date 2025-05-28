@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: geometry.proto
 //
-// @dart = 2.12
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
@@ -12,6 +12,8 @@
 import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
+
+export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
 class Coordinates extends $pb.GeneratedMessage {
   factory Coordinates({
@@ -42,15 +44,9 @@ class Coordinates extends $pb.GeneratedMessage {
     ..hasRequiredFields = false
   ;
 
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   Coordinates clone() => Coordinates()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   Coordinates copyWith(void Function(Coordinates) updates) => super.copyWith((message) => updates(message as Coordinates)) as Coordinates;
 
   $pb.BuilderInfo get info_ => _i;
@@ -70,7 +66,7 @@ class Coordinates extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasX() => $_has(0);
   @$pb.TagNumber(1)
-  void clearX() => clearField(1);
+  void clearX() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.double get y => $_getN(1);
@@ -79,7 +75,7 @@ class Coordinates extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasY() => $_has(1);
   @$pb.TagNumber(2)
-  void clearY() => clearField(2);
+  void clearY() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.double get z => $_getN(2);
@@ -88,7 +84,7 @@ class Coordinates extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasZ() => $_has(2);
   @$pb.TagNumber(3)
-  void clearZ() => clearField(3);
+  void clearZ() => $_clearField(3);
 }
 
 class Orientation extends $pb.GeneratedMessage {
@@ -120,15 +116,9 @@ class Orientation extends $pb.GeneratedMessage {
     ..hasRequiredFields = false
   ;
 
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   Orientation clone() => Orientation()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   Orientation copyWith(void Function(Orientation) updates) => super.copyWith((message) => updates(message as Orientation)) as Orientation;
 
   $pb.BuilderInfo get info_ => _i;
@@ -148,7 +138,7 @@ class Orientation extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasX() => $_has(0);
   @$pb.TagNumber(1)
-  void clearX() => clearField(1);
+  void clearX() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.double get y => $_getN(1);
@@ -157,7 +147,7 @@ class Orientation extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasY() => $_has(1);
   @$pb.TagNumber(2)
-  void clearY() => clearField(2);
+  void clearY() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $core.double get z => $_getN(2);
@@ -166,7 +156,7 @@ class Orientation extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasZ() => $_has(2);
   @$pb.TagNumber(3)
-  void clearZ() => clearField(3);
+  void clearZ() => $_clearField(3);
 }
 
 class Pose3d extends $pb.GeneratedMessage {
@@ -193,15 +183,9 @@ class Pose3d extends $pb.GeneratedMessage {
     ..hasRequiredFields = false
   ;
 
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   Pose3d clone() => Pose3d()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   Pose3d copyWith(void Function(Pose3d) updates) => super.copyWith((message) => updates(message as Pose3d)) as Pose3d;
 
   $pb.BuilderInfo get info_ => _i;
@@ -217,22 +201,22 @@ class Pose3d extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   Coordinates get translation => $_getN(0);
   @$pb.TagNumber(1)
-  set translation(Coordinates v) { setField(1, v); }
+  set translation(Coordinates v) { $_setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasTranslation() => $_has(0);
   @$pb.TagNumber(1)
-  void clearTranslation() => clearField(1);
+  void clearTranslation() => $_clearField(1);
   @$pb.TagNumber(1)
   Coordinates ensureTranslation() => $_ensure(0);
 
   @$pb.TagNumber(2)
   Orientation get rotation => $_getN(1);
   @$pb.TagNumber(2)
-  set rotation(Orientation v) { setField(2, v); }
+  set rotation(Orientation v) { $_setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasRotation() => $_has(1);
   @$pb.TagNumber(2)
-  void clearRotation() => clearField(2);
+  void clearRotation() => $_clearField(2);
   @$pb.TagNumber(2)
   Orientation ensureRotation() => $_ensure(1);
 }

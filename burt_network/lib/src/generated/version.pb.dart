@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: version.proto
 //
-// @dart = 2.12
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
@@ -12,6 +12,8 @@
 import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
+
+export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
 class Version extends $pb.GeneratedMessage {
   factory Version({
@@ -37,15 +39,9 @@ class Version extends $pb.GeneratedMessage {
     ..hasRequiredFields = false
   ;
 
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   Version clone() => Version()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   Version copyWith(void Function(Version) updates) => super.copyWith((message) => updates(message as Version)) as Version;
 
   $pb.BuilderInfo get info_ => _i;
@@ -65,7 +61,7 @@ class Version extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasMajor() => $_has(0);
   @$pb.TagNumber(1)
-  void clearMajor() => clearField(1);
+  void clearMajor() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.int get minor => $_getIZ(1);
@@ -74,7 +70,7 @@ class Version extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasMinor() => $_has(1);
   @$pb.TagNumber(2)
-  void clearMinor() => clearField(2);
+  void clearMinor() => $_clearField(2);
 }
 
 

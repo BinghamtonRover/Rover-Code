@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: base_station.proto
 //
-// @dart = 2.12
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
@@ -15,16 +15,18 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'base_station.pbenum.dart';
 import 'gps.pb.dart' as $4;
-import 'motor.pb.dart' as $2;
-import 'utils.pbenum.dart' as $0;
-import 'version.pb.dart' as $3;
+import 'motor.pb.dart' as $1;
+import 'utils.pbenum.dart' as $3;
+import 'version.pb.dart' as $2;
+
+export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
 export 'base_station.pbenum.dart';
 
 class AntennaFirmwareCommand extends $pb.GeneratedMessage {
   factory AntennaFirmwareCommand({
-    $3.Version? version,
-    $2.MotorCommand? swivel,
+    $2.Version? version,
+    $1.MotorCommand? swivel,
     $core.bool? stop,
     $core.bool? calibrate,
   }) {
@@ -48,22 +50,16 @@ class AntennaFirmwareCommand extends $pb.GeneratedMessage {
   factory AntennaFirmwareCommand.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AntennaFirmwareCommand', createEmptyInstance: create)
-    ..aOM<$3.Version>(1, _omitFieldNames ? '' : 'version', subBuilder: $3.Version.create)
-    ..aOM<$2.MotorCommand>(2, _omitFieldNames ? '' : 'swivel', subBuilder: $2.MotorCommand.create)
+    ..aOM<$2.Version>(1, _omitFieldNames ? '' : 'version', subBuilder: $2.Version.create)
+    ..aOM<$1.MotorCommand>(2, _omitFieldNames ? '' : 'swivel', subBuilder: $1.MotorCommand.create)
     ..aOB(3, _omitFieldNames ? '' : 'stop')
     ..aOB(4, _omitFieldNames ? '' : 'calibrate')
     ..hasRequiredFields = false
   ;
 
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   AntennaFirmwareCommand clone() => AntennaFirmwareCommand()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   AntennaFirmwareCommand copyWith(void Function(AntennaFirmwareCommand) updates) => super.copyWith((message) => updates(message as AntennaFirmwareCommand)) as AntennaFirmwareCommand;
 
   $pb.BuilderInfo get info_ => _i;
@@ -77,26 +73,26 @@ class AntennaFirmwareCommand extends $pb.GeneratedMessage {
   static AntennaFirmwareCommand? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $3.Version get version => $_getN(0);
+  $2.Version get version => $_getN(0);
   @$pb.TagNumber(1)
-  set version($3.Version v) { setField(1, v); }
+  set version($2.Version v) { $_setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasVersion() => $_has(0);
   @$pb.TagNumber(1)
-  void clearVersion() => clearField(1);
+  void clearVersion() => $_clearField(1);
   @$pb.TagNumber(1)
-  $3.Version ensureVersion() => $_ensure(0);
+  $2.Version ensureVersion() => $_ensure(0);
 
   @$pb.TagNumber(2)
-  $2.MotorCommand get swivel => $_getN(1);
+  $1.MotorCommand get swivel => $_getN(1);
   @$pb.TagNumber(2)
-  set swivel($2.MotorCommand v) { setField(2, v); }
+  set swivel($1.MotorCommand v) { $_setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasSwivel() => $_has(1);
   @$pb.TagNumber(2)
-  void clearSwivel() => clearField(2);
+  void clearSwivel() => $_clearField(2);
   @$pb.TagNumber(2)
-  $2.MotorCommand ensureSwivel() => $_ensure(1);
+  $1.MotorCommand ensureSwivel() => $_ensure(1);
 
   @$pb.TagNumber(3)
   $core.bool get stop => $_getBF(2);
@@ -105,7 +101,7 @@ class AntennaFirmwareCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasStop() => $_has(2);
   @$pb.TagNumber(3)
-  void clearStop() => clearField(3);
+  void clearStop() => $_clearField(3);
 
   @$pb.TagNumber(4)
   $core.bool get calibrate => $_getBF(3);
@@ -114,13 +110,13 @@ class AntennaFirmwareCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasCalibrate() => $_has(3);
   @$pb.TagNumber(4)
-  void clearCalibrate() => clearField(4);
+  void clearCalibrate() => $_clearField(4);
 }
 
 class AntennaFirmwareData extends $pb.GeneratedMessage {
   factory AntennaFirmwareData({
-    $3.Version? version,
-    $2.MotorData? swivel,
+    $2.Version? version,
+    $1.MotorData? swivel,
   }) {
     final $result = create();
     if (version != null) {
@@ -136,20 +132,14 @@ class AntennaFirmwareData extends $pb.GeneratedMessage {
   factory AntennaFirmwareData.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AntennaFirmwareData', createEmptyInstance: create)
-    ..aOM<$3.Version>(1, _omitFieldNames ? '' : 'version', subBuilder: $3.Version.create)
-    ..aOM<$2.MotorData>(2, _omitFieldNames ? '' : 'swivel', subBuilder: $2.MotorData.create)
+    ..aOM<$2.Version>(1, _omitFieldNames ? '' : 'version', subBuilder: $2.Version.create)
+    ..aOM<$1.MotorData>(2, _omitFieldNames ? '' : 'swivel', subBuilder: $1.MotorData.create)
     ..hasRequiredFields = false
   ;
 
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   AntennaFirmwareData clone() => AntennaFirmwareData()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   AntennaFirmwareData copyWith(void Function(AntennaFirmwareData) updates) => super.copyWith((message) => updates(message as AntennaFirmwareData)) as AntennaFirmwareData;
 
   $pb.BuilderInfo get info_ => _i;
@@ -163,26 +153,26 @@ class AntennaFirmwareData extends $pb.GeneratedMessage {
   static AntennaFirmwareData? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $3.Version get version => $_getN(0);
+  $2.Version get version => $_getN(0);
   @$pb.TagNumber(1)
-  set version($3.Version v) { setField(1, v); }
+  set version($2.Version v) { $_setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasVersion() => $_has(0);
   @$pb.TagNumber(1)
-  void clearVersion() => clearField(1);
+  void clearVersion() => $_clearField(1);
   @$pb.TagNumber(1)
-  $3.Version ensureVersion() => $_ensure(0);
+  $2.Version ensureVersion() => $_ensure(0);
 
   @$pb.TagNumber(2)
-  $2.MotorData get swivel => $_getN(1);
+  $1.MotorData get swivel => $_getN(1);
   @$pb.TagNumber(2)
-  set swivel($2.MotorData v) { setField(2, v); }
+  set swivel($1.MotorData v) { $_setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasSwivel() => $_has(1);
   @$pb.TagNumber(2)
-  void clearSwivel() => clearField(2);
+  void clearSwivel() => $_clearField(2);
   @$pb.TagNumber(2)
-  $2.MotorData ensureSwivel() => $_ensure(1);
+  $1.MotorData ensureSwivel() => $_ensure(1);
 }
 
 /// / Command to control the movement of the MARS antenna.
@@ -201,7 +191,7 @@ class AntennaFirmwareData extends $pb.GeneratedMessage {
 /// / - immediately set the [mode] to [AntennaControlMode.MANUAL_CONTROL] to hold the position
 class BaseStationCommand extends $pb.GeneratedMessage {
   factory BaseStationCommand({
-    $3.Version? version,
+    $2.Version? version,
     AntennaControlMode? mode,
     $4.GpsCoordinates? roverCoordinates,
     $4.GpsCoordinates? baseStationCoordinates,
@@ -238,7 +228,7 @@ class BaseStationCommand extends $pb.GeneratedMessage {
   factory BaseStationCommand.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'BaseStationCommand', createEmptyInstance: create)
-    ..aOM<$3.Version>(1, _omitFieldNames ? '' : 'version', subBuilder: $3.Version.create)
+    ..aOM<$2.Version>(1, _omitFieldNames ? '' : 'version', subBuilder: $2.Version.create)
     ..e<AntennaControlMode>(2, _omitFieldNames ? '' : 'mode', $pb.PbFieldType.OE, defaultOrMaker: AntennaControlMode.ANTENNA_CONTROL_MODE_UNDEFINED, valueOf: AntennaControlMode.valueOf, enumValues: AntennaControlMode.values)
     ..aOM<$4.GpsCoordinates>(3, _omitFieldNames ? '' : 'roverCoordinates', protoName: 'roverCoordinates', subBuilder: $4.GpsCoordinates.create)
     ..aOM<$4.GpsCoordinates>(4, _omitFieldNames ? '' : 'baseStationCoordinates', protoName: 'baseStationCoordinates', subBuilder: $4.GpsCoordinates.create)
@@ -248,15 +238,9 @@ class BaseStationCommand extends $pb.GeneratedMessage {
     ..hasRequiredFields = false
   ;
 
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   BaseStationCommand clone() => BaseStationCommand()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   BaseStationCommand copyWith(void Function(BaseStationCommand) updates) => super.copyWith((message) => updates(message as BaseStationCommand)) as BaseStationCommand;
 
   $pb.BuilderInfo get info_ => _i;
@@ -270,66 +254,66 @@ class BaseStationCommand extends $pb.GeneratedMessage {
   static BaseStationCommand? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $3.Version get version => $_getN(0);
+  $2.Version get version => $_getN(0);
   @$pb.TagNumber(1)
-  set version($3.Version v) { setField(1, v); }
+  set version($2.Version v) { $_setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasVersion() => $_has(0);
   @$pb.TagNumber(1)
-  void clearVersion() => clearField(1);
+  void clearVersion() => $_clearField(1);
   @$pb.TagNumber(1)
-  $3.Version ensureVersion() => $_ensure(0);
+  $2.Version ensureVersion() => $_ensure(0);
 
   @$pb.TagNumber(2)
   AntennaControlMode get mode => $_getN(1);
   @$pb.TagNumber(2)
-  set mode(AntennaControlMode v) { setField(2, v); }
+  set mode(AntennaControlMode v) { $_setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasMode() => $_has(1);
   @$pb.TagNumber(2)
-  void clearMode() => clearField(2);
+  void clearMode() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $4.GpsCoordinates get roverCoordinates => $_getN(2);
   @$pb.TagNumber(3)
-  set roverCoordinates($4.GpsCoordinates v) { setField(3, v); }
+  set roverCoordinates($4.GpsCoordinates v) { $_setField(3, v); }
   @$pb.TagNumber(3)
   $core.bool hasRoverCoordinates() => $_has(2);
   @$pb.TagNumber(3)
-  void clearRoverCoordinates() => clearField(3);
+  void clearRoverCoordinates() => $_clearField(3);
   @$pb.TagNumber(3)
   $4.GpsCoordinates ensureRoverCoordinates() => $_ensure(2);
 
   @$pb.TagNumber(4)
   $4.GpsCoordinates get baseStationCoordinates => $_getN(3);
   @$pb.TagNumber(4)
-  set baseStationCoordinates($4.GpsCoordinates v) { setField(4, v); }
+  set baseStationCoordinates($4.GpsCoordinates v) { $_setField(4, v); }
   @$pb.TagNumber(4)
   $core.bool hasBaseStationCoordinates() => $_has(3);
   @$pb.TagNumber(4)
-  void clearBaseStationCoordinates() => clearField(4);
+  void clearBaseStationCoordinates() => $_clearField(4);
   @$pb.TagNumber(4)
   $4.GpsCoordinates ensureBaseStationCoordinates() => $_ensure(3);
 
   @$pb.TagNumber(5)
   $4.GpsCoordinates get roverCoordinatesOverride => $_getN(4);
   @$pb.TagNumber(5)
-  set roverCoordinatesOverride($4.GpsCoordinates v) { setField(5, v); }
+  set roverCoordinatesOverride($4.GpsCoordinates v) { $_setField(5, v); }
   @$pb.TagNumber(5)
   $core.bool hasRoverCoordinatesOverride() => $_has(4);
   @$pb.TagNumber(5)
-  void clearRoverCoordinatesOverride() => clearField(5);
+  void clearRoverCoordinatesOverride() => $_clearField(5);
   @$pb.TagNumber(5)
   $4.GpsCoordinates ensureRoverCoordinatesOverride() => $_ensure(4);
 
   @$pb.TagNumber(6)
   AntennaFirmwareCommand get manualCommand => $_getN(5);
   @$pb.TagNumber(6)
-  set manualCommand(AntennaFirmwareCommand v) { setField(6, v); }
+  set manualCommand(AntennaFirmwareCommand v) { $_setField(6, v); }
   @$pb.TagNumber(6)
   $core.bool hasManualCommand() => $_has(5);
   @$pb.TagNumber(6)
-  void clearManualCommand() => clearField(6);
+  void clearManualCommand() => $_clearField(6);
   @$pb.TagNumber(6)
   AntennaFirmwareCommand ensureManualCommand() => $_ensure(5);
 
@@ -341,16 +325,16 @@ class BaseStationCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(7)
   $core.bool hasAngleTolerance() => $_has(6);
   @$pb.TagNumber(7)
-  void clearAngleTolerance() => clearField(7);
+  void clearAngleTolerance() => $_clearField(7);
 }
 
 class BaseStationData extends $pb.GeneratedMessage {
   factory BaseStationData({
-    $3.Version? version,
+    $2.Version? version,
     AntennaControlMode? mode,
     AntennaFirmwareData? antenna,
     $4.GpsCoordinates? baseStationCoordinates,
-    $0.BoolState? rtkConnected,
+    $3.BoolState? rtkConnected,
   }) {
     final $result = create();
     if (version != null) {
@@ -375,23 +359,17 @@ class BaseStationData extends $pb.GeneratedMessage {
   factory BaseStationData.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'BaseStationData', createEmptyInstance: create)
-    ..aOM<$3.Version>(1, _omitFieldNames ? '' : 'version', subBuilder: $3.Version.create)
+    ..aOM<$2.Version>(1, _omitFieldNames ? '' : 'version', subBuilder: $2.Version.create)
     ..e<AntennaControlMode>(2, _omitFieldNames ? '' : 'mode', $pb.PbFieldType.OE, defaultOrMaker: AntennaControlMode.ANTENNA_CONTROL_MODE_UNDEFINED, valueOf: AntennaControlMode.valueOf, enumValues: AntennaControlMode.values)
     ..aOM<AntennaFirmwareData>(3, _omitFieldNames ? '' : 'antenna', subBuilder: AntennaFirmwareData.create)
     ..aOM<$4.GpsCoordinates>(4, _omitFieldNames ? '' : 'baseStationCoordinates', protoName: 'baseStationCoordinates', subBuilder: $4.GpsCoordinates.create)
-    ..e<$0.BoolState>(5, _omitFieldNames ? '' : 'rtkConnected', $pb.PbFieldType.OE, protoName: 'rtkConnected', defaultOrMaker: $0.BoolState.BOOL_UNDEFINED, valueOf: $0.BoolState.valueOf, enumValues: $0.BoolState.values)
+    ..e<$3.BoolState>(5, _omitFieldNames ? '' : 'rtkConnected', $pb.PbFieldType.OE, protoName: 'rtkConnected', defaultOrMaker: $3.BoolState.BOOL_UNDEFINED, valueOf: $3.BoolState.valueOf, enumValues: $3.BoolState.values)
     ..hasRequiredFields = false
   ;
 
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   BaseStationData clone() => BaseStationData()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   BaseStationData copyWith(void Function(BaseStationData) updates) => super.copyWith((message) => updates(message as BaseStationData)) as BaseStationData;
 
   $pb.BuilderInfo get info_ => _i;
@@ -405,56 +383,56 @@ class BaseStationData extends $pb.GeneratedMessage {
   static BaseStationData? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $3.Version get version => $_getN(0);
+  $2.Version get version => $_getN(0);
   @$pb.TagNumber(1)
-  set version($3.Version v) { setField(1, v); }
+  set version($2.Version v) { $_setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasVersion() => $_has(0);
   @$pb.TagNumber(1)
-  void clearVersion() => clearField(1);
+  void clearVersion() => $_clearField(1);
   @$pb.TagNumber(1)
-  $3.Version ensureVersion() => $_ensure(0);
+  $2.Version ensureVersion() => $_ensure(0);
 
   @$pb.TagNumber(2)
   AntennaControlMode get mode => $_getN(1);
   @$pb.TagNumber(2)
-  set mode(AntennaControlMode v) { setField(2, v); }
+  set mode(AntennaControlMode v) { $_setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasMode() => $_has(1);
   @$pb.TagNumber(2)
-  void clearMode() => clearField(2);
+  void clearMode() => $_clearField(2);
 
   @$pb.TagNumber(3)
   AntennaFirmwareData get antenna => $_getN(2);
   @$pb.TagNumber(3)
-  set antenna(AntennaFirmwareData v) { setField(3, v); }
+  set antenna(AntennaFirmwareData v) { $_setField(3, v); }
   @$pb.TagNumber(3)
   $core.bool hasAntenna() => $_has(2);
   @$pb.TagNumber(3)
-  void clearAntenna() => clearField(3);
+  void clearAntenna() => $_clearField(3);
   @$pb.TagNumber(3)
   AntennaFirmwareData ensureAntenna() => $_ensure(2);
 
   @$pb.TagNumber(4)
   $4.GpsCoordinates get baseStationCoordinates => $_getN(3);
   @$pb.TagNumber(4)
-  set baseStationCoordinates($4.GpsCoordinates v) { setField(4, v); }
+  set baseStationCoordinates($4.GpsCoordinates v) { $_setField(4, v); }
   @$pb.TagNumber(4)
   $core.bool hasBaseStationCoordinates() => $_has(3);
   @$pb.TagNumber(4)
-  void clearBaseStationCoordinates() => clearField(4);
+  void clearBaseStationCoordinates() => $_clearField(4);
   @$pb.TagNumber(4)
   $4.GpsCoordinates ensureBaseStationCoordinates() => $_ensure(3);
 
   /// Whether or not the RTK gps is open and being read
   @$pb.TagNumber(5)
-  $0.BoolState get rtkConnected => $_getN(4);
+  $3.BoolState get rtkConnected => $_getN(4);
   @$pb.TagNumber(5)
-  set rtkConnected($0.BoolState v) { setField(5, v); }
+  set rtkConnected($3.BoolState v) { $_setField(5, v); }
   @$pb.TagNumber(5)
   $core.bool hasRtkConnected() => $_has(4);
   @$pb.TagNumber(5)
-  void clearRtkConnected() => clearField(5);
+  void clearRtkConnected() => $_clearField(5);
 }
 
 

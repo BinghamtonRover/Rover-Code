@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: subsystems.proto
 //
-// @dart = 2.12
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
@@ -14,13 +14,15 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'core.pbenum.dart' as $6;
-import 'utils.pbenum.dart' as $0;
-import 'version.pb.dart' as $3;
+import 'utils.pbenum.dart' as $3;
+import 'version.pb.dart' as $2;
+
+export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
 class SubsystemsCommand extends $pb.GeneratedMessage {
   factory SubsystemsCommand({
     $core.bool? zeroIMU,
-    $3.Version? version,
+    $2.Version? version,
   }) {
     final $result = create();
     if (zeroIMU != null) {
@@ -37,19 +39,13 @@ class SubsystemsCommand extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'SubsystemsCommand', createEmptyInstance: create)
     ..aOB(1, _omitFieldNames ? '' : 'zeroIMU', protoName: 'zeroIMU')
-    ..aOM<$3.Version>(2, _omitFieldNames ? '' : 'version', subBuilder: $3.Version.create)
+    ..aOM<$2.Version>(2, _omitFieldNames ? '' : 'version', subBuilder: $2.Version.create)
     ..hasRequiredFields = false
   ;
 
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   SubsystemsCommand clone() => SubsystemsCommand()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   SubsystemsCommand copyWith(void Function(SubsystemsCommand) updates) => super.copyWith((message) => updates(message as SubsystemsCommand)) as SubsystemsCommand;
 
   $pb.BuilderInfo get info_ => _i;
@@ -69,26 +65,26 @@ class SubsystemsCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasZeroIMU() => $_has(0);
   @$pb.TagNumber(1)
-  void clearZeroIMU() => clearField(1);
+  void clearZeroIMU() => $_clearField(1);
 
   @$pb.TagNumber(2)
-  $3.Version get version => $_getN(1);
+  $2.Version get version => $_getN(1);
   @$pb.TagNumber(2)
-  set version($3.Version v) { setField(2, v); }
+  set version($2.Version v) { $_setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasVersion() => $_has(1);
   @$pb.TagNumber(2)
-  void clearVersion() => clearField(2);
+  void clearVersion() => $_clearField(2);
   @$pb.TagNumber(2)
-  $3.Version ensureVersion() => $_ensure(1);
+  $2.Version ensureVersion() => $_ensure(1);
 }
 
 class SubsystemsData extends $pb.GeneratedMessage {
   factory SubsystemsData({
-    $3.Version? version,
+    $2.Version? version,
     $core.Iterable<$6.Device>? connectedDevices,
-    $0.BoolState? gpsConnected,
-    $0.BoolState? imuConnected,
+    $3.BoolState? gpsConnected,
+    $3.BoolState? imuConnected,
   }) {
     final $result = create();
     if (version != null) {
@@ -110,22 +106,16 @@ class SubsystemsData extends $pb.GeneratedMessage {
   factory SubsystemsData.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'SubsystemsData', createEmptyInstance: create)
-    ..aOM<$3.Version>(1, _omitFieldNames ? '' : 'version', subBuilder: $3.Version.create)
+    ..aOM<$2.Version>(1, _omitFieldNames ? '' : 'version', subBuilder: $2.Version.create)
     ..pc<$6.Device>(2, _omitFieldNames ? '' : 'connectedDevices', $pb.PbFieldType.KE, protoName: 'connectedDevices', valueOf: $6.Device.valueOf, enumValues: $6.Device.values, defaultEnumValue: $6.Device.DEVICE_UNDEFINED)
-    ..e<$0.BoolState>(3, _omitFieldNames ? '' : 'gpsConnected', $pb.PbFieldType.OE, protoName: 'gpsConnected', defaultOrMaker: $0.BoolState.BOOL_UNDEFINED, valueOf: $0.BoolState.valueOf, enumValues: $0.BoolState.values)
-    ..e<$0.BoolState>(4, _omitFieldNames ? '' : 'imuConnected', $pb.PbFieldType.OE, protoName: 'imuConnected', defaultOrMaker: $0.BoolState.BOOL_UNDEFINED, valueOf: $0.BoolState.valueOf, enumValues: $0.BoolState.values)
+    ..e<$3.BoolState>(3, _omitFieldNames ? '' : 'gpsConnected', $pb.PbFieldType.OE, protoName: 'gpsConnected', defaultOrMaker: $3.BoolState.BOOL_UNDEFINED, valueOf: $3.BoolState.valueOf, enumValues: $3.BoolState.values)
+    ..e<$3.BoolState>(4, _omitFieldNames ? '' : 'imuConnected', $pb.PbFieldType.OE, protoName: 'imuConnected', defaultOrMaker: $3.BoolState.BOOL_UNDEFINED, valueOf: $3.BoolState.valueOf, enumValues: $3.BoolState.values)
     ..hasRequiredFields = false
   ;
 
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   SubsystemsData clone() => SubsystemsData()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   SubsystemsData copyWith(void Function(SubsystemsData) updates) => super.copyWith((message) => updates(message as SubsystemsData)) as SubsystemsData;
 
   $pb.BuilderInfo get info_ => _i;
@@ -139,36 +129,36 @@ class SubsystemsData extends $pb.GeneratedMessage {
   static SubsystemsData? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $3.Version get version => $_getN(0);
+  $2.Version get version => $_getN(0);
   @$pb.TagNumber(1)
-  set version($3.Version v) { setField(1, v); }
+  set version($2.Version v) { $_setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasVersion() => $_has(0);
   @$pb.TagNumber(1)
-  void clearVersion() => clearField(1);
+  void clearVersion() => $_clearField(1);
   @$pb.TagNumber(1)
-  $3.Version ensureVersion() => $_ensure(0);
+  $2.Version ensureVersion() => $_ensure(0);
 
   @$pb.TagNumber(2)
-  $core.List<$6.Device> get connectedDevices => $_getList(1);
+  $pb.PbList<$6.Device> get connectedDevices => $_getList(1);
 
   @$pb.TagNumber(3)
-  $0.BoolState get gpsConnected => $_getN(2);
+  $3.BoolState get gpsConnected => $_getN(2);
   @$pb.TagNumber(3)
-  set gpsConnected($0.BoolState v) { setField(3, v); }
+  set gpsConnected($3.BoolState v) { $_setField(3, v); }
   @$pb.TagNumber(3)
   $core.bool hasGpsConnected() => $_has(2);
   @$pb.TagNumber(3)
-  void clearGpsConnected() => clearField(3);
+  void clearGpsConnected() => $_clearField(3);
 
   @$pb.TagNumber(4)
-  $0.BoolState get imuConnected => $_getN(3);
+  $3.BoolState get imuConnected => $_getN(3);
   @$pb.TagNumber(4)
-  set imuConnected($0.BoolState v) { setField(4, v); }
+  set imuConnected($3.BoolState v) { $_setField(4, v); }
   @$pb.TagNumber(4)
   $core.bool hasImuConnected() => $_has(3);
   @$pb.TagNumber(4)
-  void clearImuConnected() => clearField(4);
+  void clearImuConnected() => $_clearField(4);
 }
 
 
