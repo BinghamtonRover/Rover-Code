@@ -17,6 +17,15 @@ export "src/can/socket_ffi.dart";
 export "src/can/socket_interface.dart";
 export "src/can/socket_stub.dart";
 
+/// Maps command names to [Device]s.
+final commandToDevice = <String, Device>{
+  ArmCommand().messageName: Device.ARM,
+  GripperCommand().messageName: Device.GRIPPER,
+  DriveCommand().messageName: Device.DRIVE,
+  ScienceCommand().messageName: Device.SCIENCE,
+  RelaysCommand().messageName: Device.RELAY,
+};
+
 /// Contains all the resources needed by the subsystems program.
 class SubsystemsCollection extends Service {
   /// Whether the subsystems is fully initialized.
@@ -52,8 +61,8 @@ class SubsystemsCollection extends Service {
       sendStatus,
     );
     _messageSubscription = server.messages.listen((message) async {
-      if (await can.sendWrapper(message)) {
-        return;
+      if (can.canSendWrapper(message)) {
+        await can.sendWrapper(message);
       } else {
         firmware.sendToSerial(message);
       }
