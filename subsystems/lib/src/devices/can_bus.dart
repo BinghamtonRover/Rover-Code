@@ -502,6 +502,20 @@ class CanBus extends Service {
     _ => Future.value(false),
   };
 
+  /// Whether or not [message] can be successfully sent over the bus
+  ///
+  /// If no broadcast has been received from the device corresponding to [message],
+  /// it will return false. If there was an error while sending a heartbeat, this
+  /// will also return false;
+  bool canSendWrapper(WrappedMessage message) {
+    if (!_heartbeatSendSuccessful ||
+        !commandToDevice.containsKey(message.name)) {
+      return false;
+    }
+
+    return deviceConnected(commandToDevice[message.name]!);
+  }
+
   /// Sends a heartbeat message over the CAN bus
   Future<bool> sendHeartbeat() async {
     if (_shouldReset) {
