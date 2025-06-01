@@ -7,14 +7,6 @@ import "package:burt_network/burt_network.dart";
 
 import "serial_utils.dart";
 
-/// Maps command names to [Device]s.
-final nameToDevice = <String, Device>{
-  ArmCommand().messageName: Device.ARM,
-  DriveCommand().messageName: Device.DRIVE,
-  ScienceCommand().messageName: Device.SCIENCE,
-  RelaysCommand().messageName: Device.RELAY,
-};
-
 /// A service to manage all the connected firmware.
 ///
 /// Firmware means any device using the [Firmware-Utilities](https://github.com/BinghamtonRover/Firmware-Utilities)
@@ -64,12 +56,15 @@ class FirmwareManager extends Service {
   /// Sends a [WrappedMessage] to the correct Serial device.
   ///
   /// The notes on [sendMessage] apply here as well.
-  void sendToSerial(WrappedMessage wrapper) {
-    final device = nameToDevice[wrapper.name];
-    if (device == null) return;
+  ///
+  /// Returns whether or not the device corresponding to the command is connected.
+  bool sendToSerial(WrappedMessage wrapper) {
+    final device = commandToDevice[wrapper.name];
+    if (device == null) return false;
     final serial = devices.firstWhereOrNull((s) => s.device == device);
-    if (serial == null) return;
+    if (serial == null) return false;
     serial.sendBytes(wrapper.data);
+    return true;
   }
 
   /// Sends a [Message] to the appropriate firmware device.
@@ -77,5 +72,7 @@ class FirmwareManager extends Service {
   /// This does nothing if the appropriate device is not connected. Specifically, this is not an
   /// error because the Dashboard may be used during testing, when the hardware devices may not be
   /// assembled, connected, or functional yet.
-  void sendMessage(Message message) => sendToSerial(message.wrap());
+  ///
+  /// Returns whether or not the device for the message is connected
+  bool sendMessage(Message message) => sendToSerial(message.wrap());
 }
