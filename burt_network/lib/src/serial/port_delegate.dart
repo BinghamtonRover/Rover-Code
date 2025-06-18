@@ -12,7 +12,14 @@ class DelegateSerialPort extends SerialPortInterface {
   SerialPort? _delegate;
 
   /// Creates a serial port that delegates to the `libserialport` package.
-  DelegateSerialPort(super.portName, {super.baudRate});
+  DelegateSerialPort(
+    super.portName, {
+    super.baudRate,
+    super.parity,
+    super.stopBits,
+    super.dtr,
+    super.xonXoff,
+  });
 
   @override
   bool get isOpen => _delegate?.isOpen ?? false;
@@ -21,7 +28,23 @@ class DelegateSerialPort extends SerialPortInterface {
   Future<bool> init() async {
     _delegate = SerialPort(portName);
     final result = _delegate!.openReadWrite();
-    final config = _delegate!.config..baudRate = baudRate;
+    final config = _delegate!.config;
+    config.baudRate = baudRate;
+
+    // Before setting any config option, check if it's valid,
+    // otherwise this will throw an OS level error
+    if (config.parity != SerialPortParity.invalid && parity != null) {
+      config.parity = parity!;
+    }
+    if (config.stopBits != -1 && stopBits != null) {
+      config.stopBits = stopBits!;
+    }
+    if (config.dtr != SerialPortDtr.invalid && dtr != null) {
+      config.dtr = dtr!;
+    }
+    if (config.xonXoff != SerialPortXonXoff.invalid && xonXoff != null) {
+      config.xonXoff = xonXoff!;
+    }
     _delegate!.config = config;
     return result;
   }
