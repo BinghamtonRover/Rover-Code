@@ -31,6 +31,28 @@ extension WrappedMessageStream on Stream<WrappedMessage> {
     where((wrapper) => wrapper.name == name)
     .map((wrapper) => constructor(wrapper.data))
     .listen(callback);
+
+  /// Allows callers to listen only for specific messages, with a specific timestamp.
+  ///
+  /// To use this, pass the name of the message, a function to create the message
+  /// from binary data, and a callback to handle the message and its time. For example,
+  /// ```dart
+  /// collection.server.messages.onMessageTimestamped(
+  ///   name: VideoData().messageName,  // equals "VideoData"
+  ///   constructor: VideoData.fromBuffer,
+  ///   callback: (data, time) => print("${data.name}\t$time");
+  /// )
+  /// ```
+  ///
+  /// This function returns a [StreamSubscription] that you can use to stop listening.
+  StreamSubscription<WrappedMessage> onMessageTimestamped<T extends Message>({
+    required String name,
+    required T Function(List<int>) constructor,
+    required void Function(T message, Timestamp timestamp) callback,
+  }) =>
+      where((wrapper) => wrapper.name == name).listen(
+        (wrapper) => callback(constructor(wrapper.data), wrapper.timestamp),
+      );
 }
 
 /// Helpful methods on streams of nullable values.
