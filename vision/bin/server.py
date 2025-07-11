@@ -6,6 +6,10 @@ from lib.analyzer import ImageAnalyzer
 from lib.network import *
 from lib.network.generated import *
 
+import cProfile
+import pstats
+import io
+
 videoSocket = ("127.0.0.1", 8002)
 MAX_UDP_PACKET_SIZE = 60_000
 JPG_QUALITY = 60
@@ -17,7 +21,13 @@ class AnalyzerServer:
 		self.socket.listen("VideoData", VideoData, self.handle_frame)
 
 	def handle_frame(self, data):
-		if not data.frame: return
+		# profiling start
+		# profiler = cProfile.Profile()
+		# profiler.enable()
+
+		if not data.frame: 
+			return
+		
 		# Decode the image from a JPG to an OpenCV matrix
 		buffer = np.asarray(bytearray(data.frame), dtype="uint8")
 		matrix = cv2.imdecode(buffer, cv2.IMREAD_COLOR)
@@ -28,7 +38,8 @@ class AnalyzerServer:
 
 		# Encode the image back to a JPG and send it back
 		success, jpg = cv2.imencode(".jpg", frame, [cv2.IMWRITE_JPEG_QUALITY, JPG_QUALITY])
-		if not success: return
+		if not success: 
+			return
 		data = VideoData(frame=bytes(jpg), details=data.details)
 
 		# UDP specifies a max packet size of 65,536 bytes
@@ -46,6 +57,12 @@ class AnalyzerServer:
 		# This program can be added to that list, but in the short-term, we send back to video
 		# which forwards it to the Dashboard for us.
 		self.socket.send_message(data, destination=videoSocket)
+
+		# profiling end
+		# profiler.disable()
+    
+		# ps = pstats.Stats(profiler).sort_stats('cumulative')
+		# ps.print_stats(30)
 
 	async def run(self):
 		await self.socket.serve_forever()
