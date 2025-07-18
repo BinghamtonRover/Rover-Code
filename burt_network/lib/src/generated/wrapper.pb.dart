@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: wrapper.proto
 //
-// @dart = 2.12
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
@@ -14,6 +14,8 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'google/protobuf/timestamp.pb.dart' as $8;
+
+export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
 class WrappedMessage extends $pb.GeneratedMessage {
   factory WrappedMessage({
@@ -44,15 +46,9 @@ class WrappedMessage extends $pb.GeneratedMessage {
     ..hasRequiredFields = false
   ;
 
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   WrappedMessage clone() => WrappedMessage()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   WrappedMessage copyWith(void Function(WrappedMessage) updates) => super.copyWith((message) => updates(message as WrappedMessage)) as WrappedMessage;
 
   $pb.BuilderInfo get info_ => _i;
@@ -72,7 +68,7 @@ class WrappedMessage extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasData() => $_has(0);
   @$pb.TagNumber(1)
-  void clearData() => clearField(1);
+  void clearData() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get name => $_getSZ(1);
@@ -81,16 +77,16 @@ class WrappedMessage extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasName() => $_has(1);
   @$pb.TagNumber(2)
-  void clearName() => clearField(2);
+  void clearName() => $_clearField(2);
 
   @$pb.TagNumber(3)
   $8.Timestamp get timestamp => $_getN(2);
   @$pb.TagNumber(3)
-  set timestamp($8.Timestamp v) { setField(3, v); }
+  set timestamp($8.Timestamp v) { $_setField(3, v); }
   @$pb.TagNumber(3)
   $core.bool hasTimestamp() => $_has(2);
   @$pb.TagNumber(3)
-  void clearTimestamp() => clearField(3);
+  void clearTimestamp() => $_clearField(3);
   @$pb.TagNumber(3)
   $8.Timestamp ensureTimestamp() => $_ensure(2);
 }

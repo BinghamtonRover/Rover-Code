@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: status.proto
 //
-// @dart = 2.12
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
@@ -35,10 +35,10 @@ class RoverStatus extends $pb.ProtobufEnum {
     RESTART,
   ];
 
-  static final $core.Map<$core.int, RoverStatus> _byValue = $pb.ProtobufEnum.initByValue(values);
-  static RoverStatus? valueOf($core.int value) => _byValue[value];
+  static final $core.List<RoverStatus?> _byValue = $pb.ProtobufEnum.$_initByValueList(values, 5);
+  static RoverStatus? valueOf($core.int value) =>  value < 0 || value >= _byValue.length ? null : _byValue[value];
 
-  const RoverStatus._($core.int v, $core.String n) : super(v, n);
+  const RoverStatus._(super.v, super.n);
 }
 
 

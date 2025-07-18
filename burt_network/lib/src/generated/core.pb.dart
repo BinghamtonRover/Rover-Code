@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: core.proto
 //
-// @dart = 2.12
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
@@ -14,6 +14,8 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'core.pbenum.dart';
+
+export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
 export 'core.pbenum.dart';
 
@@ -42,15 +44,9 @@ class Connect extends $pb.GeneratedMessage {
     ..hasRequiredFields = false
   ;
 
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   Connect clone() => Connect()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   Connect copyWith(void Function(Connect) updates) => super.copyWith((message) => updates(message as Connect)) as Connect;
 
   $pb.BuilderInfo get info_ => _i;
@@ -66,20 +62,20 @@ class Connect extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   Device get sender => $_getN(0);
   @$pb.TagNumber(1)
-  set sender(Device v) { setField(1, v); }
+  set sender(Device v) { $_setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasSender() => $_has(0);
   @$pb.TagNumber(1)
-  void clearSender() => clearField(1);
+  void clearSender() => $_clearField(1);
 
   @$pb.TagNumber(2)
   Device get receiver => $_getN(1);
   @$pb.TagNumber(2)
-  set receiver(Device v) { setField(2, v); }
+  set receiver(Device v) { $_setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasReceiver() => $_has(1);
   @$pb.TagNumber(2)
-  void clearReceiver() => clearField(2);
+  void clearReceiver() => $_clearField(2);
 }
 
 /// Notifies the recipient that the sender will no longer be connected.
@@ -102,15 +98,9 @@ class Disconnect extends $pb.GeneratedMessage {
     ..hasRequiredFields = false
   ;
 
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   Disconnect clone() => Disconnect()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   Disconnect copyWith(void Function(Disconnect) updates) => super.copyWith((message) => updates(message as Disconnect)) as Disconnect;
 
   $pb.BuilderInfo get info_ => _i;
@@ -126,11 +116,11 @@ class Disconnect extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   Device get sender => $_getN(0);
   @$pb.TagNumber(1)
-  set sender(Device v) { setField(1, v); }
+  set sender(Device v) { $_setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasSender() => $_has(0);
   @$pb.TagNumber(1)
-  void clearSender() => clearField(1);
+  void clearSender() => $_clearField(1);
 }
 
 

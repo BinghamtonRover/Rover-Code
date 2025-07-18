@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: science.proto
 //
-// @dart = 2.12
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
@@ -25,10 +25,10 @@ class ServoState extends $pb.ProtobufEnum {
     SERVO_CLOSE,
   ];
 
-  static final $core.Map<$core.int, ServoState> _byValue = $pb.ProtobufEnum.initByValue(values);
-  static ServoState? valueOf($core.int value) => _byValue[value];
+  static final $core.List<ServoState?> _byValue = $pb.ProtobufEnum.$_initByValueList(values, 2);
+  static ServoState? valueOf($core.int value) =>  value < 0 || value >= _byValue.length ? null : _byValue[value];
 
-  const ServoState._($core.int v, $core.String n) : super(v, n);
+  const ServoState._(super.v, super.n);
 }
 
 /// / The state of a pump. If undefined: don't do anything. If fill: turn on, wait, then turn off.
@@ -45,10 +45,10 @@ class PumpState extends $pb.ProtobufEnum {
     FILL,
   ];
 
-  static final $core.Map<$core.int, PumpState> _byValue = $pb.ProtobufEnum.initByValue(values);
-  static PumpState? valueOf($core.int value) => _byValue[value];
+  static final $core.List<PumpState?> _byValue = $pb.ProtobufEnum.$_initByValueList(values, 3);
+  static PumpState? valueOf($core.int value) =>  value < 0 || value >= _byValue.length ? null : _byValue[value];
 
-  const PumpState._($core.int v, $core.String n) : super(v, n);
+  const PumpState._(super.v, super.n);
 }
 
 /// / The state of the science subsystem. If not COLLECT_DATA, don't stream data at all.
@@ -63,10 +63,10 @@ class ScienceState extends $pb.ProtobufEnum {
     STOP_COLLECTING,
   ];
 
-  static final $core.Map<$core.int, ScienceState> _byValue = $pb.ProtobufEnum.initByValue(values);
-  static ScienceState? valueOf($core.int value) => _byValue[value];
+  static final $core.List<ScienceState?> _byValue = $pb.ProtobufEnum.$_initByValueList(values, 2);
+  static ScienceState? valueOf($core.int value) =>  value < 0 || value >= _byValue.length ? null : _byValue[value];
 
-  const ScienceState._($core.int v, $core.String n) : super(v, n);
+  const ScienceState._(super.v, super.n);
 }
 
 /// / A command for the carousel and funnel to follow.
@@ -89,10 +89,10 @@ class CarouselCommand extends $pb.ProtobufEnum {
     FILL_SECTION,
   ];
 
-  static final $core.Map<$core.int, CarouselCommand> _byValue = $pb.ProtobufEnum.initByValue(values);
-  static CarouselCommand? valueOf($core.int value) => _byValue[value];
+  static final $core.List<CarouselCommand?> _byValue = $pb.ProtobufEnum.$_initByValueList(values, 6);
+  static CarouselCommand? valueOf($core.int value) =>  value < 0 || value >= _byValue.length ? null : _byValue[value];
 
-  const CarouselCommand._($core.int v, $core.String n) : super(v, n);
+  const CarouselCommand._(super.v, super.n);
 }
 
 
