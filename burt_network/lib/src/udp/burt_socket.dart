@@ -40,6 +40,32 @@ abstract class BurtSocket extends UdpSocket {
   /// Used to properly respond to heartbeats and for thorough logging.
   final Device device;
 
+  /// The destinations this socket will send to.
+  ///
+  /// All the `send` functions allow you to send to a specific [SocketInfo]. This field
+  /// is the default destinations it will send to if those parameters are omitted.
+  final Set<SocketInfo> destinations = {};
+
+  /// Whether or not the default destination should be kept when the socket is dispose.
+  ///
+  /// If this is true, [destinations] will not be cleared when [dispose] is called.
+  ///
+  /// This is intended to prevent scenarios where the socket automatically restarts due
+  /// to an allowed OS error (see [allowedErrors]), and the socket's destination can no
+  /// longer receive messages by this socket due to [destinations] being empty.
+  ///
+  /// It only makes sense to use this when communicating with a static IP. If the destination port
+  /// can change between resets, using this may mean the socket will try to communicate with a port
+  /// that no longer exists. Practically, that means only the Dashboard should set this to be true.
+  final bool keepDestination;
+
+  /// The maximum number of clients that can be connected to this socket.
+  ///
+  /// Once the maximum number of clients have been connected, and incoming
+  /// connection attempts will be rejected, and will not have any data sent
+  /// to them.
+  final int maxClients;
+
   Timer? _heartbeatTimer;
 
   StreamSubscription<Datagram?>? _subscription;
@@ -53,11 +79,23 @@ abstract class BurtSocket extends UdpSocket {
   BurtSocket({
     required super.port,
     required this.device,
-    super.destination,
     super.quiet,
-    super.keepDestination,
+    this.keepDestination = false,
+    this.maxClients = 5,
+    List<SocketInfo>? destinations,
+    SocketInfo? destination,
     this.collection,
-  });
+  }) : assert(
+         destinations == null || destination == null,
+         "Either destinations or destination must be null. Cannot initialize a singular and multiple destinations at the same time",
+       ) {
+    if (destinations != null) {
+      this.destinations.addAll(destinations);
+    }
+    if (destination != null) {
+      this.destinations.add(destination);
+    }
+  }
 
   /// A stream of [WrappedMessage]s as they arrive in the UDP socket.
   @override
@@ -75,8 +113,30 @@ abstract class BurtSocket extends UdpSocket {
   Future<void> dispose() async {
     await _subscription?.cancel();
     _heartbeatTimer?.cancel();
+    if (!keepDestination) {
+      destinations.clear();
+    }
     await super.dispose();
   }
+
+  @override
+  void send(List<int> data, {SocketInfo? destination}) {
+    if (destination != null) {
+      return super.send(data, destination: destination);
+    }
+    for (final address in destinations) {
+      super.send(data, destination: address);
+    }
+  }
+
+  @override
+  void sendWrapper(WrappedMessage wrapper, {SocketInfo? destination}) {
+    send(wrapper.writeToBuffer(), destination: destination);
+  }
+
+  @override
+  void sendMessage(Message message, {SocketInfo? destination}) =>
+    sendWrapper(message.wrap(), destination: destination);
 
   /// A utility method to exchange a "handshake" to the destination
   ///
@@ -130,7 +190,7 @@ abstract class BurtSocket extends UdpSocket {
   /// Handle an incoming heartbeat coming from a given source.
   ///
   /// Be sure to check [Connect.sender] and [Connect.receiver], and compare the [source] against
-  /// the current [destination] to properly handle the heartbeat.
+  /// the current [destinations] to properly handle the heartbeat.
   void onHeartbeat(Heartbeat heartbeat, SocketInfo source);
 
   /// Handle an incoming request to change network settings.
@@ -147,26 +207,25 @@ abstract class BurtSocket extends UdpSocket {
   /// Sends or waits for heartbeats to or from the other device.
   void checkHeartbeats();
 
-  /// Sets [destination] to the incoming [source].
+  /// Adds [source] to the available [destinations].
   ///
   /// Override this function to run custom code when a device connects to this socket.
   @mustCallSuper
   void onConnect(SocketInfo source) {
-    destination = source;
+    destinations.add(source);
     _connectionCompleter?.complete();
     _connectionCompleter = null;  // to avoid completing twice
     logger.info("Port $port is connected to $source");
   }
 
-  /// Sends a [Disconnect] message to the dashboard and sets [destination] to `null`.
+  /// Sends a [Disconnect] message to the dashboard.
   ///
   /// Override this function to run custom code when the device on the other end disconnects.
   /// For example, put code to stop the rover from driving in here when connection is lost.
   @override
   Future<void> onDisconnect() async {
-    logger.info("Port $port is disconnected from $destination");
-    sendMessage(Disconnect(sender: device));
-    destination = null;
+    logger.info("Port $port is disconnected from all clients.");
+    destinations.clear();
     await collection?.onDisconnect();
     await super.onDisconnect();
   }
