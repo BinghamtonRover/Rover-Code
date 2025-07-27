@@ -59,7 +59,11 @@ class TestServer extends RoverSocket {
 }
 
 class EchoSocket extends RoverSocket {
-  EchoSocket({required super.port, required super.destination}) : super(device: Device.SUBSYSTEMS, keepDestination: true);
+  EchoSocket({
+    required super.port,
+    required super.destination,
+    super.destinations,
+  }) : super(device: Device.SUBSYSTEMS, keepDestination: true);
 
   StreamSubscription<WrappedMessage>? _subscription;
 
@@ -83,7 +87,8 @@ class TestClient extends BurtSocket {
   @override
   Duration get heartbeatInterval => const Duration(milliseconds: 10);
 
-  TestClient({required super.port, super.destination}) : super(device: Device.DASHBOARD);
+  TestClient({required super.port, super.destination, super.destinations})
+    : super(device: Device.DASHBOARD);
 
   @override
   bool isConnected = false;
