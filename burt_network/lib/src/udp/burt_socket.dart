@@ -79,7 +79,7 @@ abstract class BurtSocket extends UdpSocket {
   /// If the Socket Info's IP address is [InternetAddress.anyIPv4], it will be sent to
   /// [InternetAddress.loopbackIPv4]
   ///
-  /// By default, the address is the destination address, on port 8020
+  /// By default, the address is [InternetAddress.loopbackIPv4], on port 8020
   SocketInfo get timesyncDestination {
     final address = _timesyncDestination.address != InternetAddress.anyIPv4
         ? _timesyncDestination.address
