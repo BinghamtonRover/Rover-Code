@@ -6,20 +6,37 @@ import "package:burt_network/service.dart";
 import "package:dart_dbc_generator/dart_dbc_generator.dart";
 import "package:linux_can/linux_can.dart";
 import "package:subsystems/src/generated/rover_messages.dbc.dart";
+import "package:subsystems/src/utils/dbc_conversions.dart";
 import "package:subsystems/subsystems.dart" hide CanSocket;
 
-extension on num {
-  BoolState get armBoolState =>
-      BoolState.valueOf(toInt()) ?? BoolState.BOOL_UNDEFINED;
-}
+/// Map of command names and a function to convert a message for that device into a list of DBC messages
+final Map<String, List<DBCMessage> Function(Message message)> deviceToDBC = {
+  DriveCommand().messageName: (e) => (e as DriveCommand).toDBC(),
+  RelaysCommand().messageName: (e) => (e as RelaysCommand).toDBC(),
+  ArmCommand().messageName: (e) => (e as ArmCommand).toDBC(),
+  GripperCommand().messageName: (e) => [],
+  ScienceCommand().messageName: (e) => [],
+};
 
-extension on bool {
-  int get intValue => this ? 1 : 0;
-}
-
-extension on BoolState {
-  int get intValue => this == BoolState.YES ? 1 : 0;
-}
+/// A map of CAN IDs to a function to convert them into a protobuf message
+final Map<int, Message Function(List<int> data)> canIDToMessage = {
+  DriveAppliedOutputDataMessage().canId: (data) =>
+      DriveAppliedOutputDataMessage.decode(data).toDriveProto(),
+  DriveBatteryDataMessage().canId: (data) =>
+      DriveBatteryDataMessage.decode(data).toDriveProto(),
+  DriveLedDataMessage().canId: (data) =>
+      DriveLedDataMessage.decode(data).toDriveProto(),
+  DriveSwivelDataMessage().canId: (data) =>
+      DriveSwivelDataMessage.decode(data).toDriveProto(),
+  RelayStateDataMessage().canId: (data) =>
+      RelayStateDataMessage.decode(data).toRelayProto(),
+  ArmMotorMoveDataMessage().canId: (data) =>
+      ArmMotorMoveDataMessage.decode(data).toArmProto(),
+  ArmMotorStepDataMessage().canId: (data) =>
+      ArmMotorStepDataMessage.decode(data).toArmProto(),
+  ArmMotorAngleDataMessage().canId: (data) =>
+      ArmMotorAngleDataMessage.decode(data).toArmProto(),
+};
 
 extension on DeviceBroadcastMessage {
   Message toDriveProto() => DriveData(version: version);
@@ -49,223 +66,6 @@ extension on DeviceBroadcastMessage {
 
   Version get version =>
       Version(major: fwVersionMajor.toInt(), minor: fwVersionMinor.toInt());
-}
-
-extension on DriveAppliedOutputDataMessage {
-  DriveData toDriveProto() => DriveData(
-    throttle: throttle.toDouble(),
-    left: leftSpeed.toDouble(),
-    right: rightSpeed.toDouble(),
-    setLeft: true,
-    setRight: true,
-    setThrottle: true,
-  );
-}
-
-extension on DriveBatteryDataMessage {
-  DriveData toDriveProto() => DriveData(
-    batteryVoltage: voltage.toDouble(),
-    batteryTemperature: temperature.toDouble(),
-    batteryCurrent: current.toDouble(),
-  );
-}
-
-extension on DriveLedDataMessage {
-  DriveData toDriveProto() =>
-      DriveData(color: ProtoColor.valueOf(color.toInt()));
-}
-
-extension on DriveSwivelDataMessage {
-  DriveData toDriveProto() => DriveData(
-    frontSwivel: frontSwivel.toDouble(),
-    frontTilt: frontTilt.toDouble(),
-    rearSwivel: rearSwivel.toDouble(),
-    rearTilt: rearTilt.toDouble(),
-  );
-}
-
-extension on DriveCommand {
-  DBCMessage get asSetSpeeds => DriveSetSpeedsMessage(
-    shouldSetLeft: setLeft.intValue,
-    shouldSetRight: setRight.intValue,
-    shouldSetThrottle: setThrottle.intValue,
-    leftSpeed: left,
-    rightSpeed: right,
-    throttle: throttle,
-  );
-
-  DBCMessage get asSetLEDS =>
-      DriveSetLedMessage(color: color.value, blink: blink.intValue);
-
-  DBCMessage get asSetSwivels => DriveSetSwivelMessage(
-    setFrontSwivel: hasFrontSwivel().intValue,
-    setFrontTilt: hasFrontTilt().intValue,
-    setRearSwivel: hasRearSwivel().intValue,
-    setRearTilt: hasRearTilt().intValue,
-    frontSwivel: frontSwivel,
-    frontTilt: frontTilt,
-    rearSwivel: rearSwivel,
-    rearTilt: rearTilt,
-  );
-
-  List<DBCMessage> toDBC() {
-    final output = <DBCMessage>[];
-    if (setLeft || setRight || setThrottle) {
-      output.add(asSetSpeeds);
-    }
-    if (hasColor() || hasBlink()) {
-      output.add(asSetLEDS);
-    }
-    if (hasFrontSwivel() ||
-        hasFrontTilt() ||
-        hasRearSwivel() ||
-        hasRearTilt()) {
-      output.add(asSetSwivels);
-    }
-    return output;
-  }
-}
-
-extension on RelayStateDataMessage {
-  BoolState intToBoolState(num value) =>
-      value == 1 ? BoolState.YES : BoolState.NO;
-
-  RelaysData toRelayProto() => RelaysData(
-    frontLeftMotor: intToBoolState(frontLeftMotor),
-    frontRightMotor: intToBoolState(frontRightMotor),
-    backLeftMotor: intToBoolState(backLeftMotor),
-    backRightMotor: intToBoolState(backRightMotor),
-    arm: intToBoolState(arm),
-    drive: intToBoolState(drive),
-    science: intToBoolState(science),
-  );
-}
-
-extension on RelaysCommand {
-  DBCMessage get asSetState => RelaySetStateMessage(
-    arm: arm.value,
-    frontLeftMotor: frontLeftMotor.value,
-    frontRightMotor: frontRightMotor.value,
-    backLeftMotor: backLeftMotor.value,
-    backRightMotor: backRightMotor.value,
-    drive: drive.value,
-    science: science.value,
-  );
-
-  List<DBCMessage> toDBC() => [asSetState];
-}
-
-extension on ArmMotorMoveDataMessage {
-  MotorData toMotorData() => MotorData(
-    isMoving: isMoving.armBoolState,
-    isLimitSwitchPressed: isLimitSwitchPressed.armBoolState,
-    direction: MotorDirection.valueOf(motorDirection.toInt()),
-  );
-
-  ArmData toArmProto() {
-    final data = ArmData();
-
-    if (motorValue == ArmMotor.SWIVEL.value) {
-      data.base = toMotorData();
-    } else if (motorValue == ArmMotor.SHOULDER.value) {
-      data.shoulder = toMotorData();
-    } else if (motorValue == ArmMotor.ELBOW.value) {
-      data.elbow = toMotorData();
-    }
-
-    return data;
-  }
-}
-
-extension on ArmMotorStepDataMessage {
-  MotorData toMotorData() => MotorData(
-    currentStep: currentStep.toInt(),
-    targetStep: targetStep.toInt(),
-  );
-
-  ArmData toArmProto() {
-    final data = ArmData();
-
-    if (motorValue == ArmMotor.SWIVEL.value) {
-      data.base = toMotorData();
-    } else if (motorValue == ArmMotor.SHOULDER.value) {
-      data.shoulder = toMotorData();
-    } else if (motorValue == ArmMotor.ELBOW.value) {
-      data.elbow = toMotorData();
-    }
-
-    return data;
-  }
-}
-
-extension on ArmMotorAngleDataMessage {
-  MotorData toMotorData() => MotorData(
-    currentAngle: currentAngle.toDouble(),
-    targetAngle: targetAngle.toDouble(),
-  );
-
-  ArmData toArmProto() {
-    final data = ArmData();
-
-    if (motorValue == ArmMotor.SWIVEL.value) {
-      data.base = toMotorData();
-    } else if (motorValue == ArmMotor.SHOULDER.value) {
-      data.shoulder = toMotorData();
-    } else if (motorValue == ArmMotor.ELBOW.value) {
-      data.elbow = toMotorData();
-    }
-
-    return data;
-  }
-}
-
-extension on ArmCommand {
-  DBCMessage asAsSetSwivel() => ArmSetMotorMessage(
-    motorValue: ArmMotor.SWIVEL.value,
-    angle: swivel.angle,
-    moveRadians: swivel.moveRadians,
-    moveSteps: swivel.moveSteps,
-  );
-
-  DBCMessage asAsSetShoulder() => ArmSetMotorMessage(
-    motorValue: ArmMotor.SHOULDER.value,
-    angle: shoulder.angle,
-    moveRadians: shoulder.moveRadians,
-    moveSteps: shoulder.moveSteps,
-  );
-
-  DBCMessage asAsSetElbow() => ArmSetMotorMessage(
-    motorValue: ArmMotor.ELBOW.value,
-    angle: elbow.angle,
-    moveRadians: elbow.moveRadians,
-    moveSteps: elbow.moveSteps,
-  );
-
-  DBCMessage asSystemAction() => ArmSetSystemActionMessage(
-    stop: stop.intValue,
-    calibrate: calibrate.intValue,
-    jab: jab.intValue,
-  );
-
-  List<DBCMessage> toDBC() {
-    final output = <DBCMessage>[];
-
-    if (hasSwivel()) {
-      output.add(asAsSetSwivel());
-    }
-    if (hasShoulder()) {
-      output.add(asAsSetShoulder());
-    }
-    if (hasElbow()) {
-      output.add(asAsSetElbow());
-    }
-
-    if (stop == true || calibrate == true || jab == true) {
-      output.add(asSystemAction());
-    }
-
-    return output;
-  }
 }
 
 /// A service to forward messages between CAN and UDP
@@ -381,97 +181,22 @@ class CanBus extends Service {
   bool deviceConnected(Device device) => deviceHeartbeats.containsKey(device);
 
   /// Sends the [dbcMessages] over the CAN bus only if a broadcast message has been
-  /// received from [device] and [override] is set to false
+  /// received from [device] and a heartbeat has been successfully sent
+  ///
+  /// If [forceSend] is true, it will send the message regardless of connection
+  /// or heartbeat status
   Future<bool> _sendDeviceCommand({
     required Device device,
     required Iterable<DBCMessage> dbcMessages,
-    bool override = false,
+    bool forceSend = false,
   }) async {
-    if ((!deviceConnected(device) || !_heartbeatSendSuccessful) && !override) {
+    if ((!deviceConnected(device) || !_heartbeatSendSuccessful) && !forceSend) {
       return false;
     }
     return !(await Future.wait(
       dbcMessages.map(sendDBCMessage),
     )).contains(false);
   }
-
-  /// Sends a drive command over the CAN bus
-  ///
-  /// If [override] is set to false, the command will only be sent if the rover
-  /// has received heartbeats from the drive device. The [override] should only
-  /// be true if this is a stop command.
-  ///
-  /// Returs whether or not the command was sent over the bus
-  Future<bool> sendDriveCommand(
-    DriveCommand command, {
-    bool override = false,
-  }) => _sendDeviceCommand(
-    device: Device.DRIVE,
-    dbcMessages: command.toDBC(),
-    override: override,
-  );
-
-  /// Sends a relay command over the CAN bus
-  ///
-  /// If [override] is set to false, the command will only be sent if the rover
-  /// has received heartbeats from the relay device. The [override] should only
-  /// be true if this is a stop command.
-  ///
-  /// Returs whether or not the command was sent over the bus
-  Future<bool> sendRelaysCommand(
-    RelaysCommand command, {
-    bool override = false,
-  }) => _sendDeviceCommand(
-    device: Device.RELAY,
-    dbcMessages: command.toDBC(),
-    override: override,
-  );
-
-  /// Sends an arm command over the CAN bus
-  ///
-  /// If [override] is set to false, the command will only be sent if the rover
-  /// has received heartbeats from the arm device. The [override] should only
-  /// be true if this is a stop command.
-  ///
-  /// Returs whether or not the command was sent over the bus
-  Future<bool> sendArmCommand(ArmCommand command, {bool override = false}) =>
-      _sendDeviceCommand(
-        device: Device.ARM,
-        dbcMessages: command.toDBC(),
-        override: override,
-      );
-
-  /// Sends a gripper command over the CAN bus
-  ///
-  /// If [override] is set to false, the command will only be sent if the rover
-  /// has received heartbeats from the gripper device. The [override] should only
-  /// be true if this is a stop command.
-  ///
-  /// Returs whether or not the command was sent over the bus
-  Future<bool> sendGripperCommand(
-    GripperCommand command, {
-    bool override = false,
-  }) => _sendDeviceCommand(
-    device: Device.GRIPPER,
-    dbcMessages: [],
-    override: override,
-  );
-
-  /// Sends a science command over the CAN bus
-  ///
-  /// If [override] is set to false, the command will only be sent if the rover
-  /// has received heartbeats from the science device. The [override] should only
-  /// be true if this is a stop command.
-  ///
-  /// Returs whether or not the command was sent over the bus
-  Future<bool> sendScienceCommand(
-    ScienceCommand command, {
-    bool override = false,
-  }) => _sendDeviceCommand(
-    device: Device.SCIENCE,
-    dbcMessages: [],
-    override: override,
-  );
 
   /// Sends a wrapped message over the CAN bus, returns
   /// whether or not the message was successfully sent
@@ -493,14 +218,18 @@ class CanBus extends Service {
   /// Sends a message's DBC equivalent over the CAN bus
   ///
   /// Returns whether or not the message was sent over the bus
-  Future<bool> sendMessage(Message message) => switch (message) {
-    DriveCommand() => sendDriveCommand(message),
-    RelaysCommand() => sendRelaysCommand(message),
-    ArmCommand() => sendArmCommand(message),
-    GripperCommand() => sendGripperCommand(message),
-    ScienceCommand() => sendScienceCommand(message),
-    _ => Future.value(false),
-  };
+  Future<bool> sendMessage(Message message) {
+    if (!commandToDevice.containsKey(message.messageName) ||
+        !deviceToDBC.containsKey(message.messageName)) {
+      return Future.value(false);
+    }
+    final device = commandToDevice[message.messageName]!;
+
+    return _sendDeviceCommand(
+      device: device,
+      dbcMessages: deviceToDBC[message.messageName]!.call(message),
+    );
+  }
 
   /// Whether or not [message] can be successfully sent over the bus
   ///
@@ -601,38 +330,10 @@ class CanBus extends Service {
       case CanDataFrame(:final id, :final data):
         if (id == DeviceBroadcastMessage().canId) {
           _handleDeviceBroadcast(DeviceBroadcastMessage.decode(data));
-        } else if (id == DriveAppliedOutputDataMessage().canId) {
-          collection.server.sendMessage(
-            DriveAppliedOutputDataMessage.decode(data).toDriveProto(),
-          );
-        } else if (id == DriveBatteryDataMessage().canId) {
-          collection.server.sendMessage(
-            DriveBatteryDataMessage.decode(data).toDriveProto(),
-          );
-        } else if (id == DriveLedDataMessage().canId) {
-          collection.server.sendMessage(
-            DriveLedDataMessage.decode(data).toDriveProto(),
-          );
-        } else if (id == DriveSwivelDataMessage().canId) {
-          collection.server.sendMessage(
-            DriveSwivelDataMessage.decode(data).toDriveProto(),
-          );
-        } else if (id == RelayStateDataMessage().canId) {
-          collection.server.sendMessage(
-            RelayStateDataMessage.decode(data).toRelayProto(),
-          );
-        } else if (id == ArmMotorMoveDataMessage().canId) {
-          collection.server.sendMessage(
-            ArmMotorMoveDataMessage.decode(data).toArmProto(),
-          );
-        } else if (id == ArmMotorStepDataMessage().canId) {
-          collection.server.sendMessage(
-            ArmMotorStepDataMessage.decode(data).toArmProto(),
-          );
-        } else if (id == ArmMotorAngleDataMessage().canId) {
-          collection.server.sendMessage(
-            ArmMotorAngleDataMessage.decode(data).toArmProto(),
-          );
+        } else if (canIDToMessage.containsKey(id)) {
+          collection.server.sendMessage(canIDToMessage[id]!.call(data));
+        } else {
+          logger.warning("Received message with unmapped ID: $id");
         }
       case CanRemoteFrame _:
         break;
