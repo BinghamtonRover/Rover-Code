@@ -79,6 +79,9 @@ extension on DeviceBroadcastMessage {
 /// rover, and so the rover can determine every device connected, and their
 /// firmware versions.
 class CanBus extends Service {
+  /// The CAN interface to send messages on
+  static const String canInterface = "can0";
+
   /// How often to send a rover heartbeat over the CAN bus
   static const Duration heartbeatPeriod = Duration(milliseconds: 100);
 
@@ -100,51 +103,37 @@ class CanBus extends Service {
   Timer? _sendHeartbeatTimer;
   Timer? _checkHeartbeatsTimer;
 
-  bool _shouldReset = false;
   bool _heartbeatSendSuccessful = false;
 
   StreamSubscription<CanFrame>? _frameSubscription;
+
+  Future<void>? _resetFuture;
 
   @override
   Future<bool> init() async {
     if (Platform.isWindows) {
       return true;
     }
-    await Process.run("sudo", ["ip", "link", "set", "can0", "down"]);
-    await Process.run("sudo", [
-      "ip",
-      "link",
-      "set",
-      "can0",
-      "type",
-      "can",
-      "bitrate",
-      "500000",
-    ]);
-    final upResult = await Process.run("sudo", [
-      "ip",
-      "link",
-      "set",
-      "can0",
-      "up",
-    ]);
-    if (upResult.exitCode != 0) {
-      logger.error("Could not set Can0 up", body: upResult.stderr);
+
+    if (!await bringUpCAN(canInterface)) {
       return false;
     }
     try {
       device = LinuxCan.instance.devices.singleWhere(
-        (device) => device.networkInterface.name == "can0",
+        (device) => device.networkInterface.name == canInterface,
       );
     } catch (e) {
       if (e is StateError) {
-        logger.error("No CAN Interface found named can0");
+        logger.error("No CAN interface found named $canInterface");
         return false;
       }
       rethrow;
     }
     if (!device!.isUp) {
-      logger.error("CAN0 is not up", body: "Device state: ${device!.state}");
+      logger.error(
+        "$canInterface is not up",
+        body: "Device state: ${device!.state}",
+      );
       return false;
     }
     logger.info(
@@ -174,6 +163,39 @@ class CanBus extends Service {
     await _frameSubscription?.cancel();
 
     deviceHeartbeats.clear();
+  }
+
+  /// Initializes and brings up the CAN interface named [interfaceName]
+  ///
+  /// Returns whether or not the device was successfully brought up.
+  Future<bool> bringUpCAN(String interfaceName) async {
+    await Process.run("sudo", ["ip", "link", "set", interfaceName, "down"]);
+    await Process.run("sudo", [
+      "ip",
+      "link",
+      "set",
+      interfaceName,
+      "type",
+      "can",
+      "bitrate",
+      "500000",
+      "restart-ms",
+      "100",
+    ]);
+    final upResult = await Process.run("sudo", [
+      "ip",
+      "link",
+      "set",
+      interfaceName,
+      "up",
+    ]);
+
+    if (upResult.exitCode != 0) {
+      logger.error("Could not set $canInterface up", body: upResult.stderr);
+      return false;
+    }
+
+    return true;
   }
 
   /// Whether or not a broadcast message has been received from [device] within
@@ -247,13 +269,6 @@ class CanBus extends Service {
 
   /// Sends a heartbeat message over the CAN bus
   Future<bool> sendHeartbeat() async {
-    if (_shouldReset) {
-      await dispose();
-      await Future<void>.delayed(const Duration(milliseconds: 1000));
-      await init();
-      _shouldReset = false;
-      return false;
-    }
     final heartbeat = RoverHeartbeatMessage();
     return _heartbeatSendSuccessful = await sendDBCMessage(heartbeat);
   }
@@ -277,32 +292,44 @@ class CanBus extends Service {
   ///
   /// Returns whether or not the message was successfully sent
   Future<bool> sendDBCMessage(DBCMessage message) async {
-    if (socket == null) {
+    if (socket == null || device == null || _resetFuture != null) {
       return false;
     }
-    if (!(device?.isUp ?? true)) {
-      logger.warning(
-        "Device is not up while trying to send message, restarting CAN socket",
-      );
-      _shouldReset = true;
-      return false;
-    }
-    var success = true;
-    await socket
-        ?.send(CanFrame.standard(id: message.canId, data: message.encode()))
-        .catchError((Object e) {
-          success = false;
-          if (e.toString().contains("No buffer space")) {
-            logger.debug("Error when sending CAN message", body: e.toString());
-          } else {
-            logger.error("Error when sending CAN message", body: e.toString());
-          }
 
-          if (!(device?.isUp ?? true)) {
-            _shouldReset = true;
-          }
-        });
-    return success;
+    if (!device!.isUp) {
+      logger.warning(
+        "Device is not up while trying to send message",
+        body: "Restarting CAN interface",
+      );
+      _resetFuture ??= Future(() async {
+        if (await bringUpCAN(canInterface)) {
+          // Wait a small amount after bringing up the device, for
+          // some reason device.isUp returns false for a short period
+          // of time after
+          await Future<void>.delayed(const Duration(milliseconds: 100));
+        }
+      }).whenComplete(() => _resetFuture = null);
+      return false;
+    }
+
+    if (device!.state == CanState.busOff) {
+      logger.warning("Cannot send message, bus is off");
+      return false;
+    }
+
+    try {
+      await socket?.send(
+        CanFrame.standard(id: message.canId, data: message.encode()),
+      );
+      return true;
+    } catch (error) {
+      if (error.toString().contains("No buffer space")) {
+        logger.debug("Error when sending CAN message", body: error.toString());
+      } else {
+        logger.error("Error when sending CAN message", body: error.toString());
+      }
+      return false;
+    }
   }
 
   void _handleDeviceBroadcast(DeviceBroadcastMessage broadcast) {
