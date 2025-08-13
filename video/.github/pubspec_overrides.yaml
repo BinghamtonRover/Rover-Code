@@ -1,0 +1,8 @@
+resolution:
+
+dependency_overrides:
+  burt_network:
+    git:
+      url: https://github.com/BinghamtonRover/Rover-Code
+      path: burt_network
+      ref: 2.7.0
