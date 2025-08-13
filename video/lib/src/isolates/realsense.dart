@@ -2,7 +2,6 @@ import "dart:ffi";
 
 import "package:burt_network/burt_network.dart";
 import "package:dartcv4/dartcv.dart";
-import "package:protobuf/protobuf.dart";
 
 import "package:video/utils.dart";
 import "package:video/video.dart";

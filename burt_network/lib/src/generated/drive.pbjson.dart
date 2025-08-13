@@ -1,13 +1,14 @@
+// This is a generated file - do not edit.
 //
-//  Generated code. Do not modify.
-//  source: drive.proto
-//
-// @dart = 2.12
+// Generated from drive.proto.
+
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
-// ignore_for_file: constant_identifier_names, library_prefixes
-// ignore_for_file: non_constant_identifier_names, prefer_final_fields
-// ignore_for_file: unnecessary_import, unnecessary_this, unused_import
+// ignore_for_file: constant_identifier_names
+// ignore_for_file: curly_braces_in_flow_control_structures
+// ignore_for_file: deprecated_member_use_from_same_package, library_prefixes
+// ignore_for_file: non_constant_identifier_names, unused_import
 
 import 'dart:convert' as $convert;
 import 'dart:core' as $core;
@@ -44,8 +45,22 @@ const DriveCommand$json = {
     {'1': 'front_tilt', '3': 8, '4': 1, '5': 2, '10': 'frontTilt'},
     {'1': 'rear_swivel', '3': 9, '4': 1, '5': 2, '10': 'rearSwivel'},
     {'1': 'rear_tilt', '3': 10, '4': 1, '5': 2, '10': 'rearTilt'},
-    {'1': 'status', '3': 11, '4': 1, '5': 14, '6': '.RoverStatus', '10': 'status'},
-    {'1': 'version', '3': 12, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
+    {
+      '1': 'status',
+      '3': 11,
+      '4': 1,
+      '5': 14,
+      '6': '.RoverStatus',
+      '10': 'status'
+    },
+    {
+      '1': 'version',
+      '3': 12,
+      '4': 1,
+      '5': 11,
+      '6': '.Version',
+      '10': 'version'
+    },
     {'1': 'color', '3': 13, '4': 1, '5': 14, '6': '.ProtoColor', '10': 'color'},
     {'1': 'blink', '3': 14, '4': 1, '5': 14, '6': '.BoolState', '10': 'blink'},
   ],
@@ -79,8 +94,21 @@ const DriveData$json = {
     {'1': 'rear_tilt', '3': 10, '4': 1, '5': 2, '10': 'rearTilt'},
     {'1': 'battery_voltage', '3': 11, '4': 1, '5': 2, '10': 'batteryVoltage'},
     {'1': 'battery_current', '3': 12, '4': 1, '5': 2, '10': 'batteryCurrent'},
-    {'1': 'battery_temperature', '3': 13, '4': 1, '5': 2, '10': 'batteryTemperature'},
-    {'1': 'version', '3': 14, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
+    {
+      '1': 'battery_temperature',
+      '3': 13,
+      '4': 1,
+      '5': 2,
+      '10': 'batteryTemperature'
+    },
+    {
+      '1': 'version',
+      '3': 14,
+      '4': 1,
+      '5': 11,
+      '6': '.Version',
+      '10': 'version'
+    },
     {'1': 'back_left', '3': 15, '4': 1, '5': 2, '10': 'backLeft'},
     {'1': 'middle_left', '3': 16, '4': 1, '5': 2, '10': 'middleLeft'},
     {'1': 'front_left', '3': 17, '4': 1, '5': 2, '10': 'frontLeft'},
@@ -88,7 +116,14 @@ const DriveData$json = {
     {'1': 'middle_right', '3': 19, '4': 1, '5': 2, '10': 'middleRight'},
     {'1': 'front_right', '3': 20, '4': 1, '5': 2, '10': 'frontRight'},
     {'1': 'color', '3': 21, '4': 1, '5': 14, '6': '.ProtoColor', '10': 'color'},
-    {'1': 'status', '3': 22, '4': 1, '5': 14, '6': '.RoverStatus', '10': 'status'},
+    {
+      '1': 'status',
+      '3': 22,
+      '4': 1,
+      '5': 14,
+      '6': '.RoverStatus',
+      '10': 'status'
+    },
   ],
 };
 
@@ -108,4 +143,3 @@ final $typed_data.Uint8List driveDataDescriptor = $convert.base64Decode(
     'EoAlILbWlkZGxlUmlnaHQSHwoLZnJvbnRfcmlnaHQYFCABKAJSCmZyb250UmlnaHQSIQoFY29s'
     'b3IYFSABKA4yCy5Qcm90b0NvbG9yUgVjb2xvchIkCgZzdGF0dXMYFiABKA4yDC5Sb3ZlclN0YX'
     'R1c1IGc3RhdHVz');
-
