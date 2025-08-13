@@ -2,14 +2,6 @@
 [submodule "Autonomy"]
 	path = autonomy
 	url = https://github.com/BinghamtonRover/Autonomy
-[submodule "opencv_ffi"]
-	path = opencv_ffi
-	url = https://github.com/Levi-Lesches/opencv_ffi
-[submodule "Video"]
-	path = video
-	url = https://github.com/BinghamtonRover/Video
-
-# Dependencies of our programs and libraries
 [submodule "Protobuf"]
 	path = burt_network/Protobuf
 	url = https://github.com/BinghamtonRover/Protobuf
@@ -23,4 +15,6 @@
 [submodule "Python-Networking"]
 	path = vision/lib/network
 	url = https://github.com/BinghamtonRover/Python-Networking
-
+[submodule "src/librealsense"]
+	path = video/src/librealsense
+	url = https://github.com/IntelRealSense/librealsense.git

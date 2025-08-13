@@ -1,0 +1,22 @@
+# https://dart.dev/guides/libraries/private-files
+# Created by `dart pub`
+.dart_tool/
+
+# Needed to allow the rover to build offline but allow us to build online
+./pubspec_overrides.yaml
+pubspec.lock
+
+# RealSense SDK build artifacts
+src/obj
+src/bin
+src/build
+src/*.so
+dist/
+*.dll
+
+# Camera details files created from running the program locally
+camera_details/
+# Camera calibrations
+calibrations/
+# Screenshots
+screenshots/
