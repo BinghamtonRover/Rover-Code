@@ -15,4 +15,6 @@
 [submodule "Python-Networking"]
 	path = vision/lib/network
 	url = https://github.com/BinghamtonRover/Python-Networking
-
+[submodule "src/librealsense"]
+	path = video/src/librealsense
+	url = https://github.com/IntelRealSense/librealsense.git
