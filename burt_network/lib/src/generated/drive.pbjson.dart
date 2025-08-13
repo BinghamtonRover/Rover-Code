@@ -1,13 +1,14 @@
+// This is a generated file - do not edit.
 //
-//  Generated code. Do not modify.
-//  source: drive.proto
-//
+// Generated from drive.proto.
+
 // @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
-// ignore_for_file: constant_identifier_names, library_prefixes
-// ignore_for_file: non_constant_identifier_names, prefer_final_fields
-// ignore_for_file: unnecessary_import, unnecessary_this, unused_import
+// ignore_for_file: constant_identifier_names
+// ignore_for_file: curly_braces_in_flow_control_structures
+// ignore_for_file: deprecated_member_use_from_same_package, library_prefixes
+// ignore_for_file: non_constant_identifier_names, unused_import
 
 import 'dart:convert' as $convert;
 import 'dart:core' as $core;
@@ -30,26 +31,6 @@ final $typed_data.Uint8List protoColorDescriptor = $convert.base64Decode(
     'CgpQcm90b0NvbG9yEhkKFVBST1RPX0NPTE9SX1VOREVGSU5FRBAAEgcKA1JFRBABEgkKBUdSRU'
     'VOEAISCAoEQkxVRRADEgkKBVVOTElUEAQ=');
 
-@$core.Deprecated('Use driveMotorDescriptor instead')
-const DriveMotor$json = {
-  '1': 'DriveMotor',
-  '2': [
-    {'1': 'DRIVE_MOTOR_UNDEFINED', '2': 0},
-    {'1': 'FRONT_LEFT', '2': 1},
-    {'1': 'FRONT_RIGHT', '2': 2},
-    {'1': 'MIDDLE_LEFT', '2': 3},
-    {'1': 'MIDDLE_RIGHT', '2': 4},
-    {'1': 'BACK_LEFT', '2': 5},
-    {'1': 'BACK_RIGHT', '2': 6},
-  ],
-};
-
-/// Descriptor for `DriveMotor`. Decode as a `google.protobuf.EnumDescriptorProto`.
-final $typed_data.Uint8List driveMotorDescriptor = $convert.base64Decode(
-    'CgpEcml2ZU1vdG9yEhkKFURSSVZFX01PVE9SX1VOREVGSU5FRBAAEg4KCkZST05UX0xFRlQQAR'
-    'IPCgtGUk9OVF9SSUdIVBACEg8KC01JRERMRV9MRUZUEAMSEAoMTUlERExFX1JJR0hUEAQSDQoJ'
-    'QkFDS19MRUZUEAUSDgoKQkFDS19SSUdIVBAG');
-
 @$core.Deprecated('Use driveCommandDescriptor instead')
 const DriveCommand$json = {
   '1': 'DriveCommand',
@@ -64,8 +45,22 @@ const DriveCommand$json = {
     {'1': 'front_tilt', '3': 8, '4': 1, '5': 2, '10': 'frontTilt'},
     {'1': 'rear_swivel', '3': 9, '4': 1, '5': 2, '10': 'rearSwivel'},
     {'1': 'rear_tilt', '3': 10, '4': 1, '5': 2, '10': 'rearTilt'},
-    {'1': 'status', '3': 11, '4': 1, '5': 14, '6': '.RoverStatus', '10': 'status'},
-    {'1': 'version', '3': 12, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
+    {
+      '1': 'status',
+      '3': 11,
+      '4': 1,
+      '5': 14,
+      '6': '.RoverStatus',
+      '10': 'status'
+    },
+    {
+      '1': 'version',
+      '3': 12,
+      '4': 1,
+      '5': 11,
+      '6': '.Version',
+      '10': 'version'
+    },
     {'1': 'color', '3': 13, '4': 1, '5': 14, '6': '.ProtoColor', '10': 'color'},
     {'1': 'blink', '3': 14, '4': 1, '5': 14, '6': '.BoolState', '10': 'blink'},
   ],
@@ -99,8 +94,21 @@ const DriveData$json = {
     {'1': 'rear_tilt', '3': 10, '4': 1, '5': 2, '10': 'rearTilt'},
     {'1': 'battery_voltage', '3': 11, '4': 1, '5': 2, '10': 'batteryVoltage'},
     {'1': 'battery_current', '3': 12, '4': 1, '5': 2, '10': 'batteryCurrent'},
-    {'1': 'battery_temperature', '3': 13, '4': 1, '5': 2, '10': 'batteryTemperature'},
-    {'1': 'version', '3': 14, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
+    {
+      '1': 'battery_temperature',
+      '3': 13,
+      '4': 1,
+      '5': 2,
+      '10': 'batteryTemperature'
+    },
+    {
+      '1': 'version',
+      '3': 14,
+      '4': 1,
+      '5': 11,
+      '6': '.Version',
+      '10': 'version'
+    },
     {'1': 'back_left', '3': 15, '4': 1, '5': 2, '10': 'backLeft'},
     {'1': 'middle_left', '3': 16, '4': 1, '5': 2, '10': 'middleLeft'},
     {'1': 'front_left', '3': 17, '4': 1, '5': 2, '10': 'frontLeft'},
@@ -108,7 +116,14 @@ const DriveData$json = {
     {'1': 'middle_right', '3': 19, '4': 1, '5': 2, '10': 'middleRight'},
     {'1': 'front_right', '3': 20, '4': 1, '5': 2, '10': 'frontRight'},
     {'1': 'color', '3': 21, '4': 1, '5': 14, '6': '.ProtoColor', '10': 'color'},
-    {'1': 'status', '3': 22, '4': 1, '5': 14, '6': '.RoverStatus', '10': 'status'},
+    {
+      '1': 'status',
+      '3': 22,
+      '4': 1,
+      '5': 14,
+      '6': '.RoverStatus',
+      '10': 'status'
+    },
   ],
 };
 
@@ -128,4 +143,3 @@ final $typed_data.Uint8List driveDataDescriptor = $convert.base64Decode(
     'EoAlILbWlkZGxlUmlnaHQSHwoLZnJvbnRfcmlnaHQYFCABKAJSCmZyb250UmlnaHQSIQoFY29s'
     'b3IYFSABKA4yCy5Qcm90b0NvbG9yUgVjb2xvchIkCgZzdGF0dXMYFiABKA4yDC5Sb3ZlclN0YX'
     'R1c1IGc3RhdHVz');
-

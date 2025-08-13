@@ -1,43 +1,48 @@
+// This is a generated file - do not edit.
 //
-//  Generated code. Do not modify.
-//  source: arm.proto
-//
+// Generated from arm.proto.
+
 // @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
-// ignore_for_file: constant_identifier_names, library_prefixes
-// ignore_for_file: non_constant_identifier_names, prefer_final_fields
-// ignore_for_file: unnecessary_import, unnecessary_this, unused_import
+// ignore_for_file: constant_identifier_names
+// ignore_for_file: curly_braces_in_flow_control_structures
+// ignore_for_file: deprecated_member_use_from_same_package, library_prefixes
+// ignore_for_file: non_constant_identifier_names, unused_import
 
 import 'dart:convert' as $convert;
 import 'dart:core' as $core;
 import 'dart:typed_data' as $typed_data;
 
-@$core.Deprecated('Use armMotorDescriptor instead')
-const ArmMotor$json = {
-  '1': 'ArmMotor',
-  '2': [
-    {'1': 'ARM_MOTOR_UNDEFINED', '2': 0},
-    {'1': 'SWIVEL', '2': 1},
-    {'1': 'SHOULDER', '2': 2},
-    {'1': 'ELBOW', '2': 3},
-    {'1': 'WRIST', '2': 4},
-  ],
-};
-
-/// Descriptor for `ArmMotor`. Decode as a `google.protobuf.EnumDescriptorProto`.
-final $typed_data.Uint8List armMotorDescriptor = $convert.base64Decode(
-    'CghBcm1Nb3RvchIXChNBUk1fTU9UT1JfVU5ERUZJTkVEEAASCgoGU1dJVkVMEAESDAoIU0hPVU'
-    'xERVIQAhIJCgVFTEJPVxADEgkKBVdSSVNUEAQ=');
-
 @$core.Deprecated('Use armDataDescriptor instead')
 const ArmData$json = {
   '1': 'ArmData',
   '2': [
-    {'1': 'currentPosition', '3': 1, '4': 1, '5': 11, '6': '.Coordinates', '10': 'currentPosition'},
-    {'1': 'targetPosition', '3': 2, '4': 1, '5': 11, '6': '.Coordinates', '10': 'targetPosition'},
+    {
+      '1': 'currentPosition',
+      '3': 1,
+      '4': 1,
+      '5': 11,
+      '6': '.Coordinates',
+      '10': 'currentPosition'
+    },
+    {
+      '1': 'targetPosition',
+      '3': 2,
+      '4': 1,
+      '5': 11,
+      '6': '.Coordinates',
+      '10': 'targetPosition'
+    },
     {'1': 'base', '3': 3, '4': 1, '5': 11, '6': '.MotorData', '10': 'base'},
-    {'1': 'shoulder', '3': 4, '4': 1, '5': 11, '6': '.MotorData', '10': 'shoulder'},
+    {
+      '1': 'shoulder',
+      '3': 4,
+      '4': 1,
+      '5': 11,
+      '6': '.MotorData',
+      '10': 'shoulder'
+    },
     {'1': 'elbow', '3': 5, '4': 1, '5': 11, '6': '.MotorData', '10': 'elbow'},
     {'1': 'version', '3': 6, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
   ],
@@ -57,15 +62,50 @@ const ArmCommand$json = {
   '2': [
     {'1': 'stop', '3': 1, '4': 1, '5': 8, '10': 'stop'},
     {'1': 'calibrate', '3': 2, '4': 1, '5': 8, '10': 'calibrate'},
-    {'1': 'swivel', '3': 3, '4': 1, '5': 11, '6': '.MotorCommand', '10': 'swivel'},
-    {'1': 'shoulder', '3': 4, '4': 1, '5': 11, '6': '.MotorCommand', '10': 'shoulder'},
-    {'1': 'elbow', '3': 5, '4': 1, '5': 11, '6': '.MotorCommand', '10': 'elbow'},
-    {'1': 'gripper_lift', '3': 6, '4': 1, '5': 11, '6': '.MotorCommand', '10': 'gripperLift'},
+    {
+      '1': 'swivel',
+      '3': 3,
+      '4': 1,
+      '5': 11,
+      '6': '.MotorCommand',
+      '10': 'swivel'
+    },
+    {
+      '1': 'shoulder',
+      '3': 4,
+      '4': 1,
+      '5': 11,
+      '6': '.MotorCommand',
+      '10': 'shoulder'
+    },
+    {
+      '1': 'elbow',
+      '3': 5,
+      '4': 1,
+      '5': 11,
+      '6': '.MotorCommand',
+      '10': 'elbow'
+    },
+    {
+      '1': 'gripper_lift',
+      '3': 6,
+      '4': 1,
+      '5': 11,
+      '6': '.MotorCommand',
+      '10': 'gripperLift'
+    },
     {'1': 'ik_x', '3': 7, '4': 1, '5': 2, '10': 'ikX'},
     {'1': 'ik_y', '3': 8, '4': 1, '5': 2, '10': 'ikY'},
     {'1': 'ik_z', '3': 9, '4': 1, '5': 2, '10': 'ikZ'},
     {'1': 'jab', '3': 10, '4': 1, '5': 8, '10': 'jab'},
-    {'1': 'version', '3': 11, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
+    {
+      '1': 'version',
+      '3': 11,
+      '4': 1,
+      '5': 11,
+      '6': '.Version',
+      '10': 'version'
+    },
   ],
 };
 
@@ -88,7 +128,14 @@ const GripperData$json = {
     {'1': 'pinch', '3': 3, '4': 1, '5': 11, '6': '.MotorData', '10': 'pinch'},
     {'1': 'version', '3': 4, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
     {'1': 'servoAngle', '3': 5, '4': 1, '5': 5, '10': 'servoAngle'},
-    {'1': 'laserState', '3': 6, '4': 1, '5': 14, '6': '.BoolState', '10': 'laserState'},
+    {
+      '1': 'laserState',
+      '3': 6,
+      '4': 1,
+      '5': 14,
+      '6': '.BoolState',
+      '10': 'laserState'
+    },
   ],
 };
 
@@ -107,14 +154,35 @@ const GripperCommand$json = {
     {'1': 'stop', '3': 1, '4': 1, '5': 8, '10': 'stop'},
     {'1': 'calibrate', '3': 2, '4': 1, '5': 8, '10': 'calibrate'},
     {'1': 'lift', '3': 3, '4': 1, '5': 11, '6': '.MotorCommand', '10': 'lift'},
-    {'1': 'rotate', '3': 4, '4': 1, '5': 11, '6': '.MotorCommand', '10': 'rotate'},
-    {'1': 'pinch', '3': 5, '4': 1, '5': 11, '6': '.MotorCommand', '10': 'pinch'},
+    {
+      '1': 'rotate',
+      '3': 4,
+      '4': 1,
+      '5': 11,
+      '6': '.MotorCommand',
+      '10': 'rotate'
+    },
+    {
+      '1': 'pinch',
+      '3': 5,
+      '4': 1,
+      '5': 11,
+      '6': '.MotorCommand',
+      '10': 'pinch'
+    },
     {'1': 'open', '3': 6, '4': 1, '5': 8, '10': 'open'},
     {'1': 'close', '3': 7, '4': 1, '5': 8, '10': 'close'},
     {'1': 'spin', '3': 8, '4': 1, '5': 8, '10': 'spin'},
     {'1': 'version', '3': 9, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
     {'1': 'servoAngle', '3': 10, '4': 1, '5': 5, '10': 'servoAngle'},
-    {'1': 'laserState', '3': 11, '4': 1, '5': 14, '6': '.BoolState', '10': 'laserState'},
+    {
+      '1': 'laserState',
+      '3': 11,
+      '4': 1,
+      '5': 14,
+      '6': '.BoolState',
+      '10': 'laserState'
+    },
   ],
 };
 
@@ -127,4 +195,3 @@ final $typed_data.Uint8List gripperCommandDescriptor = $convert.base64Decode(
     'BHNwaW4YCCABKAhSBHNwaW4SIgoHdmVyc2lvbhgJIAEoCzIILlZlcnNpb25SB3ZlcnNpb24SHg'
     'oKc2Vydm9BbmdsZRgKIAEoBVIKc2Vydm9BbmdsZRIqCgpsYXNlclN0YXRlGAsgASgOMgouQm9v'
     'bFN0YXRlUgpsYXNlclN0YXRl');
-
