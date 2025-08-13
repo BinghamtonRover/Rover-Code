@@ -17,4 +17,4 @@ dependencies:
   osc: ^1.0.0
 
 dev_dependencies:
-  ffigen: ^16.0.0
+  ffigen: ^19.1.0
