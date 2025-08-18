@@ -1,9 +1,9 @@
 import "dart:typed_data";
 
 import "package:burt_network/burt_network.dart";
-import "package:libserialport/libserialport.dart"
-    show SerialPortDtr, SerialPortParity, SerialPortXonXoff;
 
+export "package:libserialport/libserialport.dart"
+    show SerialPortDtr, SerialPortParity, SerialPortXonXoff;
 export "port_delegate.dart";
 
 /// An interface to a serial port.
