@@ -5,7 +5,7 @@ publish_to: none
 
 resolution: workspace
 environment:
-  sdk: ^3.6.0
+  sdk: ^3.9.0
 
 # Add regular dependencies here.
 dependencies:
@@ -17,4 +17,4 @@ dependencies:
   osc: ^1.0.0
 
 dev_dependencies:
-  ffigen: ^16.0.0
+  ffigen: ^19.1.0
