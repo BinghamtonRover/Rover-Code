@@ -24,6 +24,7 @@ class ImuReader extends Service {
     baudRate: 115200,
     parity: SerialPortParity.none,
     xonXoff: SerialPortXonXoff.disabled,
+    stopBits: 1,
   );
 
   /// Whether or not the IMU is connected
