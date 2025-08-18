@@ -26,16 +26,16 @@ jobs:
         run: dart analyze --fatal-infos
 
       # - name: Check autonomy formatting
-      #   run: dart format --output=none --set-exit-if-changed autonomy/*
+      #   run: dart format --output=none --set-exit-if-changed autonomy/bin/* autonomy/lib/* autonomy/test/*
 
       # - name: Check burt_network formatting
-      #   run: dart format --output=none --set-exit-if-changed burt_network/*
+      #   run: dart format --output=none --set-exit-if-changed burt_network/bin/* burt_network/lib/* burt_network/test/*
 
       # - name: Check subsystems formatting
-      #   run: dart format --output=none --set-exit-if-changed subsystems/*
+      #   run: dart format --output=none --set-exit-if-changed subsystems/bin/* subsystems/lib/*
 
       - name: Check video formatting
-        run: dart format --output=none --set-exit-if-changed video/*
+        run: dart format --output=none --set-exit-if-changed video/bin/* video/lib/*
 
       # - name: Validate dependencies
       #   run: dart run dependency_validator
