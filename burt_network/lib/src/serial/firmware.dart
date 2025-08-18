@@ -1,6 +1,5 @@
 import "dart:typed_data";
 
-import "package:libserialport/libserialport.dart";
 import "package:protobuf/protobuf.dart";
 
 import "package:burt_network/burt_network.dart";
