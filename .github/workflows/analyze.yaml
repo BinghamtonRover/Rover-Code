@@ -25,5 +25,17 @@ jobs:
       - name: Analyze code
         run: dart analyze --fatal-infos
 
+      # - name: Check autonomy formatting
+      #   run: dart format --output=none --set-exit-if-changed autonomy/*
+
+      # - name: Check burt_network formatting
+      #   run: dart format --output=none --set-exit-if-changed burt_network/*
+
+      # - name: Check subsystems formatting
+      #   run: dart format --output=none --set-exit-if-changed subsystems/*
+
+      - name: Check video formatting
+        run: dart format --output=none --set-exit-if-changed video/*
+
       # - name: Validate dependencies
       #   run: dart run dependency_validator
