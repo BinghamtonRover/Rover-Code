@@ -15,8 +15,7 @@ class OpenCVCameraIsolate extends CameraIsolate {
   @override
   void initCamera() {
     camera = getCamera(name);
-    camera!.set(CAP_PROP_FOURCC, VideoCapture.toCodec("MJPG"));
-    camera?.setResolution(
+    camera!.setResolution(
       width: details.resolutionWidth,
       height: details.resolutionHeight,
     );
@@ -25,10 +24,10 @@ class OpenCVCameraIsolate extends CameraIsolate {
       captureHeight: camera!.height,
       details: details,
     );
-    if (details.hasFps()) camera?.fps = details.fps;
-    if (details.hasZoom()) camera?.zoom = details.zoom;
-    if (details.hasFocus()) camera?.focus = details.focus;
-    camera?.autofocus = details.autofocus;
+    if (details.hasFps()) camera!.fps = details.fps;
+    if (details.hasZoom()) camera!.zoom = details.zoom;
+    if (details.hasFocus()) camera!.focus = details.focus;
+    camera!.autofocus = details.autofocus;
 
     if (!camera!.isOpened) {
       sendLog(LogLevel.warning, "Camera $name is not connected");
@@ -91,7 +90,17 @@ class OpenCVCameraIsolate extends CameraIsolate {
   Future<void> sendFrames() async {
     if (camera == null) return;
     final (success, matrix) = camera!.read();
-    if (!success || matrix.width <= 0 || matrix.height <= 0) return;
+    if (!success || matrix.width <= 0 || matrix.height <= 0) {
+      // Don't flood the log messages
+      if (details.status != CameraStatus.CAMERA_NOT_RESPONDING) {
+        sendLog(LogLevel.warning, "Camera $name didn't respond");
+        updateDetails(
+          CameraDetails(status: CameraStatus.CAMERA_NOT_RESPONDING),
+          save: false,
+        );
+      }
+      return;
+    }
 
     final detectedMarkers = await arucoDetector.process(
       matrix,
@@ -212,7 +221,6 @@ class OpenCVCameraIsolate extends CameraIsolate {
     camera!.dispose();
     camera = getCamera(name);
 
-    camera!.set(CAP_PROP_FOURCC, VideoCapture.toCodec("MJPG"));
     camera!.setResolution(width: originalWidth, height: originalHeight);
     camera!.fps = details.fps;
     if (details.hasZoom()) camera!.zoom = details.zoom;
