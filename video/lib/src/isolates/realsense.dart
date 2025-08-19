@@ -43,6 +43,7 @@ class RealSenseIsolate extends CameraIsolate {
     } else if (data.details.interferesWithAutonomy(details)) {
       sendLog(LogLevel.error, "That would break autonomy");
     } else {
+      data.details.name = CameraName.AUTONOMY_DEPTH;
       super.onData(data);
     }
   }
