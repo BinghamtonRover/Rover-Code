@@ -17,13 +17,25 @@ jobs:
       - name: Install Dart
         uses: dart-lang/setup-dart@v1
         with:
-          sdk: 3.6.0
+          sdk: 3.9.0
 
       - name: Install dependencies
         run: dart pub get
 
       - name: Analyze code
         run: dart analyze --fatal-infos
+
+      # - name: Check autonomy formatting
+      #   run: dart format --output=none --set-exit-if-changed autonomy/bin/* autonomy/lib/* autonomy/test/*
+
+      # - name: Check burt_network formatting
+      #   run: dart format --output=none --set-exit-if-changed burt_network/bin/* burt_network/lib/* burt_network/test/*
+
+      # - name: Check subsystems formatting
+      #   run: dart format --output=none --set-exit-if-changed subsystems/bin/* subsystems/lib/*
+
+      - name: Check video formatting
+        run: dart format --output=none --set-exit-if-changed video/bin/* video/lib/*
 
       # - name: Validate dependencies
       #   run: dart run dependency_validator
