@@ -26,7 +26,7 @@ jobs:
       - name: Install Dart
         uses: dart-lang/setup-dart@v1
         with:
-          sdk: 3.6.0
+          sdk: 3.9.0
 
       - name: Run setup script
         run: dart run :rover --verbose
