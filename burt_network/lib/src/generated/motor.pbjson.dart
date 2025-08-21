@@ -1,13 +1,14 @@
+// This is a generated file - do not edit.
 //
-//  Generated code. Do not modify.
-//  source: motor.proto
-//
-// @dart = 2.12
+// Generated from motor.proto.
+
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
-// ignore_for_file: constant_identifier_names, library_prefixes
-// ignore_for_file: non_constant_identifier_names, prefer_final_fields
-// ignore_for_file: unnecessary_import, unnecessary_this, unused_import
+// ignore_for_file: constant_identifier_names
+// ignore_for_file: curly_braces_in_flow_control_structures
+// ignore_for_file: deprecated_member_use_from_same_package, library_prefixes
+// ignore_for_file: non_constant_identifier_names, unused_import
 
 import 'dart:convert' as $convert;
 import 'dart:core' as $core;
@@ -41,9 +42,30 @@ final $typed_data.Uint8List motorDirectionDescriptor = $convert.base64Decode(
 const MotorData$json = {
   '1': 'MotorData',
   '2': [
-    {'1': 'is_moving', '3': 1, '4': 1, '5': 14, '6': '.BoolState', '10': 'isMoving'},
-    {'1': 'is_limit_switch_pressed', '3': 2, '4': 1, '5': 14, '6': '.BoolState', '10': 'isLimitSwitchPressed'},
-    {'1': 'direction', '3': 3, '4': 1, '5': 14, '6': '.MotorDirection', '10': 'direction'},
+    {
+      '1': 'is_moving',
+      '3': 1,
+      '4': 1,
+      '5': 14,
+      '6': '.BoolState',
+      '10': 'isMoving'
+    },
+    {
+      '1': 'is_limit_switch_pressed',
+      '3': 2,
+      '4': 1,
+      '5': 14,
+      '6': '.BoolState',
+      '10': 'isLimitSwitchPressed'
+    },
+    {
+      '1': 'direction',
+      '3': 3,
+      '4': 1,
+      '5': 14,
+      '6': '.MotorDirection',
+      '10': 'direction'
+    },
     {'1': 'current_step', '3': 4, '4': 1, '5': 5, '10': 'currentStep'},
     {'1': 'target_step', '3': 5, '4': 1, '5': 5, '10': 'targetStep'},
     {'1': 'current_angle', '3': 6, '4': 1, '5': 2, '10': 'currentAngle'},
@@ -74,4 +96,3 @@ const MotorCommand$json = {
 final $typed_data.Uint8List motorCommandDescriptor = $convert.base64Decode(
     'CgxNb3RvckNvbW1hbmQSHQoKbW92ZV9zdGVwcxgBIAEoBVIJbW92ZVN0ZXBzEiEKDG1vdmVfcm'
     'FkaWFucxgCIAEoAlILbW92ZVJhZGlhbnMSFAoFYW5nbGUYAyABKAJSBWFuZ2xl');
-
