@@ -129,9 +129,10 @@ void main() => group("ProtoSocket:", () {
   });
 
   test("Heartbeats are filtered out of the regular stream", () async {
+    final destination = withPort(8012);
     var receivedHeartbeat = false;
     final server = TestServer(port: 8011);
-    final client = UdpSocket(port: 8012, destination: withPort(8012));
+    final client = UdpSocket(port: 8012);
     server.messages.onMessage(
       name: Heartbeat().messageName,
       constructor: Heartbeat.fromBuffer,
@@ -140,7 +141,10 @@ void main() => group("ProtoSocket:", () {
     await server.init();
     await client.init();
     await Future<void>.delayed(heartbeatDelay);
-    client.sendMessage(Heartbeat(sender: Device.DASHBOARD, receiver: Device.SUBSYSTEMS));
+    client.sendMessage(
+      Heartbeat(sender: Device.DASHBOARD, receiver: Device.SUBSYSTEMS),
+      destination: destination,
+    );
     await Future<void>.delayed(heartbeatDelay);
     expect(receivedHeartbeat, false);
     await server.dispose();
