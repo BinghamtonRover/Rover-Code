@@ -1,6 +1,7 @@
 import "dart:typed_data";
 
 import "package:burt_network/burt_network.dart";
+import "package:libserialport/libserialport.dart" show SerialPortConfig;
 
 export "package:libserialport/libserialport.dart"
     show SerialPortDtr, SerialPortParity, SerialPortXonXoff;
@@ -13,6 +14,9 @@ abstract class SerialPortInterface extends Service {
 
   /// The baud rate to communicate with the Serial device.
   final int baudRate;
+
+  /// The number of data bits for the Serial port, see [SerialPortConfig.bits]
+  final int? bits;
 
   /// The parity configuration for the serial port, null if the default value should be used
   ///
@@ -36,6 +40,7 @@ abstract class SerialPortInterface extends Service {
   SerialPortInterface(
     this.portName, {
     this.baudRate = 9600,
+    this.bits,
     this.parity,
     this.stopBits,
     this.dtr,

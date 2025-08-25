@@ -34,6 +34,8 @@ class BurtFirmwareSerial extends Service {
          logger: logger,
          baudRate: baudRate,
          parity: SerialPortParity.none,
+         bits: 8,
+         stopBits: 1,
          dtr: SerialPortDtr.on,
          xonXoff: SerialPortXonXoff.disabled,
        );
