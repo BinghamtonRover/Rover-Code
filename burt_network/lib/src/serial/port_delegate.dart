@@ -15,6 +15,7 @@ class DelegateSerialPort extends SerialPortInterface {
   DelegateSerialPort(
     super.portName, {
     super.baudRate,
+    super.bits,
     super.parity,
     super.stopBits,
     super.dtr,
@@ -35,6 +36,9 @@ class DelegateSerialPort extends SerialPortInterface {
     // otherwise this will throw an OS level error
     if (config.parity != SerialPortParity.invalid && parity != null) {
       config.parity = parity!;
+    }
+    if (config.bits != -1 && bits != null) {
+      config.bits = bits!;
     }
     if (config.stopBits != -1 && stopBits != null) {
       config.stopBits = stopBits!;
