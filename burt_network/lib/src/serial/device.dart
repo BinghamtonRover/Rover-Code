@@ -34,6 +34,7 @@ class SerialDevice extends Service {
     required this.readInterval,
     required this.logger,
     int baudRate = 9600,
+    int? bits,
     int? parity,
     int? stopBits,
     int? dtr,
@@ -41,6 +42,7 @@ class SerialDevice extends Service {
   }) : _port = DelegateSerialPort(
          portName,
          baudRate: baudRate,
+         bits: bits,
          parity: parity,
          stopBits: stopBits,
          dtr: dtr,
