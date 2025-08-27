@@ -260,6 +260,98 @@ class DriveCommand extends $pb.GeneratedMessage {
   void clearBlink() => clearField(14);
 }
 
+class DriveMotorData extends $pb.GeneratedMessage {
+  factory DriveMotorData({
+    $core.double? speed,
+    $core.double? current,
+    $core.int? temperature,
+    MotorErrorCode? error,
+  }) {
+    final $result = create();
+    if (speed != null) {
+      $result.speed = speed;
+    }
+    if (current != null) {
+      $result.current = current;
+    }
+    if (temperature != null) {
+      $result.temperature = temperature;
+    }
+    if (error != null) {
+      $result.error = error;
+    }
+    return $result;
+  }
+  DriveMotorData._() : super();
+  factory DriveMotorData.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory DriveMotorData.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'DriveMotorData', createEmptyInstance: create)
+    ..a<$core.double>(1, _omitFieldNames ? '' : 'speed', $pb.PbFieldType.OF)
+    ..a<$core.double>(2, _omitFieldNames ? '' : 'current', $pb.PbFieldType.OF)
+    ..a<$core.int>(3, _omitFieldNames ? '' : 'temperature', $pb.PbFieldType.O3)
+    ..e<MotorErrorCode>(4, _omitFieldNames ? '' : 'error', $pb.PbFieldType.OE, defaultOrMaker: MotorErrorCode.NO_FAULT, valueOf: MotorErrorCode.valueOf, enumValues: MotorErrorCode.values)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  DriveMotorData clone() => DriveMotorData()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  DriveMotorData copyWith(void Function(DriveMotorData) updates) => super.copyWith((message) => updates(message as DriveMotorData)) as DriveMotorData;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static DriveMotorData create() => DriveMotorData._();
+  DriveMotorData createEmptyInstance() => create();
+  static $pb.PbList<DriveMotorData> createRepeated() => $pb.PbList<DriveMotorData>();
+  @$core.pragma('dart2js:noInline')
+  static DriveMotorData getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DriveMotorData>(create);
+  static DriveMotorData? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.double get speed => $_getN(0);
+  @$pb.TagNumber(1)
+  set speed($core.double v) { $_setFloat(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSpeed() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSpeed() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.double get current => $_getN(1);
+  @$pb.TagNumber(2)
+  set current($core.double v) { $_setFloat(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasCurrent() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearCurrent() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.int get temperature => $_getIZ(2);
+  @$pb.TagNumber(3)
+  set temperature($core.int v) { $_setSignedInt32(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasTemperature() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearTemperature() => clearField(3);
+
+  @$pb.TagNumber(4)
+  MotorErrorCode get error => $_getN(3);
+  @$pb.TagNumber(4)
+  set error(MotorErrorCode v) { setField(4, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasError() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearError() => clearField(4);
+}
+
 class DriveData extends $pb.GeneratedMessage {
   factory DriveData({
     $core.double? throttle,
@@ -276,14 +368,14 @@ class DriveData extends $pb.GeneratedMessage {
     $core.double? batteryCurrent,
     $core.double? batteryTemperature,
     $3.Version? version,
-    $core.double? backLeft,
-    $core.double? middleLeft,
-    $core.double? frontLeft,
-    $core.double? backRight,
-    $core.double? middleRight,
-    $core.double? frontRight,
     ProtoColor? color,
     $5.RoverStatus? status,
+    DriveMotorData? frontLeftMotor,
+    DriveMotorData? middleLeftMotor,
+    DriveMotorData? backLeftMotor,
+    DriveMotorData? frontRightMotor,
+    DriveMotorData? middleRightMotor,
+    DriveMotorData? backRightMotor,
   }) {
     final $result = create();
     if (throttle != null) {
@@ -328,29 +420,29 @@ class DriveData extends $pb.GeneratedMessage {
     if (version != null) {
       $result.version = version;
     }
-    if (backLeft != null) {
-      $result.backLeft = backLeft;
-    }
-    if (middleLeft != null) {
-      $result.middleLeft = middleLeft;
-    }
-    if (frontLeft != null) {
-      $result.frontLeft = frontLeft;
-    }
-    if (backRight != null) {
-      $result.backRight = backRight;
-    }
-    if (middleRight != null) {
-      $result.middleRight = middleRight;
-    }
-    if (frontRight != null) {
-      $result.frontRight = frontRight;
-    }
     if (color != null) {
       $result.color = color;
     }
     if (status != null) {
       $result.status = status;
+    }
+    if (frontLeftMotor != null) {
+      $result.frontLeftMotor = frontLeftMotor;
+    }
+    if (middleLeftMotor != null) {
+      $result.middleLeftMotor = middleLeftMotor;
+    }
+    if (backLeftMotor != null) {
+      $result.backLeftMotor = backLeftMotor;
+    }
+    if (frontRightMotor != null) {
+      $result.frontRightMotor = frontRightMotor;
+    }
+    if (middleRightMotor != null) {
+      $result.middleRightMotor = middleRightMotor;
+    }
+    if (backRightMotor != null) {
+      $result.backRightMotor = backRightMotor;
     }
     return $result;
   }
@@ -373,14 +465,14 @@ class DriveData extends $pb.GeneratedMessage {
     ..a<$core.double>(12, _omitFieldNames ? '' : 'batteryCurrent', $pb.PbFieldType.OF)
     ..a<$core.double>(13, _omitFieldNames ? '' : 'batteryTemperature', $pb.PbFieldType.OF)
     ..aOM<$3.Version>(14, _omitFieldNames ? '' : 'version', subBuilder: $3.Version.create)
-    ..a<$core.double>(15, _omitFieldNames ? '' : 'backLeft', $pb.PbFieldType.OF)
-    ..a<$core.double>(16, _omitFieldNames ? '' : 'middleLeft', $pb.PbFieldType.OF)
-    ..a<$core.double>(17, _omitFieldNames ? '' : 'frontLeft', $pb.PbFieldType.OF)
-    ..a<$core.double>(18, _omitFieldNames ? '' : 'backRight', $pb.PbFieldType.OF)
-    ..a<$core.double>(19, _omitFieldNames ? '' : 'middleRight', $pb.PbFieldType.OF)
-    ..a<$core.double>(20, _omitFieldNames ? '' : 'frontRight', $pb.PbFieldType.OF)
     ..e<ProtoColor>(21, _omitFieldNames ? '' : 'color', $pb.PbFieldType.OE, defaultOrMaker: ProtoColor.PROTO_COLOR_UNDEFINED, valueOf: ProtoColor.valueOf, enumValues: ProtoColor.values)
     ..e<$5.RoverStatus>(22, _omitFieldNames ? '' : 'status', $pb.PbFieldType.OE, defaultOrMaker: $5.RoverStatus.DISCONNECTED, valueOf: $5.RoverStatus.valueOf, enumValues: $5.RoverStatus.values)
+    ..aOM<DriveMotorData>(23, _omitFieldNames ? '' : 'frontLeftMotor', subBuilder: DriveMotorData.create)
+    ..aOM<DriveMotorData>(24, _omitFieldNames ? '' : 'middleLeftMotor', subBuilder: DriveMotorData.create)
+    ..aOM<DriveMotorData>(25, _omitFieldNames ? '' : 'backLeftMotor', subBuilder: DriveMotorData.create)
+    ..aOM<DriveMotorData>(26, _omitFieldNames ? '' : 'frontRightMotor', subBuilder: DriveMotorData.create)
+    ..aOM<DriveMotorData>(27, _omitFieldNames ? '' : 'middleRightMotor', subBuilder: DriveMotorData.create)
+    ..aOM<DriveMotorData>(28, _omitFieldNames ? '' : 'backRightMotor', subBuilder: DriveMotorData.create)
     ..hasRequiredFields = false
   ;
 
@@ -540,78 +632,90 @@ class DriveData extends $pb.GeneratedMessage {
   @$pb.TagNumber(14)
   $3.Version ensureVersion() => $_ensure(13);
 
-  /// Information about each wheel in rpm
-  @$pb.TagNumber(15)
-  $core.double get backLeft => $_getN(14);
-  @$pb.TagNumber(15)
-  set backLeft($core.double v) { $_setFloat(14, v); }
-  @$pb.TagNumber(15)
-  $core.bool hasBackLeft() => $_has(14);
-  @$pb.TagNumber(15)
-  void clearBackLeft() => clearField(15);
-
-  @$pb.TagNumber(16)
-  $core.double get middleLeft => $_getN(15);
-  @$pb.TagNumber(16)
-  set middleLeft($core.double v) { $_setFloat(15, v); }
-  @$pb.TagNumber(16)
-  $core.bool hasMiddleLeft() => $_has(15);
-  @$pb.TagNumber(16)
-  void clearMiddleLeft() => clearField(16);
-
-  @$pb.TagNumber(17)
-  $core.double get frontLeft => $_getN(16);
-  @$pb.TagNumber(17)
-  set frontLeft($core.double v) { $_setFloat(16, v); }
-  @$pb.TagNumber(17)
-  $core.bool hasFrontLeft() => $_has(16);
-  @$pb.TagNumber(17)
-  void clearFrontLeft() => clearField(17);
-
-  @$pb.TagNumber(18)
-  $core.double get backRight => $_getN(17);
-  @$pb.TagNumber(18)
-  set backRight($core.double v) { $_setFloat(17, v); }
-  @$pb.TagNumber(18)
-  $core.bool hasBackRight() => $_has(17);
-  @$pb.TagNumber(18)
-  void clearBackRight() => clearField(18);
-
-  @$pb.TagNumber(19)
-  $core.double get middleRight => $_getN(18);
-  @$pb.TagNumber(19)
-  set middleRight($core.double v) { $_setFloat(18, v); }
-  @$pb.TagNumber(19)
-  $core.bool hasMiddleRight() => $_has(18);
-  @$pb.TagNumber(19)
-  void clearMiddleRight() => clearField(19);
-
-  @$pb.TagNumber(20)
-  $core.double get frontRight => $_getN(19);
-  @$pb.TagNumber(20)
-  set frontRight($core.double v) { $_setFloat(19, v); }
-  @$pb.TagNumber(20)
-  $core.bool hasFrontRight() => $_has(19);
-  @$pb.TagNumber(20)
-  void clearFrontRight() => clearField(20);
-
   @$pb.TagNumber(21)
-  ProtoColor get color => $_getN(20);
+  ProtoColor get color => $_getN(14);
   @$pb.TagNumber(21)
   set color(ProtoColor v) { setField(21, v); }
   @$pb.TagNumber(21)
-  $core.bool hasColor() => $_has(20);
+  $core.bool hasColor() => $_has(14);
   @$pb.TagNumber(21)
   void clearColor() => clearField(21);
 
   @$pb.TagNumber(22)
-  $5.RoverStatus get status => $_getN(21);
+  $5.RoverStatus get status => $_getN(15);
   @$pb.TagNumber(22)
   set status($5.RoverStatus v) { setField(22, v); }
   @$pb.TagNumber(22)
-  $core.bool hasStatus() => $_has(21);
+  $core.bool hasStatus() => $_has(15);
   @$pb.TagNumber(22)
   void clearStatus() => clearField(22);
+
+  /// Contains the DriveMotorData for each corresponding motor
+  @$pb.TagNumber(23)
+  DriveMotorData get frontLeftMotor => $_getN(16);
+  @$pb.TagNumber(23)
+  set frontLeftMotor(DriveMotorData v) { setField(23, v); }
+  @$pb.TagNumber(23)
+  $core.bool hasFrontLeftMotor() => $_has(16);
+  @$pb.TagNumber(23)
+  void clearFrontLeftMotor() => clearField(23);
+  @$pb.TagNumber(23)
+  DriveMotorData ensureFrontLeftMotor() => $_ensure(16);
+
+  @$pb.TagNumber(24)
+  DriveMotorData get middleLeftMotor => $_getN(17);
+  @$pb.TagNumber(24)
+  set middleLeftMotor(DriveMotorData v) { setField(24, v); }
+  @$pb.TagNumber(24)
+  $core.bool hasMiddleLeftMotor() => $_has(17);
+  @$pb.TagNumber(24)
+  void clearMiddleLeftMotor() => clearField(24);
+  @$pb.TagNumber(24)
+  DriveMotorData ensureMiddleLeftMotor() => $_ensure(17);
+
+  @$pb.TagNumber(25)
+  DriveMotorData get backLeftMotor => $_getN(18);
+  @$pb.TagNumber(25)
+  set backLeftMotor(DriveMotorData v) { setField(25, v); }
+  @$pb.TagNumber(25)
+  $core.bool hasBackLeftMotor() => $_has(18);
+  @$pb.TagNumber(25)
+  void clearBackLeftMotor() => clearField(25);
+  @$pb.TagNumber(25)
+  DriveMotorData ensureBackLeftMotor() => $_ensure(18);
+
+  @$pb.TagNumber(26)
+  DriveMotorData get frontRightMotor => $_getN(19);
+  @$pb.TagNumber(26)
+  set frontRightMotor(DriveMotorData v) { setField(26, v); }
+  @$pb.TagNumber(26)
+  $core.bool hasFrontRightMotor() => $_has(19);
+  @$pb.TagNumber(26)
+  void clearFrontRightMotor() => clearField(26);
+  @$pb.TagNumber(26)
+  DriveMotorData ensureFrontRightMotor() => $_ensure(19);
+
+  @$pb.TagNumber(27)
+  DriveMotorData get middleRightMotor => $_getN(20);
+  @$pb.TagNumber(27)
+  set middleRightMotor(DriveMotorData v) { setField(27, v); }
+  @$pb.TagNumber(27)
+  $core.bool hasMiddleRightMotor() => $_has(20);
+  @$pb.TagNumber(27)
+  void clearMiddleRightMotor() => clearField(27);
+  @$pb.TagNumber(27)
+  DriveMotorData ensureMiddleRightMotor() => $_ensure(20);
+
+  @$pb.TagNumber(28)
+  DriveMotorData get backRightMotor => $_getN(21);
+  @$pb.TagNumber(28)
+  set backRightMotor(DriveMotorData v) { setField(28, v); }
+  @$pb.TagNumber(28)
+  $core.bool hasBackRightMotor() => $_has(21);
+  @$pb.TagNumber(28)
+  void clearBackRightMotor() => clearField(28);
+  @$pb.TagNumber(28)
+  DriveMotorData ensureBackRightMotor() => $_ensure(21);
 }
 
 
