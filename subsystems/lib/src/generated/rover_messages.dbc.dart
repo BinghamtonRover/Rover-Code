@@ -1507,7 +1507,7 @@ class DriveMotorDataMessage extends $_dbc.DBCMessage {
   String messageName = 'Drive_Motor_Data';
 
   @override
-  int messageLength = 8;
+  int messageLength = 6;
 
   @override
   int canId = 0x19;
@@ -1521,17 +1521,17 @@ class DriveMotorDataMessage extends $_dbc.DBCMessage {
   /// Value of signal "Motor_Value"
   num motorValue;
 
-  /// Value of signal "Motor_Position"
-  num motorPosition;
+  /// Value of signal "Speed"
+  num speed;
 
-  /// Value of signal "Motor_Speed"
-  num motorSpeed;
+  /// Value of signal "Current"
+  num current;
 
-  /// Value of signal "Motor_Current"
-  num motorCurrent;
+  /// Value of signal "Temperature"
+  num temperature;
 
-  /// Value of signal "Motor_Temperature"
-  num motorTemperature;
+  /// Value of signal "Error_Code"
+  num errorCode;
 
   final $_dbc.DBCSignal _motorValueSignal = $_dbc.DBCSignal(
     name: 'Motor_Value',
@@ -1541,7 +1541,7 @@ class DriveMotorDataMessage extends $_dbc.DBCMessage {
     multiplexGroup: -1,
     start: 0,
     length: 3,
-    mapping: [1, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    mapping: [1, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     mappingIndexes: [0, 1, 2],
     factor: 1,
     offset: 0,
@@ -1550,33 +1550,16 @@ class DriveMotorDataMessage extends $_dbc.DBCMessage {
     unit: '',
   );
 
-  final $_dbc.DBCSignal _motorPositionSignal = $_dbc.DBCSignal(
-    name: 'Motor_Position',
+  final $_dbc.DBCSignal _speedSignal = $_dbc.DBCSignal(
+    name: 'Speed',
     signalSignedness: $_dbc.DBCSignalSignedness.SIGNED,
     signalType: $_dbc.DBCSignalType.INTEL,
     signalMode: $_dbc.DBCSignalMode.SIGNAL,
     multiplexGroup: -1,
     start: 3,
     length: 16,
-    mapping: [0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    mapping: [0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     mappingIndexes: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
-    factor: 0.1,
-    offset: 0,
-    min: -3200,
-    max: 3200,
-    unit: '°',
-  );
-
-  final $_dbc.DBCSignal _motorSpeedSignal = $_dbc.DBCSignal(
-    name: 'Motor_Speed',
-    signalSignedness: $_dbc.DBCSignalSignedness.SIGNED,
-    signalType: $_dbc.DBCSignalType.INTEL,
-    signalMode: $_dbc.DBCSignalMode.SIGNAL,
-    multiplexGroup: -1,
-    start: 19,
-    length: 16,
-    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    mappingIndexes: [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34],
     factor: 10,
     offset: 0,
     min: -320000,
@@ -1584,16 +1567,16 @@ class DriveMotorDataMessage extends $_dbc.DBCMessage {
     unit: 'RPM',
   );
 
-  final $_dbc.DBCSignal _motorCurrentSignal = $_dbc.DBCSignal(
-    name: 'Motor_Current',
+  final $_dbc.DBCSignal _currentSignal = $_dbc.DBCSignal(
+    name: 'Current',
     signalSignedness: $_dbc.DBCSignalSignedness.SIGNED,
     signalType: $_dbc.DBCSignalType.INTEL,
     signalMode: $_dbc.DBCSignalMode.SIGNAL,
     multiplexGroup: -1,
-    start: 35,
+    start: 19,
     length: 16,
-    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    mappingIndexes: [35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50],
+    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    mappingIndexes: [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34],
     factor: 0.01,
     offset: 0,
     min: -60,
@@ -1601,16 +1584,16 @@ class DriveMotorDataMessage extends $_dbc.DBCMessage {
     unit: 'A',
   );
 
-  final $_dbc.DBCSignal _motorTemperatureSignal = $_dbc.DBCSignal(
-    name: 'Motor_Temperature',
+  final $_dbc.DBCSignal _temperatureSignal = $_dbc.DBCSignal(
+    name: 'Temperature',
     signalSignedness: $_dbc.DBCSignalSignedness.SIGNED,
     signalType: $_dbc.DBCSignalType.INTEL,
     signalMode: $_dbc.DBCSignalMode.SIGNAL,
     multiplexGroup: -1,
-    start: 51,
+    start: 35,
     length: 8,
-    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 0, 0, 0, 0, 0],
-    mappingIndexes: [51, 52, 53, 54, 55, 56, 57, 58],
+    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 0, 0, 0, 0, 0],
+    mappingIndexes: [35, 36, 37, 38, 39, 40, 41, 42],
     factor: 1,
     offset: 0,
     min: -20,
@@ -1618,36 +1601,53 @@ class DriveMotorDataMessage extends $_dbc.DBCMessage {
     unit: '°C',
   );
 
+  final $_dbc.DBCSignal _errorCodeSignal = $_dbc.DBCSignal(
+    name: 'Error_Code',
+    signalSignedness: $_dbc.DBCSignalSignedness.UNSIGNED,
+    signalType: $_dbc.DBCSignalType.INTEL,
+    signalMode: $_dbc.DBCSignalMode.SIGNAL,
+    multiplexGroup: -1,
+    start: 43,
+    length: 3,
+    mapping: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 0, 0],
+    mappingIndexes: [43, 44, 45],
+    factor: 1,
+    offset: 0,
+    min: 0,
+    max: 7,
+    unit: '',
+  );
+
   @override
   List<$_dbc.DBCSignal> get signals => [
     _motorValueSignal,
-    _motorPositionSignal,
-    _motorSpeedSignal,
-    _motorCurrentSignal,
-    _motorTemperatureSignal,
+    _speedSignal,
+    _currentSignal,
+    _temperatureSignal,
+    _errorCodeSignal,
   ];
 
   DriveMotorDataMessage({
     this.motorValue = 0,
-    this.motorPosition = 0,
-    this.motorSpeed = 0,
-    this.motorCurrent = 0,
-    this.motorTemperature = 0,
+    this.speed = 0,
+    this.current = 0,
+    this.temperature = 0,
+    this.errorCode = 0,
   });
 
   /// Creates a clone of this [DriveMotorDataMessage] with the non-null values replaced
   DriveMotorDataMessage copyWith({
     num? motorValue,
-    num? motorPosition,
-    num? motorSpeed,
-    num? motorCurrent,
-    num? motorTemperature,
+    num? speed,
+    num? current,
+    num? temperature,
+    num? errorCode,
   }) => DriveMotorDataMessage(
     motorValue: motorValue ?? this.motorValue,
-    motorPosition: motorPosition ?? this.motorPosition,
-    motorSpeed: motorSpeed ?? this.motorSpeed,
-    motorCurrent: motorCurrent ?? this.motorCurrent,
-    motorTemperature: motorTemperature ?? this.motorTemperature,
+    speed: speed ?? this.speed,
+    current: current ?? this.current,
+    temperature: temperature ?? this.temperature,
+    errorCode: errorCode ?? this.errorCode,
   );
 
   factory DriveMotorDataMessage.decode(List<int> payload) {
@@ -1658,18 +1658,18 @@ class DriveMotorDataMessage extends $_dbc.DBCMessage {
     message.motorValue =
         message._motorValueSignal.decode(bitField) ??
         $_math.max(0, message._motorValueSignal.min);
-    message.motorPosition =
-        message._motorPositionSignal.decode(bitField) ??
-        $_math.max(0, message._motorPositionSignal.min);
-    message.motorSpeed =
-        message._motorSpeedSignal.decode(bitField) ??
-        $_math.max(0, message._motorSpeedSignal.min);
-    message.motorCurrent =
-        message._motorCurrentSignal.decode(bitField) ??
-        $_math.max(0, message._motorCurrentSignal.min);
-    message.motorTemperature =
-        message._motorTemperatureSignal.decode(bitField) ??
-        $_math.max(0, message._motorTemperatureSignal.min);
+    message.speed =
+        message._speedSignal.decode(bitField) ??
+        $_math.max(0, message._speedSignal.min);
+    message.current =
+        message._currentSignal.decode(bitField) ??
+        $_math.max(0, message._currentSignal.min);
+    message.temperature =
+        message._temperatureSignal.decode(bitField) ??
+        $_math.max(0, message._temperatureSignal.min);
+    message.errorCode =
+        message._errorCodeSignal.decode(bitField) ??
+        $_math.max(0, message._errorCodeSignal.min);
 
     return message;
   }
@@ -1677,20 +1677,20 @@ class DriveMotorDataMessage extends $_dbc.DBCMessage {
   factory DriveMotorDataMessage.fromJson(Map<String, dynamic> json) =>
       DriveMotorDataMessage(
         motorValue: json['Motor_Value'] ?? 0,
-        motorPosition: json['Motor_Position'] ?? 0,
-        motorSpeed: json['Motor_Speed'] ?? 0,
-        motorCurrent: json['Motor_Current'] ?? 0,
-        motorTemperature: json['Motor_Temperature'] ?? 0,
+        speed: json['Speed'] ?? 0,
+        current: json['Current'] ?? 0,
+        temperature: json['Temperature'] ?? 0,
+        errorCode: json['Error_Code'] ?? 0,
       );
 
   @override
   $_typed.Uint8List encode() {
     final Map<$_dbc.DBCSignal, num> values = {
       _motorValueSignal: motorValue,
-      _motorPositionSignal: motorPosition,
-      _motorSpeedSignal: motorSpeed,
-      _motorCurrentSignal: motorCurrent,
-      _motorTemperatureSignal: motorTemperature,
+      _speedSignal: speed,
+      _currentSignal: current,
+      _temperatureSignal: temperature,
+      _errorCodeSignal: errorCode,
     };
 
     return encodeWithValues(values);
@@ -1699,15 +1699,15 @@ class DriveMotorDataMessage extends $_dbc.DBCMessage {
   @override
   Map<String, dynamic> toJson() => {
     'Motor_Value': motorValue,
-    'Motor_Position': motorPosition,
-    'Motor_Speed': motorSpeed,
-    'Motor_Current': motorCurrent,
-    'Motor_Temperature': motorTemperature,
+    'Speed': speed,
+    'Current': current,
+    'Temperature': temperature,
+    'Error_Code': errorCode,
   };
 
   @override
   String toString() {
-    return 'Drive_Motor_Data(\n  Motor_Value=$motorValue\n  Motor_Position=$motorPosition\n  Motor_Speed=$motorSpeed\n  Motor_Current=$motorCurrent\n  Motor_Temperature=$motorTemperature\n)';
+    return 'Drive_Motor_Data(\n  Motor_Value=$motorValue\n  Speed=$speed\n  Current=$current\n  Temperature=$temperature\n  Error_Code=$errorCode\n)';
   }
 }
 

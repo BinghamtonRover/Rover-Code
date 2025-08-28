@@ -57,6 +57,39 @@ extension DriveSwivelToProto on DriveSwivelDataMessage {
   );
 }
 
+/// Utility extension to convert a [DriveMotorDataMessage] into a [DriveData] message
+extension DriveMotorToProto on DriveMotorDataMessage {
+  /// The drive motor data as a [DriveMotorData] message
+  DriveMotorData toMotorData() => DriveMotorData(
+    speed: speed.toDouble(),
+    current: current.toDouble(),
+    temperature: temperature.toInt(),
+    error: MotorErrorCode.valueOf(errorCode.toInt()),
+  );
+
+  /// The drive motor data as a [DriveData] message
+  DriveData toDriveProto() {
+    final data = DriveData();
+    final motorData = toMotorData();
+
+    if (motorValue == DriveMotor.FRONT_LEFT.value) {
+      data.frontLeftMotor = motorData;
+    } else if (motorValue == DriveMotor.MIDDLE_LEFT.value) {
+      data.middleLeftMotor = motorData;
+    } else if (motorValue == DriveMotor.BACK_LEFT.value) {
+      data.backLeftMotor = motorData;
+    } else if (motorValue == DriveMotor.FRONT_RIGHT.value) {
+      data.frontRightMotor = motorData;
+    } else if (motorValue == DriveMotor.MIDDLE_RIGHT.value) {
+      data.middleRightMotor = motorData;
+    } else if (motorValue == DriveMotor.BACK_RIGHT.value) {
+      data.backRightMotor = motorData;
+    }
+
+    return data;
+  }
+}
+
 /// Utility extension to convert a [DriveCommand] message into its respective [DBCMessage]
 extension DriveCommandToDBC on DriveCommand {
   /// The drive command as a [DriveSetSpeedsMessage] DBC message
