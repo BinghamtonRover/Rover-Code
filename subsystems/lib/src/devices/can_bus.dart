@@ -28,6 +28,8 @@ final Map<int, Message Function(List<int> data)> canIDToMessage = {
       DriveLedDataMessage.decode(data).toDriveProto(),
   DriveSwivelDataMessage().canId: (data) =>
       DriveSwivelDataMessage.decode(data).toDriveProto(),
+  DriveMotorDataMessage().canId: (data) =>
+      DriveMotorDataMessage.decode(data).toDriveProto(),
   RelayStateDataMessage().canId: (data) =>
       RelayStateDataMessage.decode(data).toRelayProto(),
   ArmMotorMoveDataMessage().canId: (data) =>
@@ -50,15 +52,15 @@ extension on DeviceBroadcastMessage {
   Message toScienceProto() => ScienceData(version: version);
 
   Message? toProtoMessage() {
-    if (deviceValue.toInt() == Device.DRIVE.value) {
+    if (deviceValue == Device.DRIVE.value) {
       return toDriveProto();
-    } else if (deviceValue.toInt() == Device.RELAY.value) {
+    } else if (deviceValue == Device.RELAY.value) {
       return toRelayProto();
-    } else if (deviceValue.toInt() == Device.ARM.value) {
+    } else if (deviceValue == Device.ARM.value) {
       return toArmProto();
-    } else if (deviceValue.toInt() == Device.GRIPPER.value) {
+    } else if (deviceValue == Device.GRIPPER.value) {
       return toGripperProto();
-    } else if (deviceValue.toInt() == Device.SCIENCE.value) {
+    } else if (deviceValue == Device.SCIENCE.value) {
       return toScienceProto();
     }
     return null;
@@ -157,8 +159,12 @@ class CanBus extends Service {
     _sendHeartbeatTimer?.cancel();
     _checkHeartbeatsTimer?.cancel();
 
+    _heartbeatSendSuccessful = false;
+
     await socket?.close();
     socket = null;
+
+    device = null;
 
     await _frameSubscription?.cancel();
 
@@ -360,7 +366,9 @@ class CanBus extends Service {
         } else if (canIDToMessage.containsKey(id)) {
           collection.server.sendMessage(canIDToMessage[id]!.call(data));
         } else {
-          logger.warning("Received message with unmapped ID: $id");
+          logger.warning(
+            "Received message with unmapped ID: 0x${id.toRadixString(16).padLeft(2, '0')}",
+          );
         }
       case CanRemoteFrame _:
         break;
