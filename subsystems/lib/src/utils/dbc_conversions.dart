@@ -20,9 +20,9 @@ extension BoolStateToInt on BoolState {
 extension DriveAppliedOutputToProto on DriveAppliedOutputDataMessage {
   /// The applied output DBC message as a [DriveData] message
   DriveData toDriveProto() => DriveData(
-    throttle: throttle.toDouble(),
-    left: leftSpeed.toDouble(),
-    right: rightSpeed.toDouble(),
+    throttle: throttle,
+    left: leftSpeed,
+    right: rightSpeed,
     setLeft: true,
     setRight: true,
     setThrottle: true,
@@ -33,9 +33,9 @@ extension DriveAppliedOutputToProto on DriveAppliedOutputDataMessage {
 extension DriveBatteryToProto on DriveBatteryDataMessage {
   /// The battery DBC message as a [DriveData] message
   DriveData toDriveProto() => DriveData(
-    batteryVoltage: voltage.toDouble(),
-    batteryTemperature: temperature.toDouble(),
-    batteryCurrent: current.toDouble(),
+    batteryVoltage: voltage,
+    batteryTemperature: temperature,
+    batteryCurrent: current,
   );
 }
 
@@ -43,17 +43,17 @@ extension DriveBatteryToProto on DriveBatteryDataMessage {
 extension DriveLedToProto on DriveLedDataMessage {
   /// The led DBC message as a [DriveData] message
   DriveData toDriveProto() =>
-      DriveData(color: ProtoColor.valueOf(color.toInt()));
+      DriveData(color: ProtoColor.valueOf(color));
 }
 
 /// Utility extension to convert a [DriveSwivelDataMessage] into a [DriveData] message
 extension DriveSwivelToProto on DriveSwivelDataMessage {
   /// The swivel DBC message as a [DriveData] message
   DriveData toDriveProto() => DriveData(
-    frontSwivel: frontSwivel.toDouble(),
-    frontTilt: frontTilt.toDouble(),
-    rearSwivel: rearSwivel.toDouble(),
-    rearTilt: rearTilt.toDouble(),
+    frontSwivel: frontSwivel,
+    frontTilt: frontTilt,
+    rearSwivel: rearSwivel,
+    rearTilt: rearTilt,
   );
 }
 
@@ -61,10 +61,10 @@ extension DriveSwivelToProto on DriveSwivelDataMessage {
 extension DriveMotorToProto on DriveMotorDataMessage {
   /// The drive motor data as a [DriveMotorData] message
   DriveMotorData toMotorData() => DriveMotorData(
-    speed: speed.toDouble(),
-    current: current.toDouble(),
-    temperature: temperature.toInt(),
-    error: MotorErrorCode.valueOf(errorCode.toInt()),
+    speed: speed,
+    current: current,
+    temperature: temperature,
+    error: MotorErrorCode.valueOf(errorCode),
   );
 
   /// The drive motor data as a [DriveData] message
@@ -165,9 +165,9 @@ extension RelaysCommandToDBC on RelaysCommand {
 extension ArmMotorMoveToProto on ArmMotorMoveDataMessage {
   /// The arm motor move data as a [MotorData] message
   MotorData toMotorData() => MotorData(
-    isMoving: BoolState.valueOf(isMoving.toInt()),
-    isLimitSwitchPressed: BoolState.valueOf(isLimitSwitchPressed.toInt()),
-    direction: MotorDirection.valueOf(motorDirection.toInt()),
+    isMoving: BoolState.valueOf(isMoving),
+    isLimitSwitchPressed: BoolState.valueOf(isLimitSwitchPressed),
+    direction: MotorDirection.valueOf(motorDirection),
   );
 
   /// The arm motor move data as an [ArmData] message
@@ -190,8 +190,8 @@ extension ArmMotorMoveToProto on ArmMotorMoveDataMessage {
 extension ArmMotorStepToProto on ArmMotorStepDataMessage {
   /// The motor steps DBC message as a [MotorData] message
   MotorData toMotorData() => MotorData(
-    currentStep: currentStep.toInt(),
-    targetStep: targetStep.toInt(),
+    currentStep: currentStep,
+    targetStep: targetStep,
   );
 
   /// The motor steps DBC message as a [MotorData] message
@@ -214,8 +214,8 @@ extension ArmMotorStepToProto on ArmMotorStepDataMessage {
 extension ArmMotorAngleToProto on ArmMotorAngleDataMessage {
   /// The motor angle DBC message as a [MotorData] message
   MotorData toMotorData() => MotorData(
-    currentAngle: currentAngle.toDouble(),
-    targetAngle: targetAngle.toDouble(),
+    currentAngle: currentAngle,
+    targetAngle: targetAngle,
   );
 
   /// The motor angle DBC message as an [ArmData] message

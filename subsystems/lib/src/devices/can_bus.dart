@@ -66,8 +66,7 @@ extension on DeviceBroadcastMessage {
     return null;
   }
 
-  Version get version =>
-      Version(major: fwVersionMajor.toInt(), minor: fwVersionMinor.toInt());
+  Version get version => Version(major: fwVersionMajor, minor: fwVersionMinor);
 }
 
 /// A service to forward messages between CAN and UDP
@@ -339,11 +338,11 @@ class CanBus extends Service {
   }
 
   void _handleDeviceBroadcast(DeviceBroadcastMessage broadcast) {
-    final device = Device.valueOf(broadcast.deviceValue.toInt());
+    final device = Device.valueOf(broadcast.deviceValue);
     if (device == null) {
       logger.warning(
         "Unknown Device Number",
-        body: "Received broadcast from device ${broadcast.deviceValue.toInt()}",
+        body: "Received broadcast from device ${broadcast.deviceValue}",
       );
       return;
     }
