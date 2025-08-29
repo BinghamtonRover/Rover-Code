@@ -18,6 +18,8 @@ import 'motor.pb.dart' as $2;
 import 'utils.pbenum.dart' as $0;
 import 'version.pb.dart' as $3;
 
+export 'arm.pbenum.dart';
+
 class ArmData extends $pb.GeneratedMessage {
   factory ArmData({
     $1.Coordinates? currentPosition,
