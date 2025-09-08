@@ -360,10 +360,10 @@ class CanBus extends Service {
   void _onCanFrame(CanFrame frame) {
     switch (frame) {
       case CanDataFrame(:final id, :final data):
-        if (id == DeviceBroadcastMessage().canId) {
-          _handleDeviceBroadcast(DeviceBroadcastMessage.decode(data));
-        } else if (canIDToMessage.containsKey(id)) {
+        if (canIDToMessage.containsKey(id)) {
           collection.server.sendMessage(canIDToMessage[id]!.call(data));
+        } else if (id != 0 && id & 0x0FF == DeviceBroadcastMessage().canId) {
+          _handleDeviceBroadcast(DeviceBroadcastMessage.decode(data));
         } else {
           logger.warning(
             "Received message with unmapped ID: 0x${id.toRadixString(16).padLeft(2, '0')}",
