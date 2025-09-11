@@ -1,7 +1,7 @@
 import "dart:ffi";
 
 import "package:burt_network/burt_network.dart";
-import "package:dartcv4/dartcv.dart";
+import "package:dartcv4/dartcv.dart" hide LogLevel;
 import "package:video/video.dart";
 
 /// A payload containing some data to report back to the parent isolate.

@@ -13,7 +13,7 @@ dependencies:
   typed_isolate: ^6.0.0
   ffi: ^2.1.0
   protobuf: ^3.1.0
-  dartcv4: ^1.1.4
+  dartcv4: ^1.1.8
 
 dev_dependencies:
   ffigen: ^19.1.0

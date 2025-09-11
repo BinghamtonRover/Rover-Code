@@ -9,7 +9,7 @@ import "package:burt_network/burt_network.dart";
 import "../osc.dart";
 
 /// The serial port that the IMU is connected to.
-const imuPort = "/dev/rover-imu";
+const imuPort = "/dev/rover_imu";
 
 /// The version that we are using for [RoverPosition] data.
 final positionVersion = Version(major: 1, minor: 0);
