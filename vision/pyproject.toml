@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "arguably",
     "asyncio>=3.4.3",
     "opencv-python>=4.11.0.86",
     "opencv-python-headless>=4.11.0.86",

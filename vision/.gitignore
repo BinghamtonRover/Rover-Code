@@ -3,3 +3,7 @@ __pycache__
 .env
 runs/
 *.cache
+*.pt
+*_dataset/
+*cache*
+uv.lock
