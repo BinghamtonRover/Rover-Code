@@ -56,7 +56,9 @@ def test(
     server_port: int = 8006,
     source_port: int = 8007,
     recv_port: int = 8002,
-    stream: str = "cam"
+    stream: str = "cam",
+    image_size: int = 640,
+    jpg_quality: int = 60,
 ):
     """Send frames from a video stream to the server
 
@@ -66,8 +68,10 @@ def test(
         source_port: local port to send from
         recv_port: port to listen on for server's responses
         stream: the video stream from which frames are sent to the server ("cam" | "screen")
+        image_size: resize frames to this size before sending (px)
+        jpg_quality: JPEG compression quality (1-100)
     """
-    def handle_frame(self, data):
+    def handle_frame(data):
         import cv2
         import numpy as np
 
@@ -85,6 +89,7 @@ def test(
         from lib.network import UdpSocket
         from lib.network.generated import VideoData, Device
         from lib.video_stream import VideoStream, WebcamStream, ScreenStream
+        import cv2
 
         v_stream: VideoStream = None
 
@@ -104,16 +109,26 @@ def test(
         # listen for sent back frames
         socket.listen("VideoData", VideoData, handle_frame)
 
-
         while True:
             await asyncio.sleep(1.0/120)
             frame = v_stream.get_cv_frame()
-            if not frame:
+            if frame is None:
                 print(f"Failed to get frame from video stream {stream}")
                 continue
             
+            frame_resized = cv2.resize(frame, (image_size, image_size))
+            
+            success, jpg = cv2.imencode(
+                '.jpg', frame_resized, [cv2.IMWRITE_JPEG_QUALITY, jpg_quality]
+            )
+            if not success:
+                print("Failed to encode frame as JPEG")
+                continue
+            
             message: VideoData = VideoData()
-            message.frame = frame
+            message.frame = bytes(jpg)
+
+            cv2.waitKey(1)
 
             socket.send_message(message, (server_host, server_port))
 
