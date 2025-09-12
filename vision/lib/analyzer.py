@@ -15,21 +15,21 @@ class ImageAnalyzer:
 
         self.model = YOLO(load_from, task="detect")
 
-    def has_mallet(self, frame: cv2.Mat, confidence=0.80) -> bool:
+    def has_mallet(self, frame: cv2.Mat, confidence=0.80) -> tuple[bool, float]:
         results = self.model.predict(frame, stream=True, verbose=False)
         for result in results:
             json = result.summary()
             if not json:
-                return False
+                return False, 0.0
             object = json[0]
-            is_mallet = ("mallet" in object["name"].lower()) and object[
-                "confidence"
-            ] > confidence
-            print("Confidence: " + str(object["confidence"]))
+            obj_confidence = object["confidence"]
+            is_mallet = ("mallet" in object["name"].lower()) and obj_confidence > confidence
             if is_mallet:
-                return True
+                return True, obj_confidence
+            else:
+                return False, obj_confidence
         else:
-            return False
+            return False, 0.0
 
     def annotateImage(self, frame: cv2.Mat, confidence=0.80) -> cv2.Mat:
         results = self.model.predict(frame, stream=True, verbose=False)
