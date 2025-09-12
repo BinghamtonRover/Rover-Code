@@ -41,6 +41,9 @@ class Device {
   /// The interface this device has, if known.
   final String? interface;
 
+  /// The serial number of the device, if it has one
+  final String? serialNumber;
+
   /// The index of this device, if known.
   final int? index;
 
@@ -54,5 +57,6 @@ class Device {
     this.index,
     this.port,
     this.interface,
+    this.serialNumber,
   });
 }
