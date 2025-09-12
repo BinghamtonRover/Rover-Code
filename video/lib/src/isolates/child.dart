@@ -3,7 +3,7 @@ import "dart:convert";
 import "dart:io";
 
 import "package:burt_network/burt_network.dart";
-import "package:dartcv4/dartcv.dart";
+import "package:dartcv4/dartcv.dart" hide LogLevel;
 import "package:typed_isolate/typed_isolate.dart";
 import "package:video/video.dart";
 

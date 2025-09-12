@@ -40,6 +40,7 @@ extension UdevGenerator on Device {
     if (product != null) buffer.write('ATTRS{product}=="$product", ');
     if (port != null) buffer.write('KERNELS=="$port", ');
     if (interface != null) buffer.write('ATTRS{interface}=="$interface", ');
+    if (serialNumber != null) buffer.write('ATTRS{serial}=="$serialNumber", ');
     buffer.writeln('ENV{$varName}="t"');
 
     // Line 2 generates the symlink for the device

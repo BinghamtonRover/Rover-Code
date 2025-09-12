@@ -7,7 +7,7 @@ import "package:burt_network/burt_network.dart";
 import "package:subsystems/subsystems.dart";
 
 /// The port/device file to listen to the GPS on.
-const gpsPort = "/dev/rover-gps";
+const gpsPort = "/dev/rover_gps";
 
 /// The UDP socket on the Autonomy program.
 final autonomySocket = SocketInfo(
