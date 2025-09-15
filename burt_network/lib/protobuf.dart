@@ -44,7 +44,7 @@ extension MessageUtils on Message {
   WrappedMessage wrap([DateTime? timestamp]) => WrappedMessage(
     data: writeToBuffer(),
     name: messageName,
-    timestamp: Timestamp.fromDateTime(timestamp ?? DateTime.now()),
+    timestamp: Timestamp.fromDateTime(timestamp ?? DateTime.timestamp()),
   );
 }
 

@@ -11,11 +11,11 @@ final destination = SocketInfo(
 );
 
 void main() async {
-  final client = UdpSocket(port: 8000, destination: destination);
+  final client = UdpSocket(port: 8000);
 	await client.init();
 	final message = ScienceData(temperature: 1, co2: 2);
   while (true) {
-    client.sendMessage(message);
+    client.sendMessage(message, destination: destination);
     await Future<void>.delayed(const Duration(seconds: 1));
   }
 }
