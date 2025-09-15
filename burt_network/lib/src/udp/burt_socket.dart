@@ -28,7 +28,6 @@ typedef NetworkSettings = UpdateSetting;
 /// This class also filters incoming messages to handle special types of messages:
 /// - Override [onHeartbeat] to handle [Heartbeat] messages
 /// - Override [onSettings] to handle [NetworkSettings] messages
-/// - Override [onTimesync] to handle [Timesync] messages
 ///
 /// To ensure connectedness, even over UDP, we send [Heartbeat] messages periodically. Override
 /// [checkHeartbeats] and [heartbeatInterval] to send or wait for heartbeats, and set [isConnected]
@@ -45,7 +44,7 @@ abstract class BurtSocket extends UdpSocket {
   /// Used to properly respond to heartbeats and for thorough logging.
   final Device device;
 
-  /// The destinations this socket will send to.
+  /// The destinations this socket will send to by default.
   ///
   /// All the `send` functions allow you to send to a specific [SocketInfo]. This field
   /// is the default destinations it will send to if those parameters are omitted.
@@ -71,31 +70,7 @@ abstract class BurtSocket extends UdpSocket {
   /// to them.
   final int maxClients;
 
-  /// The address and port of the timesync server.
-  ///
-  /// If this socket is configured to send timesync messages, the [Timesync] message
-  /// will be sent to a socket with the specified IP address and port.
-  ///
-  /// If the Socket Info's IP address is [InternetAddress.anyIPv4], it will be sent to
-  /// [InternetAddress.loopbackIPv4]
-  ///
-  /// By default, the address is [InternetAddress.loopbackIPv4], on port 8020
-  SocketInfo get timesyncDestination {
-    final address = _timesyncDestination.address != InternetAddress.anyIPv4
-        ? _timesyncDestination.address
-        : InternetAddress.loopbackIPv4;
-
-    return SocketInfo(address: address, port: _timesyncDestination.port);
-  }
-
-  set timesyncDestination(SocketInfo destination) {
-    _timesyncDestination = destination;
-  }
-
-  late SocketInfo _timesyncDestination;
-
   Timer? _heartbeatTimer;
-  Timer? _timesyncTimer;
 
   StreamSubscription<Datagram?>? _subscription;
 
@@ -118,15 +93,15 @@ abstract class BurtSocket extends UdpSocket {
   }) : assert(
          destinations == null || destination == null,
          "Either destinations or destination must be null. Cannot initialize a singular and multiple destinations at the same time",
-       ),
-       _timesyncDestination =
-           timesyncAddress ??
-           SocketInfo(address: InternetAddress.loopbackIPv4, port: 8020) {
+       ) {
     if (destinations != null) {
       this.destinations.addAll(destinations);
     }
     if (destination != null) {
       this.destinations.add(destination);
+    }
+    if (this is RoverTimesync && timesyncAddress != null) {
+      (this as RoverTimesync).timesyncDestination = timesyncAddress;
     }
   }
 
@@ -139,9 +114,6 @@ abstract class BurtSocket extends UdpSocket {
     await super.init();
     _subscription = stream.listen(_onPacket);
     _heartbeatTimer = Timer.periodic(heartbeatInterval, (_) => checkHeartbeats());
-    if (shouldSendTimesync) {
-      _timesyncTimer = Timer.periodic(const Duration(seconds: 1), (_) => sendTimesync());
-    }
     return true;
   }
 
@@ -149,7 +121,6 @@ abstract class BurtSocket extends UdpSocket {
   Future<void> dispose() async {
     await _subscription?.cancel();
     _heartbeatTimer?.cancel();
-    _timesyncTimer?.cancel();
     if (!keepDestination) {
       destinations.clear();
     }
@@ -211,14 +182,10 @@ abstract class BurtSocket extends UdpSocket {
   }
 
   void _onPacket(Datagram packet) {
-    final receiveTime = DateTime.timestamp();
     final wrapper = packet.parseWrapper();
     if (wrapper.name == Connect().messageName) {
       final heartbeat = Connect.fromBuffer(wrapper.data);
       onHeartbeat(heartbeat, packet.source);
-    } else if (wrapper.name == Timesync().messageName) {
-      final timesync = Timesync.fromBuffer(wrapper.data);
-      onTimesync(timesync, wrapper.timestamp, receiveTime, packet.source);
     } else if (wrapper.name == UpdateSetting().messageName) {
       final settings = UpdateSetting.fromBuffer(wrapper.data);
       onSettings(settings);
@@ -234,18 +201,6 @@ abstract class BurtSocket extends UdpSocket {
   /// the current [destinations] to properly handle the heartbeat.
   void onHeartbeat(Heartbeat heartbeat, SocketInfo source);
 
-  /// Handle an incoming Timesync message from a given source.
-  ///
-  /// The message's send time, server receive time, and client receive
-  /// time will be used to calculate the estimated time offset between
-  /// the socket and timesync server
-  void onTimesync(
-    Timesync timesync,
-    Timestamp serverReceiveTime,
-    DateTime clientReceiveTime,
-    SocketInfo source,
-  ) {}
-
   /// Handle an incoming request to change network settings.
   ///
   /// Be sure to echo the message back using [sendMessage], to confirm receipt.
@@ -257,32 +212,12 @@ abstract class BurtSocket extends UdpSocket {
   /// Whether the device on the other end is connected.
   bool get isConnected;
 
-  /// Whether or not this socket should be sending timesync events to its destination
-  /// If true, it will periodically send timesync events to a destination timesync server.
-  ///
-  /// This serves a separate function than heartbeats. Heartbeats are used solely to
-  /// keep up the connection, wheras timesync is used to ensure that the dashboard and
-  /// rover are on the same time scale, allowing message timestamps to be consistent
-  /// regardless of where they are sent to or from.
-  bool get shouldSendTimesync => false;
-
   /// The current time of the socket.
   /// This timestamp is used as the default timestamp when sending a message.
   DateTime get timestamp => DateTime.timestamp();
 
   /// Sends or waits for heartbeats to or from the other device.
   void checkHeartbeats();
-
-  /// Sends a timesync message to the [timesyncDestination]
-  void sendTimesync() {
-    sendMessage(
-      Timesync(
-        sender: device,
-        sendTime: Timestamp.fromDateTime(DateTime.timestamp()),
-      ),
-      destination: timesyncDestination,
-    );
-  }
 
   /// Adds [source] to the available [destinations].
   ///

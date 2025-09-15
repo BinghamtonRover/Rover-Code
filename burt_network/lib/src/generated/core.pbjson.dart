@@ -71,15 +71,14 @@ final $typed_data.Uint8List connectDescriptor = $convert.base64Decode(
 const Timesync$json = {
   '1': 'Timesync',
   '2': [
-    {'1': 'sender', '3': 1, '4': 1, '5': 14, '6': '.Device', '10': 'sender'},
-    {'1': 'sendTime', '3': 2, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'sendTime'},
+    {'1': 'sendTime', '3': 1, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'sendTime'},
   ],
 };
 
 /// Descriptor for `Timesync`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List timesyncDescriptor = $convert.base64Decode(
-    'CghUaW1lc3luYxIfCgZzZW5kZXIYASABKA4yBy5EZXZpY2VSBnNlbmRlchI2CghzZW5kVGltZR'
-    'gCIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSCHNlbmRUaW1l');
+    'CghUaW1lc3luYxI2CghzZW5kVGltZRgBIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbX'
+    'BSCHNlbmRUaW1l');
 
 @$core.Deprecated('Use disconnectDescriptor instead')
 const Disconnect$json = {
