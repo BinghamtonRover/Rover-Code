@@ -11,8 +11,7 @@ class FanController extends Service {
   /// https://support.arctic.de/S8038-10K#toc-107
   static const double fanPWMFrequency = 25000;
 
-  PWM? _fan1PWM;
-  PWM? _fan2PWM;
+  PWM? _fanPWM;
 
   @override
   Future<bool> init() async {
@@ -21,17 +20,13 @@ class FanController extends Service {
       return true;
     }
     try {
-      _fan1PWM = PWM(0, 1);
-      _fan2PWM = PWM(0, 7);
+      _fanPWM = PWM(0, 0);
 
-      _fan1PWM!.setFrequency(fanPWMFrequency);
-      _fan2PWM!.setFrequency(fanPWMFrequency);
+      _fanPWM!.setFrequency(fanPWMFrequency);
     } catch (e) {
-      _fan1PWM?.dispose();
-      _fan2PWM?.dispose();
+      _fanPWM?.dispose();
 
-      _fan1PWM = null;
-      _fan2PWM = null;
+      _fanPWM = null;
 
       logger.error("Error initializing PWM fans: $e");
 
@@ -42,28 +37,15 @@ class FanController extends Service {
 
   @override
   Future<void> dispose() async {
-    _fan1PWM?.disable();
-    _fan2PWM?.disable();
+    _fanPWM?.disable();
 
-    _fan1PWM?.dispose();
-    _fan2PWM?.dispose();
+    _fanPWM?.dispose();
 
-    _fan1PWM = null;
-    _fan2PWM = null;
+    _fanPWM = null;
   }
 
   /// Manually set the duty cycle speed of the fans
   void setSpeed(double dutyCycle) {
-    _fan1PWM?.setDutyCycle(dutyCycle);
-    _fan2PWM?.setDutyCycle(dutyCycle);
-
-    // Disable PWM output if the speed is being set to < 0.5%
-    if (dutyCycle.abs() < 0.005) {
-      _fan1PWM?.disable();
-      _fan2PWM?.disable();
-    } else {
-      _fan1PWM?.enable();
-      _fan2PWM?.enable();
-    }
+    _fanPWM?.setDutyCycle(dutyCycle);
   }
 }
