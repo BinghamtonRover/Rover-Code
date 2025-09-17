@@ -5,7 +5,6 @@ import torch
 
 class ImageAnalyzer:
     def __init__(self, load_from="trained-model.pt"):
-        torch.cuda.set_device(0)
         if torch.cuda.is_available():
             torch.cuda.set_device(0)
             self.device = "cuda"
