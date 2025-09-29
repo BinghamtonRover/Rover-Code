@@ -99,9 +99,10 @@ class GpsReader extends Service {
   /// The serial device representing the GPS.
   final SerialDevice device = SerialDevice(
     portName: gpsPort,
-    readInterval: const Duration(milliseconds: 250),
+    readInterval: const Duration(milliseconds: 10),
     logger: logger,
     baudRate: 38400,
+    bits: 8,
     parity: SerialPortParity.none,
     stopBits: 1,
     xonXoff: SerialPortXonXoff.disabled,
