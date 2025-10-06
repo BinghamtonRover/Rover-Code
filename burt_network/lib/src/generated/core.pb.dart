@@ -14,6 +14,7 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'core.pbenum.dart';
+import 'google/protobuf/timestamp.pb.dart' as $5;
 
 export 'core.pbenum.dart';
 
@@ -80,6 +81,58 @@ class Connect extends $pb.GeneratedMessage {
   $core.bool hasReceiver() => $_has(1);
   @$pb.TagNumber(2)
   void clearReceiver() => clearField(2);
+}
+
+class Timesync extends $pb.GeneratedMessage {
+  factory Timesync({
+    $5.Timestamp? sendTime,
+  }) {
+    final $result = create();
+    if (sendTime != null) {
+      $result.sendTime = sendTime;
+    }
+    return $result;
+  }
+  Timesync._() : super();
+  factory Timesync.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory Timesync.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Timesync', createEmptyInstance: create)
+    ..aOM<$5.Timestamp>(1, _omitFieldNames ? '' : 'sendTime', protoName: 'sendTime', subBuilder: $5.Timestamp.create)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  Timesync clone() => Timesync()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  Timesync copyWith(void Function(Timesync) updates) => super.copyWith((message) => updates(message as Timesync)) as Timesync;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static Timesync create() => Timesync._();
+  Timesync createEmptyInstance() => create();
+  static $pb.PbList<Timesync> createRepeated() => $pb.PbList<Timesync>();
+  @$core.pragma('dart2js:noInline')
+  static Timesync getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Timesync>(create);
+  static Timesync? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $5.Timestamp get sendTime => $_getN(0);
+  @$pb.TagNumber(1)
+  set sendTime($5.Timestamp v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSendTime() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSendTime() => clearField(1);
+  @$pb.TagNumber(1)
+  $5.Timestamp ensureSendTime() => $_ensure(0);
 }
 
 /// Notifies the recipient that the sender will no longer be connected.
