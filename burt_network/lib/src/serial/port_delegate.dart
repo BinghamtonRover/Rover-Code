@@ -65,7 +65,7 @@ class DelegateSerialPort extends SerialPortInterface {
     if (config.dsr != SerialPortDsr.invalid) {
       config.dsr = SerialPortDsr.ignore;
     }
-    config.setFlowControl(SerialPortFlowControl.none);
+    config.setFlowControl(flowControl);
     _delegate!.config = config;
     return result;
   }
