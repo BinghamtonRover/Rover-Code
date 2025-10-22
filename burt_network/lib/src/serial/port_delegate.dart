@@ -6,8 +6,8 @@ import "port_interface.dart";
 
 /// A serial port implementation that delegates to [`package:libserialport`](https://pub.dev/packages/libserialport)
 class DelegateSerialPort extends SerialPortInterface {
-	/// A list of all available ports on the device.
-	static List<String> get allPorts => SerialPort.availablePorts;
+  /// A list of all available ports on the device.
+  static List<String> get allPorts => SerialPort.availablePorts;
 
   SerialPort? _delegate;
 
@@ -20,6 +20,7 @@ class DelegateSerialPort extends SerialPortInterface {
     super.stopBits,
     super.dtr,
     super.xonXoff,
+    super.flowControl,
   });
 
   @override
@@ -49,6 +50,22 @@ class DelegateSerialPort extends SerialPortInterface {
     if (config.xonXoff != SerialPortXonXoff.invalid && xonXoff != null) {
       config.xonXoff = xonXoff!;
     }
+    // Disable DTR, RTS, CTS, and DSR by default, these will be managed by
+    // the flow control setting
+    if (config.dtr != SerialPortDtr.invalid && dtr == null) {
+      // Only apply if there's no manual dtr setting
+      config.dtr = SerialPortDtr.off;
+    }
+    if (config.rts != SerialPortRts.invalid) {
+      config.rts = SerialPortRts.off;
+    }
+    if (config.cts != SerialPortCts.invalid) {
+      config.cts = SerialPortCts.ignore;
+    }
+    if (config.dsr != SerialPortDsr.invalid) {
+      config.dsr = SerialPortDsr.ignore;
+    }
+    config.setFlowControl(SerialPortFlowControl.none);
     _delegate!.config = config;
     return result;
   }

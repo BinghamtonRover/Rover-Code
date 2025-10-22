@@ -1,10 +1,15 @@
 import "dart:typed_data";
 
 import "package:burt_network/burt_network.dart";
-import "package:libserialport/libserialport.dart" show SerialPortConfig;
+import "package:libserialport/libserialport.dart"
+    show SerialPortConfig, SerialPortFlowControl;
 
 export "package:libserialport/libserialport.dart"
-    show SerialPortDtr, SerialPortParity, SerialPortXonXoff;
+    show
+        SerialPortDtr,
+        SerialPortFlowControl,
+        SerialPortParity,
+        SerialPortXonXoff;
 export "port_delegate.dart";
 
 /// An interface to a serial port.
@@ -36,6 +41,9 @@ abstract class SerialPortInterface extends Service {
   /// See [SerialPortXonXoff]
   final int? xonXoff;
 
+  /// The flow control configuration for the port, defaults to [SerialPortFlowControl.none]
+  final int flowControl;
+
   /// Creates a serial port at the given name.
   SerialPortInterface(
     this.portName, {
@@ -45,6 +53,7 @@ abstract class SerialPortInterface extends Service {
     this.stopBits,
     this.dtr,
     this.xonXoff,
+    this.flowControl = SerialPortFlowControl.none,
   });
 
   /// Whether this port is open.
