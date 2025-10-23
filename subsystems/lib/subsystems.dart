@@ -1,6 +1,7 @@
 import "dart:async";
 
 import "package:burt_network/burt_network.dart";
+import "package:subsystems/src/devices/range_finder.dart";
 
 import "src/devices/gps.dart";
 import "src/devices/imu.dart";
@@ -33,6 +34,9 @@ class SubsystemsCollection extends Service {
   /// The IMU reader.
   final imu = ImuReader();
 
+  /// The range finder reader
+  final rangeFinder = RangeFinder();
+
   /// Timer for sending the subsystems status
   Timer? dataSendTimer;
 
@@ -49,6 +53,7 @@ class SubsystemsCollection extends Service {
       result &= await firmware.init();
       result &= await gps.init();
       result &= await imu.init();
+      result &= await rangeFinder.init();
       if (result) {
         logger.info("Subsystems initialized");
       } else {
@@ -70,6 +75,7 @@ class SubsystemsCollection extends Service {
     await firmware.dispose();
     await imu.dispose();
     await gps.dispose();
+    await rangeFinder.dispose();
     await server.dispose();
     dataSendTimer?.cancel();
     logger.socket = null;
