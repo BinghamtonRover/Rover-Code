@@ -1,0 +1,23 @@
+import "package:autonomy/interfaces.dart";
+
+class OrchestratorSimulator extends OrchestratorInterface {
+  OrchestratorSimulator({required super.collection});
+
+  @override
+  Future<void> dispose() async {}
+
+  @override
+  AutonomyData get statusMessage => AutonomyData();
+
+  @override
+  Future<void> handleGpsTask(AutonomyCommand command) async {}
+
+  @override
+  Future<void> handleArucoTask(AutonomyCommand command) async {}
+
+  @override
+  Future<void> handleHammerTask(AutonomyCommand command) async {}
+
+  @override
+  Future<void> handleBottleTask(AutonomyCommand command) async {}
+}
