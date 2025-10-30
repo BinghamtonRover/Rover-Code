@@ -1,0 +1,36 @@
+name: Test Autonomy
+
+on:
+  push:
+    paths:
+      - 'autonomy/**'
+    branches: [ "main" ]
+  pull_request:
+    paths:
+      - 'autonomy/**'
+
+jobs:
+  autonomy_unit_tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: autonomy
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Install Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 3.9.0
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Analyze code
+        run: dart analyze --fatal-infos
+
+      - name: Run unit tests
+        run: dart test
