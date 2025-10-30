@@ -1,0 +1,42 @@
+name: Generate Dart Documentation
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Git Setup
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+          git branch --all
+          git switch --track origin/documentation
+          git reset --hard origin/main
+
+      - name: Install Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 3.9.0
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Generate documentation
+        run: dartdoc --ignore 'unresolved-doc-reference,not-implemented,no-documentable-libraries,ambiguous-reexport' --exclude 'dart:async,dart:collection,dart:convert,dart:core,dart:developer,dart:io,dart:isolate,dart:math,dart:typed_data,dart:ui,dart:html,dart:js,dart:ffi,dart:js_util' --quiet --json --output docs --no-validate-links --no-verbose-warnings --no-allow-non-local-warnings
+
+      - name: Commit and push files
+        run: |
+          cd docs
+          cd ..
+          git status
+          git stage --force docs
+          git commit -a -m "Generated documentation"
+          git push --force
