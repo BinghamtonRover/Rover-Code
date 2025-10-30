@@ -1,7 +1,8 @@
-tags: 
-  path: 
-  sensors: 
+tags:
+  corrector:
+  path:
   rover:
   simulator:
   orchestrator:
   network:
+  state_machine:

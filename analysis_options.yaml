@@ -9,23 +9,21 @@ include: package:very_good_analysis/analysis_options.yaml  # has more lints
 
 analyzer:
   language:
-    # Strict casts isn't helpful with null safety. It only notifies you on `dynamic`, 
-    # which happens all the time in JSON. 
-    # 
+    # Strict casts isn't helpful with null safety. It only notifies you on `dynamic`,
+    # which happens all the time in JSON.
+    #
     # See https://github.com/dart-lang/language/blob/main/resources/type-system/strict-casts.md
     strict-casts: false
 
     # Don't let any types be inferred as `dynamic`.
-    # 
+    #
     # See https://github.com/dart-lang/language/blob/main/resources/type-system/strict-inference.md
     strict-inference: true
 
-    # Don't let Dart infer the wrong type on the left side of an assignment. 
-    # 
+    # Don't let Dart infer the wrong type on the left side of an assignment.
+    #
     # See https://github.com/dart-lang/language/blob/main/resources/type-system/strict-raw-types.md
     strict-raw-types: true
-
-  exclude: 
 
 linter:
   rules:
@@ -44,7 +42,7 @@ linter:
     sort_constructors_first: false  # final properties, then constructor
     avoid_dynamic_calls: false  # this lint takes over errors in the IDE
     cascade_invocations: false  # cascades are often less readable
-    
+
     # Temporarily disabled lints
     public_member_api_docs: false  # until we are ready to document
     flutter_style_todos: false  # until we are ready to address them

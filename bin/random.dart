@@ -1,11 +1,13 @@
 // ignore_for_file: avoid_print
 
+import "package:autonomy/constants.dart";
 import "package:autonomy/interfaces.dart";
-import "package:autonomy/src/rover/corrector.dart";
 
-const maxError = GpsInterface.gpsError;
+const maxError = Constants.gpsError;
 const maxSamples = 10;
-final epsilon = GpsUtils.epsilonLatitude;  // we need to be accurate within 1 meter
+const epsilon =
+    Constants.maxErrorMeters /
+    GpsToMeters.metersPerLatitude; // we need to be accurate within 1 meter
 const n = 1000;
 bool verbose = false;
 
@@ -17,8 +19,10 @@ bool test() {
     corrector.addValue(value);
     if (verbose) {
       final calibrated = corrector.calibratedValue;
-      print("Current value: $value, Corrected value: $calibrated");    
-      print("  Difference: ${calibrated.toStringAsFixed(7)} < ${epsilon.toStringAsFixed(7)}");
+      print("Current value: $value, Corrected value: $calibrated");
+      print(
+        "  Difference: ${calibrated.toStringAsFixed(7)} < ${epsilon.toStringAsFixed(7)}",
+      );
     }
   }
   return corrector.calibratedValue.abs() <= epsilon;
@@ -31,5 +35,5 @@ void main(List<String> args) {
     if (test()) count++;
   }
   final percentage = (count / n * 100).toStringAsFixed(2);
-  print("Average performance: %$percentage");
+  print("Average performance: $percentage%");
 }

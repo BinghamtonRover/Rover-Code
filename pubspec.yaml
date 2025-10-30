@@ -5,13 +5,15 @@ publish_to: none
 
 resolution: workspace
 environment:
-  sdk: ^3.6.0
+  sdk: ^3.9.0
 
 # Try not to edit this section by hand. Use `dart pub add my_package`
 dependencies:
-  burt_network: ^2.3.1
+  burt_network: ^2.4.0
   a_star: ^3.0.0
   meta: ^1.11.0
+  collection: ^1.19.1
+  coordinate_converter: ^1.1.2
 
 dev_dependencies:
   test: ^1.21.0

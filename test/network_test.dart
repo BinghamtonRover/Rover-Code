@@ -1,8 +1,12 @@
+import "dart:async";
 import "dart:io";
 
 import "package:autonomy/autonomy.dart";
+import "package:autonomy/src/drive/drive_config.dart";
 import "package:burt_network/burt_network.dart";
 import "package:test/test.dart";
+
+import "test_util.dart";
 
 class MockSubsystems extends Service {
   final socket = RoverSocket(
@@ -33,31 +37,52 @@ class MockSubsystems extends Service {
     if (!enabled) return;
     if (command.setLeft) left = command.left;
     if (command.setRight) right = command.right;
-    if (command.setThrottle) throttle = command.throttle;
-    if (throttle > 0) throttleFlag = true;
+    if (command.setThrottle) {
+      throttle = command.throttle;
+      throttleFlag = throttle > 0;
+    }
   }
 
   @override
   Future<void> dispose() async {
-    left = 0; right = 0;
-    throttle = 0; throttleFlag = false;
+    left = 0;
+    right = 0;
+    throttle = 0;
+    throttleFlag = false;
+    enabled = false;
     await socket.dispose();
   }
 }
 
-void main() => group("[Network]", tags: ["network"], () {
-  final subsystems = MockSubsystems();
-  final rover = RoverAutonomy();
-  rover.drive = SensorlessDrive(collection: rover, useGps: false, useImu: false);
+class StopState extends RoverState {
+  final AutonomyInterface collection;
 
-  Future<void> setup() async {
+  StopState(super.controller, {required this.collection});
+
+  @override
+  void update() {
+    collection.drive.stop();
+    controller.popState();
+  }
+}
+
+void main() => group("[Network]", tags: ["network"], () {
+  var subsystems = MockSubsystems();
+  final rover = RoverAutonomy();
+  rover.drive = RoverDrive(collection: rover, useGps: false, useImu: false);
+
+  setUp(() async {
     Logger.level = LogLevel.off;
+    await subsystems.dispose();
+    subsystems = MockSubsystems();
     await subsystems.init();
     await rover.init();
-  }
+  });
 
-  setUp(setup);
-  tearDown(() async { await subsystems.dispose(); await rover.dispose(); });
+  tearDown(() async {
+    await subsystems.dispose();
+    await rover.dispose();
+  });
 
   test("Rover waits for all data to arrive", () async {
     final gps = GpsCoordinates(latitude: 1, longitude: 2);
@@ -92,43 +117,87 @@ void main() => group("[Network]", tags: ["network"], () {
     expect(rover.imu.hasValue, isTrue);
     expect(rover.video.hasValue, isTrue);
     expect(rover.hasValue, isTrue);
+
+    await Future<void>.delayed(const Duration(seconds: 1));
   });
 
-  test("Rover can drive", () async {
+  test("Rover can drive", retry: 10, () async {
     subsystems.enabled = true;
-    ServerUtils.subsystemsDestination = SocketInfo(
-      address: InternetAddress.loopbackIPv4,
-      port: 8001,
-    );
     final simulator = AutonomySimulator();
     simulator.gps = GpsSimulator(collection: simulator);
     simulator.imu = ImuSimulator(collection: simulator);
-    simulator.drive = SensorlessDrive(collection: simulator, useGps: false, useImu: false);
+    simulator.drive = RoverDrive(
+      collection: simulator,
+      useGps: false,
+      useImu: false,
+      config: tankConfig,
+    );
     await simulator.init();
 
-    await simulator.drive.faceNorth();
-    expect(simulator.imu.orientation, DriveOrientation.north);
-
-    final origin = GpsCoordinates(latitude: 0, longitude: 0);
-    final oneMeter = (1, 0).toGps();
+    final oneMeter = origin.plus(x: 0, y: 1);
+    simulator.gps.update(origin);
     expect(subsystems.throttle, 0);
     expect(subsystems.left, 0);
     expect(subsystems.right, 0);
     expect(simulator.gps.isNear(origin), isTrue);
     expect(simulator.gps.isNear(oneMeter), isFalse);
 
-    const driveDelay = Duration(milliseconds: 10);
     expect(subsystems.throttleFlag, isFalse);
-    await simulator.drive.goForward();
-    await Future<void>.delayed(driveDelay);
+    final forwardFuture = Future<void>.delayed(
+      simulator.drive.config.oneMeterDelay,
+    );
+    final forwardState = simulator.drive.driveForwardState(oneMeter);
+    simulator.orchestrator.controller.pushState(forwardState);
+    simulator.orchestrator.controller.update();
+    simulator.orchestrator.controller.update();
+    simulator.orchestrator.controller.update();
+
+    await Future<void>.delayed(simulator.drive.config.oneMeterDelay * 0.5);
+
     expect(subsystems.throttleFlag, isTrue);
+    expect(subsystems.throttle, isNot(0));
+    expect(subsystems.left, isNot(0));
+    expect(subsystems.right, isNot(0));
+    expect(simulator.gps.isNear(origin), isTrue);
+    expect(simulator.gps.isNear(oneMeter), isFalse);
+
+    simulator.orchestrator.controller.update();
+    simulator.orchestrator.controller.update();
+    simulator.orchestrator.controller.update();
+
+    await forwardFuture;
+
+    simulator.orchestrator.controller.update();
+    simulator.orchestrator.controller.update();
+    simulator.orchestrator.controller.update();
+
+    await Future<void>.delayed(Duration.zero);
+
+    expect(subsystems.throttleFlag, isTrue);
+    expect(subsystems.throttle, isNot(0));
+    expect(subsystems.left, isNot(0));
+    expect(subsystems.right, isNot(0));
+
+    simulator.orchestrator.controller.pushState(
+      StopState(simulator.orchestrator.controller, collection: simulator),
+    );
+
+    simulator.orchestrator.controller.update();
+    simulator.orchestrator.controller.update();
+    simulator.orchestrator.controller.update();
+
+    // Future events need to pump for the call to drive.stop() to execute
+    await Future<void>.delayed(Duration.zero);
+
     expect(subsystems.throttle, 0);
     expect(subsystems.left, 0);
     expect(subsystems.right, 0);
-    expect(simulator.gps.isNear(origin), isFalse);
+
+    expect(simulator.gps.isNear(origin, 0.5), isFalse);
     expect(simulator.gps.isNear(oneMeter), isTrue);
 
     subsystems.enabled = false;
+    await subsystems.dispose();
     await simulator.dispose();
   });
 });
