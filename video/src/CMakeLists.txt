@@ -11,13 +11,12 @@ project(realsense_ffi_library VERSION 0.0.1 LANGUAGES CXX)
 # See https://dev.intelrealsense.com/docs/build-configuration
 remove_definitions(-DUNICODE -D_UNICODE)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-SET(BUILD_EXAMPLES ON CACHE BOOL "Some option" FORCE)
-SET(BUILD_GRAPHICAL_EXAMPLES ON CACHE BOOL "Some option" FORCE)
-SET(BUILD_TOOLS ON CACHE BOOL "Some option" FORCE)
+SET(BUILD_EXAMPLES OFF CACHE BOOL "Some option" FORCE)
+SET(BUILD_GRAPHICAL_EXAMPLES OFF CACHE BOOL "Some option" FORCE)
+SET(BUILD_TOOLS OFF CACHE BOOL "Some option" FORCE)
 SET(BUILD_WITH_OPENMP ON CACHE BOOL "Some option" FORCE)
 SET(BUILD_SHARED_LIBS ON CACHE BOOL "Some option" FORCE)
 SET(CMAKE_BUILD_TYPE Release)
-SET(CMAKE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/librealsense)
 
 SET(BUILD_EASY_LOGGINGPP OFF CACHE BOOL "Some option" FORCE)
 SET(BUILD_WITH_TM2 OFF CACHE BOOL "Some option" FORCE)
@@ -37,3 +36,14 @@ set_target_properties(realsense_ffi PROPERTIES
 # Compile realsense_ffi
 target_compile_definitions(realsense_ffi PUBLIC DART_SHARED_LIB)
 target_link_libraries(realsense_ffi PUBLIC "realsense2")
+
+# Compile and link point cloud ffi library
+find_package(PCL REQUIRED)
+add_library(pointcloud_ffi SHARED "pointcloud_ffi.cpp")
+target_include_directories(pointcloud_ffi PUBLIC ${PCL_INCLUDE_DIRS})
+set_target_properties(pointcloud_ffi PROPERTIES
+  PUBLIC_HEADER pointcloud_ffi.h
+  OUTPUT_NAME "pointcloud_ffi"
+)
+target_compile_definitions(pointcloud_ffi PUBLIC DART_SHARED_LIB)
+target_link_libraries(pointcloud_ffi ${PCL_LIBRARIES})

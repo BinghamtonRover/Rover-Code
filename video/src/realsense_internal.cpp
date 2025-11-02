@@ -3,7 +3,6 @@
 
 #include <algorithm>
 #include <iostream>
-#include <unistd.h>
 
 #define DEPTH_WIDTH 640
 #define RGB_WIDTH 640
@@ -123,14 +122,14 @@ NativeFrames* burt_rs::RealSense::getDepthFrame() {
 
   // Return both frames
   return new NativeFrames {
-    depth_data: depth_copy,
-    depth_length: depth_length,
-    colorized_data: colorized_copy,
-    colorized_length: colorized_length,
-    rgb_data: rgb_copy,
-    rgb_length: rgb_length,
-    aligned_depth_data: aligned_depth_copy,
-    aligned_depth_length: aligned_depth_length,
+      depth_data = depth_copy,
+      depth_length = depth_length,
+      colorized_data = colorized_copy,
+      colorized_length = colorized_length,
+      rgb_data = rgb_copy,
+      rgb_length = rgb_length,
+      aligned_depth_data = aligned_depth_copy,
+      aligned_depth_length = aligned_depth_length,
   };
 }
 
