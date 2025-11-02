@@ -41,7 +41,7 @@ class CameraDetails extends $pb.GeneratedMessage {
     $core.double? verticalFov,
     $core.int? streamWidth,
     $core.int? streamHeight,
-    $core.int? quarterRotations,
+    $core.int? rotationQuarters,
   }) {
     final result = create();
     if (name != null) result.name = name;
@@ -60,7 +60,7 @@ class CameraDetails extends $pb.GeneratedMessage {
     if (verticalFov != null) result.verticalFov = verticalFov;
     if (streamWidth != null) result.streamWidth = streamWidth;
     if (streamHeight != null) result.streamHeight = streamHeight;
-    if (quarterRotations != null) result.quarterRotations = quarterRotations;
+    if (rotationQuarters != null) result.rotationQuarters = rotationQuarters;
     return result;
   }
 
@@ -97,8 +97,8 @@ class CameraDetails extends $pb.GeneratedMessage {
         fieldType: $pb.PbFieldType.OF)
     ..aI(15, _omitFieldNames ? '' : 'streamWidth')
     ..aI(16, _omitFieldNames ? '' : 'streamHeight')
-    ..aI(17, _omitFieldNames ? '' : 'quarterRotations',
-        protoName: 'quarterRotations')
+    ..aI(17, _omitFieldNames ? '' : 'rotationQuarters',
+        protoName: 'rotationQuarters')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -275,13 +275,13 @@ class CameraDetails extends $pb.GeneratedMessage {
 
   /// / Number of 90 degrees rotation increments
   @$pb.TagNumber(17)
-  $core.int get quarterRotations => $_getIZ(16);
+  $core.int get rotationQuarters => $_getIZ(16);
   @$pb.TagNumber(17)
-  set quarterRotations($core.int value) => $_setSignedInt32(16, value);
+  set rotationQuarters($core.int value) => $_setSignedInt32(16, value);
   @$pb.TagNumber(17)
-  $core.bool hasQuarterRotations() => $_has(16);
+  $core.bool hasRotationQuarters() => $_has(16);
   @$pb.TagNumber(17)
-  void clearQuarterRotations() => $_clearField(17);
+  void clearRotationQuarters() => $_clearField(17);
 }
 
 /// / Reports data about a camera.
