@@ -92,7 +92,13 @@ const CameraDetails$json = {
     {'1': 'vertical_fov', '3': 14, '4': 1, '5': 2, '10': 'verticalFov'},
     {'1': 'stream_width', '3': 15, '4': 1, '5': 5, '10': 'streamWidth'},
     {'1': 'stream_height', '3': 16, '4': 1, '5': 5, '10': 'streamHeight'},
-    {'1': 'rotation', '3': 17, '4': 1, '5': 5, '10': 'rotation'},
+    {
+      '1': 'quarterRotations',
+      '3': 17,
+      '4': 1,
+      '5': 5,
+      '10': 'quarterRotations'
+    },
   ],
 };
 
@@ -107,7 +113,7 @@ final $typed_data.Uint8List cameraDetailsDescriptor = $convert.base64Decode(
     'ZGlhZ29uYWxfZm92GAwgASgCUgtkaWFnb25hbEZvdhIlCg5ob3Jpem9udGFsX2ZvdhgNIAEoAl'
     'INaG9yaXpvbnRhbEZvdhIhCgx2ZXJ0aWNhbF9mb3YYDiABKAJSC3ZlcnRpY2FsRm92EiEKDHN0'
     'cmVhbV93aWR0aBgPIAEoBVILc3RyZWFtV2lkdGgSIwoNc3RyZWFtX2hlaWdodBgQIAEoBVIMc3'
-    'RyZWFtSGVpZ2h0EhoKCHJvdGF0aW9uGBEgASgFUghyb3RhdGlvbg==');
+    'RyZWFtSGVpZ2h0EioKEHF1YXJ0ZXJSb3RhdGlvbnMYESABKAVSEHF1YXJ0ZXJSb3RhdGlvbnM=');
 
 @$core.Deprecated('Use videoDataDescriptor instead')
 const VideoData$json = {
