@@ -1,0 +1,16 @@
+name: arm_auxillary
+description: A sample command-line application.
+version: 1.0.0
+publish_to: none
+
+resolution: workspace
+
+environment:
+  sdk: ^3.9.0
+
+# Add regular dependencies here.
+dependencies:
+  burt_network: ^2.7.0
+
+dev_dependencies:
+  very_good_analysis: ^6.0.0
