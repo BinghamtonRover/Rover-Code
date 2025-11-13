@@ -9,9 +9,9 @@ import "package:burt_network/burt_network.dart";
 /// socket, to reduce congestion with other data messages, which lowers latency
 /// and improves time accuracy.
 class TimesyncServer extends UdpSocket {
-  StreamSubscription<Datagram?>? _subscription;
+  StreamSubscription<Datagram>? _subscription;
 
-  /// Default constructor for TimesyncServer
+  /// Default constructor for [TimesyncServer]
   TimesyncServer({required super.port, super.quiet});
 
   @override

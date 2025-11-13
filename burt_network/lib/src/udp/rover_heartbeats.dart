@@ -1,4 +1,3 @@
-
 import "package:burt_network/protobuf.dart";
 
 import "burt_socket.dart";
@@ -8,6 +7,13 @@ import "socket_info.dart";
 mixin RoverHeartbeats on BurtSocket {
   /// The heartbeats received by the socket since the last call to [checkHeartbeats].
   final Set<SocketInfo> receivedHeartbeats = {};
+
+  /// The maximum number of clients that can be connected to this socket.
+  ///
+  /// Once the maximum number of clients have been connected, and incoming
+  /// connection attempts will be rejected, and will not have any data sent
+  /// to them.
+  late final int maxClients;
 
   /// Whether this socket received a heartbeat since the last call to [checkHeartbeats].
   bool get didReceivedHeartbeat => receivedHeartbeats.isNotEmpty;
@@ -49,7 +55,7 @@ mixin RoverHeartbeats on BurtSocket {
 
   /// Checks if a heartbeat has been received from any destination. If not,
   /// sends a [Disconnect] message to any destination who has not sent any heartbeats.
-  /// 
+  ///
   /// If no heartbeats have been received, calls [onDisconnect].
   ///
   /// This function runs every [heartbeatInterval].

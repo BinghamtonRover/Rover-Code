@@ -9,6 +9,17 @@ extension DatagramUtil on Datagram {
   /// Returns the wrapped message parsed from the data of the datagram
   WrappedMessage parseWrapper() => WrappedMessage.fromBuffer(data);
 
+  /// Returns the wrapped message and its source
+  WrapperDatagram parseWrapperDatagram() {
+    final wrapper = WrappedMessage.fromBuffer(data);
+
+    return WrapperDatagram(
+      message: wrapper,
+      timestamp: wrapper.timestamp,
+      source: source,
+    );
+  }
+
   /// The source that the datagram was sent from
   SocketInfo get source => SocketInfo(address: address, port: port);
 }
@@ -37,7 +48,7 @@ typedef NetworkSettings = UpdateSetting;
 /// example, the rover might override [checkHeartbeats] to ensure a heartbeat has been sent, while
 /// the Dashboard might use it to send a heartbeat and await a response.
 abstract class BurtSocket extends UdpSocket {
-  final _controller = StreamController<WrappedMessage>.broadcast();
+  final _controller = StreamController<WrapperDatagram>.broadcast();
 
   /// The device this socket will be used on.
   ///
@@ -63,13 +74,6 @@ abstract class BurtSocket extends UdpSocket {
   /// that no longer exists. Practically, that means only the Dashboard should set this to be true.
   final bool keepDestination;
 
-  /// The maximum number of clients that can be connected to this socket.
-  ///
-  /// Once the maximum number of clients have been connected, and incoming
-  /// connection attempts will be rejected, and will not have any data sent
-  /// to them.
-  final int maxClients;
-
   Timer? _heartbeatTimer;
 
   StreamSubscription<Datagram?>? _subscription;
@@ -85,10 +89,8 @@ abstract class BurtSocket extends UdpSocket {
     required this.device,
     super.quiet,
     this.keepDestination = false,
-    this.maxClients = 5,
     List<SocketInfo>? destinations,
     SocketInfo? destination,
-    SocketInfo? timesyncAddress,
     this.collection,
   }) : assert(
          destinations == null || destination == null,
@@ -100,14 +102,10 @@ abstract class BurtSocket extends UdpSocket {
     if (destination != null) {
       this.destinations.add(destination);
     }
-    if (this is RoverTimesync && timesyncAddress != null) {
-      (this as RoverTimesync).timesyncDestination = timesyncAddress;
-    }
   }
 
-  /// A stream of [WrappedMessage]s as they arrive in the UDP socket.
-  @override
-  Stream<WrappedMessage> get messages => _controller.stream;
+  /// A stream of [WrapperDatagram]s as they arrive from the UDP socket
+  Stream<WrapperDatagram> get messages => _controller.stream;
 
   @override
   Future<bool> init() async {
@@ -182,12 +180,12 @@ abstract class BurtSocket extends UdpSocket {
   }
 
   void _onPacket(Datagram packet) {
-    final wrapper = packet.parseWrapper();
-    if (wrapper.name == Connect().messageName) {
-      final heartbeat = Connect.fromBuffer(wrapper.data);
+    final wrapper = packet.parseWrapperDatagram();
+    if (wrapper.message.name == Connect().messageName) {
+      final heartbeat = Connect.fromBuffer(wrapper.message.data);
       onHeartbeat(heartbeat, packet.source);
-    } else if (wrapper.name == UpdateSetting().messageName) {
-      final settings = UpdateSetting.fromBuffer(wrapper.data);
+    } else if (wrapper.message.name == UpdateSetting().messageName) {
+      final settings = UpdateSetting.fromBuffer(wrapper.message.data);
       onSettings(settings);
       _controller.add(wrapper);
     } else {

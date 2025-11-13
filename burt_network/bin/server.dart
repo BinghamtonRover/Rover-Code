@@ -4,12 +4,15 @@ import "package:burt_network/burt_network.dart";
 
 final logger = BurtLogger();
 
-void onData(ScienceData data) =>
-  logger.info("Received ScienceData message at ${DateTime.now()}: ${data.toProto3Json()}");
+void onData(RoverPacket<ScienceData> data) =>
+  logger.info(
+  "Received ScienceData message from ${data.source} at ${data.timestamp.toDateTime().toIso8601String()}: ${data.message.toProto3Json()}",
+);
 
 void main() async {
 	final server = RoverSocket(port: 8001, device: Device.SUBSYSTEMS);
-  server.messages.onMessage(
+	// final server = RoverServer(port: 8001, device: Device.SUBSYSTEMS);
+  server.messages.listenFor(
     name: ScienceData().messageName,
     constructor: ScienceData.fromBuffer,
     callback: onData,

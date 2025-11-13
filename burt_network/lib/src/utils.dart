@@ -1,12 +1,103 @@
 import "dart:async";
+import "dart:io";
 import "dart:math";
 
 import "package:burt_network/protobuf.dart";
+import "package:burt_network/udp.dart";
 
 import "package:coordinate_converter/coordinate_converter.dart";
+import "package:meta/meta.dart";
+
+/// A message that has been decoded and contains the message, timestamp, and source.
+@immutable
+class RoverPacket<T extends Message> {
+  /// The decoded message.
+  final T message;
+
+  /// The timestamp of the message.
+  final Timestamp timestamp;
+
+  /// The source of the message.
+  final SocketInfo source;
+
+  /// Const constructor for [RoverPacket]
+  const RoverPacket({
+    required this.message,
+    required this.timestamp,
+    required this.source,
+  });
+}
 
 /// JSON data as a map.
 typedef Json = Map<String, dynamic>;
+
+/// Constructor for a Protobuf message
+typedef ProtoConstructor<T> = T Function(List<int> data);
+
+/// A Datagram packet which contains a wrapped message
+typedef WrapperDatagram = RoverPacket<WrappedMessage>;
+
+/// Utilities for working with a [WrapperDatagram].
+extension WrapperDatagramUtil on WrapperDatagram {
+  /// The name of the message being held in the wrapper
+  String get name => message.name;
+
+  /// Parses the internal [WrappedMessage] into a new [RoverPacket] with a specific message type.
+  ///
+  /// This is useful when you know the type of the message contained in the wrapper and want
+  /// to get a strongly-typed [RoverPacket] back.
+  RoverPacket<T> parse<T extends Message>(ProtoConstructor<T> constructor) =>
+      RoverPacket(
+        message: constructor(message.data),
+        timestamp: message.timestamp,
+        source: source,
+      );
+}
+
+/// Helpful methods on [Stream]s of [WrapperDatagram]s
+extension WrappedDatagramMessageStream on Stream<WrapperDatagram> {
+  /// Allows callers to listen only for specific messages.
+  ///
+  /// To use this, pass the name of the message, a function to create the message
+  /// from binary data, and a callback to handle the message. For example,
+  /// ```dart
+  /// collection.server.messages.onMessage(
+  ///   name: ScienceData().messageName,  // equals "ScienceData"
+  ///   constructor: ScienceData.fromBuffer,
+  ///   callback: (data) => print(data.co2);
+  /// )
+  /// ```
+  ///
+  /// This function returns a [StreamSubscription] that you can use to stop listening.
+  StreamSubscription<T> onMessage<T extends Message>({
+    required String name,
+    required T Function(List<int>) constructor,
+    required void Function(T) callback,
+  }) => map(
+    (e) => e.message,
+  ).onMessage(name: name, constructor: constructor, callback: callback);
+
+  /// Listens for a specific message type and unpacks it into a [RoverPacket].
+  ///
+  /// This is a convenience method that filters the stream by message name,
+  /// parses the message, and passes the resulting [RoverPacket] to the callback.
+  ///
+  /// Example:
+  /// ```dart
+  /// stream.listenFor<ScienceData>(
+  ///   name: ScienceData().messageName,
+  ///   constructor: ScienceData.fromBuffer,
+  ///   callback: (packet) => print(packet.message.methane),
+  /// );
+  /// ```
+  StreamSubscription<RoverPacket<T>> listenFor<T extends Message>({
+    required String name,
+    required ProtoConstructor<T> constructor,
+    required void Function(RoverPacket<T>) callback,
+  }) => where(
+    (datagram) => datagram.message.name == name,
+  ).map((message) => message.parse(constructor)).listen(callback);
+}
 
 /// Helpful methods on [Stream]s of [WrappedMessage]s.
 extension WrappedMessageStream on Stream<WrappedMessage> {
@@ -32,27 +123,34 @@ extension WrappedMessageStream on Stream<WrappedMessage> {
     .map((wrapper) => constructor(wrapper.data))
     .listen(callback);
 
-  /// Allows callers to listen only for specific messages, with a specific timestamp.
+  /// Allows callers to listen only for specific messages with different callbacks for
+  /// different data passed in.
   ///
   /// To use this, pass the name of the message, a function to create the message
-  /// from binary data, and a callback to handle the message and its time. For example,
+  /// from binary data, and a callback to handle the message. For example,
   /// ```dart
-  /// collection.server.messages.onMessageTimestamped(
-  ///   name: VideoData().messageName,  // equals "VideoData"
-  ///   constructor: VideoData.fromBuffer,
-  ///   callback: (data, time) => print("${data.name}\t$time");
+  /// collection.server.messages.listenFor(
+  ///   name: ScienceData().messageName,  // equals "ScienceData"
+  ///   constructor: ScienceData.fromBuffer,
+  ///   onMessage: (data) => print(data.co2),
+  ///   withTimestamp: (data, time) => print(time),
   /// )
   /// ```
   ///
   /// This function returns a [StreamSubscription] that you can use to stop listening.
-  StreamSubscription<WrappedMessage> onMessageTimestamped<T extends Message>({
+  StreamSubscription<RoverPacket<T>> listenFor<T extends Message>({
     required String name,
-    required T Function(List<int>) constructor,
-    required void Function(T message, Timestamp timestamp) callback,
-  }) =>
-      where((wrapper) => wrapper.name == name).listen(
-        (wrapper) => callback(constructor(wrapper.data), wrapper.timestamp),
-      );
+    required ProtoConstructor<T> constructor,
+    required void Function(RoverPacket<T>) callback,
+  }) => where((wrapper) => wrapper.name == name)
+      .map(
+        (wrapper) => RoverPacket(
+          message: constructor(wrapper.data),
+          timestamp: wrapper.timestamp,
+          source: SocketInfo(address: InternetAddress("0.0.0.0"), port: -1),
+        ),
+      )
+      .listen(callback);
 }
 
 /// Helpful methods on streams of nullable values.
