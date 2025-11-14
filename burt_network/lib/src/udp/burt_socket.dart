@@ -162,7 +162,7 @@ abstract class BurtSocket extends UdpSocket {
     final completer = Completer<bool>();
 
     late final StreamSubscription<T> subscription;
-    subscription = messages.onMessage(
+    subscription = messages.listenFor(
       name: message.messageName,
       constructor: constructor,
       callback: (handshake) {

@@ -25,7 +25,7 @@ class MockSubsystems extends Service {
   @override
   Future<bool> init() async {
     await socket.init();
-    socket.messages.onMessage(
+    socket.messages.listenFor(
       name: DriveCommand().messageName,
       constructor: DriveCommand.fromBuffer,
       callback: onDriveCommand,

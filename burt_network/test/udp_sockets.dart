@@ -37,7 +37,7 @@ class TestServer extends RoverSocket {
   @override
   Future<bool> init() async {
     await super.init();
-    messages.onMessage(
+    messages.listenFor(
       name: ScienceData().messageName,
       constructor: ScienceData.fromBuffer,
       callback: (x) => data = x,
@@ -65,7 +65,7 @@ class EchoSocket extends RoverSocket {
     super.destinations,
   }) : super(device: Device.SUBSYSTEMS, keepDestination: true);
 
-  StreamSubscription<WrappedMessage>? _subscription;
+  StreamSubscription<WrapperDatagram>? _subscription;
 
   @override
   Future<bool> init() async {
@@ -80,7 +80,7 @@ class EchoSocket extends RoverSocket {
     await super.dispose();
   }
 
-  void echoBack(WrappedMessage wrapper) => sendWrapper(wrapper);
+  void echoBack(WrapperDatagram wrapper) => sendWrapper(wrapper.message);
 }
 
 class TestClient extends BurtSocket {
@@ -109,9 +109,6 @@ class TestClient extends BurtSocket {
 
   @override
   void onSettings(UpdateSetting settings) { }
-  
-  @override
-  bool get shouldSendTimesync => false;
 }
 
 class RestartTrackingService extends Service {

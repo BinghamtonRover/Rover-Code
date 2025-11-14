@@ -61,7 +61,7 @@ extension WrappedDatagramMessageStream on Stream<WrapperDatagram> {
   /// To use this, pass the name of the message, a function to create the message
   /// from binary data, and a callback to handle the message. For example,
   /// ```dart
-  /// collection.server.messages.onMessage(
+  /// collection.server.messages.listenFor(
   ///   name: ScienceData().messageName,  // equals "ScienceData"
   ///   constructor: ScienceData.fromBuffer,
   ///   callback: (data) => print(data.co2);
@@ -69,13 +69,13 @@ extension WrappedDatagramMessageStream on Stream<WrapperDatagram> {
   /// ```
   ///
   /// This function returns a [StreamSubscription] that you can use to stop listening.
-  StreamSubscription<T> onMessage<T extends Message>({
+  StreamSubscription<T> listenFor<T extends Message>({
     required String name,
     required T Function(List<int>) constructor,
     required void Function(T) callback,
   }) => map(
     (e) => e.message,
-  ).onMessage(name: name, constructor: constructor, callback: callback);
+  ).listenFor(name: name, constructor: constructor, callback: callback);
 
   /// Listens for a specific message type and unpacks it into a [RoverPacket].
   ///
@@ -90,7 +90,7 @@ extension WrappedDatagramMessageStream on Stream<WrapperDatagram> {
   ///   callback: (packet) => print(packet.message.methane),
   /// );
   /// ```
-  StreamSubscription<RoverPacket<T>> listenFor<T extends Message>({
+  StreamSubscription<RoverPacket<T>> onPacket<T extends Message>({
     required String name,
     required ProtoConstructor<T> constructor,
     required void Function(RoverPacket<T>) callback,
@@ -106,7 +106,7 @@ extension WrappedMessageStream on Stream<WrappedMessage> {
   /// To use this, pass the name of the message, a function to create the message
   /// from binary data, and a callback to handle the message. For example,
   /// ```dart
-  /// collection.server.messages.onMessage(
+  /// collection.server.messages.listenFor(
   ///   name: ScienceData().messageName,  // equals "ScienceData"
   ///   constructor: ScienceData.fromBuffer,
   ///   callback: (data) => print(data.co2);
@@ -114,14 +114,13 @@ extension WrappedMessageStream on Stream<WrappedMessage> {
   /// ```
   ///
   /// This function returns a [StreamSubscription] that you can use to stop listening.
-  StreamSubscription<T> onMessage<T extends Message>({
+  StreamSubscription<T> listenFor<T extends Message>({
     required String name,
     required T Function(List<int>) constructor,
     required void Function(T) callback,
-  }) =>
-    where((wrapper) => wrapper.name == name)
-    .map((wrapper) => constructor(wrapper.data))
-    .listen(callback);
+  }) => where(
+    (wrapper) => wrapper.name == name,
+  ).map((wrapper) => constructor(wrapper.data)).listen(callback);
 
   /// Allows callers to listen only for specific messages with different callbacks for
   /// different data passed in.
@@ -129,7 +128,7 @@ extension WrappedMessageStream on Stream<WrappedMessage> {
   /// To use this, pass the name of the message, a function to create the message
   /// from binary data, and a callback to handle the message. For example,
   /// ```dart
-  /// collection.server.messages.listenFor(
+  /// collection.server.messages.onPacket(
   ///   name: ScienceData().messageName,  // equals "ScienceData"
   ///   constructor: ScienceData.fromBuffer,
   ///   onMessage: (data) => print(data.co2),
@@ -138,7 +137,7 @@ extension WrappedMessageStream on Stream<WrappedMessage> {
   /// ```
   ///
   /// This function returns a [StreamSubscription] that you can use to stop listening.
-  StreamSubscription<RoverPacket<T>> listenFor<T extends Message>({
+  StreamSubscription<RoverPacket<T>> onPacket<T extends Message>({
     required String name,
     required ProtoConstructor<T> constructor,
     required void Function(RoverPacket<T>) callback,

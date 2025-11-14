@@ -12,7 +12,7 @@ abstract class VideoInterface extends Service with Receiver {
 
   @override
   Future<bool> init() async {
-    _dataSubscription = collection.server.messages.onMessage(
+    _dataSubscription = collection.server.messages.listenFor(
       name: VideoData().messageName,
       constructor: VideoData.fromBuffer,
       callback: updateFrame,

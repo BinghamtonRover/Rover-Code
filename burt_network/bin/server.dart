@@ -12,7 +12,7 @@ void onData(RoverPacket<ScienceData> data) =>
 void main() async {
 	final server = RoverSocket(port: 8001, device: Device.SUBSYSTEMS);
 	// final server = RoverServer(port: 8001, device: Device.SUBSYSTEMS);
-  server.messages.listenFor(
+  server.messages.onPacket(
     name: ScienceData().messageName,
     constructor: ScienceData.fromBuffer,
     callback: onData,
