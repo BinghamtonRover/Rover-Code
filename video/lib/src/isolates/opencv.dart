@@ -112,7 +112,7 @@ class OpenCVCameraIsolate extends CameraIsolate {
       } else if (details.rotationQuarters == 3) {
         rotatedMatrix = rotate(matrix, ROTATE_90_COUNTERCLOCKWISE);
       } else {
-        rotatedMatrix = matrix.copy();
+        rotatedMatrix = matrix.clone();
       }
       matrix.dispose();
       matrix = rotatedMatrix;
