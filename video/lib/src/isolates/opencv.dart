@@ -102,6 +102,19 @@ class OpenCVCameraIsolate extends CameraIsolate {
       ObjectDetectionPayload(details: details, tags: detectedMarkers),
     );
 
+    if (details.hasRotationQuarters() && details.rotationQuarters != 0) {
+      var rotatedMatrix;
+      if (details.rotationQuarters == 1) {
+        rotatedMatrix = rotate(matrix, ROTATE_90_CLOCKWISE);
+      } else if (details.rotationQuarters == 2) {
+        rotatedMatrix = rotate(matrix, ROTATE_180);
+      } else if (details.rotationQuarters == 3) {
+        rotatedMatrix = rotate(matrix, ROTATE_90_COUNTERCLOCKWISE);
+      }
+      matrix.dispose();
+      matrix = rotatedMatrix;
+    }
+
     // await matrix.drawCrosshair(center: frameProperties!.center);
 
     if (details.resolutionWidth != matrix.width ||
