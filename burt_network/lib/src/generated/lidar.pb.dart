@@ -2,9 +2,9 @@
 //  Generated code. Do not modify.
 //  source: lidar.proto
 //
-// @dart = 3.3
+// @dart = 2.12
 
-// ignore_for_file: annotate_overrides, camel_case_types, comment_references
+// ignore_for_file: annotate_overrides, camel_case_types
 // ignore_for_file: constant_identifier_names, library_prefixes
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
@@ -13,24 +13,10 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'version.pb.dart' as $2;
-
-export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
+import 'version.pb.dart' as $1;
 
 class LidarCartesianPoint extends $pb.GeneratedMessage {
-  factory LidarCartesianPoint({
-    $core.double? x,
-    $core.double? y,
-  }) {
-    final $result = create();
-    if (x != null) {
-      $result.x = x;
-    }
-    if (y != null) {
-      $result.y = y;
-    }
-    return $result;
-  }
+  factory LidarCartesianPoint() => create();
   LidarCartesianPoint._() : super();
   factory LidarCartesianPoint.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory LidarCartesianPoint.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -69,7 +55,7 @@ class LidarCartesianPoint extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasX() => $_has(0);
   @$pb.TagNumber(1)
-  void clearX() => $_clearField(1);
+  void clearX() => clearField(1);
 
   @$pb.TagNumber(2)
   $core.double get y => $_getN(1);
@@ -78,23 +64,11 @@ class LidarCartesianPoint extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasY() => $_has(1);
   @$pb.TagNumber(2)
-  void clearY() => $_clearField(2);
+  void clearY() => clearField(2);
 }
 
 class LidarPolarPoint extends $pb.GeneratedMessage {
-  factory LidarPolarPoint({
-    $core.double? angle,
-    $core.double? distance,
-  }) {
-    final $result = create();
-    if (angle != null) {
-      $result.angle = angle;
-    }
-    if (distance != null) {
-      $result.distance = distance;
-    }
-    return $result;
-  }
+  factory LidarPolarPoint() => create();
   LidarPolarPoint._() : super();
   factory LidarPolarPoint.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory LidarPolarPoint.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -133,7 +107,7 @@ class LidarPolarPoint extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasAngle() => $_has(0);
   @$pb.TagNumber(1)
-  void clearAngle() => $_clearField(1);
+  void clearAngle() => clearField(1);
 
   @$pb.TagNumber(2)
   $core.double get distance => $_getN(1);
@@ -142,27 +116,11 @@ class LidarPolarPoint extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasDistance() => $_has(1);
   @$pb.TagNumber(2)
-  void clearDistance() => $_clearField(2);
+  void clearDistance() => clearField(2);
 }
 
 class LidarPointCloud extends $pb.GeneratedMessage {
-  factory LidarPointCloud({
-    $core.Iterable<LidarCartesianPoint>? cartesian,
-    $core.Iterable<LidarPolarPoint>? polar,
-    $2.Version? version,
-  }) {
-    final $result = create();
-    if (cartesian != null) {
-      $result.cartesian.addAll(cartesian);
-    }
-    if (polar != null) {
-      $result.polar.addAll(polar);
-    }
-    if (version != null) {
-      $result.version = version;
-    }
-    return $result;
-  }
+  factory LidarPointCloud() => create();
   LidarPointCloud._() : super();
   factory LidarPointCloud.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory LidarPointCloud.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -170,7 +128,7 @@ class LidarPointCloud extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'LidarPointCloud', createEmptyInstance: create)
     ..pc<LidarCartesianPoint>(1, _omitFieldNames ? '' : 'cartesian', $pb.PbFieldType.PM, subBuilder: LidarCartesianPoint.create)
     ..pc<LidarPolarPoint>(2, _omitFieldNames ? '' : 'polar', $pb.PbFieldType.PM, subBuilder: LidarPolarPoint.create)
-    ..aOM<$2.Version>(3, _omitFieldNames ? '' : 'version', subBuilder: $2.Version.create)
+    ..aOM<$1.Version>(3, _omitFieldNames ? '' : 'version', subBuilder: $1.Version.create)
     ..hasRequiredFields = false
   ;
 
@@ -196,21 +154,21 @@ class LidarPointCloud extends $pb.GeneratedMessage {
   static LidarPointCloud? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $pb.PbList<LidarCartesianPoint> get cartesian => $_getList(0);
+  $core.List<LidarCartesianPoint> get cartesian => $_getList(0);
 
   @$pb.TagNumber(2)
-  $pb.PbList<LidarPolarPoint> get polar => $_getList(1);
+  $core.List<LidarPolarPoint> get polar => $_getList(1);
 
   @$pb.TagNumber(3)
-  $2.Version get version => $_getN(2);
+  $1.Version get version => $_getN(2);
   @$pb.TagNumber(3)
-  set version($2.Version v) { $_setField(3, v); }
+  set version($1.Version v) { setField(3, v); }
   @$pb.TagNumber(3)
   $core.bool hasVersion() => $_has(2);
   @$pb.TagNumber(3)
-  void clearVersion() => $_clearField(3);
+  void clearVersion() => clearField(3);
   @$pb.TagNumber(3)
-  $2.Version ensureVersion() => $_ensure(2);
+  $1.Version ensureVersion() => $_ensure(2);
 }
 
 

@@ -2,9 +2,9 @@
 //  Generated code. Do not modify.
 //  source: video.proto
 //
-// @dart = 3.3
+// @dart = 2.12
 
-// ignore_for_file: annotate_overrides, camel_case_types, comment_references
+// ignore_for_file: annotate_overrides, camel_case_types
 // ignore_for_file: constant_identifier_names, library_prefixes
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
@@ -37,7 +37,7 @@ class CameraStatus extends $pb.ProtobufEnum {
   static final $core.Map<$core.int, CameraStatus> _byValue = $pb.ProtobufEnum.initByValue(values);
   static CameraStatus? valueOf($core.int value) => _byValue[value];
 
-  const CameraStatus._(super.v, super.n);
+  const CameraStatus._($core.int v, $core.String n) : super(v, n);
 }
 
 class CameraName extends $pb.ProtobufEnum {
@@ -66,7 +66,7 @@ class CameraName extends $pb.ProtobufEnum {
   static final $core.Map<$core.int, CameraName> _byValue = $pb.ProtobufEnum.initByValue(values);
   static CameraName? valueOf($core.int value) => _byValue[value];
 
-  const CameraName._(super.v, super.n);
+  const CameraName._($core.int v, $core.String n) : super(v, n);
 }
 
 

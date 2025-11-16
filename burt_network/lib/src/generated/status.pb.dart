@@ -2,9 +2,9 @@
 //  Generated code. Do not modify.
 //  source: status.proto
 //
-// @dart = 3.3
+// @dart = 2.12
 
-// ignore_for_file: annotate_overrides, camel_case_types, comment_references
+// ignore_for_file: annotate_overrides, camel_case_types
 // ignore_for_file: constant_identifier_names, library_prefixes
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
@@ -15,24 +15,10 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'status.pbenum.dart';
 
-export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
-
 export 'status.pbenum.dart';
 
-/// / Update a sensitive setting, such as the rover's status.
-/// /
-/// / This message must be triggered manually and the recipient (usually the subsystems Pi)
-/// / must respond with the exact same message to confirm its receipt.
 class UpdateSetting extends $pb.GeneratedMessage {
-  factory UpdateSetting({
-    RoverStatus? status,
-  }) {
-    final $result = create();
-    if (status != null) {
-      $result.status = status;
-    }
-    return $result;
-  }
+  factory UpdateSetting() => create();
   UpdateSetting._() : super();
   factory UpdateSetting.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory UpdateSetting.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -66,11 +52,11 @@ class UpdateSetting extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   RoverStatus get status => $_getN(0);
   @$pb.TagNumber(1)
-  set status(RoverStatus v) { $_setField(1, v); }
+  set status(RoverStatus v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasStatus() => $_has(0);
   @$pb.TagNumber(1)
-  void clearStatus() => $_clearField(1);
+  void clearStatus() => clearField(1);
 }
 
 

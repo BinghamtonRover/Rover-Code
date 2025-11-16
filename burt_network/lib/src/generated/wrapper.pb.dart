@@ -2,9 +2,9 @@
 //  Generated code. Do not modify.
 //  source: wrapper.proto
 //
-// @dart = 3.3
+// @dart = 2.12
 
-// ignore_for_file: annotate_overrides, camel_case_types, comment_references
+// ignore_for_file: annotate_overrides, camel_case_types
 // ignore_for_file: constant_identifier_names, library_prefixes
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
@@ -15,26 +15,8 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'google/protobuf/timestamp.pb.dart' as $8;
 
-export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
-
 class WrappedMessage extends $pb.GeneratedMessage {
-  factory WrappedMessage({
-    $core.List<$core.int>? data,
-    $core.String? name,
-    $8.Timestamp? timestamp,
-  }) {
-    final $result = create();
-    if (data != null) {
-      $result.data = data;
-    }
-    if (name != null) {
-      $result.name = name;
-    }
-    if (timestamp != null) {
-      $result.timestamp = timestamp;
-    }
-    return $result;
-  }
+  factory WrappedMessage() => create();
   WrappedMessage._() : super();
   factory WrappedMessage.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory WrappedMessage.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -74,7 +56,7 @@ class WrappedMessage extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasData() => $_has(0);
   @$pb.TagNumber(1)
-  void clearData() => $_clearField(1);
+  void clearData() => clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get name => $_getSZ(1);
@@ -83,16 +65,16 @@ class WrappedMessage extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasName() => $_has(1);
   @$pb.TagNumber(2)
-  void clearName() => $_clearField(2);
+  void clearName() => clearField(2);
 
   @$pb.TagNumber(3)
   $8.Timestamp get timestamp => $_getN(2);
   @$pb.TagNumber(3)
-  set timestamp($8.Timestamp v) { $_setField(3, v); }
+  set timestamp($8.Timestamp v) { setField(3, v); }
   @$pb.TagNumber(3)
   $core.bool hasTimestamp() => $_has(2);
   @$pb.TagNumber(3)
-  void clearTimestamp() => $_clearField(3);
+  void clearTimestamp() => clearField(3);
   @$pb.TagNumber(3)
   $8.Timestamp ensureTimestamp() => $_ensure(2);
 }

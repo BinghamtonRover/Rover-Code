@@ -2,9 +2,9 @@
 //  Generated code. Do not modify.
 //  source: geometry.proto
 //
-// @dart = 3.3
+// @dart = 2.12
 
-// ignore_for_file: annotate_overrides, camel_case_types, comment_references
+// ignore_for_file: annotate_overrides, camel_case_types
 // ignore_for_file: constant_identifier_names, library_prefixes
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
@@ -13,26 +13,8 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
-
 class Coordinates extends $pb.GeneratedMessage {
-  factory Coordinates({
-    $core.double? x,
-    $core.double? y,
-    $core.double? z,
-  }) {
-    final $result = create();
-    if (x != null) {
-      $result.x = x;
-    }
-    if (y != null) {
-      $result.y = y;
-    }
-    if (z != null) {
-      $result.z = z;
-    }
-    return $result;
-  }
+  factory Coordinates() => create();
   Coordinates._() : super();
   factory Coordinates.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Coordinates.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -72,7 +54,7 @@ class Coordinates extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasX() => $_has(0);
   @$pb.TagNumber(1)
-  void clearX() => $_clearField(1);
+  void clearX() => clearField(1);
 
   @$pb.TagNumber(2)
   $core.double get y => $_getN(1);
@@ -81,7 +63,7 @@ class Coordinates extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasY() => $_has(1);
   @$pb.TagNumber(2)
-  void clearY() => $_clearField(2);
+  void clearY() => clearField(2);
 
   @$pb.TagNumber(3)
   $core.double get z => $_getN(2);
@@ -90,27 +72,11 @@ class Coordinates extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasZ() => $_has(2);
   @$pb.TagNumber(3)
-  void clearZ() => $_clearField(3);
+  void clearZ() => clearField(3);
 }
 
 class Orientation extends $pb.GeneratedMessage {
-  factory Orientation({
-    $core.double? x,
-    $core.double? y,
-    $core.double? z,
-  }) {
-    final $result = create();
-    if (x != null) {
-      $result.x = x;
-    }
-    if (y != null) {
-      $result.y = y;
-    }
-    if (z != null) {
-      $result.z = z;
-    }
-    return $result;
-  }
+  factory Orientation() => create();
   Orientation._() : super();
   factory Orientation.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Orientation.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -150,7 +116,7 @@ class Orientation extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasX() => $_has(0);
   @$pb.TagNumber(1)
-  void clearX() => $_clearField(1);
+  void clearX() => clearField(1);
 
   @$pb.TagNumber(2)
   $core.double get y => $_getN(1);
@@ -159,7 +125,7 @@ class Orientation extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasY() => $_has(1);
   @$pb.TagNumber(2)
-  void clearY() => $_clearField(2);
+  void clearY() => clearField(2);
 
   @$pb.TagNumber(3)
   $core.double get z => $_getN(2);
@@ -168,23 +134,11 @@ class Orientation extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasZ() => $_has(2);
   @$pb.TagNumber(3)
-  void clearZ() => $_clearField(3);
+  void clearZ() => clearField(3);
 }
 
 class Pose3d extends $pb.GeneratedMessage {
-  factory Pose3d({
-    Coordinates? translation,
-    Orientation? rotation,
-  }) {
-    final $result = create();
-    if (translation != null) {
-      $result.translation = translation;
-    }
-    if (rotation != null) {
-      $result.rotation = rotation;
-    }
-    return $result;
-  }
+  factory Pose3d() => create();
   Pose3d._() : super();
   factory Pose3d.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Pose3d.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -219,22 +173,22 @@ class Pose3d extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   Coordinates get translation => $_getN(0);
   @$pb.TagNumber(1)
-  set translation(Coordinates v) { $_setField(1, v); }
+  set translation(Coordinates v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasTranslation() => $_has(0);
   @$pb.TagNumber(1)
-  void clearTranslation() => $_clearField(1);
+  void clearTranslation() => clearField(1);
   @$pb.TagNumber(1)
   Coordinates ensureTranslation() => $_ensure(0);
 
   @$pb.TagNumber(2)
   Orientation get rotation => $_getN(1);
   @$pb.TagNumber(2)
-  set rotation(Orientation v) { $_setField(2, v); }
+  set rotation(Orientation v) { setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasRotation() => $_has(1);
   @$pb.TagNumber(2)
-  void clearRotation() => $_clearField(2);
+  void clearRotation() => clearField(2);
   @$pb.TagNumber(2)
   Orientation ensureRotation() => $_ensure(1);
 }

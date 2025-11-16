@@ -2,9 +2,9 @@
 //  Generated code. Do not modify.
 //  source: logs.proto
 //
-// @dart = 3.3
+// @dart = 2.12
 
-// ignore_for_file: annotate_overrides, camel_case_types, comment_references
+// ignore_for_file: annotate_overrides, camel_case_types
 // ignore_for_file: constant_identifier_names, library_prefixes
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
@@ -13,35 +13,13 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'core.pbenum.dart' as $6;
+import 'core.pbenum.dart' as $7;
 import 'logs.pbenum.dart';
-
-export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
 export 'logs.pbenum.dart';
 
 class BurtLog extends $pb.GeneratedMessage {
-  factory BurtLog({
-    BurtLogLevel? level,
-    $core.String? title,
-    $core.String? body,
-    $6.Device? device,
-  }) {
-    final $result = create();
-    if (level != null) {
-      $result.level = level;
-    }
-    if (title != null) {
-      $result.title = title;
-    }
-    if (body != null) {
-      $result.body = body;
-    }
-    if (device != null) {
-      $result.device = device;
-    }
-    return $result;
-  }
+  factory BurtLog() => create();
   BurtLog._() : super();
   factory BurtLog.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory BurtLog.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -50,7 +28,7 @@ class BurtLog extends $pb.GeneratedMessage {
     ..e<BurtLogLevel>(1, _omitFieldNames ? '' : 'level', $pb.PbFieldType.OE, defaultOrMaker: BurtLogLevel.BURT_LOG_LEVEL_UNDEFINED, valueOf: BurtLogLevel.valueOf, enumValues: BurtLogLevel.values)
     ..aOS(2, _omitFieldNames ? '' : 'title')
     ..aOS(3, _omitFieldNames ? '' : 'body')
-    ..e<$6.Device>(4, _omitFieldNames ? '' : 'device', $pb.PbFieldType.OE, defaultOrMaker: $6.Device.DEVICE_UNDEFINED, valueOf: $6.Device.valueOf, enumValues: $6.Device.values)
+    ..e<$7.Device>(4, _omitFieldNames ? '' : 'device', $pb.PbFieldType.OE, defaultOrMaker: $7.Device.DEVICE_UNDEFINED, valueOf: $7.Device.valueOf, enumValues: $7.Device.values)
     ..hasRequiredFields = false
   ;
 
@@ -78,11 +56,11 @@ class BurtLog extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   BurtLogLevel get level => $_getN(0);
   @$pb.TagNumber(1)
-  set level(BurtLogLevel v) { $_setField(1, v); }
+  set level(BurtLogLevel v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasLevel() => $_has(0);
   @$pb.TagNumber(1)
-  void clearLevel() => $_clearField(1);
+  void clearLevel() => clearField(1);
 
   @$pb.TagNumber(2)
   $core.String get title => $_getSZ(1);
@@ -91,7 +69,7 @@ class BurtLog extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasTitle() => $_has(1);
   @$pb.TagNumber(2)
-  void clearTitle() => $_clearField(2);
+  void clearTitle() => clearField(2);
 
   @$pb.TagNumber(3)
   $core.String get body => $_getSZ(2);
@@ -100,16 +78,16 @@ class BurtLog extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasBody() => $_has(2);
   @$pb.TagNumber(3)
-  void clearBody() => $_clearField(3);
+  void clearBody() => clearField(3);
 
   @$pb.TagNumber(4)
-  $6.Device get device => $_getN(3);
+  $7.Device get device => $_getN(3);
   @$pb.TagNumber(4)
-  set device($6.Device v) { $_setField(4, v); }
+  set device($7.Device v) { setField(4, v); }
   @$pb.TagNumber(4)
   $core.bool hasDevice() => $_has(3);
   @$pb.TagNumber(4)
-  void clearDevice() => $_clearField(4);
+  void clearDevice() => clearField(4);
 }
 
 

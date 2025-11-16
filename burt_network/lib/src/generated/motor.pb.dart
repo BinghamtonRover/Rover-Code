@@ -2,9 +2,9 @@
 //  Generated code. Do not modify.
 //  source: motor.proto
 //
-// @dart = 3.3
+// @dart = 2.12
 
-// ignore_for_file: annotate_overrides, camel_case_types, comment_references
+// ignore_for_file: annotate_overrides, camel_case_types
 // ignore_for_file: constant_identifier_names, library_prefixes
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
@@ -14,53 +14,19 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'motor.pbenum.dart';
-import 'utils.pbenum.dart' as $3;
-
-export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
+import 'utils.pbenum.dart' as $4;
 
 export 'motor.pbenum.dart';
 
 class MotorData extends $pb.GeneratedMessage {
-  factory MotorData({
-    $3.BoolState? isMoving,
-    $3.BoolState? isLimitSwitchPressed,
-    MotorDirection? direction,
-    $core.int? currentStep,
-    $core.int? targetStep,
-    $core.double? currentAngle,
-    $core.double? targetAngle,
-  }) {
-    final $result = create();
-    if (isMoving != null) {
-      $result.isMoving = isMoving;
-    }
-    if (isLimitSwitchPressed != null) {
-      $result.isLimitSwitchPressed = isLimitSwitchPressed;
-    }
-    if (direction != null) {
-      $result.direction = direction;
-    }
-    if (currentStep != null) {
-      $result.currentStep = currentStep;
-    }
-    if (targetStep != null) {
-      $result.targetStep = targetStep;
-    }
-    if (currentAngle != null) {
-      $result.currentAngle = currentAngle;
-    }
-    if (targetAngle != null) {
-      $result.targetAngle = targetAngle;
-    }
-    return $result;
-  }
+  factory MotorData() => create();
   MotorData._() : super();
   factory MotorData.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MotorData.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'MotorData', createEmptyInstance: create)
-    ..e<$3.BoolState>(1, _omitFieldNames ? '' : 'isMoving', $pb.PbFieldType.OE, defaultOrMaker: $3.BoolState.BOOL_UNDEFINED, valueOf: $3.BoolState.valueOf, enumValues: $3.BoolState.values)
-    ..e<$3.BoolState>(2, _omitFieldNames ? '' : 'isLimitSwitchPressed', $pb.PbFieldType.OE, defaultOrMaker: $3.BoolState.BOOL_UNDEFINED, valueOf: $3.BoolState.valueOf, enumValues: $3.BoolState.values)
+    ..e<$4.BoolState>(1, _omitFieldNames ? '' : 'isMoving', $pb.PbFieldType.OE, defaultOrMaker: $4.BoolState.BOOL_UNDEFINED, valueOf: $4.BoolState.valueOf, enumValues: $4.BoolState.values)
+    ..e<$4.BoolState>(2, _omitFieldNames ? '' : 'isLimitSwitchPressed', $pb.PbFieldType.OE, defaultOrMaker: $4.BoolState.BOOL_UNDEFINED, valueOf: $4.BoolState.valueOf, enumValues: $4.BoolState.values)
     ..e<MotorDirection>(3, _omitFieldNames ? '' : 'direction', $pb.PbFieldType.OE, defaultOrMaker: MotorDirection.MOTOR_DIRECTION_UNDEFINED, valueOf: MotorDirection.valueOf, enumValues: MotorDirection.values)
     ..a<$core.int>(4, _omitFieldNames ? '' : 'currentStep', $pb.PbFieldType.O3)
     ..a<$core.int>(5, _omitFieldNames ? '' : 'targetStep', $pb.PbFieldType.O3)
@@ -91,31 +57,31 @@ class MotorData extends $pb.GeneratedMessage {
   static MotorData? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $3.BoolState get isMoving => $_getN(0);
+  $4.BoolState get isMoving => $_getN(0);
   @$pb.TagNumber(1)
-  set isMoving($3.BoolState v) { $_setField(1, v); }
+  set isMoving($4.BoolState v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasIsMoving() => $_has(0);
   @$pb.TagNumber(1)
-  void clearIsMoving() => $_clearField(1);
+  void clearIsMoving() => clearField(1);
 
   @$pb.TagNumber(2)
-  $3.BoolState get isLimitSwitchPressed => $_getN(1);
+  $4.BoolState get isLimitSwitchPressed => $_getN(1);
   @$pb.TagNumber(2)
-  set isLimitSwitchPressed($3.BoolState v) { $_setField(2, v); }
+  set isLimitSwitchPressed($4.BoolState v) { setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasIsLimitSwitchPressed() => $_has(1);
   @$pb.TagNumber(2)
-  void clearIsLimitSwitchPressed() => $_clearField(2);
+  void clearIsLimitSwitchPressed() => clearField(2);
 
   @$pb.TagNumber(3)
   MotorDirection get direction => $_getN(2);
   @$pb.TagNumber(3)
-  set direction(MotorDirection v) { $_setField(3, v); }
+  set direction(MotorDirection v) { setField(3, v); }
   @$pb.TagNumber(3)
   $core.bool hasDirection() => $_has(2);
   @$pb.TagNumber(3)
-  void clearDirection() => $_clearField(3);
+  void clearDirection() => clearField(3);
 
   @$pb.TagNumber(4)
   $core.int get currentStep => $_getIZ(3);
@@ -124,7 +90,7 @@ class MotorData extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.bool hasCurrentStep() => $_has(3);
   @$pb.TagNumber(4)
-  void clearCurrentStep() => $_clearField(4);
+  void clearCurrentStep() => clearField(4);
 
   @$pb.TagNumber(5)
   $core.int get targetStep => $_getIZ(4);
@@ -133,7 +99,7 @@ class MotorData extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   $core.bool hasTargetStep() => $_has(4);
   @$pb.TagNumber(5)
-  void clearTargetStep() => $_clearField(5);
+  void clearTargetStep() => clearField(5);
 
   @$pb.TagNumber(6)
   $core.double get currentAngle => $_getN(5);
@@ -142,7 +108,7 @@ class MotorData extends $pb.GeneratedMessage {
   @$pb.TagNumber(6)
   $core.bool hasCurrentAngle() => $_has(5);
   @$pb.TagNumber(6)
-  void clearCurrentAngle() => $_clearField(6);
+  void clearCurrentAngle() => clearField(6);
 
   @$pb.TagNumber(7)
   $core.double get targetAngle => $_getN(6);
@@ -151,27 +117,11 @@ class MotorData extends $pb.GeneratedMessage {
   @$pb.TagNumber(7)
   $core.bool hasTargetAngle() => $_has(6);
   @$pb.TagNumber(7)
-  void clearTargetAngle() => $_clearField(7);
+  void clearTargetAngle() => clearField(7);
 }
 
 class MotorCommand extends $pb.GeneratedMessage {
-  factory MotorCommand({
-    $core.int? moveSteps,
-    $core.double? moveRadians,
-    $core.double? angle,
-  }) {
-    final $result = create();
-    if (moveSteps != null) {
-      $result.moveSteps = moveSteps;
-    }
-    if (moveRadians != null) {
-      $result.moveRadians = moveRadians;
-    }
-    if (angle != null) {
-      $result.angle = angle;
-    }
-    return $result;
-  }
+  factory MotorCommand() => create();
   MotorCommand._() : super();
   factory MotorCommand.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MotorCommand.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -204,7 +154,6 @@ class MotorCommand extends $pb.GeneratedMessage {
   static MotorCommand getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MotorCommand>(create);
   static MotorCommand? _defaultInstance;
 
-  /// Debug control: Move by individual steps
   @$pb.TagNumber(1)
   $core.int get moveSteps => $_getIZ(0);
   @$pb.TagNumber(1)
@@ -212,9 +161,8 @@ class MotorCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasMoveSteps() => $_has(0);
   @$pb.TagNumber(1)
-  void clearMoveSteps() => $_clearField(1);
+  void clearMoveSteps() => clearField(1);
 
-  /// Precise control: Move by radians
   @$pb.TagNumber(2)
   $core.double get moveRadians => $_getN(1);
   @$pb.TagNumber(2)
@@ -222,9 +170,8 @@ class MotorCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasMoveRadians() => $_has(1);
   @$pb.TagNumber(2)
-  void clearMoveRadians() => $_clearField(2);
+  void clearMoveRadians() => clearField(2);
 
-  /// / An angle to go to. Useful in IK.
   @$pb.TagNumber(3)
   $core.double get angle => $_getN(2);
   @$pb.TagNumber(3)
@@ -232,7 +179,7 @@ class MotorCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.bool hasAngle() => $_has(2);
   @$pb.TagNumber(3)
-  void clearAngle() => $_clearField(3);
+  void clearAngle() => clearField(3);
 }
 
 

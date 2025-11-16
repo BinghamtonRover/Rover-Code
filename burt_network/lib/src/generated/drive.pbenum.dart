@@ -2,9 +2,9 @@
 //  Generated code. Do not modify.
 //  source: drive.proto
 //
-// @dart = 3.3
+// @dart = 2.12
 
-// ignore_for_file: annotate_overrides, camel_case_types, comment_references
+// ignore_for_file: annotate_overrides, camel_case_types
 // ignore_for_file: constant_identifier_names, library_prefixes
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
@@ -33,7 +33,7 @@ class DriveMotor extends $pb.ProtobufEnum {
   static final $core.Map<$core.int, DriveMotor> _byValue = $pb.ProtobufEnum.initByValue(values);
   static DriveMotor? valueOf($core.int value) => _byValue[value];
 
-  const DriveMotor._(super.v, super.n);
+  const DriveMotor._($core.int v, $core.String n) : super(v, n);
 }
 
 class ProtoColor extends $pb.ProtobufEnum {
@@ -54,7 +54,7 @@ class ProtoColor extends $pb.ProtobufEnum {
   static final $core.Map<$core.int, ProtoColor> _byValue = $pb.ProtobufEnum.initByValue(values);
   static ProtoColor? valueOf($core.int value) => _byValue[value];
 
-  const ProtoColor._(super.v, super.n);
+  const ProtoColor._($core.int v, $core.String n) : super(v, n);
 }
 
 class MotorErrorCode extends $pb.ProtobufEnum {
@@ -81,7 +81,7 @@ class MotorErrorCode extends $pb.ProtobufEnum {
   static final $core.Map<$core.int, MotorErrorCode> _byValue = $pb.ProtobufEnum.initByValue(values);
   static MotorErrorCode? valueOf($core.int value) => _byValue[value];
 
-  const MotorErrorCode._(super.v, super.n);
+  const MotorErrorCode._($core.int v, $core.String n) : super(v, n);
 }
 
 

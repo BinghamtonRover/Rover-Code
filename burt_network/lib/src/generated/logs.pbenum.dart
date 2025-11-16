@@ -2,9 +2,9 @@
 //  Generated code. Do not modify.
 //  source: logs.proto
 //
-// @dart = 3.3
+// @dart = 2.12
 
-// ignore_for_file: annotate_overrides, camel_case_types, comment_references
+// ignore_for_file: annotate_overrides, camel_case_types
 // ignore_for_file: constant_identifier_names, library_prefixes
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
@@ -35,7 +35,7 @@ class BurtLogLevel extends $pb.ProtobufEnum {
   static final $core.Map<$core.int, BurtLogLevel> _byValue = $pb.ProtobufEnum.initByValue(values);
   static BurtLogLevel? valueOf($core.int value) => _byValue[value];
 
-  const BurtLogLevel._(super.v, super.n);
+  const BurtLogLevel._($core.int v, $core.String n) : super(v, n);
 }
 
 

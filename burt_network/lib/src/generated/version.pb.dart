@@ -2,9 +2,9 @@
 //  Generated code. Do not modify.
 //  source: version.proto
 //
-// @dart = 3.3
+// @dart = 2.12
 
-// ignore_for_file: annotate_overrides, camel_case_types, comment_references
+// ignore_for_file: annotate_overrides, camel_case_types
 // ignore_for_file: constant_identifier_names, library_prefixes
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
@@ -13,22 +13,8 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
-
 class Version extends $pb.GeneratedMessage {
-  factory Version({
-    $core.int? major,
-    $core.int? minor,
-  }) {
-    final $result = create();
-    if (major != null) {
-      $result.major = major;
-    }
-    if (minor != null) {
-      $result.minor = minor;
-    }
-    return $result;
-  }
+  factory Version() => create();
   Version._() : super();
   factory Version.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Version.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -67,7 +53,7 @@ class Version extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.bool hasMajor() => $_has(0);
   @$pb.TagNumber(1)
-  void clearMajor() => $_clearField(1);
+  void clearMajor() => clearField(1);
 
   @$pb.TagNumber(2)
   $core.int get minor => $_getIZ(1);
@@ -76,7 +62,7 @@ class Version extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.bool hasMinor() => $_has(1);
   @$pb.TagNumber(2)
-  void clearMinor() => $_clearField(2);
+  void clearMinor() => clearField(2);
 }
 
 
