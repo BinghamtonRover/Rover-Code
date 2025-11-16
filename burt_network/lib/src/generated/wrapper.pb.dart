@@ -64,8 +64,6 @@ class WrappedMessage extends $pb.GeneratedMessage {
   static WrappedMessage create() => WrappedMessage._();
   @$core.override
   WrappedMessage createEmptyInstance() => create();
-  static $pb.PbList<WrappedMessage> createRepeated() =>
-      $pb.PbList<WrappedMessage>();
   @$core.pragma('dart2js:noInline')
   static WrappedMessage getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<WrappedMessage>(create);

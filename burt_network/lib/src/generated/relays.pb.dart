@@ -85,8 +85,6 @@ class RelaysCommand extends $pb.GeneratedMessage {
   static RelaysCommand create() => RelaysCommand._();
   @$core.override
   RelaysCommand createEmptyInstance() => create();
-  static $pb.PbList<RelaysCommand> createRepeated() =>
-      $pb.PbList<RelaysCommand>();
   @$core.pragma('dart2js:noInline')
   static RelaysCommand getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<RelaysCommand>(create);
@@ -238,7 +236,6 @@ class RelaysData extends $pb.GeneratedMessage {
   static RelaysData create() => RelaysData._();
   @$core.override
   RelaysData createEmptyInstance() => create();
-  static $pb.PbList<RelaysData> createRepeated() => $pb.PbList<RelaysData>();
   @$core.pragma('dart2js:noInline')
   static RelaysData getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<RelaysData>(create);

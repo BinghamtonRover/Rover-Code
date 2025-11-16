@@ -104,8 +104,6 @@ class DriveCommand extends $pb.GeneratedMessage {
   static DriveCommand create() => DriveCommand._();
   @$core.override
   DriveCommand createEmptyInstance() => create();
-  static $pb.PbList<DriveCommand> createRepeated() =>
-      $pb.PbList<DriveCommand>();
   @$core.pragma('dart2js:noInline')
   static DriveCommand getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<DriveCommand>(create);
@@ -294,8 +292,6 @@ class DriveMotorData extends $pb.GeneratedMessage {
   static DriveMotorData create() => DriveMotorData._();
   @$core.override
   DriveMotorData createEmptyInstance() => create();
-  static $pb.PbList<DriveMotorData> createRepeated() =>
-      $pb.PbList<DriveMotorData>();
   @$core.pragma('dart2js:noInline')
   static DriveMotorData getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<DriveMotorData>(create);
@@ -451,7 +447,6 @@ class DriveData extends $pb.GeneratedMessage {
   static DriveData create() => DriveData._();
   @$core.override
   DriveData createEmptyInstance() => create();
-  static $pb.PbList<DriveData> createRepeated() => $pb.PbList<DriveData>();
   @$core.pragma('dart2js:noInline')
   static DriveData getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DriveData>(create);

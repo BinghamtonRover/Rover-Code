@@ -74,8 +74,6 @@ class AntennaFirmwareCommand extends $pb.GeneratedMessage {
   static AntennaFirmwareCommand create() => AntennaFirmwareCommand._();
   @$core.override
   AntennaFirmwareCommand createEmptyInstance() => create();
-  static $pb.PbList<AntennaFirmwareCommand> createRepeated() =>
-      $pb.PbList<AntennaFirmwareCommand>();
   @$core.pragma('dart2js:noInline')
   static AntennaFirmwareCommand getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<AntennaFirmwareCommand>(create);
@@ -165,8 +163,6 @@ class AntennaFirmwareData extends $pb.GeneratedMessage {
   static AntennaFirmwareData create() => AntennaFirmwareData._();
   @$core.override
   AntennaFirmwareData createEmptyInstance() => create();
-  static $pb.PbList<AntennaFirmwareData> createRepeated() =>
-      $pb.PbList<AntennaFirmwareData>();
   @$core.pragma('dart2js:noInline')
   static AntennaFirmwareData getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<AntennaFirmwareData>(create);
@@ -277,8 +273,6 @@ class BaseStationCommand extends $pb.GeneratedMessage {
   static BaseStationCommand create() => BaseStationCommand._();
   @$core.override
   BaseStationCommand createEmptyInstance() => create();
-  static $pb.PbList<BaseStationCommand> createRepeated() =>
-      $pb.PbList<BaseStationCommand>();
   @$core.pragma('dart2js:noInline')
   static BaseStationCommand getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<BaseStationCommand>(create);
@@ -416,8 +410,6 @@ class BaseStationData extends $pb.GeneratedMessage {
   static BaseStationData create() => BaseStationData._();
   @$core.override
   BaseStationData createEmptyInstance() => create();
-  static $pb.PbList<BaseStationData> createRepeated() =>
-      $pb.PbList<BaseStationData>();
   @$core.pragma('dart2js:noInline')
   static BaseStationData getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<BaseStationData>(create);

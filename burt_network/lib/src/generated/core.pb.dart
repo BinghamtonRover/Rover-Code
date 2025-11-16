@@ -62,7 +62,6 @@ class Connect extends $pb.GeneratedMessage {
   static Connect create() => Connect._();
   @$core.override
   Connect createEmptyInstance() => create();
-  static $pb.PbList<Connect> createRepeated() => $pb.PbList<Connect>();
   @$core.pragma('dart2js:noInline')
   static Connect getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Connect>(create);
@@ -125,7 +124,6 @@ class Disconnect extends $pb.GeneratedMessage {
   static Disconnect create() => Disconnect._();
   @$core.override
   Disconnect createEmptyInstance() => create();
-  static $pb.PbList<Disconnect> createRepeated() => $pb.PbList<Disconnect>();
   @$core.pragma('dart2js:noInline')
   static Disconnect getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<Disconnect>(create);

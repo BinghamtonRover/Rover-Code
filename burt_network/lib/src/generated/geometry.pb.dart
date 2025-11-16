@@ -60,7 +60,6 @@ class Coordinates extends $pb.GeneratedMessage {
   static Coordinates create() => Coordinates._();
   @$core.override
   Coordinates createEmptyInstance() => create();
-  static $pb.PbList<Coordinates> createRepeated() => $pb.PbList<Coordinates>();
   @$core.pragma('dart2js:noInline')
   static Coordinates getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<Coordinates>(create);
@@ -138,7 +137,6 @@ class Orientation extends $pb.GeneratedMessage {
   static Orientation create() => Orientation._();
   @$core.override
   Orientation createEmptyInstance() => create();
-  static $pb.PbList<Orientation> createRepeated() => $pb.PbList<Orientation>();
   @$core.pragma('dart2js:noInline')
   static Orientation getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<Orientation>(create);
@@ -214,7 +212,6 @@ class Pose3d extends $pb.GeneratedMessage {
   static Pose3d create() => Pose3d._();
   @$core.override
   Pose3d createEmptyInstance() => create();
-  static $pb.PbList<Pose3d> createRepeated() => $pb.PbList<Pose3d>();
   @$core.pragma('dart2js:noInline')
   static Pose3d getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Pose3d>(create);

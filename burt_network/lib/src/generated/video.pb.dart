@@ -115,8 +115,6 @@ class CameraDetails extends $pb.GeneratedMessage {
   static CameraDetails create() => CameraDetails._();
   @$core.override
   CameraDetails createEmptyInstance() => create();
-  static $pb.PbList<CameraDetails> createRepeated() =>
-      $pb.PbList<CameraDetails>();
   @$core.pragma('dart2js:noInline')
   static CameraDetails getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<CameraDetails>(create);
@@ -341,7 +339,6 @@ class VideoData extends $pb.GeneratedMessage {
   static VideoData create() => VideoData._();
   @$core.override
   VideoData createEmptyInstance() => create();
-  static $pb.PbList<VideoData> createRepeated() => $pb.PbList<VideoData>();
   @$core.pragma('dart2js:noInline')
   static VideoData getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<VideoData>(create);
@@ -456,8 +453,6 @@ class VideoCommand extends $pb.GeneratedMessage {
   static VideoCommand create() => VideoCommand._();
   @$core.override
   VideoCommand createEmptyInstance() => create();
-  static $pb.PbList<VideoCommand> createRepeated() =>
-      $pb.PbList<VideoCommand>();
   @$core.pragma('dart2js:noInline')
   static VideoCommand getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<VideoCommand>(create);

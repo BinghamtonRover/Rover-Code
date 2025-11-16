@@ -59,8 +59,6 @@ class LidarCartesianPoint extends $pb.GeneratedMessage {
   static LidarCartesianPoint create() => LidarCartesianPoint._();
   @$core.override
   LidarCartesianPoint createEmptyInstance() => create();
-  static $pb.PbList<LidarCartesianPoint> createRepeated() =>
-      $pb.PbList<LidarCartesianPoint>();
   @$core.pragma('dart2js:noInline')
   static LidarCartesianPoint getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<LidarCartesianPoint>(create);
@@ -126,8 +124,6 @@ class LidarPolarPoint extends $pb.GeneratedMessage {
   static LidarPolarPoint create() => LidarPolarPoint._();
   @$core.override
   LidarPolarPoint createEmptyInstance() => create();
-  static $pb.PbList<LidarPolarPoint> createRepeated() =>
-      $pb.PbList<LidarPolarPoint>();
   @$core.pragma('dart2js:noInline')
   static LidarPolarPoint getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<LidarPolarPoint>(create);
@@ -199,8 +195,6 @@ class LidarPointCloud extends $pb.GeneratedMessage {
   static LidarPointCloud create() => LidarPointCloud._();
   @$core.override
   LidarPointCloud createEmptyInstance() => create();
-  static $pb.PbList<LidarPointCloud> createRepeated() =>
-      $pb.PbList<LidarPointCloud>();
   @$core.pragma('dart2js:noInline')
   static LidarPointCloud getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<LidarPointCloud>(create);

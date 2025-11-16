@@ -84,8 +84,6 @@ class AutonomyData extends $pb.GeneratedMessage {
   static AutonomyData create() => AutonomyData._();
   @$core.override
   AutonomyData createEmptyInstance() => create();
-  static $pb.PbList<AutonomyData> createRepeated() =>
-      $pb.PbList<AutonomyData>();
   @$core.pragma('dart2js:noInline')
   static AutonomyData getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<AutonomyData>(create);
@@ -200,8 +198,6 @@ class AutonomyCommand extends $pb.GeneratedMessage {
   static AutonomyCommand create() => AutonomyCommand._();
   @$core.override
   AutonomyCommand createEmptyInstance() => create();
-  static $pb.PbList<AutonomyCommand> createRepeated() =>
-      $pb.PbList<AutonomyCommand>();
   @$core.pragma('dart2js:noInline')
   static AutonomyCommand getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<AutonomyCommand>(create);

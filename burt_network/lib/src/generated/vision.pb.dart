@@ -63,7 +63,6 @@ class PnpResult extends $pb.GeneratedMessage {
   static PnpResult create() => PnpResult._();
   @$core.override
   PnpResult createEmptyInstance() => create();
-  static $pb.PbList<PnpResult> createRepeated() => $pb.PbList<PnpResult>();
   @$core.pragma('dart2js:noInline')
   static PnpResult getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<PnpResult>(create);
@@ -161,8 +160,6 @@ class DetectedObject extends $pb.GeneratedMessage {
   static DetectedObject create() => DetectedObject._();
   @$core.override
   DetectedObject createEmptyInstance() => create();
-  static $pb.PbList<DetectedObject> createRepeated() =>
-      $pb.PbList<DetectedObject>();
   @$core.pragma('dart2js:noInline')
   static DetectedObject getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<DetectedObject>(create);

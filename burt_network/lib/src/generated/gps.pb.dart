@@ -70,8 +70,6 @@ class GpsCoordinates extends $pb.GeneratedMessage {
   static GpsCoordinates create() => GpsCoordinates._();
   @$core.override
   GpsCoordinates createEmptyInstance() => create();
-  static $pb.PbList<GpsCoordinates> createRepeated() =>
-      $pb.PbList<GpsCoordinates>();
   @$core.pragma('dart2js:noInline')
   static GpsCoordinates getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<GpsCoordinates>(create);
@@ -166,8 +164,6 @@ class RoverPosition extends $pb.GeneratedMessage {
   static RoverPosition create() => RoverPosition._();
   @$core.override
   RoverPosition createEmptyInstance() => create();
-  static $pb.PbList<RoverPosition> createRepeated() =>
-      $pb.PbList<RoverPosition>();
   @$core.pragma('dart2js:noInline')
   static RoverPosition getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<RoverPosition>(create);

@@ -63,8 +63,6 @@ class UpdateSetting extends $pb.GeneratedMessage {
   static UpdateSetting create() => UpdateSetting._();
   @$core.override
   UpdateSetting createEmptyInstance() => create();
-  static $pb.PbList<UpdateSetting> createRepeated() =>
-      $pb.PbList<UpdateSetting>();
   @$core.pragma('dart2js:noInline')
   static UpdateSetting getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<UpdateSetting>(create);

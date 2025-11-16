@@ -79,7 +79,6 @@ class ArmData extends $pb.GeneratedMessage {
   static ArmData create() => ArmData._();
   @$core.override
   ArmData createEmptyInstance() => create();
-  static $pb.PbList<ArmData> createRepeated() => $pb.PbList<ArmData>();
   @$core.pragma('dart2js:noInline')
   static ArmData getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ArmData>(create);
@@ -224,7 +223,6 @@ class ArmCommand extends $pb.GeneratedMessage {
   static ArmCommand create() => ArmCommand._();
   @$core.override
   ArmCommand createEmptyInstance() => create();
-  static $pb.PbList<ArmCommand> createRepeated() => $pb.PbList<ArmCommand>();
   @$core.pragma('dart2js:noInline')
   static ArmCommand getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<ArmCommand>(create);
@@ -404,7 +402,6 @@ class GripperData extends $pb.GeneratedMessage {
   static GripperData create() => GripperData._();
   @$core.override
   GripperData createEmptyInstance() => create();
-  static $pb.PbList<GripperData> createRepeated() => $pb.PbList<GripperData>();
   @$core.pragma('dart2js:noInline')
   static GripperData getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<GripperData>(create);
@@ -546,8 +543,6 @@ class GripperCommand extends $pb.GeneratedMessage {
   static GripperCommand create() => GripperCommand._();
   @$core.override
   GripperCommand createEmptyInstance() => create();
-  static $pb.PbList<GripperCommand> createRepeated() =>
-      $pb.PbList<GripperCommand>();
   @$core.pragma('dart2js:noInline')
   static GripperCommand getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<GripperCommand>(create);

@@ -81,7 +81,6 @@ class MotorData extends $pb.GeneratedMessage {
   static MotorData create() => MotorData._();
   @$core.override
   MotorData createEmptyInstance() => create();
-  static $pb.PbList<MotorData> createRepeated() => $pb.PbList<MotorData>();
   @$core.pragma('dart2js:noInline')
   static MotorData getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MotorData>(create);
@@ -195,8 +194,6 @@ class MotorCommand extends $pb.GeneratedMessage {
   static MotorCommand create() => MotorCommand._();
   @$core.override
   MotorCommand createEmptyInstance() => create();
-  static $pb.PbList<MotorCommand> createRepeated() =>
-      $pb.PbList<MotorCommand>();
   @$core.pragma('dart2js:noInline')
   static MotorCommand getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<MotorCommand>(create);

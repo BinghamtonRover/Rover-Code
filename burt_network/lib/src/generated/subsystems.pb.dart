@@ -62,8 +62,6 @@ class SubsystemsCommand extends $pb.GeneratedMessage {
   static SubsystemsCommand create() => SubsystemsCommand._();
   @$core.override
   SubsystemsCommand createEmptyInstance() => create();
-  static $pb.PbList<SubsystemsCommand> createRepeated() =>
-      $pb.PbList<SubsystemsCommand>();
   @$core.pragma('dart2js:noInline')
   static SubsystemsCommand getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<SubsystemsCommand>(create);
@@ -146,8 +144,6 @@ class SubsystemsData extends $pb.GeneratedMessage {
   static SubsystemsData create() => SubsystemsData._();
   @$core.override
   SubsystemsData createEmptyInstance() => create();
-  static $pb.PbList<SubsystemsData> createRepeated() =>
-      $pb.PbList<SubsystemsData>();
   @$core.pragma('dart2js:noInline')
   static SubsystemsData getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<SubsystemsData>(create);

@@ -69,7 +69,6 @@ class BurtLog extends $pb.GeneratedMessage {
   static BurtLog create() => BurtLog._();
   @$core.override
   BurtLog createEmptyInstance() => create();
-  static $pb.PbList<BurtLog> createRepeated() => $pb.PbList<BurtLog>();
   @$core.pragma('dart2js:noInline')
   static BurtLog getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<BurtLog>(create);

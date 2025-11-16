@@ -101,8 +101,6 @@ class ScienceCommand extends $pb.GeneratedMessage {
   static ScienceCommand create() => ScienceCommand._();
   @$core.override
   ScienceCommand createEmptyInstance() => create();
-  static $pb.PbList<ScienceCommand> createRepeated() =>
-      $pb.PbList<ScienceCommand>();
   @$core.pragma('dart2js:noInline')
   static ScienceCommand getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<ScienceCommand>(create);
@@ -278,7 +276,6 @@ class ScienceData extends $pb.GeneratedMessage {
   static ScienceData create() => ScienceData._();
   @$core.override
   ScienceData createEmptyInstance() => create();
-  static $pb.PbList<ScienceData> createRepeated() => $pb.PbList<ScienceData>();
   @$core.pragma('dart2js:noInline')
   static ScienceData getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<ScienceData>(create);
