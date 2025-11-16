@@ -91,7 +91,8 @@ class OpenCVCameraIsolate extends CameraIsolate {
   Future<void> sendFrames() async {
     if (camera == null) return;
     final (success, originalMatrix) = camera!.read();
-    if (!success || originalMatrix.width <= 0 || originalMatrix.height <= 0) return;
+    if (!success || originalMatrix.width <= 0 || originalMatrix.height <= 0)
+      return;
     var matrix = originalMatrix;
 
     final detectedMarkers = await arucoDetector.process(
