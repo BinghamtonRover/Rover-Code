@@ -1,14 +1,13 @@
-// This is a generated file - do not edit.
 //
-// Generated from drive.proto.
-
+//  Generated code. Do not modify.
+//  source: drive.proto
+//
 // @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
-// ignore_for_file: constant_identifier_names
-// ignore_for_file: curly_braces_in_flow_control_structures
-// ignore_for_file: deprecated_member_use_from_same_package, library_prefixes
-// ignore_for_file: non_constant_identifier_names, unused_import
+// ignore_for_file: constant_identifier_names, library_prefixes
+// ignore_for_file: non_constant_identifier_names, prefer_final_fields
+// ignore_for_file: unnecessary_import, unnecessary_this, unused_import
 
 import 'dart:convert' as $convert;
 import 'dart:core' as $core;
@@ -84,22 +83,8 @@ const DriveCommand$json = {
     {'1': 'front_tilt', '3': 8, '4': 1, '5': 2, '10': 'frontTilt'},
     {'1': 'rear_swivel', '3': 9, '4': 1, '5': 2, '10': 'rearSwivel'},
     {'1': 'rear_tilt', '3': 10, '4': 1, '5': 2, '10': 'rearTilt'},
-    {
-      '1': 'status',
-      '3': 11,
-      '4': 1,
-      '5': 14,
-      '6': '.RoverStatus',
-      '10': 'status'
-    },
-    {
-      '1': 'version',
-      '3': 12,
-      '4': 1,
-      '5': 11,
-      '6': '.Version',
-      '10': 'version'
-    },
+    {'1': 'status', '3': 11, '4': 1, '5': 14, '6': '.RoverStatus', '10': 'status'},
+    {'1': 'version', '3': 12, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
     {'1': 'color', '3': 13, '4': 1, '5': 14, '6': '.ProtoColor', '10': 'color'},
     {'1': 'blink', '3': 14, '4': 1, '5': 14, '6': '.BoolState', '10': 'blink'},
   ],
@@ -124,14 +109,7 @@ const DriveMotorData$json = {
     {'1': 'speed', '3': 1, '4': 1, '5': 2, '10': 'speed'},
     {'1': 'current', '3': 2, '4': 1, '5': 2, '10': 'current'},
     {'1': 'temperature', '3': 3, '4': 1, '5': 5, '10': 'temperature'},
-    {
-      '1': 'error',
-      '3': 4,
-      '4': 1,
-      '5': 14,
-      '6': '.MotorErrorCode',
-      '10': 'error'
-    },
+    {'1': 'error', '3': 4, '4': 1, '5': 14, '6': '.MotorErrorCode', '10': 'error'},
   ],
 };
 
@@ -157,78 +135,16 @@ const DriveData$json = {
     {'1': 'rear_tilt', '3': 10, '4': 1, '5': 2, '10': 'rearTilt'},
     {'1': 'battery_voltage', '3': 11, '4': 1, '5': 2, '10': 'batteryVoltage'},
     {'1': 'battery_current', '3': 12, '4': 1, '5': 2, '10': 'batteryCurrent'},
-    {
-      '1': 'battery_temperature',
-      '3': 13,
-      '4': 1,
-      '5': 2,
-      '10': 'batteryTemperature'
-    },
-    {
-      '1': 'version',
-      '3': 14,
-      '4': 1,
-      '5': 11,
-      '6': '.Version',
-      '10': 'version'
-    },
+    {'1': 'battery_temperature', '3': 13, '4': 1, '5': 2, '10': 'batteryTemperature'},
+    {'1': 'version', '3': 14, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
     {'1': 'color', '3': 21, '4': 1, '5': 14, '6': '.ProtoColor', '10': 'color'},
-    {
-      '1': 'status',
-      '3': 22,
-      '4': 1,
-      '5': 14,
-      '6': '.RoverStatus',
-      '10': 'status'
-    },
-    {
-      '1': 'front_left_motor',
-      '3': 23,
-      '4': 1,
-      '5': 11,
-      '6': '.DriveMotorData',
-      '10': 'frontLeftMotor'
-    },
-    {
-      '1': 'middle_left_motor',
-      '3': 24,
-      '4': 1,
-      '5': 11,
-      '6': '.DriveMotorData',
-      '10': 'middleLeftMotor'
-    },
-    {
-      '1': 'back_left_motor',
-      '3': 25,
-      '4': 1,
-      '5': 11,
-      '6': '.DriveMotorData',
-      '10': 'backLeftMotor'
-    },
-    {
-      '1': 'front_right_motor',
-      '3': 26,
-      '4': 1,
-      '5': 11,
-      '6': '.DriveMotorData',
-      '10': 'frontRightMotor'
-    },
-    {
-      '1': 'middle_right_motor',
-      '3': 27,
-      '4': 1,
-      '5': 11,
-      '6': '.DriveMotorData',
-      '10': 'middleRightMotor'
-    },
-    {
-      '1': 'back_right_motor',
-      '3': 28,
-      '4': 1,
-      '5': 11,
-      '6': '.DriveMotorData',
-      '10': 'backRightMotor'
-    },
+    {'1': 'status', '3': 22, '4': 1, '5': 14, '6': '.RoverStatus', '10': 'status'},
+    {'1': 'front_left_motor', '3': 23, '4': 1, '5': 11, '6': '.DriveMotorData', '10': 'frontLeftMotor'},
+    {'1': 'middle_left_motor', '3': 24, '4': 1, '5': 11, '6': '.DriveMotorData', '10': 'middleLeftMotor'},
+    {'1': 'back_left_motor', '3': 25, '4': 1, '5': 11, '6': '.DriveMotorData', '10': 'backLeftMotor'},
+    {'1': 'front_right_motor', '3': 26, '4': 1, '5': 11, '6': '.DriveMotorData', '10': 'frontRightMotor'},
+    {'1': 'middle_right_motor', '3': 27, '4': 1, '5': 11, '6': '.DriveMotorData', '10': 'middleRightMotor'},
+    {'1': 'back_right_motor', '3': 28, '4': 1, '5': 11, '6': '.DriveMotorData', '10': 'backRightMotor'},
   ],
   '9': [
     {'1': 15, '2': 21},
@@ -254,3 +170,4 @@ final $typed_data.Uint8List driveDataDescriptor = $convert.base64Decode(
     'chI9ChJtaWRkbGVfcmlnaHRfbW90b3IYGyABKAsyDy5Ecml2ZU1vdG9yRGF0YVIQbWlkZGxlUm'
     'lnaHRNb3RvchI5ChBiYWNrX3JpZ2h0X21vdG9yGBwgASgLMg8uRHJpdmVNb3RvckRhdGFSDmJh'
     'Y2tSaWdodE1vdG9ySgQIDxAV');
+

@@ -1,14 +1,13 @@
-// This is a generated file - do not edit.
 //
-// Generated from logs.proto.
-
+//  Generated code. Do not modify.
+//  source: logs.proto
+//
 // @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
-// ignore_for_file: constant_identifier_names
-// ignore_for_file: curly_braces_in_flow_control_structures
-// ignore_for_file: deprecated_member_use_from_same_package, library_prefixes
-// ignore_for_file: non_constant_identifier_names, unused_import
+// ignore_for_file: constant_identifier_names, library_prefixes
+// ignore_for_file: non_constant_identifier_names, prefer_final_fields
+// ignore_for_file: unnecessary_import, unnecessary_this, unused_import
 
 import 'dart:convert' as $convert;
 import 'dart:core' as $core;
@@ -38,14 +37,7 @@ final $typed_data.Uint8List burtLogLevelDescriptor = $convert.base64Decode(
 const BurtLog$json = {
   '1': 'BurtLog',
   '2': [
-    {
-      '1': 'level',
-      '3': 1,
-      '4': 1,
-      '5': 14,
-      '6': '.BurtLogLevel',
-      '10': 'level'
-    },
+    {'1': 'level', '3': 1, '4': 1, '5': 14, '6': '.BurtLogLevel', '10': 'level'},
     {'1': 'title', '3': 2, '4': 1, '5': 9, '10': 'title'},
     {'1': 'body', '3': 3, '4': 1, '5': 9, '10': 'body'},
     {'1': 'device', '3': 4, '4': 1, '5': 14, '6': '.Device', '10': 'device'},
@@ -57,3 +49,4 @@ final $typed_data.Uint8List burtLogDescriptor = $convert.base64Decode(
     'CgdCdXJ0TG9nEiMKBWxldmVsGAEgASgOMg0uQnVydExvZ0xldmVsUgVsZXZlbBIUCgV0aXRsZR'
     'gCIAEoCVIFdGl0bGUSEgoEYm9keRgDIAEoCVIEYm9keRIfCgZkZXZpY2UYBCABKA4yBy5EZXZp'
     'Y2VSBmRldmljZQ==');
+

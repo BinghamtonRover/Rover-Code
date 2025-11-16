@@ -1,14 +1,13 @@
-// This is a generated file - do not edit.
 //
-// Generated from vision.proto.
-
+//  Generated code. Do not modify.
+//  source: vision.proto
+//
 // @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
-// ignore_for_file: constant_identifier_names
-// ignore_for_file: curly_braces_in_flow_control_structures
-// ignore_for_file: deprecated_member_use_from_same_package, library_prefixes
-// ignore_for_file: non_constant_identifier_names, unused_import
+// ignore_for_file: constant_identifier_names, library_prefixes
+// ignore_for_file: non_constant_identifier_names, prefer_final_fields
+// ignore_for_file: unnecessary_import, unnecessary_this, unused_import
 
 import 'dart:convert' as $convert;
 import 'dart:core' as $core;
@@ -34,21 +33,8 @@ final $typed_data.Uint8List detectedObjectTypeDescriptor = $convert.base64Decode
 const PnpResult$json = {
   '1': 'PnpResult',
   '2': [
-    {
-      '1': 'cameraToTarget',
-      '3': 1,
-      '4': 1,
-      '5': 11,
-      '6': '.Pose3d',
-      '10': 'cameraToTarget'
-    },
-    {
-      '1': 'reprojectionError',
-      '3': 2,
-      '4': 1,
-      '5': 1,
-      '10': 'reprojectionError'
-    },
+    {'1': 'cameraToTarget', '3': 1, '4': 1, '5': 11, '6': '.Pose3d', '10': 'cameraToTarget'},
+    {'1': 'reprojectionError', '3': 2, '4': 1, '5': 1, '10': 'reprojectionError'},
   ],
 };
 
@@ -61,14 +47,7 @@ final $typed_data.Uint8List pnpResultDescriptor = $convert.base64Decode(
 const DetectedObject$json = {
   '1': 'DetectedObject',
   '2': [
-    {
-      '1': 'objectType',
-      '3': 1,
-      '4': 1,
-      '5': 14,
-      '6': '.DetectedObjectType',
-      '10': 'objectType'
-    },
+    {'1': 'objectType', '3': 1, '4': 1, '5': 14, '6': '.DetectedObjectType', '10': 'objectType'},
     {'1': 'arucoTagId', '3': 2, '4': 1, '5': 5, '10': 'arucoTagId'},
     {'1': 'xPosition', '3': 4, '4': 1, '5': 2, '10': 'xPosition'},
     {'1': 'relativeSize', '3': 5, '4': 1, '5': 2, '10': 'relativeSize'},
@@ -76,22 +55,8 @@ const DetectedObject$json = {
     {'1': 'centerY', '3': 7, '4': 1, '5': 5, '10': 'centerY'},
     {'1': 'yaw', '3': 8, '4': 1, '5': 2, '10': 'yaw'},
     {'1': 'pitch', '3': 9, '4': 1, '5': 2, '10': 'pitch'},
-    {
-      '1': 'bestPnpResult',
-      '3': 10,
-      '4': 1,
-      '5': 11,
-      '6': '.PnpResult',
-      '10': 'bestPnpResult'
-    },
-    {
-      '1': 'alternatePnpResult',
-      '3': 11,
-      '4': 1,
-      '5': 11,
-      '6': '.PnpResult',
-      '10': 'alternatePnpResult'
-    },
+    {'1': 'bestPnpResult', '3': 10, '4': 1, '5': 11, '6': '.PnpResult', '10': 'bestPnpResult'},
+    {'1': 'alternatePnpResult', '3': 11, '4': 1, '5': 11, '6': '.PnpResult', '10': 'alternatePnpResult'},
   ],
 };
 
@@ -104,3 +69,4 @@ final $typed_data.Uint8List detectedObjectDescriptor = $convert.base64Decode(
     'A3lhdxgIIAEoAlIDeWF3EhQKBXBpdGNoGAkgASgCUgVwaXRjaBIwCg1iZXN0UG5wUmVzdWx0GA'
     'ogASgLMgouUG5wUmVzdWx0Ug1iZXN0UG5wUmVzdWx0EjoKEmFsdGVybmF0ZVBucFJlc3VsdBgL'
     'IAEoCzIKLlBucFJlc3VsdFISYWx0ZXJuYXRlUG5wUmVzdWx0');
+
