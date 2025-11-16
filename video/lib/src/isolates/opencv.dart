@@ -90,8 +90,11 @@ class OpenCVCameraIsolate extends CameraIsolate {
   @override
   Future<void> sendFrames() async {
     if (camera == null) return;
-    final (success, matrix) = camera!.read();
-    if (!success || matrix.width <= 0 || matrix.height <= 0) return;
+    final (success, originalMatrix) = camera!.read();
+    if (!success || originalMatrix.width <= 0 || originalMatrix.height <= 0) {
+      return;
+    }
+    var matrix = originalMatrix;
 
     final detectedMarkers = await arucoDetector.process(
       matrix,
@@ -101,6 +104,21 @@ class OpenCVCameraIsolate extends CameraIsolate {
     sendToParent(
       ObjectDetectionPayload(details: details, tags: detectedMarkers),
     );
+
+    if (details.hasRotationQuarters() && details.rotationQuarters != 0) {
+      Mat rotatedMatrix;
+      if (details.rotationQuarters == 1) {
+        rotatedMatrix = rotate(matrix, ROTATE_90_CLOCKWISE);
+      } else if (details.rotationQuarters == 2) {
+        rotatedMatrix = rotate(matrix, ROTATE_180);
+      } else if (details.rotationQuarters == 3) {
+        rotatedMatrix = rotate(matrix, ROTATE_90_COUNTERCLOCKWISE);
+      } else {
+        rotatedMatrix = matrix.clone();
+      }
+      matrix.dispose();
+      matrix = rotatedMatrix;
+    }
 
     // await matrix.drawCrosshair(center: frameProperties!.center);
 

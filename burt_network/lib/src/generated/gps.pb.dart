@@ -13,9 +13,9 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'geometry.pb.dart' as $1;
+import 'geometry.pb.dart' as $0;
 import 'gps.pbenum.dart';
-import 'version.pb.dart' as $3;
+import 'version.pb.dart' as $1;
 
 export 'gps.pbenum.dart';
 
@@ -114,8 +114,8 @@ class GpsCoordinates extends $pb.GeneratedMessage {
 class RoverPosition extends $pb.GeneratedMessage {
   factory RoverPosition({
     GpsCoordinates? gps,
-    $1.Orientation? orientation,
-    $3.Version? version,
+    $0.Orientation? orientation,
+    $1.Version? version,
     $core.List<$core.int>? rtkMessage,
   }) {
     final $result = create();
@@ -139,8 +139,8 @@ class RoverPosition extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'RoverPosition', createEmptyInstance: create)
     ..aOM<GpsCoordinates>(1, _omitFieldNames ? '' : 'gps', subBuilder: GpsCoordinates.create)
-    ..aOM<$1.Orientation>(2, _omitFieldNames ? '' : 'orientation', subBuilder: $1.Orientation.create)
-    ..aOM<$3.Version>(3, _omitFieldNames ? '' : 'version', subBuilder: $3.Version.create)
+    ..aOM<$0.Orientation>(2, _omitFieldNames ? '' : 'orientation', subBuilder: $0.Orientation.create)
+    ..aOM<$1.Version>(3, _omitFieldNames ? '' : 'version', subBuilder: $1.Version.create)
     ..a<$core.List<$core.int>>(4, _omitFieldNames ? '' : 'rtkMessage', $pb.PbFieldType.OY, protoName: 'rtkMessage')
     ..hasRequiredFields = false
   ;
@@ -178,26 +178,26 @@ class RoverPosition extends $pb.GeneratedMessage {
   GpsCoordinates ensureGps() => $_ensure(0);
 
   @$pb.TagNumber(2)
-  $1.Orientation get orientation => $_getN(1);
+  $0.Orientation get orientation => $_getN(1);
   @$pb.TagNumber(2)
-  set orientation($1.Orientation v) { setField(2, v); }
+  set orientation($0.Orientation v) { setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasOrientation() => $_has(1);
   @$pb.TagNumber(2)
   void clearOrientation() => clearField(2);
   @$pb.TagNumber(2)
-  $1.Orientation ensureOrientation() => $_ensure(1);
+  $0.Orientation ensureOrientation() => $_ensure(1);
 
   @$pb.TagNumber(3)
-  $3.Version get version => $_getN(2);
+  $1.Version get version => $_getN(2);
   @$pb.TagNumber(3)
-  set version($3.Version v) { setField(3, v); }
+  set version($1.Version v) { setField(3, v); }
   @$pb.TagNumber(3)
   $core.bool hasVersion() => $_has(2);
   @$pb.TagNumber(3)
   void clearVersion() => clearField(3);
   @$pb.TagNumber(3)
-  $3.Version ensureVersion() => $_ensure(2);
+  $1.Version ensureVersion() => $_ensure(2);
 
   @$pb.TagNumber(4)
   $core.List<$core.int> get rtkMessage => $_getN(3);

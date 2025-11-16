@@ -13,14 +13,14 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'core.pbenum.dart' as $6;
-import 'utils.pbenum.dart' as $0;
-import 'version.pb.dart' as $3;
+import 'core.pbenum.dart' as $7;
+import 'utils.pbenum.dart' as $4;
+import 'version.pb.dart' as $1;
 
 class SubsystemsCommand extends $pb.GeneratedMessage {
   factory SubsystemsCommand({
     $core.bool? zeroIMU,
-    $3.Version? version,
+    $1.Version? version,
   }) {
     final $result = create();
     if (zeroIMU != null) {
@@ -37,7 +37,7 @@ class SubsystemsCommand extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'SubsystemsCommand', createEmptyInstance: create)
     ..aOB(1, _omitFieldNames ? '' : 'zeroIMU', protoName: 'zeroIMU')
-    ..aOM<$3.Version>(2, _omitFieldNames ? '' : 'version', subBuilder: $3.Version.create)
+    ..aOM<$1.Version>(2, _omitFieldNames ? '' : 'version', subBuilder: $1.Version.create)
     ..hasRequiredFields = false
   ;
 
@@ -72,23 +72,23 @@ class SubsystemsCommand extends $pb.GeneratedMessage {
   void clearZeroIMU() => clearField(1);
 
   @$pb.TagNumber(2)
-  $3.Version get version => $_getN(1);
+  $1.Version get version => $_getN(1);
   @$pb.TagNumber(2)
-  set version($3.Version v) { setField(2, v); }
+  set version($1.Version v) { setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasVersion() => $_has(1);
   @$pb.TagNumber(2)
   void clearVersion() => clearField(2);
   @$pb.TagNumber(2)
-  $3.Version ensureVersion() => $_ensure(1);
+  $1.Version ensureVersion() => $_ensure(1);
 }
 
 class SubsystemsData extends $pb.GeneratedMessage {
   factory SubsystemsData({
-    $3.Version? version,
-    $core.Iterable<$6.Device>? connectedDevices,
-    $0.BoolState? gpsConnected,
-    $0.BoolState? imuConnected,
+    $1.Version? version,
+    $core.Iterable<$7.Device>? connectedDevices,
+    $4.BoolState? gpsConnected,
+    $4.BoolState? imuConnected,
   }) {
     final $result = create();
     if (version != null) {
@@ -110,10 +110,10 @@ class SubsystemsData extends $pb.GeneratedMessage {
   factory SubsystemsData.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'SubsystemsData', createEmptyInstance: create)
-    ..aOM<$3.Version>(1, _omitFieldNames ? '' : 'version', subBuilder: $3.Version.create)
-    ..pc<$6.Device>(2, _omitFieldNames ? '' : 'connectedDevices', $pb.PbFieldType.KE, protoName: 'connectedDevices', valueOf: $6.Device.valueOf, enumValues: $6.Device.values, defaultEnumValue: $6.Device.DEVICE_UNDEFINED)
-    ..e<$0.BoolState>(3, _omitFieldNames ? '' : 'gpsConnected', $pb.PbFieldType.OE, protoName: 'gpsConnected', defaultOrMaker: $0.BoolState.BOOL_UNDEFINED, valueOf: $0.BoolState.valueOf, enumValues: $0.BoolState.values)
-    ..e<$0.BoolState>(4, _omitFieldNames ? '' : 'imuConnected', $pb.PbFieldType.OE, protoName: 'imuConnected', defaultOrMaker: $0.BoolState.BOOL_UNDEFINED, valueOf: $0.BoolState.valueOf, enumValues: $0.BoolState.values)
+    ..aOM<$1.Version>(1, _omitFieldNames ? '' : 'version', subBuilder: $1.Version.create)
+    ..pc<$7.Device>(2, _omitFieldNames ? '' : 'connectedDevices', $pb.PbFieldType.KE, protoName: 'connectedDevices', valueOf: $7.Device.valueOf, enumValues: $7.Device.values, defaultEnumValue: $7.Device.DEVICE_UNDEFINED)
+    ..e<$4.BoolState>(3, _omitFieldNames ? '' : 'gpsConnected', $pb.PbFieldType.OE, protoName: 'gpsConnected', defaultOrMaker: $4.BoolState.BOOL_UNDEFINED, valueOf: $4.BoolState.valueOf, enumValues: $4.BoolState.values)
+    ..e<$4.BoolState>(4, _omitFieldNames ? '' : 'imuConnected', $pb.PbFieldType.OE, protoName: 'imuConnected', defaultOrMaker: $4.BoolState.BOOL_UNDEFINED, valueOf: $4.BoolState.valueOf, enumValues: $4.BoolState.values)
     ..hasRequiredFields = false
   ;
 
@@ -139,32 +139,32 @@ class SubsystemsData extends $pb.GeneratedMessage {
   static SubsystemsData? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $3.Version get version => $_getN(0);
+  $1.Version get version => $_getN(0);
   @$pb.TagNumber(1)
-  set version($3.Version v) { setField(1, v); }
+  set version($1.Version v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasVersion() => $_has(0);
   @$pb.TagNumber(1)
   void clearVersion() => clearField(1);
   @$pb.TagNumber(1)
-  $3.Version ensureVersion() => $_ensure(0);
+  $1.Version ensureVersion() => $_ensure(0);
 
   @$pb.TagNumber(2)
-  $core.List<$6.Device> get connectedDevices => $_getList(1);
+  $core.List<$7.Device> get connectedDevices => $_getList(1);
 
   @$pb.TagNumber(3)
-  $0.BoolState get gpsConnected => $_getN(2);
+  $4.BoolState get gpsConnected => $_getN(2);
   @$pb.TagNumber(3)
-  set gpsConnected($0.BoolState v) { setField(3, v); }
+  set gpsConnected($4.BoolState v) { setField(3, v); }
   @$pb.TagNumber(3)
   $core.bool hasGpsConnected() => $_has(2);
   @$pb.TagNumber(3)
   void clearGpsConnected() => clearField(3);
 
   @$pb.TagNumber(4)
-  $0.BoolState get imuConnected => $_getN(3);
+  $4.BoolState get imuConnected => $_getN(3);
   @$pb.TagNumber(4)
-  set imuConnected($0.BoolState v) { setField(4, v); }
+  set imuConnected($4.BoolState v) { setField(4, v); }
   @$pb.TagNumber(4)
   $core.bool hasImuConnected() => $_has(3);
   @$pb.TagNumber(4)

@@ -14,14 +14,14 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'motor.pbenum.dart';
-import 'utils.pbenum.dart' as $0;
+import 'utils.pbenum.dart' as $4;
 
 export 'motor.pbenum.dart';
 
 class MotorData extends $pb.GeneratedMessage {
   factory MotorData({
-    $0.BoolState? isMoving,
-    $0.BoolState? isLimitSwitchPressed,
+    $4.BoolState? isMoving,
+    $4.BoolState? isLimitSwitchPressed,
     MotorDirection? direction,
     $core.int? currentStep,
     $core.int? targetStep,
@@ -57,8 +57,8 @@ class MotorData extends $pb.GeneratedMessage {
   factory MotorData.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'MotorData', createEmptyInstance: create)
-    ..e<$0.BoolState>(1, _omitFieldNames ? '' : 'isMoving', $pb.PbFieldType.OE, defaultOrMaker: $0.BoolState.BOOL_UNDEFINED, valueOf: $0.BoolState.valueOf, enumValues: $0.BoolState.values)
-    ..e<$0.BoolState>(2, _omitFieldNames ? '' : 'isLimitSwitchPressed', $pb.PbFieldType.OE, defaultOrMaker: $0.BoolState.BOOL_UNDEFINED, valueOf: $0.BoolState.valueOf, enumValues: $0.BoolState.values)
+    ..e<$4.BoolState>(1, _omitFieldNames ? '' : 'isMoving', $pb.PbFieldType.OE, defaultOrMaker: $4.BoolState.BOOL_UNDEFINED, valueOf: $4.BoolState.valueOf, enumValues: $4.BoolState.values)
+    ..e<$4.BoolState>(2, _omitFieldNames ? '' : 'isLimitSwitchPressed', $pb.PbFieldType.OE, defaultOrMaker: $4.BoolState.BOOL_UNDEFINED, valueOf: $4.BoolState.valueOf, enumValues: $4.BoolState.values)
     ..e<MotorDirection>(3, _omitFieldNames ? '' : 'direction', $pb.PbFieldType.OE, defaultOrMaker: MotorDirection.MOTOR_DIRECTION_UNDEFINED, valueOf: MotorDirection.valueOf, enumValues: MotorDirection.values)
     ..a<$core.int>(4, _omitFieldNames ? '' : 'currentStep', $pb.PbFieldType.O3)
     ..a<$core.int>(5, _omitFieldNames ? '' : 'targetStep', $pb.PbFieldType.O3)
@@ -89,18 +89,18 @@ class MotorData extends $pb.GeneratedMessage {
   static MotorData? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $0.BoolState get isMoving => $_getN(0);
+  $4.BoolState get isMoving => $_getN(0);
   @$pb.TagNumber(1)
-  set isMoving($0.BoolState v) { setField(1, v); }
+  set isMoving($4.BoolState v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasIsMoving() => $_has(0);
   @$pb.TagNumber(1)
   void clearIsMoving() => clearField(1);
 
   @$pb.TagNumber(2)
-  $0.BoolState get isLimitSwitchPressed => $_getN(1);
+  $4.BoolState get isLimitSwitchPressed => $_getN(1);
   @$pb.TagNumber(2)
-  set isLimitSwitchPressed($0.BoolState v) { setField(2, v); }
+  set isLimitSwitchPressed($4.BoolState v) { setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasIsLimitSwitchPressed() => $_has(1);
   @$pb.TagNumber(2)

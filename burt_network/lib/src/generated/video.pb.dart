@@ -13,9 +13,9 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'version.pb.dart' as $3;
+import 'version.pb.dart' as $1;
 import 'video.pbenum.dart';
-import 'vision.pb.dart' as $7;
+import 'vision.pb.dart' as $6;
 
 export 'video.pbenum.dart';
 
@@ -38,6 +38,7 @@ class CameraDetails extends $pb.GeneratedMessage {
     $core.double? verticalFov,
     $core.int? streamWidth,
     $core.int? streamHeight,
+    $core.int? rotationQuarters,
   }) {
     final $result = create();
     if (name != null) {
@@ -88,6 +89,9 @@ class CameraDetails extends $pb.GeneratedMessage {
     if (streamHeight != null) {
       $result.streamHeight = streamHeight;
     }
+    if (rotationQuarters != null) {
+      $result.rotationQuarters = rotationQuarters;
+    }
     return $result;
   }
   CameraDetails._() : super();
@@ -111,6 +115,7 @@ class CameraDetails extends $pb.GeneratedMessage {
     ..a<$core.double>(14, _omitFieldNames ? '' : 'verticalFov', $pb.PbFieldType.OF)
     ..a<$core.int>(15, _omitFieldNames ? '' : 'streamWidth', $pb.PbFieldType.O3)
     ..a<$core.int>(16, _omitFieldNames ? '' : 'streamHeight', $pb.PbFieldType.O3)
+    ..a<$core.int>(17, _omitFieldNames ? '' : 'rotationQuarters', $pb.PbFieldType.O3, protoName: 'rotationQuarters')
     ..hasRequiredFields = false
   ;
 
@@ -285,6 +290,16 @@ class CameraDetails extends $pb.GeneratedMessage {
   $core.bool hasStreamHeight() => $_has(15);
   @$pb.TagNumber(16)
   void clearStreamHeight() => clearField(16);
+
+  /// / Number of 90 degrees rotation increments
+  @$pb.TagNumber(17)
+  $core.int get rotationQuarters => $_getIZ(16);
+  @$pb.TagNumber(17)
+  set rotationQuarters($core.int v) { $_setSignedInt32(16, v); }
+  @$pb.TagNumber(17)
+  $core.bool hasRotationQuarters() => $_has(16);
+  @$pb.TagNumber(17)
+  void clearRotationQuarters() => clearField(17);
 }
 
 /// / Reports data about a camera.
@@ -293,9 +308,9 @@ class VideoData extends $pb.GeneratedMessage {
     $core.String? id,
     CameraDetails? details,
     $core.List<$core.int>? frame,
-    $3.Version? version,
+    $1.Version? version,
     $core.String? imagePath,
-    $core.Iterable<$7.DetectedObject>? detectedObjects,
+    $core.Iterable<$6.DetectedObject>? detectedObjects,
   }) {
     final $result = create();
     if (id != null) {
@@ -326,9 +341,9 @@ class VideoData extends $pb.GeneratedMessage {
     ..aOS(1, _omitFieldNames ? '' : 'id')
     ..aOM<CameraDetails>(2, _omitFieldNames ? '' : 'details', subBuilder: CameraDetails.create)
     ..a<$core.List<$core.int>>(3, _omitFieldNames ? '' : 'frame', $pb.PbFieldType.OY)
-    ..aOM<$3.Version>(4, _omitFieldNames ? '' : 'version', subBuilder: $3.Version.create)
+    ..aOM<$1.Version>(4, _omitFieldNames ? '' : 'version', subBuilder: $1.Version.create)
     ..aOS(5, _omitFieldNames ? '' : 'imagePath', protoName: 'imagePath')
-    ..pc<$7.DetectedObject>(6, _omitFieldNames ? '' : 'detectedObjects', $pb.PbFieldType.PM, protoName: 'detectedObjects', subBuilder: $7.DetectedObject.create)
+    ..pc<$6.DetectedObject>(6, _omitFieldNames ? '' : 'detectedObjects', $pb.PbFieldType.PM, protoName: 'detectedObjects', subBuilder: $6.DetectedObject.create)
     ..hasRequiredFields = false
   ;
 
@@ -387,15 +402,15 @@ class VideoData extends $pb.GeneratedMessage {
 
   /// / The version of this video data.
   @$pb.TagNumber(4)
-  $3.Version get version => $_getN(3);
+  $1.Version get version => $_getN(3);
   @$pb.TagNumber(4)
-  set version($3.Version v) { setField(4, v); }
+  set version($1.Version v) { setField(4, v); }
   @$pb.TagNumber(4)
   $core.bool hasVersion() => $_has(3);
   @$pb.TagNumber(4)
   void clearVersion() => clearField(4);
   @$pb.TagNumber(4)
-  $3.Version ensureVersion() => $_ensure(3);
+  $1.Version ensureVersion() => $_ensure(3);
 
   /// / The path that a high-quality screenshot was saved to.
   @$pb.TagNumber(5)
@@ -409,7 +424,7 @@ class VideoData extends $pb.GeneratedMessage {
 
   /// / Any objects that were detected in the frame.
   @$pb.TagNumber(6)
-  $core.List<$7.DetectedObject> get detectedObjects => $_getList(5);
+  $core.List<$6.DetectedObject> get detectedObjects => $_getList(5);
 }
 
 /// / Make changes to a camera feed.
@@ -417,7 +432,7 @@ class VideoCommand extends $pb.GeneratedMessage {
   factory VideoCommand({
     $core.String? id,
     CameraDetails? details,
-    $3.Version? version,
+    $1.Version? version,
     $core.bool? takeSnapshot,
   }) {
     final $result = create();
@@ -442,7 +457,7 @@ class VideoCommand extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'VideoCommand', createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'id')
     ..aOM<CameraDetails>(2, _omitFieldNames ? '' : 'details', subBuilder: CameraDetails.create)
-    ..aOM<$3.Version>(3, _omitFieldNames ? '' : 'version', subBuilder: $3.Version.create)
+    ..aOM<$1.Version>(3, _omitFieldNames ? '' : 'version', subBuilder: $1.Version.create)
     ..aOB(4, _omitFieldNames ? '' : 'takeSnapshot', protoName: 'takeSnapshot')
     ..hasRequiredFields = false
   ;
@@ -493,15 +508,15 @@ class VideoCommand extends $pb.GeneratedMessage {
   CameraDetails ensureDetails() => $_ensure(1);
 
   @$pb.TagNumber(3)
-  $3.Version get version => $_getN(2);
+  $1.Version get version => $_getN(2);
   @$pb.TagNumber(3)
-  set version($3.Version v) { setField(3, v); }
+  set version($1.Version v) { setField(3, v); }
   @$pb.TagNumber(3)
   $core.bool hasVersion() => $_has(2);
   @$pb.TagNumber(3)
   void clearVersion() => clearField(3);
   @$pb.TagNumber(3)
-  $3.Version ensureVersion() => $_ensure(2);
+  $1.Version ensureVersion() => $_ensure(2);
 
   @$pb.TagNumber(4)
   $core.bool get takeSnapshot => $_getBF(3);

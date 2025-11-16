@@ -13,7 +13,7 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'version.pb.dart' as $3;
+import 'version.pb.dart' as $1;
 
 class LidarCartesianPoint extends $pb.GeneratedMessage {
   factory LidarCartesianPoint({
@@ -147,7 +147,7 @@ class LidarPointCloud extends $pb.GeneratedMessage {
   factory LidarPointCloud({
     $core.Iterable<LidarCartesianPoint>? cartesian,
     $core.Iterable<LidarPolarPoint>? polar,
-    $3.Version? version,
+    $1.Version? version,
   }) {
     final $result = create();
     if (cartesian != null) {
@@ -168,7 +168,7 @@ class LidarPointCloud extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'LidarPointCloud', createEmptyInstance: create)
     ..pc<LidarCartesianPoint>(1, _omitFieldNames ? '' : 'cartesian', $pb.PbFieldType.PM, subBuilder: LidarCartesianPoint.create)
     ..pc<LidarPolarPoint>(2, _omitFieldNames ? '' : 'polar', $pb.PbFieldType.PM, subBuilder: LidarPolarPoint.create)
-    ..aOM<$3.Version>(3, _omitFieldNames ? '' : 'version', subBuilder: $3.Version.create)
+    ..aOM<$1.Version>(3, _omitFieldNames ? '' : 'version', subBuilder: $1.Version.create)
     ..hasRequiredFields = false
   ;
 
@@ -200,15 +200,15 @@ class LidarPointCloud extends $pb.GeneratedMessage {
   $core.List<LidarPolarPoint> get polar => $_getList(1);
 
   @$pb.TagNumber(3)
-  $3.Version get version => $_getN(2);
+  $1.Version get version => $_getN(2);
   @$pb.TagNumber(3)
-  set version($3.Version v) { setField(3, v); }
+  set version($1.Version v) { setField(3, v); }
   @$pb.TagNumber(3)
   $core.bool hasVersion() => $_has(2);
   @$pb.TagNumber(3)
   void clearVersion() => clearField(3);
   @$pb.TagNumber(3)
-  $3.Version ensureVersion() => $_ensure(2);
+  $1.Version ensureVersion() => $_ensure(2);
 }
 
 

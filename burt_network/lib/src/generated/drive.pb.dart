@@ -14,9 +14,9 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'drive.pbenum.dart';
-import 'status.pbenum.dart' as $5;
-import 'utils.pbenum.dart' as $0;
-import 'version.pb.dart' as $3;
+import 'status.pbenum.dart' as $3;
+import 'utils.pbenum.dart' as $4;
+import 'version.pb.dart' as $1;
 
 export 'drive.pbenum.dart';
 
@@ -32,10 +32,10 @@ class DriveCommand extends $pb.GeneratedMessage {
     $core.double? frontTilt,
     $core.double? rearSwivel,
     $core.double? rearTilt,
-    $5.RoverStatus? status,
-    $3.Version? version,
+    $3.RoverStatus? status,
+    $1.Version? version,
     ProtoColor? color,
-    $0.BoolState? blink,
+    $4.BoolState? blink,
   }) {
     final $result = create();
     if (throttle != null) {
@@ -97,10 +97,10 @@ class DriveCommand extends $pb.GeneratedMessage {
     ..a<$core.double>(8, _omitFieldNames ? '' : 'frontTilt', $pb.PbFieldType.OF)
     ..a<$core.double>(9, _omitFieldNames ? '' : 'rearSwivel', $pb.PbFieldType.OF)
     ..a<$core.double>(10, _omitFieldNames ? '' : 'rearTilt', $pb.PbFieldType.OF)
-    ..e<$5.RoverStatus>(11, _omitFieldNames ? '' : 'status', $pb.PbFieldType.OE, defaultOrMaker: $5.RoverStatus.DISCONNECTED, valueOf: $5.RoverStatus.valueOf, enumValues: $5.RoverStatus.values)
-    ..aOM<$3.Version>(12, _omitFieldNames ? '' : 'version', subBuilder: $3.Version.create)
+    ..e<$3.RoverStatus>(11, _omitFieldNames ? '' : 'status', $pb.PbFieldType.OE, defaultOrMaker: $3.RoverStatus.DISCONNECTED, valueOf: $3.RoverStatus.valueOf, enumValues: $3.RoverStatus.values)
+    ..aOM<$1.Version>(12, _omitFieldNames ? '' : 'version', subBuilder: $1.Version.create)
     ..e<ProtoColor>(13, _omitFieldNames ? '' : 'color', $pb.PbFieldType.OE, defaultOrMaker: ProtoColor.PROTO_COLOR_UNDEFINED, valueOf: ProtoColor.valueOf, enumValues: ProtoColor.values)
-    ..e<$0.BoolState>(14, _omitFieldNames ? '' : 'blink', $pb.PbFieldType.OE, defaultOrMaker: $0.BoolState.BOOL_UNDEFINED, valueOf: $0.BoolState.valueOf, enumValues: $0.BoolState.values)
+    ..e<$4.BoolState>(14, _omitFieldNames ? '' : 'blink', $pb.PbFieldType.OE, defaultOrMaker: $4.BoolState.BOOL_UNDEFINED, valueOf: $4.BoolState.valueOf, enumValues: $4.BoolState.values)
     ..hasRequiredFields = false
   ;
 
@@ -222,24 +222,24 @@ class DriveCommand extends $pb.GeneratedMessage {
   void clearRearTilt() => clearField(10);
 
   @$pb.TagNumber(11)
-  $5.RoverStatus get status => $_getN(10);
+  $3.RoverStatus get status => $_getN(10);
   @$pb.TagNumber(11)
-  set status($5.RoverStatus v) { setField(11, v); }
+  set status($3.RoverStatus v) { setField(11, v); }
   @$pb.TagNumber(11)
   $core.bool hasStatus() => $_has(10);
   @$pb.TagNumber(11)
   void clearStatus() => clearField(11);
 
   @$pb.TagNumber(12)
-  $3.Version get version => $_getN(11);
+  $1.Version get version => $_getN(11);
   @$pb.TagNumber(12)
-  set version($3.Version v) { setField(12, v); }
+  set version($1.Version v) { setField(12, v); }
   @$pb.TagNumber(12)
   $core.bool hasVersion() => $_has(11);
   @$pb.TagNumber(12)
   void clearVersion() => clearField(12);
   @$pb.TagNumber(12)
-  $3.Version ensureVersion() => $_ensure(11);
+  $1.Version ensureVersion() => $_ensure(11);
 
   @$pb.TagNumber(13)
   ProtoColor get color => $_getN(12);
@@ -251,9 +251,9 @@ class DriveCommand extends $pb.GeneratedMessage {
   void clearColor() => clearField(13);
 
   @$pb.TagNumber(14)
-  $0.BoolState get blink => $_getN(13);
+  $4.BoolState get blink => $_getN(13);
   @$pb.TagNumber(14)
-  set blink($0.BoolState v) { setField(14, v); }
+  set blink($4.BoolState v) { setField(14, v); }
   @$pb.TagNumber(14)
   $core.bool hasBlink() => $_has(13);
   @$pb.TagNumber(14)
@@ -367,9 +367,9 @@ class DriveData extends $pb.GeneratedMessage {
     $core.double? batteryVoltage,
     $core.double? batteryCurrent,
     $core.double? batteryTemperature,
-    $3.Version? version,
+    $1.Version? version,
     ProtoColor? color,
-    $5.RoverStatus? status,
+    $3.RoverStatus? status,
     DriveMotorData? frontLeftMotor,
     DriveMotorData? middleLeftMotor,
     DriveMotorData? backLeftMotor,
@@ -464,9 +464,9 @@ class DriveData extends $pb.GeneratedMessage {
     ..a<$core.double>(11, _omitFieldNames ? '' : 'batteryVoltage', $pb.PbFieldType.OF)
     ..a<$core.double>(12, _omitFieldNames ? '' : 'batteryCurrent', $pb.PbFieldType.OF)
     ..a<$core.double>(13, _omitFieldNames ? '' : 'batteryTemperature', $pb.PbFieldType.OF)
-    ..aOM<$3.Version>(14, _omitFieldNames ? '' : 'version', subBuilder: $3.Version.create)
+    ..aOM<$1.Version>(14, _omitFieldNames ? '' : 'version', subBuilder: $1.Version.create)
     ..e<ProtoColor>(21, _omitFieldNames ? '' : 'color', $pb.PbFieldType.OE, defaultOrMaker: ProtoColor.PROTO_COLOR_UNDEFINED, valueOf: ProtoColor.valueOf, enumValues: ProtoColor.values)
-    ..e<$5.RoverStatus>(22, _omitFieldNames ? '' : 'status', $pb.PbFieldType.OE, defaultOrMaker: $5.RoverStatus.DISCONNECTED, valueOf: $5.RoverStatus.valueOf, enumValues: $5.RoverStatus.values)
+    ..e<$3.RoverStatus>(22, _omitFieldNames ? '' : 'status', $pb.PbFieldType.OE, defaultOrMaker: $3.RoverStatus.DISCONNECTED, valueOf: $3.RoverStatus.valueOf, enumValues: $3.RoverStatus.values)
     ..aOM<DriveMotorData>(23, _omitFieldNames ? '' : 'frontLeftMotor', subBuilder: DriveMotorData.create)
     ..aOM<DriveMotorData>(24, _omitFieldNames ? '' : 'middleLeftMotor', subBuilder: DriveMotorData.create)
     ..aOM<DriveMotorData>(25, _omitFieldNames ? '' : 'backLeftMotor', subBuilder: DriveMotorData.create)
@@ -622,15 +622,15 @@ class DriveData extends $pb.GeneratedMessage {
   void clearBatteryTemperature() => clearField(13);
 
   @$pb.TagNumber(14)
-  $3.Version get version => $_getN(13);
+  $1.Version get version => $_getN(13);
   @$pb.TagNumber(14)
-  set version($3.Version v) { setField(14, v); }
+  set version($1.Version v) { setField(14, v); }
   @$pb.TagNumber(14)
   $core.bool hasVersion() => $_has(13);
   @$pb.TagNumber(14)
   void clearVersion() => clearField(14);
   @$pb.TagNumber(14)
-  $3.Version ensureVersion() => $_ensure(13);
+  $1.Version ensureVersion() => $_ensure(13);
 
   @$pb.TagNumber(21)
   ProtoColor get color => $_getN(14);
@@ -642,9 +642,9 @@ class DriveData extends $pb.GeneratedMessage {
   void clearColor() => clearField(21);
 
   @$pb.TagNumber(22)
-  $5.RoverStatus get status => $_getN(15);
+  $3.RoverStatus get status => $_getN(15);
   @$pb.TagNumber(22)
-  set status($5.RoverStatus v) { setField(22, v); }
+  set status($3.RoverStatus v) { setField(22, v); }
   @$pb.TagNumber(22)
   $core.bool hasStatus() => $_has(15);
   @$pb.TagNumber(22)

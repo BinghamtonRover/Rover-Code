@@ -13,14 +13,14 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'geometry.pb.dart' as $1;
+import 'geometry.pb.dart' as $0;
 import 'vision.pbenum.dart';
 
 export 'vision.pbenum.dart';
 
 class PnpResult extends $pb.GeneratedMessage {
   factory PnpResult({
-    $1.Pose3d? cameraToTarget,
+    $0.Pose3d? cameraToTarget,
     $core.double? reprojectionError,
   }) {
     final $result = create();
@@ -37,7 +37,7 @@ class PnpResult extends $pb.GeneratedMessage {
   factory PnpResult.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'PnpResult', createEmptyInstance: create)
-    ..aOM<$1.Pose3d>(1, _omitFieldNames ? '' : 'cameraToTarget', protoName: 'cameraToTarget', subBuilder: $1.Pose3d.create)
+    ..aOM<$0.Pose3d>(1, _omitFieldNames ? '' : 'cameraToTarget', protoName: 'cameraToTarget', subBuilder: $0.Pose3d.create)
     ..a<$core.double>(2, _omitFieldNames ? '' : 'reprojectionError', $pb.PbFieldType.OD, protoName: 'reprojectionError')
     ..hasRequiredFields = false
   ;
@@ -64,15 +64,15 @@ class PnpResult extends $pb.GeneratedMessage {
   static PnpResult? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $1.Pose3d get cameraToTarget => $_getN(0);
+  $0.Pose3d get cameraToTarget => $_getN(0);
   @$pb.TagNumber(1)
-  set cameraToTarget($1.Pose3d v) { setField(1, v); }
+  set cameraToTarget($0.Pose3d v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasCameraToTarget() => $_has(0);
   @$pb.TagNumber(1)
   void clearCameraToTarget() => clearField(1);
   @$pb.TagNumber(1)
-  $1.Pose3d ensureCameraToTarget() => $_ensure(0);
+  $0.Pose3d ensureCameraToTarget() => $_ensure(0);
 
   @$pb.TagNumber(2)
   $core.double get reprojectionError => $_getN(1);
