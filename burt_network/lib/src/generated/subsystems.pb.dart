@@ -4,7 +4,7 @@
 //
 // @dart = 2.12
 
-// ignore_for_file: annotate_overrides, camel_case_types
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
@@ -18,7 +18,19 @@ import 'utils.pbenum.dart' as $4;
 import 'version.pb.dart' as $1;
 
 class SubsystemsCommand extends $pb.GeneratedMessage {
-  factory SubsystemsCommand() => create();
+  factory SubsystemsCommand({
+    $core.bool? zeroIMU,
+    $1.Version? version,
+  }) {
+    final $result = create();
+    if (zeroIMU != null) {
+      $result.zeroIMU = zeroIMU;
+    }
+    if (version != null) {
+      $result.version = version;
+    }
+    return $result;
+  }
   SubsystemsCommand._() : super();
   factory SubsystemsCommand.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory SubsystemsCommand.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -72,7 +84,27 @@ class SubsystemsCommand extends $pb.GeneratedMessage {
 }
 
 class SubsystemsData extends $pb.GeneratedMessage {
-  factory SubsystemsData() => create();
+  factory SubsystemsData({
+    $1.Version? version,
+    $core.Iterable<$7.Device>? connectedDevices,
+    $4.BoolState? gpsConnected,
+    $4.BoolState? imuConnected,
+  }) {
+    final $result = create();
+    if (version != null) {
+      $result.version = version;
+    }
+    if (connectedDevices != null) {
+      $result.connectedDevices.addAll(connectedDevices);
+    }
+    if (gpsConnected != null) {
+      $result.gpsConnected = gpsConnected;
+    }
+    if (imuConnected != null) {
+      $result.imuConnected = imuConnected;
+    }
+    return $result;
+  }
   SubsystemsData._() : super();
   factory SubsystemsData.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory SubsystemsData.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);

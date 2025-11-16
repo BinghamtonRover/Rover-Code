@@ -4,7 +4,7 @@
 //
 // @dart = 2.12
 
-// ignore_for_file: annotate_overrides, camel_case_types
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
@@ -19,7 +19,19 @@ import 'vision.pbenum.dart';
 export 'vision.pbenum.dart';
 
 class PnpResult extends $pb.GeneratedMessage {
-  factory PnpResult() => create();
+  factory PnpResult({
+    $0.Pose3d? cameraToTarget,
+    $core.double? reprojectionError,
+  }) {
+    final $result = create();
+    if (cameraToTarget != null) {
+      $result.cameraToTarget = cameraToTarget;
+    }
+    if (reprojectionError != null) {
+      $result.reprojectionError = reprojectionError;
+    }
+    return $result;
+  }
   PnpResult._() : super();
   factory PnpResult.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory PnpResult.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -73,7 +85,51 @@ class PnpResult extends $pb.GeneratedMessage {
 }
 
 class DetectedObject extends $pb.GeneratedMessage {
-  factory DetectedObject() => create();
+  factory DetectedObject({
+    DetectedObjectType? objectType,
+    $core.int? arucoTagId,
+    $core.double? xPosition,
+    $core.double? relativeSize,
+    $core.int? centerX,
+    $core.int? centerY,
+    $core.double? yaw,
+    $core.double? pitch,
+    PnpResult? bestPnpResult,
+    PnpResult? alternatePnpResult,
+  }) {
+    final $result = create();
+    if (objectType != null) {
+      $result.objectType = objectType;
+    }
+    if (arucoTagId != null) {
+      $result.arucoTagId = arucoTagId;
+    }
+    if (xPosition != null) {
+      $result.xPosition = xPosition;
+    }
+    if (relativeSize != null) {
+      $result.relativeSize = relativeSize;
+    }
+    if (centerX != null) {
+      $result.centerX = centerX;
+    }
+    if (centerY != null) {
+      $result.centerY = centerY;
+    }
+    if (yaw != null) {
+      $result.yaw = yaw;
+    }
+    if (pitch != null) {
+      $result.pitch = pitch;
+    }
+    if (bestPnpResult != null) {
+      $result.bestPnpResult = bestPnpResult;
+    }
+    if (alternatePnpResult != null) {
+      $result.alternatePnpResult = alternatePnpResult;
+    }
+    return $result;
+  }
   DetectedObject._() : super();
   factory DetectedObject.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory DetectedObject.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -113,6 +169,7 @@ class DetectedObject extends $pb.GeneratedMessage {
   static DetectedObject getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DetectedObject>(create);
   static DetectedObject? _defaultInstance;
 
+  /// What was detected
   @$pb.TagNumber(1)
   DetectedObjectType get objectType => $_getN(0);
   @$pb.TagNumber(1)
@@ -131,6 +188,7 @@ class DetectedObject extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   void clearArucoTagId() => clearField(2);
 
+  /// Where it was detected
   @$pb.TagNumber(4)
   $core.double get xPosition => $_getN(2);
   @$pb.TagNumber(4)
@@ -167,6 +225,7 @@ class DetectedObject extends $pb.GeneratedMessage {
   @$pb.TagNumber(7)
   void clearCenterY() => clearField(7);
 
+  /// Experimental: Use pinhole camera model to find the object's position
   @$pb.TagNumber(8)
   $core.double get yaw => $_getN(6);
   @$pb.TagNumber(8)
@@ -185,6 +244,7 @@ class DetectedObject extends $pb.GeneratedMessage {
   @$pb.TagNumber(9)
   void clearPitch() => clearField(9);
 
+  /// Experimental: Use PnP to determine the 3D pose
   @$pb.TagNumber(10)
   PnpResult get bestPnpResult => $_getN(8);
   @$pb.TagNumber(10)

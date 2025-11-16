@@ -4,7 +4,7 @@
 //
 // @dart = 2.12
 
-// ignore_for_file: annotate_overrides, camel_case_types
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
@@ -21,7 +21,67 @@ import 'version.pb.dart' as $1;
 export 'drive.pbenum.dart';
 
 class DriveCommand extends $pb.GeneratedMessage {
-  factory DriveCommand() => create();
+  factory DriveCommand({
+    $core.double? throttle,
+    $core.double? left,
+    $core.double? right,
+    $core.bool? setLeft,
+    $core.bool? setRight,
+    $core.bool? setThrottle,
+    $core.double? frontSwivel,
+    $core.double? frontTilt,
+    $core.double? rearSwivel,
+    $core.double? rearTilt,
+    $3.RoverStatus? status,
+    $1.Version? version,
+    ProtoColor? color,
+    $4.BoolState? blink,
+  }) {
+    final $result = create();
+    if (throttle != null) {
+      $result.throttle = throttle;
+    }
+    if (left != null) {
+      $result.left = left;
+    }
+    if (right != null) {
+      $result.right = right;
+    }
+    if (setLeft != null) {
+      $result.setLeft = setLeft;
+    }
+    if (setRight != null) {
+      $result.setRight = setRight;
+    }
+    if (setThrottle != null) {
+      $result.setThrottle = setThrottle;
+    }
+    if (frontSwivel != null) {
+      $result.frontSwivel = frontSwivel;
+    }
+    if (frontTilt != null) {
+      $result.frontTilt = frontTilt;
+    }
+    if (rearSwivel != null) {
+      $result.rearSwivel = rearSwivel;
+    }
+    if (rearTilt != null) {
+      $result.rearTilt = rearTilt;
+    }
+    if (status != null) {
+      $result.status = status;
+    }
+    if (version != null) {
+      $result.version = version;
+    }
+    if (color != null) {
+      $result.color = color;
+    }
+    if (blink != null) {
+      $result.blink = blink;
+    }
+    return $result;
+  }
   DriveCommand._() : super();
   factory DriveCommand.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory DriveCommand.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -65,6 +125,7 @@ class DriveCommand extends $pb.GeneratedMessage {
   static DriveCommand getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DriveCommand>(create);
   static DriveCommand? _defaultInstance;
 
+  /// The max speed, as a percentage of the rover's possible speed.
   @$pb.TagNumber(1)
   $core.double get throttle => $_getN(0);
   @$pb.TagNumber(1)
@@ -74,6 +135,7 @@ class DriveCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   void clearThrottle() => clearField(1);
 
+  /// Speed of the left wheels, as a percentage of [throttle].
   @$pb.TagNumber(2)
   $core.double get left => $_getN(1);
   @$pb.TagNumber(2)
@@ -83,6 +145,7 @@ class DriveCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   void clearLeft() => clearField(2);
 
+  /// Speed of the right wheels, as a percentage of [throttle].
   @$pb.TagNumber(3)
   $core.double get right => $_getN(2);
   @$pb.TagNumber(3)
@@ -92,6 +155,7 @@ class DriveCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   void clearRight() => clearField(3);
 
+  /// Indicates that [left] = 0 is valid, even though 0 usually means no value.
   @$pb.TagNumber(4)
   $core.bool get setLeft => $_getBF(3);
   @$pb.TagNumber(4)
@@ -101,6 +165,7 @@ class DriveCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   void clearSetLeft() => clearField(4);
 
+  /// Indicates that [right] = 0 is valid, even though 0 usually means no value.
   @$pb.TagNumber(5)
   $core.bool get setRight => $_getBF(4);
   @$pb.TagNumber(5)
@@ -110,6 +175,7 @@ class DriveCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   void clearSetRight() => clearField(5);
 
+  /// Indicates that [throttle] = 0 is valid, even though 0 usually means no value.
   @$pb.TagNumber(6)
   $core.bool get setThrottle => $_getBF(5);
   @$pb.TagNumber(6)
@@ -195,7 +261,27 @@ class DriveCommand extends $pb.GeneratedMessage {
 }
 
 class DriveMotorData extends $pb.GeneratedMessage {
-  factory DriveMotorData() => create();
+  factory DriveMotorData({
+    $core.double? speed,
+    $core.double? current,
+    $core.int? temperature,
+    MotorErrorCode? error,
+  }) {
+    final $result = create();
+    if (speed != null) {
+      $result.speed = speed;
+    }
+    if (current != null) {
+      $result.current = current;
+    }
+    if (temperature != null) {
+      $result.temperature = temperature;
+    }
+    if (error != null) {
+      $result.error = error;
+    }
+    return $result;
+  }
   DriveMotorData._() : super();
   factory DriveMotorData.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory DriveMotorData.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -267,7 +353,99 @@ class DriveMotorData extends $pb.GeneratedMessage {
 }
 
 class DriveData extends $pb.GeneratedMessage {
-  factory DriveData() => create();
+  factory DriveData({
+    $core.double? throttle,
+    $core.double? left,
+    $core.double? right,
+    $core.bool? setLeft,
+    $core.bool? setRight,
+    $core.bool? setThrottle,
+    $core.double? frontSwivel,
+    $core.double? frontTilt,
+    $core.double? rearSwivel,
+    $core.double? rearTilt,
+    $core.double? batteryVoltage,
+    $core.double? batteryCurrent,
+    $core.double? batteryTemperature,
+    $1.Version? version,
+    ProtoColor? color,
+    $3.RoverStatus? status,
+    DriveMotorData? frontLeftMotor,
+    DriveMotorData? middleLeftMotor,
+    DriveMotorData? backLeftMotor,
+    DriveMotorData? frontRightMotor,
+    DriveMotorData? middleRightMotor,
+    DriveMotorData? backRightMotor,
+  }) {
+    final $result = create();
+    if (throttle != null) {
+      $result.throttle = throttle;
+    }
+    if (left != null) {
+      $result.left = left;
+    }
+    if (right != null) {
+      $result.right = right;
+    }
+    if (setLeft != null) {
+      $result.setLeft = setLeft;
+    }
+    if (setRight != null) {
+      $result.setRight = setRight;
+    }
+    if (setThrottle != null) {
+      $result.setThrottle = setThrottle;
+    }
+    if (frontSwivel != null) {
+      $result.frontSwivel = frontSwivel;
+    }
+    if (frontTilt != null) {
+      $result.frontTilt = frontTilt;
+    }
+    if (rearSwivel != null) {
+      $result.rearSwivel = rearSwivel;
+    }
+    if (rearTilt != null) {
+      $result.rearTilt = rearTilt;
+    }
+    if (batteryVoltage != null) {
+      $result.batteryVoltage = batteryVoltage;
+    }
+    if (batteryCurrent != null) {
+      $result.batteryCurrent = batteryCurrent;
+    }
+    if (batteryTemperature != null) {
+      $result.batteryTemperature = batteryTemperature;
+    }
+    if (version != null) {
+      $result.version = version;
+    }
+    if (color != null) {
+      $result.color = color;
+    }
+    if (status != null) {
+      $result.status = status;
+    }
+    if (frontLeftMotor != null) {
+      $result.frontLeftMotor = frontLeftMotor;
+    }
+    if (middleLeftMotor != null) {
+      $result.middleLeftMotor = middleLeftMotor;
+    }
+    if (backLeftMotor != null) {
+      $result.backLeftMotor = backLeftMotor;
+    }
+    if (frontRightMotor != null) {
+      $result.frontRightMotor = frontRightMotor;
+    }
+    if (middleRightMotor != null) {
+      $result.middleRightMotor = middleRightMotor;
+    }
+    if (backRightMotor != null) {
+      $result.backRightMotor = backRightMotor;
+    }
+    return $result;
+  }
   DriveData._() : super();
   factory DriveData.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory DriveData.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -319,6 +497,7 @@ class DriveData extends $pb.GeneratedMessage {
   static DriveData getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DriveData>(create);
   static DriveData? _defaultInstance;
 
+  /// The max speed, as a percentage of the rover's possible speed.
   @$pb.TagNumber(1)
   $core.double get throttle => $_getN(0);
   @$pb.TagNumber(1)
@@ -328,6 +507,7 @@ class DriveData extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   void clearThrottle() => clearField(1);
 
+  /// Speed of the left wheels, as a percentage of [throttle].
   @$pb.TagNumber(2)
   $core.double get left => $_getN(1);
   @$pb.TagNumber(2)
@@ -337,6 +517,7 @@ class DriveData extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   void clearLeft() => clearField(2);
 
+  /// Speed of the right wheels, as a percentage of [throttle].
   @$pb.TagNumber(3)
   $core.double get right => $_getN(2);
   @$pb.TagNumber(3)
@@ -346,6 +527,7 @@ class DriveData extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   void clearRight() => clearField(3);
 
+  /// Indicates that [left] = 0 is valid, even though 0 usually means no value.
   @$pb.TagNumber(4)
   $core.bool get setLeft => $_getBF(3);
   @$pb.TagNumber(4)
@@ -355,6 +537,7 @@ class DriveData extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   void clearSetLeft() => clearField(4);
 
+  /// Indicates that [right] = 0 is valid, even though 0 usually means no value.
   @$pb.TagNumber(5)
   $core.bool get setRight => $_getBF(4);
   @$pb.TagNumber(5)
@@ -364,6 +547,7 @@ class DriveData extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   void clearSetRight() => clearField(5);
 
+  /// Indicates that [throttle] = 0 is valid, even though 0 usually means no value.
   @$pb.TagNumber(6)
   $core.bool get setThrottle => $_getBF(5);
   @$pb.TagNumber(6)
@@ -409,6 +593,7 @@ class DriveData extends $pb.GeneratedMessage {
   @$pb.TagNumber(10)
   void clearRearTilt() => clearField(10);
 
+  /// Vitals for the whole rover
   @$pb.TagNumber(11)
   $core.double get batteryVoltage => $_getN(10);
   @$pb.TagNumber(11)
@@ -465,6 +650,7 @@ class DriveData extends $pb.GeneratedMessage {
   @$pb.TagNumber(22)
   void clearStatus() => clearField(22);
 
+  /// Contains the DriveMotorData for each corresponding motor
   @$pb.TagNumber(23)
   DriveMotorData get frontLeftMotor => $_getN(16);
   @$pb.TagNumber(23)

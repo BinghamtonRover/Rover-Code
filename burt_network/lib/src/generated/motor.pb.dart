@@ -4,7 +4,7 @@
 //
 // @dart = 2.12
 
-// ignore_for_file: annotate_overrides, camel_case_types
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
@@ -19,7 +19,39 @@ import 'utils.pbenum.dart' as $4;
 export 'motor.pbenum.dart';
 
 class MotorData extends $pb.GeneratedMessage {
-  factory MotorData() => create();
+  factory MotorData({
+    $4.BoolState? isMoving,
+    $4.BoolState? isLimitSwitchPressed,
+    MotorDirection? direction,
+    $core.int? currentStep,
+    $core.int? targetStep,
+    $core.double? currentAngle,
+    $core.double? targetAngle,
+  }) {
+    final $result = create();
+    if (isMoving != null) {
+      $result.isMoving = isMoving;
+    }
+    if (isLimitSwitchPressed != null) {
+      $result.isLimitSwitchPressed = isLimitSwitchPressed;
+    }
+    if (direction != null) {
+      $result.direction = direction;
+    }
+    if (currentStep != null) {
+      $result.currentStep = currentStep;
+    }
+    if (targetStep != null) {
+      $result.targetStep = targetStep;
+    }
+    if (currentAngle != null) {
+      $result.currentAngle = currentAngle;
+    }
+    if (targetAngle != null) {
+      $result.targetAngle = targetAngle;
+    }
+    return $result;
+  }
   MotorData._() : super();
   factory MotorData.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MotorData.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -121,7 +153,23 @@ class MotorData extends $pb.GeneratedMessage {
 }
 
 class MotorCommand extends $pb.GeneratedMessage {
-  factory MotorCommand() => create();
+  factory MotorCommand({
+    $core.int? moveSteps,
+    $core.double? moveRadians,
+    $core.double? angle,
+  }) {
+    final $result = create();
+    if (moveSteps != null) {
+      $result.moveSteps = moveSteps;
+    }
+    if (moveRadians != null) {
+      $result.moveRadians = moveRadians;
+    }
+    if (angle != null) {
+      $result.angle = angle;
+    }
+    return $result;
+  }
   MotorCommand._() : super();
   factory MotorCommand.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory MotorCommand.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -154,6 +202,7 @@ class MotorCommand extends $pb.GeneratedMessage {
   static MotorCommand getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MotorCommand>(create);
   static MotorCommand? _defaultInstance;
 
+  /// Debug control: Move by individual steps
   @$pb.TagNumber(1)
   $core.int get moveSteps => $_getIZ(0);
   @$pb.TagNumber(1)
@@ -163,6 +212,7 @@ class MotorCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   void clearMoveSteps() => clearField(1);
 
+  /// Precise control: Move by radians
   @$pb.TagNumber(2)
   $core.double get moveRadians => $_getN(1);
   @$pb.TagNumber(2)
@@ -172,6 +222,7 @@ class MotorCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   void clearMoveRadians() => clearField(2);
 
+  /// / An angle to go to. Useful in IK.
   @$pb.TagNumber(3)
   $core.double get angle => $_getN(2);
   @$pb.TagNumber(3)

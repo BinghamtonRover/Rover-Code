@@ -4,7 +4,7 @@
 //
 // @dart = 2.12
 
-// ignore_for_file: annotate_overrides, camel_case_types
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
@@ -17,8 +17,20 @@ import 'status.pbenum.dart';
 
 export 'status.pbenum.dart';
 
+/// / Update a sensitive setting, such as the rover's status.
+/// /
+/// / This message must be triggered manually and the recipient (usually the subsystems Pi)
+/// / must respond with the exact same message to confirm its receipt.
 class UpdateSetting extends $pb.GeneratedMessage {
-  factory UpdateSetting() => create();
+  factory UpdateSetting({
+    RoverStatus? status,
+  }) {
+    final $result = create();
+    if (status != null) {
+      $result.status = status;
+    }
+    return $result;
+  }
   UpdateSetting._() : super();
   factory UpdateSetting.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory UpdateSetting.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);

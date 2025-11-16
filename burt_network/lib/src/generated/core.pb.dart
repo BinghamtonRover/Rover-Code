@@ -4,7 +4,7 @@
 //
 // @dart = 2.12
 
-// ignore_for_file: annotate_overrides, camel_case_types
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
@@ -17,8 +17,21 @@ import 'core.pbenum.dart';
 
 export 'core.pbenum.dart';
 
+/// Used for a simple handshake between devices.
 class Connect extends $pb.GeneratedMessage {
-  factory Connect() => create();
+  factory Connect({
+    Device? sender,
+    Device? receiver,
+  }) {
+    final $result = create();
+    if (sender != null) {
+      $result.sender = sender;
+    }
+    if (receiver != null) {
+      $result.receiver = receiver;
+    }
+    return $result;
+  }
   Connect._() : super();
   factory Connect.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Connect.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -69,8 +82,17 @@ class Connect extends $pb.GeneratedMessage {
   void clearReceiver() => clearField(2);
 }
 
+/// Notifies the recipient that the sender will no longer be connected.
 class Disconnect extends $pb.GeneratedMessage {
-  factory Disconnect() => create();
+  factory Disconnect({
+    Device? sender,
+  }) {
+    final $result = create();
+    if (sender != null) {
+      $result.sender = sender;
+    }
+    return $result;
+  }
   Disconnect._() : super();
   factory Disconnect.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Disconnect.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);

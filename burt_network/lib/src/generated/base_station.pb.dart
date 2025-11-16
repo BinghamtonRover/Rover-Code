@@ -4,7 +4,7 @@
 //
 // @dart = 2.12
 
-// ignore_for_file: annotate_overrides, camel_case_types
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
@@ -22,7 +22,27 @@ import 'version.pb.dart' as $1;
 export 'base_station.pbenum.dart';
 
 class AntennaFirmwareCommand extends $pb.GeneratedMessage {
-  factory AntennaFirmwareCommand() => create();
+  factory AntennaFirmwareCommand({
+    $1.Version? version,
+    $5.MotorCommand? swivel,
+    $core.bool? stop,
+    $core.bool? calibrate,
+  }) {
+    final $result = create();
+    if (version != null) {
+      $result.version = version;
+    }
+    if (swivel != null) {
+      $result.swivel = swivel;
+    }
+    if (stop != null) {
+      $result.stop = stop;
+    }
+    if (calibrate != null) {
+      $result.calibrate = calibrate;
+    }
+    return $result;
+  }
   AntennaFirmwareCommand._() : super();
   factory AntennaFirmwareCommand.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory AntennaFirmwareCommand.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -98,7 +118,19 @@ class AntennaFirmwareCommand extends $pb.GeneratedMessage {
 }
 
 class AntennaFirmwareData extends $pb.GeneratedMessage {
-  factory AntennaFirmwareData() => create();
+  factory AntennaFirmwareData({
+    $1.Version? version,
+    $5.MotorData? swivel,
+  }) {
+    final $result = create();
+    if (version != null) {
+      $result.version = version;
+    }
+    if (swivel != null) {
+      $result.swivel = swivel;
+    }
+    return $result;
+  }
   AntennaFirmwareData._() : super();
   factory AntennaFirmwareData.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory AntennaFirmwareData.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -153,8 +185,54 @@ class AntennaFirmwareData extends $pb.GeneratedMessage {
   $5.MotorData ensureSwivel() => $_ensure(1);
 }
 
+/// / Command to control the movement of the MARS antenna.
+/// /
+/// / This command has two modes: manual operation or rover tracking.
+/// / - When tracking the rover, any GPS signals received by the rover or the base station's internal
+/// /   GPS will cause it to re-calculate an orientation that ideally faces the rover. In this mode,
+/// /   manual commands are ignored.
+/// / - When in manual mode, all GPS data is ignored and the motor is only moved when the Dashboard
+/// /   sends a command with a [manualCommand] payload.
+/// /
+/// / When tracking the rover, the Dashboard can override either the base station or rover's position
+/// / for testing and debugging. When a new position override is received, the base station will:
+/// / - calculate the antenna orientation as if the rover were at this position
+/// / - send an [AntennaFirmwareCommand] for this position
+/// / - immediately set the [mode] to [AntennaControlMode.MANUAL_CONTROL] to hold the position
 class BaseStationCommand extends $pb.GeneratedMessage {
-  factory BaseStationCommand() => create();
+  factory BaseStationCommand({
+    $1.Version? version,
+    AntennaControlMode? mode,
+    $2.GpsCoordinates? roverCoordinates,
+    $2.GpsCoordinates? baseStationCoordinates,
+    $2.GpsCoordinates? roverCoordinatesOverride,
+    AntennaFirmwareCommand? manualCommand,
+    $core.double? angleTolerance,
+  }) {
+    final $result = create();
+    if (version != null) {
+      $result.version = version;
+    }
+    if (mode != null) {
+      $result.mode = mode;
+    }
+    if (roverCoordinates != null) {
+      $result.roverCoordinates = roverCoordinates;
+    }
+    if (baseStationCoordinates != null) {
+      $result.baseStationCoordinates = baseStationCoordinates;
+    }
+    if (roverCoordinatesOverride != null) {
+      $result.roverCoordinatesOverride = roverCoordinatesOverride;
+    }
+    if (manualCommand != null) {
+      $result.manualCommand = manualCommand;
+    }
+    if (angleTolerance != null) {
+      $result.angleTolerance = angleTolerance;
+    }
+    return $result;
+  }
   BaseStationCommand._() : super();
   factory BaseStationCommand.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory BaseStationCommand.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -255,6 +333,7 @@ class BaseStationCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(6)
   AntennaFirmwareCommand ensureManualCommand() => $_ensure(5);
 
+  /// The angle tolerance for auto-tracking, in radians
   @$pb.TagNumber(7)
   $core.double get angleTolerance => $_getN(6);
   @$pb.TagNumber(7)
@@ -266,7 +345,31 @@ class BaseStationCommand extends $pb.GeneratedMessage {
 }
 
 class BaseStationData extends $pb.GeneratedMessage {
-  factory BaseStationData() => create();
+  factory BaseStationData({
+    $1.Version? version,
+    AntennaControlMode? mode,
+    AntennaFirmwareData? antenna,
+    $2.GpsCoordinates? baseStationCoordinates,
+    $4.BoolState? rtkConnected,
+  }) {
+    final $result = create();
+    if (version != null) {
+      $result.version = version;
+    }
+    if (mode != null) {
+      $result.mode = mode;
+    }
+    if (antenna != null) {
+      $result.antenna = antenna;
+    }
+    if (baseStationCoordinates != null) {
+      $result.baseStationCoordinates = baseStationCoordinates;
+    }
+    if (rtkConnected != null) {
+      $result.rtkConnected = rtkConnected;
+    }
+    return $result;
+  }
   BaseStationData._() : super();
   factory BaseStationData.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory BaseStationData.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -343,6 +446,7 @@ class BaseStationData extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $2.GpsCoordinates ensureBaseStationCoordinates() => $_ensure(3);
 
+  /// Whether or not the RTK gps is open and being read
   @$pb.TagNumber(5)
   $4.BoolState get rtkConnected => $_getN(4);
   @$pb.TagNumber(5)

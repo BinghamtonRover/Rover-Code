@@ -4,7 +4,7 @@
 //
 // @dart = 2.12
 
-// ignore_for_file: annotate_overrides, camel_case_types
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
@@ -19,8 +19,81 @@ import 'vision.pb.dart' as $6;
 
 export 'video.pbenum.dart';
 
+/// / Details about a specific camera.
 class CameraDetails extends $pb.GeneratedMessage {
-  factory CameraDetails() => create();
+  factory CameraDetails({
+    CameraName? name,
+    $core.int? resolutionWidth,
+    $core.int? resolutionHeight,
+    $core.int? quality,
+    $core.int? fps,
+    CameraStatus? status,
+    $core.bool? autofocus,
+    $core.int? zoom,
+    $core.int? pan,
+    $core.int? tilt,
+    $core.int? focus,
+    $core.double? diagonalFov,
+    $core.double? horizontalFov,
+    $core.double? verticalFov,
+    $core.int? streamWidth,
+    $core.int? streamHeight,
+    $core.int? rotationQuarters,
+  }) {
+    final $result = create();
+    if (name != null) {
+      $result.name = name;
+    }
+    if (resolutionWidth != null) {
+      $result.resolutionWidth = resolutionWidth;
+    }
+    if (resolutionHeight != null) {
+      $result.resolutionHeight = resolutionHeight;
+    }
+    if (quality != null) {
+      $result.quality = quality;
+    }
+    if (fps != null) {
+      $result.fps = fps;
+    }
+    if (status != null) {
+      $result.status = status;
+    }
+    if (autofocus != null) {
+      $result.autofocus = autofocus;
+    }
+    if (zoom != null) {
+      $result.zoom = zoom;
+    }
+    if (pan != null) {
+      $result.pan = pan;
+    }
+    if (tilt != null) {
+      $result.tilt = tilt;
+    }
+    if (focus != null) {
+      $result.focus = focus;
+    }
+    if (diagonalFov != null) {
+      $result.diagonalFov = diagonalFov;
+    }
+    if (horizontalFov != null) {
+      $result.horizontalFov = horizontalFov;
+    }
+    if (verticalFov != null) {
+      $result.verticalFov = verticalFov;
+    }
+    if (streamWidth != null) {
+      $result.streamWidth = streamWidth;
+    }
+    if (streamHeight != null) {
+      $result.streamHeight = streamHeight;
+    }
+    if (rotationQuarters != null) {
+      $result.rotationQuarters = rotationQuarters;
+    }
+    return $result;
+  }
   CameraDetails._() : super();
   factory CameraDetails.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory CameraDetails.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -67,6 +140,7 @@ class CameraDetails extends $pb.GeneratedMessage {
   static CameraDetails getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CameraDetails>(create);
   static CameraDetails? _defaultInstance;
 
+  /// / The name of the camera.
   @$pb.TagNumber(1)
   CameraName get name => $_getN(0);
   @$pb.TagNumber(1)
@@ -76,6 +150,7 @@ class CameraDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   void clearName() => clearField(1);
 
+  /// / The width and height of the image frame.
   @$pb.TagNumber(2)
   $core.int get resolutionWidth => $_getIZ(1);
   @$pb.TagNumber(2)
@@ -94,6 +169,7 @@ class CameraDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   void clearResolutionHeight() => clearField(3);
 
+  /// / The quality of the frame, as a percentage. Used for JPG compression.
   @$pb.TagNumber(4)
   $core.int get quality => $_getIZ(3);
   @$pb.TagNumber(4)
@@ -103,6 +179,7 @@ class CameraDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   void clearQuality() => clearField(4);
 
+  /// / The amount of frames per second. Eg, 60 FPS or 24 FPS.
   @$pb.TagNumber(5)
   $core.int get fps => $_getIZ(4);
   @$pb.TagNumber(5)
@@ -112,6 +189,7 @@ class CameraDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   void clearFps() => clearField(5);
 
+  /// / The status of this camera.
   @$pb.TagNumber(6)
   CameraStatus get status => $_getN(5);
   @$pb.TagNumber(6)
@@ -193,6 +271,7 @@ class CameraDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(14)
   void clearVerticalFov() => clearField(14);
 
+  /// / The width of the image data streamed
   @$pb.TagNumber(15)
   $core.int get streamWidth => $_getIZ(14);
   @$pb.TagNumber(15)
@@ -202,6 +281,7 @@ class CameraDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(15)
   void clearStreamWidth() => clearField(15);
 
+  /// / The height of the image data streamed
   @$pb.TagNumber(16)
   $core.int get streamHeight => $_getIZ(15);
   @$pb.TagNumber(16)
@@ -211,6 +291,7 @@ class CameraDetails extends $pb.GeneratedMessage {
   @$pb.TagNumber(16)
   void clearStreamHeight() => clearField(16);
 
+  /// / Number of 90 degrees rotation increments
   @$pb.TagNumber(17)
   $core.int get rotationQuarters => $_getIZ(16);
   @$pb.TagNumber(17)
@@ -221,8 +302,37 @@ class CameraDetails extends $pb.GeneratedMessage {
   void clearRotationQuarters() => clearField(17);
 }
 
+/// / Reports data about a camera.
 class VideoData extends $pb.GeneratedMessage {
-  factory VideoData() => create();
+  factory VideoData({
+    $core.String? id,
+    CameraDetails? details,
+    $core.List<$core.int>? frame,
+    $1.Version? version,
+    $core.String? imagePath,
+    $core.Iterable<$6.DetectedObject>? detectedObjects,
+  }) {
+    final $result = create();
+    if (id != null) {
+      $result.id = id;
+    }
+    if (details != null) {
+      $result.details = details;
+    }
+    if (frame != null) {
+      $result.frame = frame;
+    }
+    if (version != null) {
+      $result.version = version;
+    }
+    if (imagePath != null) {
+      $result.imagePath = imagePath;
+    }
+    if (detectedObjects != null) {
+      $result.detectedObjects.addAll(detectedObjects);
+    }
+    return $result;
+  }
   VideoData._() : super();
   factory VideoData.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory VideoData.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -258,6 +368,7 @@ class VideoData extends $pb.GeneratedMessage {
   static VideoData getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<VideoData>(create);
   static VideoData? _defaultInstance;
 
+  /// / The unique ID of this camera.
   @$pb.TagNumber(1)
   $core.String get id => $_getSZ(0);
   @$pb.TagNumber(1)
@@ -267,6 +378,7 @@ class VideoData extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   void clearId() => clearField(1);
 
+  /// / The details for this camera.
   @$pb.TagNumber(2)
   CameraDetails get details => $_getN(1);
   @$pb.TagNumber(2)
@@ -278,6 +390,7 @@ class VideoData extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   CameraDetails ensureDetails() => $_ensure(1);
 
+  /// / The latest frame from this camera.
   @$pb.TagNumber(3)
   $core.List<$core.int> get frame => $_getN(2);
   @$pb.TagNumber(3)
@@ -287,6 +400,7 @@ class VideoData extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   void clearFrame() => clearField(3);
 
+  /// / The version of this video data.
   @$pb.TagNumber(4)
   $1.Version get version => $_getN(3);
   @$pb.TagNumber(4)
@@ -298,6 +412,7 @@ class VideoData extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $1.Version ensureVersion() => $_ensure(3);
 
+  /// / The path that a high-quality screenshot was saved to.
   @$pb.TagNumber(5)
   $core.String get imagePath => $_getSZ(4);
   @$pb.TagNumber(5)
@@ -307,12 +422,34 @@ class VideoData extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   void clearImagePath() => clearField(5);
 
+  /// / Any objects that were detected in the frame.
   @$pb.TagNumber(6)
   $core.List<$6.DetectedObject> get detectedObjects => $_getList(5);
 }
 
+/// / Make changes to a camera feed.
 class VideoCommand extends $pb.GeneratedMessage {
-  factory VideoCommand() => create();
+  factory VideoCommand({
+    $core.String? id,
+    CameraDetails? details,
+    $1.Version? version,
+    $core.bool? takeSnapshot,
+  }) {
+    final $result = create();
+    if (id != null) {
+      $result.id = id;
+    }
+    if (details != null) {
+      $result.details = details;
+    }
+    if (version != null) {
+      $result.version = version;
+    }
+    if (takeSnapshot != null) {
+      $result.takeSnapshot = takeSnapshot;
+    }
+    return $result;
+  }
   VideoCommand._() : super();
   factory VideoCommand.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory VideoCommand.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -346,6 +483,7 @@ class VideoCommand extends $pb.GeneratedMessage {
   static VideoCommand getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<VideoCommand>(create);
   static VideoCommand? _defaultInstance;
 
+  /// / The unique ID of the camera to change.
   @$pb.TagNumber(1)
   $core.String get id => $_getSZ(0);
   @$pb.TagNumber(1)
@@ -355,6 +493,9 @@ class VideoCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   void clearId() => clearField(1);
 
+  /// / The new details for this camera.
+  /// /
+  /// / If changing [CameraDetails.status], you cannot set it to [CameraStatus.DISCONNECTED].
   @$pb.TagNumber(2)
   CameraDetails get details => $_getN(1);
   @$pb.TagNumber(2)

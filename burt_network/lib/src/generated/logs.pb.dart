@@ -4,7 +4,7 @@
 //
 // @dart = 2.12
 
-// ignore_for_file: annotate_overrides, camel_case_types
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
@@ -19,7 +19,27 @@ import 'logs.pbenum.dart';
 export 'logs.pbenum.dart';
 
 class BurtLog extends $pb.GeneratedMessage {
-  factory BurtLog() => create();
+  factory BurtLog({
+    BurtLogLevel? level,
+    $core.String? title,
+    $core.String? body,
+    $7.Device? device,
+  }) {
+    final $result = create();
+    if (level != null) {
+      $result.level = level;
+    }
+    if (title != null) {
+      $result.title = title;
+    }
+    if (body != null) {
+      $result.body = body;
+    }
+    if (device != null) {
+      $result.device = device;
+    }
+    return $result;
+  }
   BurtLog._() : super();
   factory BurtLog.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory BurtLog.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);

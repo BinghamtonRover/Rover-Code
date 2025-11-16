@@ -4,7 +4,7 @@
 //
 // @dart = 2.12
 
-// ignore_for_file: annotate_overrides, camel_case_types
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
@@ -20,7 +20,39 @@ import 'version.pb.dart' as $1;
 export 'autonomy.pbenum.dart';
 
 class AutonomyData extends $pb.GeneratedMessage {
-  factory AutonomyData() => create();
+  factory AutonomyData({
+    AutonomyState? state,
+    $2.GpsCoordinates? destination,
+    $core.Iterable<$2.GpsCoordinates>? obstacles,
+    $core.Iterable<$2.GpsCoordinates>? path,
+    AutonomyTask? task,
+    $core.bool? crash,
+    $1.Version? version,
+  }) {
+    final $result = create();
+    if (state != null) {
+      $result.state = state;
+    }
+    if (destination != null) {
+      $result.destination = destination;
+    }
+    if (obstacles != null) {
+      $result.obstacles.addAll(obstacles);
+    }
+    if (path != null) {
+      $result.path.addAll(path);
+    }
+    if (task != null) {
+      $result.task = task;
+    }
+    if (crash != null) {
+      $result.crash = crash;
+    }
+    if (version != null) {
+      $result.version = version;
+    }
+    return $result;
+  }
   AutonomyData._() : super();
   factory AutonomyData.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory AutonomyData.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -114,7 +146,31 @@ class AutonomyData extends $pb.GeneratedMessage {
 }
 
 class AutonomyCommand extends $pb.GeneratedMessage {
-  factory AutonomyCommand() => create();
+  factory AutonomyCommand({
+    $2.GpsCoordinates? destination,
+    AutonomyTask? task,
+    $core.int? arucoId,
+    $core.bool? abort,
+    $1.Version? version,
+  }) {
+    final $result = create();
+    if (destination != null) {
+      $result.destination = destination;
+    }
+    if (task != null) {
+      $result.task = task;
+    }
+    if (arucoId != null) {
+      $result.arucoId = arucoId;
+    }
+    if (abort != null) {
+      $result.abort = abort;
+    }
+    if (version != null) {
+      $result.version = version;
+    }
+    return $result;
+  }
   AutonomyCommand._() : super();
   factory AutonomyCommand.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory AutonomyCommand.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);

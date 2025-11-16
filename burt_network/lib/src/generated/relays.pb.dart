@@ -4,7 +4,7 @@
 //
 // @dart = 2.12
 
-// ignore_for_file: annotate_overrides, camel_case_types
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
@@ -16,7 +16,43 @@ import 'package:protobuf/protobuf.dart' as $pb;
 import 'utils.pbenum.dart' as $4;
 
 class RelaysCommand extends $pb.GeneratedMessage {
-  factory RelaysCommand() => create();
+  factory RelaysCommand({
+    $4.BoolState? backLeftMotor,
+    $4.BoolState? backRightMotor,
+    $4.BoolState? frontLeftMotor,
+    $4.BoolState? frontRightMotor,
+    $4.BoolState? arm,
+    $4.BoolState? science,
+    $4.BoolState? drive,
+    $4.BoolState? bypass,
+  }) {
+    final $result = create();
+    if (backLeftMotor != null) {
+      $result.backLeftMotor = backLeftMotor;
+    }
+    if (backRightMotor != null) {
+      $result.backRightMotor = backRightMotor;
+    }
+    if (frontLeftMotor != null) {
+      $result.frontLeftMotor = frontLeftMotor;
+    }
+    if (frontRightMotor != null) {
+      $result.frontRightMotor = frontRightMotor;
+    }
+    if (arm != null) {
+      $result.arm = arm;
+    }
+    if (science != null) {
+      $result.science = science;
+    }
+    if (drive != null) {
+      $result.drive = drive;
+    }
+    if (bypass != null) {
+      $result.bypass = bypass;
+    }
+    return $result;
+  }
   RelaysCommand._() : super();
   factory RelaysCommand.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory RelaysCommand.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -54,6 +90,7 @@ class RelaysCommand extends $pb.GeneratedMessage {
   static RelaysCommand getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<RelaysCommand>(create);
   static RelaysCommand? _defaultInstance;
 
+  /// Turn the following devices on or off
   @$pb.TagNumber(1)
   $4.BoolState get backLeftMotor => $_getN(0);
   @$pb.TagNumber(1)
@@ -117,6 +154,7 @@ class RelaysCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(7)
   void clearDrive() => clearField(7);
 
+  /// Special commands
   @$pb.TagNumber(8)
   $4.BoolState get bypass => $_getN(7);
   @$pb.TagNumber(8)
@@ -128,7 +166,47 @@ class RelaysCommand extends $pb.GeneratedMessage {
 }
 
 class RelaysData extends $pb.GeneratedMessage {
-  factory RelaysData() => create();
+  factory RelaysData({
+    $4.BoolState? backLeftMotor,
+    $4.BoolState? backRightMotor,
+    $4.BoolState? frontLeftMotor,
+    $4.BoolState? frontRightMotor,
+    $4.BoolState? arm,
+    $4.BoolState? science,
+    $4.BoolState? drive,
+    $4.BoolState? bypass,
+    $4.BoolState? mechanicalOverride,
+  }) {
+    final $result = create();
+    if (backLeftMotor != null) {
+      $result.backLeftMotor = backLeftMotor;
+    }
+    if (backRightMotor != null) {
+      $result.backRightMotor = backRightMotor;
+    }
+    if (frontLeftMotor != null) {
+      $result.frontLeftMotor = frontLeftMotor;
+    }
+    if (frontRightMotor != null) {
+      $result.frontRightMotor = frontRightMotor;
+    }
+    if (arm != null) {
+      $result.arm = arm;
+    }
+    if (science != null) {
+      $result.science = science;
+    }
+    if (drive != null) {
+      $result.drive = drive;
+    }
+    if (bypass != null) {
+      $result.bypass = bypass;
+    }
+    if (mechanicalOverride != null) {
+      $result.mechanicalOverride = mechanicalOverride;
+    }
+    return $result;
+  }
   RelaysData._() : super();
   factory RelaysData.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory RelaysData.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -167,6 +245,7 @@ class RelaysData extends $pb.GeneratedMessage {
   static RelaysData getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<RelaysData>(create);
   static RelaysData? _defaultInstance;
 
+  /// Whether the following devices are on or off
   @$pb.TagNumber(1)
   $4.BoolState get backLeftMotor => $_getN(0);
   @$pb.TagNumber(1)
@@ -230,6 +309,7 @@ class RelaysData extends $pb.GeneratedMessage {
   @$pb.TagNumber(7)
   void clearDrive() => clearField(7);
 
+  /// Special data
   @$pb.TagNumber(8)
   $4.BoolState get bypass => $_getN(7);
   @$pb.TagNumber(8)

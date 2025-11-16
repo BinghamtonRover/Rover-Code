@@ -4,7 +4,7 @@
 //
 // @dart = 2.12
 
-// ignore_for_file: annotate_overrides, camel_case_types
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
@@ -16,7 +16,19 @@ import 'package:protobuf/protobuf.dart' as $pb;
 import 'version.pb.dart' as $1;
 
 class LidarCartesianPoint extends $pb.GeneratedMessage {
-  factory LidarCartesianPoint() => create();
+  factory LidarCartesianPoint({
+    $core.double? x,
+    $core.double? y,
+  }) {
+    final $result = create();
+    if (x != null) {
+      $result.x = x;
+    }
+    if (y != null) {
+      $result.y = y;
+    }
+    return $result;
+  }
   LidarCartesianPoint._() : super();
   factory LidarCartesianPoint.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory LidarCartesianPoint.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -68,7 +80,19 @@ class LidarCartesianPoint extends $pb.GeneratedMessage {
 }
 
 class LidarPolarPoint extends $pb.GeneratedMessage {
-  factory LidarPolarPoint() => create();
+  factory LidarPolarPoint({
+    $core.double? angle,
+    $core.double? distance,
+  }) {
+    final $result = create();
+    if (angle != null) {
+      $result.angle = angle;
+    }
+    if (distance != null) {
+      $result.distance = distance;
+    }
+    return $result;
+  }
   LidarPolarPoint._() : super();
   factory LidarPolarPoint.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory LidarPolarPoint.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -120,7 +144,23 @@ class LidarPolarPoint extends $pb.GeneratedMessage {
 }
 
 class LidarPointCloud extends $pb.GeneratedMessage {
-  factory LidarPointCloud() => create();
+  factory LidarPointCloud({
+    $core.Iterable<LidarCartesianPoint>? cartesian,
+    $core.Iterable<LidarPolarPoint>? polar,
+    $1.Version? version,
+  }) {
+    final $result = create();
+    if (cartesian != null) {
+      $result.cartesian.addAll(cartesian);
+    }
+    if (polar != null) {
+      $result.polar.addAll(polar);
+    }
+    if (version != null) {
+      $result.version = version;
+    }
+    return $result;
+  }
   LidarPointCloud._() : super();
   factory LidarPointCloud.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory LidarPointCloud.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);

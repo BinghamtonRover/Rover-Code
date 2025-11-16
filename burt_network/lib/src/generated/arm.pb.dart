@@ -4,7 +4,7 @@
 //
 // @dart = 2.12
 
-// ignore_for_file: annotate_overrides, camel_case_types
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
@@ -19,7 +19,35 @@ import 'utils.pbenum.dart' as $4;
 import 'version.pb.dart' as $1;
 
 class ArmData extends $pb.GeneratedMessage {
-  factory ArmData() => create();
+  factory ArmData({
+    $0.Coordinates? currentPosition,
+    $0.Coordinates? targetPosition,
+    $5.MotorData? base,
+    $5.MotorData? shoulder,
+    $5.MotorData? elbow,
+    $1.Version? version,
+  }) {
+    final $result = create();
+    if (currentPosition != null) {
+      $result.currentPosition = currentPosition;
+    }
+    if (targetPosition != null) {
+      $result.targetPosition = targetPosition;
+    }
+    if (base != null) {
+      $result.base = base;
+    }
+    if (shoulder != null) {
+      $result.shoulder = shoulder;
+    }
+    if (elbow != null) {
+      $result.elbow = elbow;
+    }
+    if (version != null) {
+      $result.version = version;
+    }
+    return $result;
+  }
   ArmData._() : super();
   factory ArmData.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ArmData.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -123,7 +151,55 @@ class ArmData extends $pb.GeneratedMessage {
 }
 
 class ArmCommand extends $pb.GeneratedMessage {
-  factory ArmCommand() => create();
+  factory ArmCommand({
+    $core.bool? stop,
+    $core.bool? calibrate,
+    $5.MotorCommand? swivel,
+    $5.MotorCommand? shoulder,
+    $5.MotorCommand? elbow,
+    $5.MotorCommand? gripperLift,
+    $core.double? ikX,
+    $core.double? ikY,
+    $core.double? ikZ,
+    $core.bool? jab,
+    $1.Version? version,
+  }) {
+    final $result = create();
+    if (stop != null) {
+      $result.stop = stop;
+    }
+    if (calibrate != null) {
+      $result.calibrate = calibrate;
+    }
+    if (swivel != null) {
+      $result.swivel = swivel;
+    }
+    if (shoulder != null) {
+      $result.shoulder = shoulder;
+    }
+    if (elbow != null) {
+      $result.elbow = elbow;
+    }
+    if (gripperLift != null) {
+      $result.gripperLift = gripperLift;
+    }
+    if (ikX != null) {
+      $result.ikX = ikX;
+    }
+    if (ikY != null) {
+      $result.ikY = ikY;
+    }
+    if (ikZ != null) {
+      $result.ikZ = ikZ;
+    }
+    if (jab != null) {
+      $result.jab = jab;
+    }
+    if (version != null) {
+      $result.version = version;
+    }
+    return $result;
+  }
   ArmCommand._() : super();
   factory ArmCommand.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ArmCommand.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -164,6 +240,7 @@ class ArmCommand extends $pb.GeneratedMessage {
   static ArmCommand getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ArmCommand>(create);
   static ArmCommand? _defaultInstance;
 
+  /// General commands
   @$pb.TagNumber(1)
   $core.bool get stop => $_getBF(0);
   @$pb.TagNumber(1)
@@ -182,6 +259,7 @@ class ArmCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   void clearCalibrate() => clearField(2);
 
+  /// Move individual motors
   @$pb.TagNumber(3)
   $5.MotorCommand get swivel => $_getN(2);
   @$pb.TagNumber(3)
@@ -215,6 +293,8 @@ class ArmCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   $5.MotorCommand ensureElbow() => $_ensure(4);
 
+  /// Needed for IK: If the wrist-lift moves, we need to re-calculate IK to keep the end-effector
+  /// stationary. See /Arm/src/ik/README.md in the Arm-Firmware repository.
   @$pb.TagNumber(6)
   $5.MotorCommand get gripperLift => $_getN(5);
   @$pb.TagNumber(6)
@@ -226,6 +306,7 @@ class ArmCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(6)
   $5.MotorCommand ensureGripperLift() => $_ensure(5);
 
+  /// Can be removed in future versions
   @$pb.TagNumber(7)
   $core.double get ikX => $_getN(6);
   @$pb.TagNumber(7)
@@ -253,6 +334,7 @@ class ArmCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(9)
   void clearIkZ() => clearField(9);
 
+  /// Custom actions
   @$pb.TagNumber(10)
   $core.bool get jab => $_getBF(9);
   @$pb.TagNumber(10)
@@ -275,7 +357,35 @@ class ArmCommand extends $pb.GeneratedMessage {
 }
 
 class GripperData extends $pb.GeneratedMessage {
-  factory GripperData() => create();
+  factory GripperData({
+    $5.MotorData? lift,
+    $5.MotorData? rotate,
+    $5.MotorData? pinch,
+    $1.Version? version,
+    $core.int? servoAngle,
+    $4.BoolState? laserState,
+  }) {
+    final $result = create();
+    if (lift != null) {
+      $result.lift = lift;
+    }
+    if (rotate != null) {
+      $result.rotate = rotate;
+    }
+    if (pinch != null) {
+      $result.pinch = pinch;
+    }
+    if (version != null) {
+      $result.version = version;
+    }
+    if (servoAngle != null) {
+      $result.servoAngle = servoAngle;
+    }
+    if (laserState != null) {
+      $result.laserState = laserState;
+    }
+    return $result;
+  }
   GripperData._() : super();
   factory GripperData.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GripperData.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -375,7 +485,55 @@ class GripperData extends $pb.GeneratedMessage {
 }
 
 class GripperCommand extends $pb.GeneratedMessage {
-  factory GripperCommand() => create();
+  factory GripperCommand({
+    $core.bool? stop,
+    $core.bool? calibrate,
+    $5.MotorCommand? lift,
+    $5.MotorCommand? rotate,
+    $5.MotorCommand? pinch,
+    $core.bool? open,
+    $core.bool? close,
+    $core.bool? spin,
+    $1.Version? version,
+    $core.int? servoAngle,
+    $4.BoolState? laserState,
+  }) {
+    final $result = create();
+    if (stop != null) {
+      $result.stop = stop;
+    }
+    if (calibrate != null) {
+      $result.calibrate = calibrate;
+    }
+    if (lift != null) {
+      $result.lift = lift;
+    }
+    if (rotate != null) {
+      $result.rotate = rotate;
+    }
+    if (pinch != null) {
+      $result.pinch = pinch;
+    }
+    if (open != null) {
+      $result.open = open;
+    }
+    if (close != null) {
+      $result.close = close;
+    }
+    if (spin != null) {
+      $result.spin = spin;
+    }
+    if (version != null) {
+      $result.version = version;
+    }
+    if (servoAngle != null) {
+      $result.servoAngle = servoAngle;
+    }
+    if (laserState != null) {
+      $result.laserState = laserState;
+    }
+    return $result;
+  }
   GripperCommand._() : super();
   factory GripperCommand.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GripperCommand.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -416,6 +574,7 @@ class GripperCommand extends $pb.GeneratedMessage {
   static GripperCommand getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GripperCommand>(create);
   static GripperCommand? _defaultInstance;
 
+  /// General commands
   @$pb.TagNumber(1)
   $core.bool get stop => $_getBF(0);
   @$pb.TagNumber(1)
@@ -434,6 +593,7 @@ class GripperCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   void clearCalibrate() => clearField(2);
 
+  /// Move individual motors
   @$pb.TagNumber(3)
   $5.MotorCommand get lift => $_getN(2);
   @$pb.TagNumber(3)
@@ -467,6 +627,7 @@ class GripperCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   $5.MotorCommand ensurePinch() => $_ensure(4);
 
+  /// Custom actions
   @$pb.TagNumber(6)
   $core.bool get open => $_getBF(5);
   @$pb.TagNumber(6)

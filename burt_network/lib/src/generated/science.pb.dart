@@ -4,7 +4,7 @@
 //
 // @dart = 2.12
 
-// ignore_for_file: annotate_overrides, camel_case_types
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
 // ignore_for_file: constant_identifier_names, library_prefixes
 // ignore_for_file: non_constant_identifier_names, prefer_final_fields
 // ignore_for_file: unnecessary_import, unnecessary_this, unused_import
@@ -18,8 +18,61 @@ import 'version.pb.dart' as $1;
 
 export 'science.pbenum.dart';
 
+/// / A command to the science subsystem.
 class ScienceCommand extends $pb.GeneratedMessage {
-  factory ScienceCommand() => create();
+  factory ScienceCommand({
+    $core.double? carouselMotor,
+    $core.double? scoopMotor,
+    $core.double? subsurfaceMotor,
+    PumpState? pumps,
+    ServoState? funnel,
+    ServoState? scoop,
+    CarouselCommand? carousel,
+    $core.bool? calibrate,
+    $core.bool? stop,
+    $core.int? sample,
+    ScienceState? state,
+    $1.Version? version,
+  }) {
+    final $result = create();
+    if (carouselMotor != null) {
+      $result.carouselMotor = carouselMotor;
+    }
+    if (scoopMotor != null) {
+      $result.scoopMotor = scoopMotor;
+    }
+    if (subsurfaceMotor != null) {
+      $result.subsurfaceMotor = subsurfaceMotor;
+    }
+    if (pumps != null) {
+      $result.pumps = pumps;
+    }
+    if (funnel != null) {
+      $result.funnel = funnel;
+    }
+    if (scoop != null) {
+      $result.scoop = scoop;
+    }
+    if (carousel != null) {
+      $result.carousel = carousel;
+    }
+    if (calibrate != null) {
+      $result.calibrate = calibrate;
+    }
+    if (stop != null) {
+      $result.stop = stop;
+    }
+    if (sample != null) {
+      $result.sample = sample;
+    }
+    if (state != null) {
+      $result.state = state;
+    }
+    if (version != null) {
+      $result.version = version;
+    }
+    return $result;
+  }
   ScienceCommand._() : super();
   factory ScienceCommand.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ScienceCommand.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -61,6 +114,7 @@ class ScienceCommand extends $pb.GeneratedMessage {
   static ScienceCommand getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ScienceCommand>(create);
   static ScienceCommand? _defaultInstance;
 
+  /// Individual control over each motor. Indicates steps to move
   @$pb.TagNumber(1)
   $core.double get carouselMotor => $_getN(0);
   @$pb.TagNumber(1)
@@ -88,6 +142,7 @@ class ScienceCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   void clearSubsurfaceMotor() => clearField(3);
 
+  /// Control over other hardware
   @$pb.TagNumber(4)
   PumpState get pumps => $_getN(3);
   @$pb.TagNumber(4)
@@ -124,6 +179,7 @@ class ScienceCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(7)
   void clearCarousel() => clearField(7);
 
+  /// High level commands
   @$pb.TagNumber(8)
   $core.bool get calibrate => $_getBF(7);
   @$pb.TagNumber(8)
@@ -172,8 +228,37 @@ class ScienceCommand extends $pb.GeneratedMessage {
   $1.Version ensureVersion() => $_ensure(11);
 }
 
+/// / Data coming from the science subsystem.
 class ScienceData extends $pb.GeneratedMessage {
-  factory ScienceData() => create();
+  factory ScienceData({
+    $core.int? sample,
+    ScienceState? state,
+    $core.double? co2,
+    $core.double? humidity,
+    $core.double? temperature,
+    $1.Version? version,
+  }) {
+    final $result = create();
+    if (sample != null) {
+      $result.sample = sample;
+    }
+    if (state != null) {
+      $result.state = state;
+    }
+    if (co2 != null) {
+      $result.co2 = co2;
+    }
+    if (humidity != null) {
+      $result.humidity = humidity;
+    }
+    if (temperature != null) {
+      $result.temperature = temperature;
+    }
+    if (version != null) {
+      $result.version = version;
+    }
+    return $result;
+  }
   ScienceData._() : super();
   factory ScienceData.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ScienceData.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
@@ -209,6 +294,7 @@ class ScienceData extends $pb.GeneratedMessage {
   static ScienceData getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ScienceData>(create);
   static ScienceData? _defaultInstance;
 
+  /// High-level data
   @$pb.TagNumber(1)
   $core.int get sample => $_getIZ(0);
   @$pb.TagNumber(1)
@@ -227,6 +313,7 @@ class ScienceData extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   void clearState() => clearField(2);
 
+  /// Sensor data
   @$pb.TagNumber(3)
   $core.double get co2 => $_getN(2);
   @$pb.TagNumber(3)
