@@ -2,6 +2,7 @@ import "dart:ffi";
 
 import "package:burt_network/burt_network.dart";
 import "package:dartcv4/dartcv.dart" hide LogLevel;
+import "package:protobuf/protobuf.dart" show GeneratedMessageGenericExtensions;
 import "package:video/utils.dart";
 import "package:video/video.dart";
 
