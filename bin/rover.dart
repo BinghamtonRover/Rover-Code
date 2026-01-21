@@ -59,11 +59,38 @@ Future<void> compileAllPrograms(String? only) async {
     ? programs.where((p) => p.name == only).toList()
     : programs;
 
+  // Install all apt dependencies first to avoid package manager conflicts
+  if (!offline) {
+    await installAllAptDependencies(programsToCompile);
+  }
+
   logger.info("Starting parallel compilation of ${programsToCompile.length} programs...");
 
   await Future.wait(programsToCompile.map((program) async {
     await compileProgram(program);
   }));
+}
+
+Future<void> installAllAptDependencies(List<RoverProgram> programsToCompile) async {
+  final aptCommands = <ExtraCommand>[];
+  
+  for (final program in programsToCompile) {
+    final extraCommands = program.extraCommands;
+    if (extraCommands != null) {
+      for (final command in extraCommands) {
+        if (command.requiresInternet && 
+            (command.command == "sudo" && command.args.isNotEmpty && 
+             (command.args[0] == "apt-get" || command.args[0] == "apt"))) {
+          aptCommands.add(command);
+        }
+      }
+    }
+  }
+
+  for (final aptCommand in aptCommands) {
+    logger.info("Installing dependencies: ${aptCommand.task}...");
+    await runCommand(aptCommand.command, aptCommand.args);
+  }
 }
 
 Future<void> compileProgram(RoverProgram program) async {
@@ -77,7 +104,7 @@ Future<void> compileProgram(RoverProgram program) async {
     await runCommand("sudo", ["systemctl", "disable", name], hideOutput: true);  // always uses stderr
   }
 
-  // Run any pre-requisite commands
+  // Run any pre-requisite commands (except apt commands which were already handled)
   final extraCommands = program.extraCommands;
   if (extraCommands != null) {
     for (final extraCommand in extraCommands) {
@@ -85,6 +112,15 @@ Future<void> compileProgram(RoverProgram program) async {
         logger.debug("Skipping '${extraCommand.task}' because it requires internet");
         continue;
       }
+      
+      // Skip apt commands since they were already executed serially
+      if (extraCommand.requiresInternet && 
+          extraCommand.command == "sudo" && extraCommand.args.isNotEmpty && 
+          (extraCommand.args[0] == "apt-get" || extraCommand.args[0] == "apt")) {
+        logger.debug("Skipping apt command '${extraCommand.task}' (already installed)");
+        continue;
+      }
+      
       logger.info("- $name: ${extraCommand.task}...");
       await runCommand(extraCommand.command, extraCommand.args, workingDirectory: program.sourceDir);
     }
