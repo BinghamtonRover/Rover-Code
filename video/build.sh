@@ -24,5 +24,5 @@ then
 fi
 
 # Build our FFI wrappers
-make -C src clean
-make -C src shared
+make -j$(nproc) -C src clean
+make -j$(nproc) -C src shared

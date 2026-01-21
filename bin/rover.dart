@@ -55,40 +55,50 @@ Future<void> compileAllPrograms(String? only) async {
     await runCommand("sudo", ["apt", "update", "-y"]);
   }
 
-  for (final program in programs) {
-    final name = program.name;
-    if (only != null && name != only) continue;
-    logger.info("Processing the $name program");
+  final programsToCompile = only != null 
+    ? programs.where((p) => p.name == only).toList()
+    : programs;
 
-    // Stop the service if it was already running
-    if (await isServiceRunning(name)) {
-      logger.debug("Stopping $name...");
-      await runCommand("sudo", ["systemctl", "stop", name]);
-      await runCommand("sudo", ["systemctl", "disable", name], hideOutput: true);  // always uses stderr
-    }
+  logger.info("Starting parallel compilation of ${programsToCompile.length} programs...");
 
-    // Run any pre-requisite commands
-    final extraCommands = program.extraCommands;
-    if (extraCommands != null) {
-      for (final extraCommand in extraCommands) {
-        if (offline && extraCommand.requiresInternet) {
-          logger.debug("Skipping '${extraCommand.task}' because it requires internet");
-          continue;
-        }
-        logger.info("- ${extraCommand.task}...");
-        await runCommand(extraCommand.command, extraCommand.args, workingDirectory: program.sourceDir);
-      }
-    }
+  await Future.wait(programsToCompile.map((program) async {
+    await compileProgram(program);
+  }));
+}
 
-    // Compile the program
-    final command = program.compileCommand;
-    if (command != null) {
-      logger.info("- Compiling. This could take a few minutes...");
-      final (cmd, args) = command;
-      await runCommand(cmd, args, workingDirectory: program.sourceDir);
-    }
+Future<void> compileProgram(RoverProgram program) async {
+  final name = program.name;
+  logger.info("Processing the $name program");
 
-    // Save, enable, and start the systemd service
-    await writeSystemdFile(program);
+  // Stop the service if it was already running
+  if (await isServiceRunning(name)) {
+    logger.debug("Stopping $name...");
+    await runCommand("sudo", ["systemctl", "stop", name]);
+    await runCommand("sudo", ["systemctl", "disable", name], hideOutput: true);  // always uses stderr
   }
+
+  // Run any pre-requisite commands
+  final extraCommands = program.extraCommands;
+  if (extraCommands != null) {
+    for (final extraCommand in extraCommands) {
+      if (offline && extraCommand.requiresInternet) {
+        logger.debug("Skipping '${extraCommand.task}' because it requires internet");
+        continue;
+      }
+      logger.info("- $name: ${extraCommand.task}...");
+      await runCommand(extraCommand.command, extraCommand.args, workingDirectory: program.sourceDir);
+    }
+  }
+
+  // Compile the program
+  final command = program.compileCommand;
+  if (command != null) {
+    logger.info("- $name: Compiling. This could take a few minutes...");
+    final (cmd, args) = command;
+    await runCommand(cmd, args, workingDirectory: program.sourceDir);
+  }
+
+  // Save, enable, and start the systemd service
+  await writeSystemdFile(program);
+  logger.info("- $name: Compilation complete!");
 }

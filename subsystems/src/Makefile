@@ -3,14 +3,14 @@
 all: burt_can/burt_can.so libserialport.so install
 
 burt_can/burt_can.so: burt_can/*.h burt_can/*.cpp burt_can/*.hpp
-	make -C burt_can shared
+	make -j$(nproc) -C burt_can shared
 
 clean: 
 	rm -f *.o *.so *.exp *.lib *.obj *.out
 	rm -f burt_can/*.so
 	rm -f libserialport/*.so
 	rm -f ../*.so
-	make -C burt_can clean
+	make -j$(nproc) -C burt_can clean
 
 SerialCommand = gcc
 SerialCommand += libserialport/serialport.c
@@ -29,4 +29,4 @@ libserialport.so: libserialport/serialport.c libserialport/timing.c libserialpor
 
 install: burt_can/burt_can.so libserialport.so
 	sudo cp libserialport.so /usr/lib
-	make -C burt_can install
+	make -j$(nproc) -C burt_can install
