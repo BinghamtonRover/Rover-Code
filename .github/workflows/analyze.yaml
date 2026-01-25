@@ -25,8 +25,8 @@ jobs:
       - name: Analyze code
         run: dart analyze --fatal-infos
 
-      # - name: Check autonomy formatting
-      #   run: dart format --output=none --set-exit-if-changed autonomy/bin/* autonomy/lib/* autonomy/test/*
+      - name: Check autonomy formatting
+        run: dart format --output=none --set-exit-if-changed autonomy/bin/* autonomy/lib/* autonomy/test/*
 
       # - name: Check burt_network formatting
       #   run: dart format --output=none --set-exit-if-changed burt_network/bin/* burt_network/lib/* burt_network/test/*
