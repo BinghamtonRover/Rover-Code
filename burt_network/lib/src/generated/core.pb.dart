@@ -13,9 +13,10 @@
 import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
+import 'package:protobuf/well_known_types/google/protobuf/timestamp.pb.dart'
+    as $0;
 
 import 'core.pbenum.dart';
-import 'google/protobuf/timestamp.pb.dart' as $5;
 
 export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
@@ -89,54 +90,57 @@ class Connect extends $pb.GeneratedMessage {
 
 class Timesync extends $pb.GeneratedMessage {
   factory Timesync({
-    $5.Timestamp? sendTime,
+    $0.Timestamp? sendTime,
   }) {
-    final $result = create();
-    if (sendTime != null) {
-      $result.sendTime = sendTime;
-    }
-    return $result;
+    final result = create();
+    if (sendTime != null) result.sendTime = sendTime;
+    return result;
   }
-  Timesync._() : super();
-  factory Timesync.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Timesync.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Timesync', createEmptyInstance: create)
-    ..aOM<$5.Timestamp>(1, _omitFieldNames ? '' : 'sendTime', protoName: 'sendTime', subBuilder: $5.Timestamp.create)
-    ..hasRequiredFields = false
-  ;
+  Timesync._();
 
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  Timesync clone() => Timesync()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  Timesync copyWith(void Function(Timesync) updates) => super.copyWith((message) => updates(message as Timesync)) as Timesync;
+  factory Timesync.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory Timesync.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
 
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'Timesync',
+      createEmptyInstance: create)
+    ..aOM<$0.Timestamp>(1, _omitFieldNames ? '' : 'sendTime',
+        protoName: 'sendTime', subBuilder: $0.Timestamp.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  Timesync clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  Timesync copyWith(void Function(Timesync) updates) =>
+      super.copyWith((message) => updates(message as Timesync)) as Timesync;
+
+  @$core.override
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
   static Timesync create() => Timesync._();
+  @$core.override
   Timesync createEmptyInstance() => create();
-  static $pb.PbList<Timesync> createRepeated() => $pb.PbList<Timesync>();
   @$core.pragma('dart2js:noInline')
-  static Timesync getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Timesync>(create);
+  static Timesync getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Timesync>(create);
   static Timesync? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $5.Timestamp get sendTime => $_getN(0);
+  $0.Timestamp get sendTime => $_getN(0);
   @$pb.TagNumber(1)
-  set sendTime($5.Timestamp v) { setField(1, v); }
+  set sendTime($0.Timestamp value) => $_setField(1, value);
   @$pb.TagNumber(1)
   $core.bool hasSendTime() => $_has(0);
   @$pb.TagNumber(1)
-  void clearSendTime() => clearField(1);
+  void clearSendTime() => $_clearField(1);
   @$pb.TagNumber(1)
-  $5.Timestamp ensureSendTime() => $_ensure(0);
+  $0.Timestamp ensureSendTime() => $_ensure(0);
 }
 
 /// Notifies the recipient that the sender will no longer be connected.

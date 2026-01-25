@@ -71,7 +71,14 @@ final $typed_data.Uint8List connectDescriptor = $convert.base64Decode(
 const Timesync$json = {
   '1': 'Timesync',
   '2': [
-    {'1': 'sendTime', '3': 1, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'sendTime'},
+    {
+      '1': 'sendTime',
+      '3': 1,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'sendTime'
+    },
   ],
 };
 
