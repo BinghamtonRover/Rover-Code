@@ -71,7 +71,7 @@ Future<void> main() async {
       version: Version(major: 1),
     );
     server.sendMessage(data2);
-    final data3 = GripperData(lift: MotorData(currentAngle: pi + -1 * 2 * motor.current), version: Version(major: 1));
+    final data3 = ArmData(lift: MotorData(currentAngle: pi + -1 * 2 * motor.current), version: Version(major: 1));
     server.sendMessage(data3);
     final data4 = RoverPosition(
       orientation: Orientation(

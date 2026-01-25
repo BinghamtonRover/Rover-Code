@@ -82,11 +82,9 @@ class SubsystemsCollection extends Service {
     logger.info("Stopping all hardware");
     final stopDrive = DriveCommand(throttle: 0, setThrottle: true);
     final stopArm = ArmCommand(stop: true);
-    final stopGripper = GripperCommand(stop: true);
     final stopScience = ScienceCommand(stop: true);
     firmware.sendMessage(stopDrive);
     firmware.sendMessage(stopArm);
-    firmware.sendMessage(stopGripper);
     firmware.sendMessage(stopScience);
   }
   
