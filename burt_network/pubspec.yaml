@@ -15,7 +15,7 @@ dependencies:
   libserialport: ^0.3.0+1
   logger: ^2.0.2
   meta: ^1.9.1
-  protobuf: ^3.0.0
+  protobuf: ^5.0.0
 
 dev_dependencies:
   test: ^1.21.0
