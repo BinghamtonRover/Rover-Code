@@ -11,7 +11,7 @@ const constructors = <Device, ProtoConstructor>{
   Device.DRIVE: DriveData.fromBuffer,
   Device.RELAY: RelaysData.fromBuffer,
   Device.ARM: ArmData.fromBuffer,
-  Device.GRIPPER: GripperData.fromBuffer,
+  Device.GRIPPER: ArmData.fromBuffer,
   Device.SCIENCE: ScienceData.fromBuffer,
   Device.ANTENNA: AntennaFirmwareData.fromBuffer,
 };
