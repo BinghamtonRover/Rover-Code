@@ -1,4 +1,5 @@
 import "package:autonomy/autonomy.dart";
+import "package:autonomy/src/state_machine/rover_states/spin_for_aruco.dart";
 
 import "drive_commands.dart";
 
@@ -40,6 +41,15 @@ class SensorDrive extends DriveInterface with RoverDriveCommands {
         collection: collection,
         orientation: orientation,
         drive: this,
+      );
+
+  @override
+  StateInterface spinForArucoState(int arucoId, {CameraName? desiredCamera}) =>
+      SpinForAruco(
+        controller,
+        drive: this,
+        arucoId: arucoId,
+        collection: collection,
       );
 
   @override

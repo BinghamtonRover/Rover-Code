@@ -55,6 +55,13 @@ class DriveSimulator extends DriveInterface {
       );
 
   @override
+  StateInterface spinForArucoState(int arucoId, {CameraName? desiredCamera}) =>
+      FunctionalState(
+        controller,
+        onEnter: (controller) => controller.popState(),
+      );
+
+  @override
   Future<bool> init() async => true;
 
   @override

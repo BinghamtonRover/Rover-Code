@@ -2,6 +2,7 @@ import "dart:math";
 
 import "package:autonomy/constants.dart";
 import "package:autonomy/interfaces.dart";
+import "package:autonomy/src/state_machine/rover_states/deferred_state.dart";
 import "dart:async";
 
 import "package:coordinate_converter/coordinate_converter.dart";
@@ -273,155 +274,257 @@ class RoverOrchestrator extends OrchestratorInterface with ValueReporter {
     // Go to GPS coordinates
     collection.logger.info("Got ArUco Task");
 
-    DetectedObject? detectedAruco;
+    var driveToDestinationFailed = false;
+    var arucoSearchFailed = false;
 
-    if (command.destination != GpsCoordinates(latitude: 0, longitude: 0)) {
-      if (!await calculateAndFollowPath(
-        command.destination,
-        abortOnError: false,
-      )) {
-        collection.logger.error(
-          "Failed to follow path towards initial destination",
-        );
-        currentState = AutonomyState.NO_SOLUTION;
-        currentCommand = null;
-        return;
-      }
-    }
-
-    currentState = AutonomyState.SEARCHING;
-    collection.logger.info("Searching for ArUco tag");
-    final didSeeAruco = await collection.drive.spinForAruco(
-      command.arucoId,
-      desiredCamera: Constants.arucoDetectionCamera,
-    );
-    detectedAruco = collection.video.getArucoDetection(
-      command.arucoId,
-      desiredCamera: Constants.arucoDetectionCamera,
-    );
-
-    if (!didSeeAruco || detectedAruco == null) {
-      collection.logger.error("Could not find desired Aruco tag");
-      currentState = AutonomyState.NO_SOLUTION;
-      currentCommand = null;
-      return;
-    }
-
-    collection.logger.info("Found aruco");
-    currentState = AutonomyState.APPROACHING;
-    final arucoOrientation = Orientation(
-      z: collection.imu.heading - detectedAruco.yaw,
-    );
-    await collection.drive.faceOrientation(arucoOrientation);
-    detectedAruco = await collection.video.waitForAruco(
-      command.arucoId,
-      desiredCamera: Constants.arucoDetectionCamera,
-      timeout: const Duration(seconds: 3),
-    );
-
-    if (detectedAruco == null || !detectedAruco.hasBestPnpResult()) {
-      // TODO: handle this condition properly
-      collection.logger.error(
-        "Could not find desired Aruco tag after rotating towards it",
-      );
-      currentState = AutonomyState.NO_SOLUTION;
-      currentCommand = null;
-      return;
-    }
-
-    collection.logger.debug(
-      "Planning path to Aruco ID ${command.arucoId}",
-      body: "Detection: ${detectedAruco.toProto3Json()}",
-    );
-
-    // In theory we could just find the relative position with the translation x and z,
-    // however if the tag's rotation relative to itself is off (which can be common
-    // when facing it head on), then it will be extremely innacurate. Since the SolvePnP's
-    // distance is always extremely accurate, it is more reliable to use the distance
-    // hypotenuse to the camera combined with trig of the tag's angle relative to the camera.
-    final cameraToTag = detectedAruco.bestPnpResult.cameraToTarget;
-    final distanceToTag =
-        sqrt(
-          pow(cameraToTag.translation.z, 2) + pow(cameraToTag.translation.x, 2),
-        ) -
-        1; // don't drive *into* the tag
-
-    if (distanceToTag < 1) {
-      // well that was easy
-      collection.drive.setLedStrip(ProtoColor.GREEN, blink: true);
-      currentState = AutonomyState.AT_DESTINATION;
-      currentCommand = null;
-      return;
-    }
-
-    final relativeX =
-        -distanceToTag *
-        sin((collection.imu.heading - detectedAruco.yaw) * pi / 180);
-    final relativeY =
-        distanceToTag *
-        cos((collection.imu.heading - detectedAruco.yaw) * pi / 180);
-
-    final destinationCoordinates =
-        (collection.gps.coordinates.toUTM() +
-                UTMCoordinates(y: relativeY, x: relativeX, zoneNumber: 1))
-            .toGps();
-
-    if (!await calculateAndFollowPath(
-      destinationCoordinates,
-      abortOnError: false,
-      alternateEndCondition: () {
-        detectedAruco = collection.video.getArucoDetection(
+    final arucoTaskSequence = SequenceState(
+      controller,
+      steps: [
+        if (command.destination !=
+            GpsCoordinates(latitude: 0, longitude: 0)) ...[
+          PathingState(
+            controller,
+            collection: collection,
+            orchestrator: this,
+            destination: command.destination,
+          ),
+          FunctionalState(
+            controller,
+            onEnter: (controller) {
+              if (!collection.gps.isNear(
+                command.destination,
+                Constants.maxErrorMeters,
+              )) {
+                // handle error
+                driveToDestinationFailed = true;
+              } else {
+                // starting search
+              }
+              controller.popState();
+            },
+          ),
+        ],
+        // Find the aruco tag
+        FunctionalState(
+          controller,
+          onEnter: (controller) {
+            currentState = AutonomyState.SEARCHING;
+            controller.popState();
+          },
+        ),
+        collection.drive.spinForArucoState(
           command.arucoId,
           desiredCamera: Constants.arucoDetectionCamera,
+        ),
+        // Check if tag was found and face it
+        DeferredState(controller, (controller) {
+          final detectedAruco = collection.video.getArucoDetection(
+            command.arucoId,
+            desiredCamera: Constants.arucoDetectionCamera,
+          );
+          if (detectedAruco == null) {
+            currentState = AutonomyState.NO_SOLUTION;
+            return FunctionalState(
+              controller,
+              onEnter: (controller) {
+                arucoSearchFailed = true;
+                controller.popState();
+              },
+            );
+          }
+          collection.logger.info("Found aruco");
+          currentState = AutonomyState.APPROACHING;
+          return collection.drive.faceOrientationState(
+            Orientation(z: collection.imu.heading - detectedAruco.yaw),
+          );
+        }),
+        // Wait 3 seconds for a detection
+        TimeoutDecorator(
+          timeout: const Duration(seconds: 3),
+          onTimeout: (controller) => controller.popState(),
+          child: FunctionalState(
+            controller,
+            onUpdate: (controller) {
+              if (collection.video.getArucoDetection(
+                    command.arucoId,
+                    desiredCamera: Constants.arucoDetectionCamera,
+                  ) !=
+                  null) {
+                controller.popState();
+              }
+            },
+          ),
+        ),
+        DeferredState(controller, (controller) {
+          final detectedAruco = collection.video.getArucoDetection(
+            command.arucoId,
+            desiredCamera: Constants.arucoDetectionCamera,
+          );
+          if (detectedAruco == null || !detectedAruco.hasBestPnpResult()) {
+            currentState = AutonomyState.NO_SOLUTION;
+            return FunctionalState(
+              controller,
+              onEnter: (controller) {
+                collection.logger.error(
+                  "Could not find desired Aruco tag after rotating towards it",
+                );
+                currentState = AutonomyState.NO_SOLUTION;
+                arucoSearchFailed = true;
+              },
+            );
+          }
+          collection.logger.debug(
+            "Planning path to Aruco ID ${command.arucoId}",
+            body: "Detection: ${detectedAruco.toProto3Json()}",
+          );
+          // In theory we could just find the relative position with the translation x and z,
+          // however if the tag's rotation relative to itself is off (which can be common
+          // when facing it head on), then it will be extremely innacurate. Since the SolvePnP's
+          // distance is always extremely accurate, it is more reliable to use the distance
+          // hypotenuse to the camera combined with trig of the tag's angle relative to the camera.
+          final cameraToTag = detectedAruco.bestPnpResult.cameraToTarget;
+          final distanceToTag =
+              sqrt(
+                pow(cameraToTag.translation.z, 2) +
+                    pow(cameraToTag.translation.x, 2),
+              ) -
+              1; // don't drive *into* the tag
+
+          if (distanceToTag < 1) {
+            // well that was easy
+            return FunctionalState(
+              controller,
+              onEnter: (controller) {
+                collection.drive.setLedStrip(ProtoColor.GREEN, blink: true);
+                currentState = AutonomyState.AT_DESTINATION;
+                controller.popState();
+              },
+            );
+          }
+
+          final relativeX =
+              -distanceToTag *
+              sin((collection.imu.heading - detectedAruco.yaw) * pi / 180);
+          final relativeY =
+              distanceToTag *
+              cos((collection.imu.heading - detectedAruco.yaw) * pi / 180);
+
+          final destinationCoordinates =
+              (collection.gps.coordinates.toUTM() +
+                      UTMCoordinates(y: relativeY, x: relativeX, zoneNumber: 1))
+                  .toGps();
+
+          return PathingState(
+            controller,
+            collection: collection,
+            orchestrator: this,
+            destination: destinationCoordinates,
+          );
+        }),
+
+        // Re-spin towards tag
+        DeferredState(controller, (controller) {
+          final detectedAruco = collection.video.getArucoDetection(
+            command.arucoId,
+            desiredCamera: Constants.arucoDetectionCamera,
+          );
+          collection.logger.info("Arrived at estimated Aruco position");
+          if (detectedAruco == null) {
+            collection.logger.info("Re-spinning to find Aruco");
+            // Re-find aruco, and point towards it
+            return SequenceState(
+              controller,
+              steps: [
+                collection.drive.spinForArucoState(
+                  command.arucoId,
+                  desiredCamera: Constants.arucoDetectionCamera,
+                ),
+                DeferredState(controller, (controller) {
+                  final detectedAruco = collection.video.getArucoDetection(
+                    command.arucoId,
+                    desiredCamera: Constants.arucoDetectionCamera,
+                  );
+                  if (detectedAruco != null) {
+                    collection.logger.info("Rotating towards Aruco");
+                    return collection.drive.faceOrientationState(
+                      Orientation(
+                        z: collection.imu.heading - detectedAruco.yaw,
+                      ),
+                    );
+                  } else {
+                    return FunctionalState(
+                      controller,
+                      onEnter: (controller) {
+                        collection.logger.warning(
+                          "Could not find Aruco after following path",
+                        );
+                        controller.popState();
+                      },
+                    );
+                  }
+                }),
+              ],
+            );
+          }
+          return FunctionalState(
+            controller,
+            onEnter: (controller) => controller.popState(),
+          );
+        }),
+        FunctionalState(
+          controller,
+          onEnter: (controller) {
+            collection.logger.info(
+              "Successfully reached within ${Constants.maxErrorMeters} meters of the Aruco tag",
+            );
+            currentState = AutonomyState.AT_DESTINATION;
+            collection.drive.setLedStrip(ProtoColor.GREEN, blink: true);
+            controller.popState();
+            // TODO: end command execution, we are done
+          },
+        ),
+      ],
+    );
+
+    controller.pushState(arucoTaskSequence);
+
+    executionTimer = PeriodicTimer(const Duration(milliseconds: 10), (
+      timer,
+    ) async {
+      if (currentCommand == null) {
+        collection.logger.warning(
+          "Execution timer running while command is null",
+          body: "Canceling timer",
         );
-        if (detectedAruco == null) {
-          return false;
-        }
-        final cameraToTag = detectedAruco!.bestPnpResult.cameraToTarget;
-        final distanceToTag = sqrt(
-          pow(cameraToTag.translation.z, 2) + pow(cameraToTag.translation.x, 2),
-        );
-        return distanceToTag < 1;
-      },
-    )) {
-      collection.logger.error("Could not spin towards ArUco tag");
-      currentState = AutonomyState.NO_SOLUTION;
-      currentCommand = null;
-      return;
-    }
-    collection.logger.info("Arrived at estimated Aruco position");
-    detectedAruco = collection.video.getArucoDetection(
-      command.arucoId,
-      desiredCamera: Constants.arucoDetectionCamera,
-    );
-    if (detectedAruco == null) {
-      collection.logger.info("Re-spinning to find Aruco");
-      await collection.drive.spinForAruco(
-        command.arucoId,
-        desiredCamera: Constants.arucoDetectionCamera,
-      );
-    }
+        onCommandEnd();
+        timer.cancel();
+        return;
+      }
 
-    detectedAruco = collection.video.getArucoDetection(
-      command.arucoId,
-      desiredCamera: Constants.arucoDetectionCamera,
-    );
-    if (detectedAruco != null) {
-      collection.logger.info("Rotating towards Aruco");
-      await collection.drive.faceOrientation(
-        Orientation(z: collection.imu.heading - detectedAruco!.yaw),
-      );
-    } else {
-      collection.logger.warning("Could not find Aruco after following path");
-    }
+      if (driveToDestinationFailed) {
+        collection.logger.error("Failed to drive to initial destination");
+        onCommandEnd();
+        timer.cancel();
+        return;
+      }
 
-    collection.logger.info(
-      "Successfully reached within ${Constants.maxErrorMeters} meters of the Aruco tag",
-    );
-    collection.drive.setLedStrip(ProtoColor.GREEN, blink: true);
-    currentState = AutonomyState.AT_DESTINATION;
+      if (arucoSearchFailed) {
+        collection.logger.error("Failed to find an Aruco tag");
+        currentState = AutonomyState.NO_SOLUTION;
+        onCommandEnd();
+        timer.cancel();
+        return;
+      }
 
-    currentCommand = null;
+      if (!controller.hasState()) {
+        currentState = AutonomyState.NO_SOLUTION;
+        onCommandEnd();
+        timer.cancel();
+        return;
+      }
+
+      controller.update();
+    });
   }
 
   @override
