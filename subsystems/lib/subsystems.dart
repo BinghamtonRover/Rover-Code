@@ -1,6 +1,7 @@
 import "dart:async";
 
 import "package:burt_network/burt_network.dart";
+import "package:subsystems/src/devices/can_bus.dart";
 
 import "src/devices/gps.dart";
 import "src/devices/imu.dart";
@@ -15,6 +16,14 @@ export "src/can/message.dart";
 export "src/can/socket_ffi.dart";
 export "src/can/socket_interface.dart";
 export "src/can/socket_stub.dart";
+
+/// Maps command names to [Device]s.
+final commandToDevice = <String, Device>{
+  ArmCommand().messageName: Device.ARM,
+  DriveCommand().messageName: Device.DRIVE,
+  ScienceCommand().messageName: Device.SCIENCE,
+  RelaysCommand().messageName: Device.RELAY,
+};
 
 /// Contains all the resources needed by the subsystems program.
 class SubsystemsCollection extends Service {
@@ -33,8 +42,13 @@ class SubsystemsCollection extends Service {
   /// The IMU reader.
   final imu = ImuReader();
 
+  /// The CAN bus
+  final can = CanBus();
+
   /// Timer for sending the subsystems status
   Timer? dataSendTimer;
+
+  StreamSubscription<WrappedMessage>? _messageSubscription;
 
   @override
   Future<bool> init() async {
@@ -45,10 +59,18 @@ class SubsystemsCollection extends Service {
       const Duration(milliseconds: 250),
       sendStatus,
     );
+    _messageSubscription = server.messages.listen((message) async {
+      if (can.canSendWrapper(message)) {
+        await can.sendWrapper(message);
+      } else {
+        firmware.sendToSerial(message);
+      }
+    });
     try {
       result &= await firmware.init();
       result &= await gps.init();
       result &= await imu.init();
+      result &= await can.init();
       if (result) {
         logger.info("Subsystems initialized");
       } else {
@@ -66,10 +88,12 @@ class SubsystemsCollection extends Service {
   Future<void> dispose() async {
     logger.info("Shutting down...");
     await onDisconnect();
+    await _messageSubscription?.cancel();
     isReady = false;
     await firmware.dispose();
     await imu.dispose();
     await gps.dispose();
+    await can.dispose();
     await server.dispose();
     dataSendTimer?.cancel();
     logger.socket = null;
@@ -93,9 +117,12 @@ class SubsystemsCollection extends Service {
     server.sendMessage(
       SubsystemsData(
         version: Version(major: 1, minor: 0),
-        connectedDevices: firmware.devices
-            .where((e) => e.isReady)
-            .map((firmware) => firmware.device),
+        connectedDevices: <Device>{
+          ...can.connectedDevices,
+          ...firmware.devices
+              .where((e) => e.isReady)
+              .map((firmware) => firmware.device),
+        },
         gpsConnected: gps.isConnected ? BoolState.YES : BoolState.NO,
         imuConnected: imu.isConnected ? BoolState.YES : BoolState.NO,
       ),

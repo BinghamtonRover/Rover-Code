@@ -15,6 +15,23 @@ import 'dart:convert' as $convert;
 import 'dart:core' as $core;
 import 'dart:typed_data' as $typed_data;
 
+@$core.Deprecated('Use armMotorDescriptor instead')
+const ArmMotor$json = {
+  '1': 'ArmMotor',
+  '2': [
+    {'1': 'ARM_MOTOR_UNDEFINED', '2': 0},
+    {'1': 'SWIVEL', '2': 1},
+    {'1': 'SHOULDER', '2': 2},
+    {'1': 'ELBOW', '2': 3},
+    {'1': 'WRIST', '2': 4},
+  ],
+};
+
+/// Descriptor for `ArmMotor`. Decode as a `google.protobuf.EnumDescriptorProto`.
+final $typed_data.Uint8List armMotorDescriptor = $convert.base64Decode(
+    'CghBcm1Nb3RvchIXChNBUk1fTU9UT1JfVU5ERUZJTkVEEAASCgoGU1dJVkVMEAESDAoIU0hPVU'
+    'xERVIQAhIJCgVFTEJPVxADEgkKBVdSSVNUEAQ=');
+
 @$core.Deprecated('Use armDataDescriptor instead')
 const ArmData$json = {
   '1': 'ArmData',
