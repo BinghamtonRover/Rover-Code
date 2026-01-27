@@ -18,12 +18,14 @@ class ArmAuxillary extends Service {
   bool isReady = false;
 
   /// The Serial service.
-  final firmware = FirmwareManager();
+  late final firmware = FirmwareManager(
+    getServer: () => server,
+    logger: logger,
+  );
 
   /// The server for the arm auxillary program
   late final RoverSocket server = RoverSocket(
-    // change to ARM_AUXILLARY once protobuf message is added
-    device: Device.DEVICE_UNDEFINED,
+    device: Device.ARM,
     port: 8010,
     collection: this,
     destination: subsystemsSocket,
@@ -32,11 +34,11 @@ class ArmAuxillary extends Service {
 
   @override
   Future<bool> init() async {
-    bool result = true;
+    var result = true;
     logger.socket = server;
     result &= await server.init();
-    // TODO: initialize the rest of the arm auxillary's resources, such as
-    // arm and EA board communication
+    // TODO(arm): Initialize the rest of the arm auxillary's resources, such as
+    // TODO(arm): arm and EA board communication
     try {
       result &= await firmware.init();
       if (result) {

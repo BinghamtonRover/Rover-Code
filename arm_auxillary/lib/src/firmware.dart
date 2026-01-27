@@ -1,11 +1,11 @@
+import "dart:async";
 import "package:burt_network/burt_network.dart";
-import "package:subsystems/lib/src/devices/serial_utils.dart";
+import "package:subsystems/src/devices/serial_utils.dart";
 import "package:collection/collection.dart";
 
 /// Maps command names to [Device]s.
 final nameToDevice = <String, Device>{
   ArmCommand().messageName: Device.ARM,
-  GripperCommand().messageName: Device.GRIPPER,
   DriveCommand().messageName: Device.DRIVE,
   ScienceCommand().messageName: Device.SCIENCE,
   RelaysCommand().messageName: Device.RELAY,
@@ -13,22 +13,32 @@ final nameToDevice = <String, Device>{
 
 /// Service to manage communication from the arm auxillary board to EA and HREI devices
 class FirmwareManager extends Service {
+  /// Reference to the server for routing messages
+  final RoverSocket? Function() getServer;
+
+  /// Logger instance
+  final BurtLogger logger;
+
   /// Subscriptions to each of the firmware devices.
   final List<StreamSubscription<WrappedMessage>> _subscriptions = [];
 
   /// A list of firmware devices attached to the rover.
   List<BurtFirmwareSerial> devices = [];
 
+  /// Creates a new FirmwareManager instance
+  FirmwareManager({required this.getServer, required this.logger});
+
   @override
   Future<bool> init() async {
     devices = await getFirmwareDevices();
-    collection.server.messages.listen(_sendToSerial);
+    final server = getServer();
+    server?.messages.listen(_sendToSerial);
     var result = true;
     for (final device in devices) {
       logger.debug("Initializing device: ${device.port}");
       result &= await device.init();
       if (!device.isReady) continue;
-      final subscription = device.messages.listen(collection.server.sendWrapper);
+      final subscription = device.messages.listen(server?.sendWrapper ?? (_) {});
       _subscriptions.add(subscription);
     }
     return result;

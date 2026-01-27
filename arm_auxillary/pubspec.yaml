@@ -11,6 +11,8 @@ environment:
 # Add regular dependencies here.
 dependencies:
   burt_network: ^2.7.0
+  collection: ^1.19.0
+  subsystems: ^1.0.0
 
 dev_dependencies:
   very_good_analysis: ^6.0.0
