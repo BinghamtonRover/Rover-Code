@@ -1,6 +1,7 @@
 import "dart:io";
 
 import "package:burt_network/burt_network.dart";
+
 import "src/firmware.dart";
 
 /// Logger for the arm auxillary program
