@@ -1,6 +1,6 @@
 import "dart:async";
 import "package:burt_network/burt_network.dart";
-import "package:subsystems/src/devices/serial_utils.dart";
+import "package:subsystems/subsystems.dart";
 import "package:collection/collection.dart";
 
 /// Maps command names to [Device]s.
