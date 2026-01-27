@@ -42,8 +42,7 @@ extension DriveBatteryToProto on DriveBatteryDataMessage {
 /// Utility extension to convert a [DriveLedDataMessage] into a [DriveData] message
 extension DriveLedToProto on DriveLedDataMessage {
   /// The led DBC message as a [DriveData] message
-  DriveData toDriveProto() =>
-      DriveData(color: ProtoColor.valueOf(color));
+  DriveData toDriveProto() => DriveData(color: ProtoColor.valueOf(color));
 }
 
 /// Utility extension to convert a [DriveSwivelDataMessage] into a [DriveData] message
@@ -127,7 +126,7 @@ extension DriveCommandToDBC on DriveCommand {
   ];
 }
 
-/// Utility extension to convert a [RelayStateDataMessage] to a
+/// Utility extension to convert a [RelayStateDataMessage] to a [RelaysData]
 extension RelayStateToProto on RelayStateDataMessage {
   BoolState _intToBoolState(num value) =>
       value == 1 ? BoolState.YES : BoolState.NO;
@@ -142,6 +141,12 @@ extension RelayStateToProto on RelayStateDataMessage {
     drive: _intToBoolState(drive),
     science: _intToBoolState(science),
   );
+}
+
+/// Utilitiy extension to convert a [RelayBatteryDataMessage] to a [RelaysData]
+extension RelayBatteryToProto on RelayBatteryDataMessage {
+  /// The relay battery DBC message as a [RelaysData] message
+  RelaysData toRelayProto() => RelaysData();
 }
 
 /// Utility extension to convert a [RelaysCommand] command into its respective [DBCMessage]
@@ -189,10 +194,8 @@ extension ArmMotorMoveToProto on ArmMotorMoveDataMessage {
 /// Utility extension to convert a [ArmMotorStepDataMessage] into a [DriveData] message
 extension ArmMotorStepToProto on ArmMotorStepDataMessage {
   /// The motor steps DBC message as a [MotorData] message
-  MotorData toMotorData() => MotorData(
-    currentStep: currentStep,
-    targetStep: targetStep,
-  );
+  MotorData toMotorData() =>
+      MotorData(currentStep: currentStep, targetStep: targetStep);
 
   /// The motor steps DBC message as a [MotorData] message
   ArmData toArmProto() {
@@ -213,10 +216,8 @@ extension ArmMotorStepToProto on ArmMotorStepDataMessage {
 /// Utility extension to convert a [ArmMotorAngleDataMessage] into a [ArmMotor] message
 extension ArmMotorAngleToProto on ArmMotorAngleDataMessage {
   /// The motor angle DBC message as a [MotorData] message
-  MotorData toMotorData() => MotorData(
-    currentAngle: currentAngle,
-    targetAngle: targetAngle,
-  );
+  MotorData toMotorData() =>
+      MotorData(currentAngle: currentAngle, targetAngle: targetAngle);
 
   /// The motor angle DBC message as an [ArmData] message
   ArmData toArmProto() {

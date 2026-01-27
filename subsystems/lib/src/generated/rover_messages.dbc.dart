@@ -12,13 +12,13 @@ import 'package:dart_dbc_generator/dart_dbc_generator.dart' as $_dbc;
 
 class DeviceBroadcastMessage extends $_dbc.DBCMessage {
   @override
-  String messageName = 'Device_Broadcast';
+  final String messageName = 'Device_Broadcast';
 
   @override
-  int messageLength = 2;
+  final int messageLength = 2;
 
   @override
-  int canId = 0x0;
+  final int canId = 0x0;
 
   /// Whether or not "Device_Broadcast" is multiplex
   static const bool isMultiplex = false;
@@ -162,13 +162,13 @@ class DeviceBroadcastMessage extends $_dbc.DBCMessage {
 
 class RoverHeartbeatMessage extends $_dbc.DBCMessage {
   @override
-  String messageName = 'Rover_Heartbeat';
+  final String messageName = 'Rover_Heartbeat';
 
   @override
-  int messageLength = 1;
+  final int messageLength = 1;
 
   @override
-  int canId = 0x1;
+  final int canId = 0x1;
 
   /// Whether or not "Rover_Heartbeat" is multiplex
   static const bool isMultiplex = false;
@@ -238,13 +238,13 @@ class RoverHeartbeatMessage extends $_dbc.DBCMessage {
 
 class DriveSetSpeedsMessage extends $_dbc.DBCMessage {
   @override
-  String messageName = 'Drive_Set_Speeds';
+  final String messageName = 'Drive_Set_Speeds';
 
   @override
-  int messageLength = 7;
+  final int messageLength = 7;
 
   @override
-  int canId = 0x101;
+  final int canId = 0x101;
 
   /// Whether or not "Drive_Set_Speeds" is multiplex
   static const bool isMultiplex = false;
@@ -478,13 +478,13 @@ class DriveSetSpeedsMessage extends $_dbc.DBCMessage {
 
 class DriveSetLedMessage extends $_dbc.DBCMessage {
   @override
-  String messageName = 'Drive_Set_LED';
+  final String messageName = 'Drive_Set_LED';
 
   @override
-  int messageLength = 1;
+  final int messageLength = 1;
 
   @override
-  int canId = 0x102;
+  final int canId = 0x102;
 
   /// Whether or not "Drive_Set_LED" is multiplex
   static const bool isMultiplex = false;
@@ -580,13 +580,13 @@ class DriveSetLedMessage extends $_dbc.DBCMessage {
 
 class DriveSetSwivelMessage extends $_dbc.DBCMessage {
   @override
-  String messageName = 'Drive_Set_Swivel';
+  final String messageName = 'Drive_Set_Swivel';
 
   @override
-  int messageLength = 7;
+  final int messageLength = 7;
 
   @override
-  int canId = 0x103;
+  final int canId = 0x103;
 
   /// Whether or not "Drive_Set_Swivel" is multiplex
   static const bool isMultiplex = false;
@@ -880,13 +880,13 @@ class DriveSetSwivelMessage extends $_dbc.DBCMessage {
 
 class DriveAppliedOutputDataMessage extends $_dbc.DBCMessage {
   @override
-  String messageName = 'Drive_Applied_Output_Data';
+  final String messageName = 'Drive_Applied_Output_Data';
 
   @override
-  int messageLength = 6;
+  final int messageLength = 6;
 
   @override
-  int canId = 0x105;
+  final int canId = 0x105;
 
   /// Whether or not "Drive_Applied_Output_Data" is multiplex
   static const bool isMultiplex = false;
@@ -1030,13 +1030,13 @@ class DriveAppliedOutputDataMessage extends $_dbc.DBCMessage {
 
 class DriveBatteryDataMessage extends $_dbc.DBCMessage {
   @override
-  String messageName = 'Drive_Battery_Data';
+  final String messageName = 'Drive_Battery_Data';
 
   @override
-  int messageLength = 5;
+  final int messageLength = 5;
 
   @override
-  int canId = 0x106;
+  final int canId = 0x106;
 
   /// Whether or not "Drive_Battery_Data" is multiplex
   static const bool isMultiplex = false;
@@ -1178,13 +1178,13 @@ class DriveBatteryDataMessage extends $_dbc.DBCMessage {
 
 class DriveLedDataMessage extends $_dbc.DBCMessage {
   @override
-  String messageName = 'Drive_LED_Data';
+  final String messageName = 'Drive_LED_Data';
 
   @override
-  int messageLength = 1;
+  final int messageLength = 1;
 
   @override
-  int canId = 0x107;
+  final int canId = 0x107;
 
   /// Whether or not "Drive_LED_Data" is multiplex
   static const bool isMultiplex = false;
@@ -1280,13 +1280,13 @@ class DriveLedDataMessage extends $_dbc.DBCMessage {
 
 class DriveSwivelDataMessage extends $_dbc.DBCMessage {
   @override
-  String messageName = 'Drive_Swivel_Data';
+  final String messageName = 'Drive_Swivel_Data';
 
   @override
-  int messageLength = 6;
+  final int messageLength = 6;
 
   @override
-  int canId = 0x108;
+  final int canId = 0x108;
 
   /// Whether or not "Drive_Swivel_Data" is multiplex
   static const bool isMultiplex = false;
@@ -1460,13 +1460,13 @@ class DriveSwivelDataMessage extends $_dbc.DBCMessage {
 
 class DriveMotorDataMessage extends $_dbc.DBCMessage {
   @override
-  String messageName = 'Drive_Motor_Data';
+  final String messageName = 'Drive_Motor_Data';
 
   @override
-  int messageLength = 6;
+  final int messageLength = 6;
 
   @override
-  int canId = 0x109;
+  final int canId = 0x109;
 
   /// Whether or not "Drive_Motor_Data" is multiplex
   static const bool isMultiplex = false;
@@ -1668,13 +1668,13 @@ class DriveMotorDataMessage extends $_dbc.DBCMessage {
 
 class RelaySetStateMessage extends $_dbc.DBCMessage {
   @override
-  String messageName = 'Relay_Set_State';
+  final String messageName = 'Relay_Set_State';
 
   @override
-  int messageLength = 2;
+  final int messageLength = 2;
 
   @override
-  int canId = 0x201;
+  final int canId = 0x201;
 
   /// Whether or not "Relay_Set_State" is multiplex
   static const bool isMultiplex = false;
@@ -1935,13 +1935,13 @@ class RelaySetStateMessage extends $_dbc.DBCMessage {
 
 class RelayStateDataMessage extends $_dbc.DBCMessage {
   @override
-  String messageName = 'Relay_State_Data';
+  final String messageName = 'Relay_State_Data';
 
   @override
-  int messageLength = 1;
+  final int messageLength = 1;
 
   @override
-  int canId = 0x205;
+  final int canId = 0x205;
 
   /// Whether or not "Relay_State_Data" is multiplex
   static const bool isMultiplex = false;
@@ -2230,15 +2230,90 @@ class RelayStateDataMessage extends $_dbc.DBCMessage {
       'Relay_State_Data(\n  Front_Left_Motor=$frontLeftMotor\n  Front_Right_Motor=$frontRightMotor\n  Back_Left_Motor=$backLeftMotor\n  Back_Right_Motor=$backRightMotor\n  Drive=$drive\n  Arm=$arm\n  Science=$science\n  Physical_Override=$physicalOverride\n)';
 }
 
+class RelayBatteryDataMessage extends $_dbc.DBCMessage {
+  @override
+  final String messageName = 'Relay_Battery_Data';
+
+  @override
+  final int messageLength = 2;
+
+  @override
+  final int canId = 0x206;
+
+  /// Whether or not "Relay_Battery_Data" is multiplex
+  static const bool isMultiplex = false;
+
+  /// The multiplexor for "Relay_Battery_Data"
+  static const String multiplexor = '';
+
+  /// Value of signal "Voltage"
+  double voltage;
+
+  final $_dbc.DBCSignal _voltageSignal = $_dbc.DBCSignal(
+    name: 'Voltage',
+    signalSignedness: $_dbc.DBCSignalSignedness.UNSIGNED,
+    signalType: $_dbc.DBCSignalType.INTEL,
+    signalMode: $_dbc.DBCSignalMode.SIGNAL,
+    start: 0,
+    length: 10,
+    // dart format off
+    mapping: [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 0, 0, 0, 0, 0, 0],
+    mappingIndexes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    // dart format on
+    factor: 0.03548387097,
+    offset: 0,
+    min: 0,
+    max: 36.3,
+    unit: 'V',
+  );
+
+  @override
+  List<$_dbc.DBCSignal> get signals => [_voltageSignal];
+
+  RelayBatteryDataMessage({this.voltage = 0});
+
+  /// Creates a clone of this [RelayBatteryDataMessage] with the non-null values replaced
+  RelayBatteryDataMessage copyWith({double? voltage}) =>
+      RelayBatteryDataMessage(voltage: voltage ?? this.voltage);
+
+  factory RelayBatteryDataMessage.decode(List<int> payload) {
+    final message = RelayBatteryDataMessage();
+    final typedBuffer = $_typed.Uint8List.fromList(payload);
+    final bitField = $_dbc.BitField.from(
+      typedBuffer.sublist(0, message.messageLength),
+    );
+
+    message.voltage = (message._voltageSignal.decode(bitField) ?? 0).toDouble();
+
+    return message;
+  }
+
+  factory RelayBatteryDataMessage.fromJson(Map<String, dynamic> json) =>
+      RelayBatteryDataMessage(voltage: json['Voltage'] ?? 0);
+
+  @override
+  $_typed.Uint8List encode() {
+    final Map<$_dbc.DBCSignal, num> values = {_voltageSignal: voltage};
+
+    return encodeWithValues(values);
+  }
+
+  @override
+  Map<String, dynamic> toJson() => {'Voltage': voltage};
+
+  @override
+  String toString() => 'Relay_Battery_Data(\n  Voltage=$voltage\n)';
+}
+
 class ArmSetMotorMessage extends $_dbc.DBCMessage {
   @override
-  String messageName = 'Arm_Set_Motor';
+  final String messageName = 'Arm_Set_Motor';
 
   @override
-  int messageLength = 8;
+  final int messageLength = 8;
 
   @override
-  int canId = 0x301;
+  final int canId = 0x301;
 
   /// Whether or not "Arm_Set_Motor" is multiplex
   static const bool isMultiplex = false;
@@ -2411,13 +2486,13 @@ class ArmSetMotorMessage extends $_dbc.DBCMessage {
 
 class ArmSetSystemActionMessage extends $_dbc.DBCMessage {
   @override
-  String messageName = 'Arm_Set_System_Action';
+  final String messageName = 'Arm_Set_System_Action';
 
   @override
-  int messageLength = 1;
+  final int messageLength = 1;
 
   @override
-  int canId = 0x302;
+  final int canId = 0x302;
 
   /// Whether or not "Arm_Set_System_Action" is multiplex
   static const bool isMultiplex = false;
@@ -2552,13 +2627,13 @@ class ArmSetSystemActionMessage extends $_dbc.DBCMessage {
 
 class ArmMotorMoveDataMessage extends $_dbc.DBCMessage {
   @override
-  String messageName = 'Arm_Motor_Move_Data';
+  final String messageName = 'Arm_Motor_Move_Data';
 
   @override
-  int messageLength = 2;
+  final int messageLength = 2;
 
   @override
-  int canId = 0x305;
+  final int canId = 0x305;
 
   /// Whether or not "Arm_Motor_Move_Data" is multiplex
   static const bool isMultiplex = false;
@@ -2731,13 +2806,13 @@ class ArmMotorMoveDataMessage extends $_dbc.DBCMessage {
 
 class ArmMotorStepDataMessage extends $_dbc.DBCMessage {
   @override
-  String messageName = 'Arm_Motor_Step_Data';
+  final String messageName = 'Arm_Motor_Step_Data';
 
   @override
-  int messageLength = 8;
+  final int messageLength = 8;
 
   @override
-  int canId = 0x306;
+  final int canId = 0x306;
 
   /// Whether or not "Arm_Motor_Step_Data" is multiplex
   static const bool isMultiplex = false;
@@ -2881,13 +2956,13 @@ class ArmMotorStepDataMessage extends $_dbc.DBCMessage {
 
 class ArmMotorAngleDataMessage extends $_dbc.DBCMessage {
   @override
-  String messageName = 'Arm_Motor_Angle_Data';
+  final String messageName = 'Arm_Motor_Angle_Data';
 
   @override
-  int messageLength = 5;
+  final int messageLength = 5;
 
   @override
-  int canId = 0x307;
+  final int canId = 0x307;
 
   /// Whether or not "Arm_Motor_Angle_Data" is multiplex
   static const bool isMultiplex = false;

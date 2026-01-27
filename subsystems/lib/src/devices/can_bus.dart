@@ -9,13 +9,13 @@ import "package:subsystems/src/generated/rover_messages.dbc.dart";
 import "package:subsystems/src/utils/dbc_conversions.dart";
 import "package:subsystems/subsystems.dart" hide CanSocket;
 
-/// Map of command names and a function to convert a message for that device into a list of DBC messages
-final Map<String, List<DBCMessage> Function(Message message)> deviceToDBC = {
-  DriveCommand().messageName: (e) => (e as DriveCommand).toDBC(),
-  RelaysCommand().messageName: (e) => (e as RelaysCommand).toDBC(),
-  ArmCommand().messageName: (e) => (e as ArmCommand).toDBC(),
-  GripperCommand().messageName: (e) => [],
-  ScienceCommand().messageName: (e) => [],
+/// Utility method to convert a message into a list of DBC messages
+List<DBCMessage> getDBCMessages(Message message) => switch (message) {
+  final DriveCommand m => m.toDBC(),
+  final RelaysCommand m => m.toDBC(),
+  final ArmCommand m => m.toDBC(),
+  final ScienceCommand _ => [],
+  _ => [],
 };
 
 /// A map of CAN IDs to a function to convert them into a protobuf message
@@ -32,6 +32,8 @@ final Map<int, Message Function(List<int> data)> canIDToMessage = {
       DriveMotorDataMessage.decode(data).toDriveProto(),
   RelayStateDataMessage().canId: (data) =>
       RelayStateDataMessage.decode(data).toRelayProto(),
+  RelayBatteryDataMessage().canId: (data) =>
+      RelayBatteryDataMessage.decode(data).toRelayProto(),
   ArmMotorMoveDataMessage().canId: (data) =>
       ArmMotorMoveDataMessage.decode(data).toArmProto(),
   ArmMotorStepDataMessage().canId: (data) =>
@@ -47,8 +49,6 @@ extension on DeviceBroadcastMessage {
 
   Message toArmProto() => ArmData(version: version);
 
-  Message toGripperProto() => GripperData(version: version);
-
   Message toScienceProto() => ScienceData(version: version);
 
   Message? toProtoMessage() {
@@ -58,8 +58,6 @@ extension on DeviceBroadcastMessage {
       return toRelayProto();
     } else if (deviceValue == Device.ARM.value) {
       return toArmProto();
-    } else if (deviceValue == Device.GRIPPER.value) {
-      return toGripperProto();
     } else if (deviceValue == Device.SCIENCE.value) {
       return toScienceProto();
     }
@@ -234,8 +232,6 @@ class CanBus extends Service {
       return sendMessage(RelaysCommand.fromBuffer(message.data));
     } else if (message.name == ArmCommand().messageName) {
       return sendMessage(ArmCommand.fromBuffer(message.data));
-    } else if (message.name == GripperCommand().messageName) {
-      return sendMessage(GripperCommand.fromBuffer(message.data));
     } else if (message.name == ScienceCommand().messageName) {
       return sendMessage(ScienceCommand.fromBuffer(message.data));
     }
@@ -246,15 +242,14 @@ class CanBus extends Service {
   ///
   /// Returns whether or not the message was sent over the bus
   Future<bool> sendMessage(Message message) {
-    if (!commandToDevice.containsKey(message.messageName) ||
-        !deviceToDBC.containsKey(message.messageName)) {
+    final device = commandToDevice[message.messageName];
+    if (device == null) {
       return Future.value(false);
     }
-    final device = commandToDevice[message.messageName]!;
 
     return _sendDeviceCommand(
       device: device,
-      dbcMessages: deviceToDBC[message.messageName]!.call(message),
+      dbcMessages: getDBCMessages(message),
     );
   }
 
@@ -358,19 +353,23 @@ class CanBus extends Service {
   }
 
   void _onCanFrame(CanFrame frame) {
-    switch (frame) {
-      case CanDataFrame(:final id, :final data):
-        if (canIDToMessage.containsKey(id)) {
-          collection.server.sendMessage(canIDToMessage[id]!.call(data));
-        } else if (id != 0 && id & 0x0FF == DeviceBroadcastMessage().canId) {
-          _handleDeviceBroadcast(DeviceBroadcastMessage.decode(data));
-        } else {
-          logger.warning(
-            "Received message with unmapped ID: 0x${id.toRadixString(16).padLeft(2, '0')}",
-          );
-        }
-      case CanRemoteFrame _:
-        break;
+    if (frame is! CanDataFrame) return;
+
+    final id = frame.id;
+    final data = frame.data;
+
+    if (canIDToMessage[id] case final constructor?) {
+      collection.server.sendMessage(constructor(data));
+      return;
     }
+
+    if (id != 0 && (id & 0xFF) == DeviceBroadcastMessage().canId) {
+      _handleDeviceBroadcast(DeviceBroadcastMessage.decode(data));
+      return;
+    }
+
+    logger.warning(
+      "Received message with unmapped ID: 0x${id.toRadixString(16).padLeft(2, '0')}",
+    );
   }
 }

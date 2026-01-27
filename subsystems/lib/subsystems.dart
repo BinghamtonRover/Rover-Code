@@ -20,7 +20,6 @@ export "src/can/socket_stub.dart";
 /// Maps command names to [Device]s.
 final commandToDevice = <String, Device>{
   ArmCommand().messageName: Device.ARM,
-  GripperCommand().messageName: Device.GRIPPER,
   DriveCommand().messageName: Device.DRIVE,
   ScienceCommand().messageName: Device.SCIENCE,
   RelaysCommand().messageName: Device.RELAY,
