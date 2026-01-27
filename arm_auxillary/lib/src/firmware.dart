@@ -40,7 +40,9 @@ class FirmwareManager extends Service {
       logger.debug("Initializing device: ${device.port}");
       result &= await device.init();
       if (!device.isReady) continue;
-      final subscription = device.messages.listen(server?.sendWrapper ?? (_) {});
+      final subscription = device.messages.listen(
+        server?.sendWrapper ?? (_) {},
+      );
       _subscriptions.add(subscription);
     }
     return result;
