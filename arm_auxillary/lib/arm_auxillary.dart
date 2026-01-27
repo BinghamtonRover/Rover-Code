@@ -52,7 +52,10 @@ class ArmAuxillary extends Service {
       // The arm auxillary software should keep running even when something goes wrong.
       return true;
     } catch (error) {
-      logger.critical("Unexpected error when initializing Arm Auxillary", body: error.toString());
+      logger.critical(
+        "Unexpected error when initializing Arm Auxillary",
+        body: error.toString(),
+      );
       return false;
     }
   }
