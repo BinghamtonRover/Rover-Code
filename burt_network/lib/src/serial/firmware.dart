@@ -24,13 +24,21 @@ class BurtFirmwareSerial extends Service {
   final BurtLogger logger;
 
   /// Creates a firmware device with the given serial port and baud rate.
-  BurtFirmwareSerial({required String port, required this.logger, int baudRate = 9600}) :
-    _serial = SerialDevice(
-      portName: port,
-      readInterval: readInterval,
-      logger: logger,
-      baudRate: baudRate,
-    );
+  BurtFirmwareSerial({
+    required String port,
+    required this.logger,
+    int baudRate = 9600,
+  }) : _serial = SerialDevice(
+         portName: port,
+         readInterval: readInterval,
+         logger: logger,
+         baudRate: baudRate,
+         parity: SerialPortParity.none,
+         bits: 8,
+         stopBits: 1,
+         dtr: SerialPortDtr.on,
+         xonXoff: SerialPortXonXoff.disabled,
+       );
 
   /// The name of this device.
   Device device = Device.FIRMWARE;

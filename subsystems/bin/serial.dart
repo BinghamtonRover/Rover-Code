@@ -9,9 +9,10 @@ typedef ProtoConstructor = Message Function(List<int> data);
 
 const constructors = <Device, ProtoConstructor>{
   Device.DRIVE: DriveData.fromBuffer,
+  Device.RELAY: RelaysData.fromBuffer,
   Device.ARM: ArmData.fromBuffer,
-  Device.GRIPPER: GripperData.fromBuffer,
-  Device.SCIENCE: GripperData.fromBuffer,
+  Device.GRIPPER: ArmData.fromBuffer,
+  Device.SCIENCE: ScienceData.fromBuffer,
   Device.ANTENNA: AntennaFirmwareData.fromBuffer,
 };
 
@@ -79,6 +80,7 @@ Future<void> listenToFirmware(String port, int baudRate) async {
     await device.dispose();
     return;
   }
+  messageName = constructor!(Uint8List(0)).messageName;
   device.rawStream.listen(handlePacket);
 }
 

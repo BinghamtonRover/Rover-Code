@@ -43,7 +43,7 @@ extension NullableStreamUtils<T> on Stream<T?> {
 String? deviceToDataName(Device device) => switch (device) {
   Device.ARM => ArmData().messageName,
   Device.DRIVE => DriveData().messageName,
-  Device.GRIPPER => GripperData().messageName,
+  Device.GRIPPER => ArmData().messageName,
   Device.SCIENCE => ScienceData().messageName,
   Device.ANTENNA => AntennaFirmwareData().messageName,
   Device.BASE_STATION => BaseStationData().messageName,

@@ -1,13 +1,15 @@
+// This is a generated file - do not edit.
 //
-//  Generated code. Do not modify.
-//  source: gps.proto
-//
-// @dart = 2.12
+// Generated from gps.proto.
+
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
-// ignore_for_file: constant_identifier_names, library_prefixes
-// ignore_for_file: non_constant_identifier_names, prefer_final_fields
-// ignore_for_file: unnecessary_import, unnecessary_this, unused_import
+// ignore_for_file: constant_identifier_names
+// ignore_for_file: curly_braces_in_flow_control_structures
+// ignore_for_file: deprecated_member_use_from_same_package, library_prefixes
+// ignore_for_file: non_constant_identifier_names, prefer_relative_imports
+// ignore_for_file: unused_import
 
 import 'dart:convert' as $convert;
 import 'dart:core' as $core;
@@ -49,7 +51,14 @@ const RoverPosition$json = {
   '1': 'RoverPosition',
   '2': [
     {'1': 'gps', '3': 1, '4': 1, '5': 11, '6': '.GpsCoordinates', '10': 'gps'},
-    {'1': 'orientation', '3': 2, '4': 1, '5': 11, '6': '.Orientation', '10': 'orientation'},
+    {
+      '1': 'orientation',
+      '3': 2,
+      '4': 1,
+      '5': 11,
+      '6': '.Orientation',
+      '10': 'orientation'
+    },
     {'1': 'version', '3': 3, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
     {'1': 'rtkMessage', '3': 4, '4': 1, '5': 12, '10': 'rtkMessage'},
   ],
@@ -61,4 +70,3 @@ final $typed_data.Uint8List roverPositionDescriptor = $convert.base64Decode(
     'JpZW50YXRpb24YAiABKAsyDC5PcmllbnRhdGlvblILb3JpZW50YXRpb24SIgoHdmVyc2lvbhgD'
     'IAEoCzIILlZlcnNpb25SB3ZlcnNpb24SHgoKcnRrTWVzc2FnZRgEIAEoDFIKcnRrTWVzc2FnZQ'
     '==');
-

@@ -10,7 +10,6 @@ import "serial_utils.dart";
 /// Maps command names to [Device]s.
 final nameToDevice = <String, Device>{
   ArmCommand().messageName: Device.ARM,
-  GripperCommand().messageName: Device.GRIPPER,
   DriveCommand().messageName: Device.DRIVE,
   ScienceCommand().messageName: Device.SCIENCE,
   RelaysCommand().messageName: Device.RELAY,

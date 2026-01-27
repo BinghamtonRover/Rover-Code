@@ -1,13 +1,15 @@
+// This is a generated file - do not edit.
 //
-//  Generated code. Do not modify.
-//  source: subsystems.proto
-//
-// @dart = 2.12
+// Generated from subsystems.proto.
+
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
-// ignore_for_file: constant_identifier_names, library_prefixes
-// ignore_for_file: non_constant_identifier_names, prefer_final_fields
-// ignore_for_file: unnecessary_import, unnecessary_this, unused_import
+// ignore_for_file: constant_identifier_names
+// ignore_for_file: curly_braces_in_flow_control_structures
+// ignore_for_file: deprecated_member_use_from_same_package, library_prefixes
+// ignore_for_file: non_constant_identifier_names, prefer_relative_imports
+// ignore_for_file: unused_import
 
 import 'dart:convert' as $convert;
 import 'dart:core' as $core;
@@ -32,9 +34,30 @@ const SubsystemsData$json = {
   '1': 'SubsystemsData',
   '2': [
     {'1': 'version', '3': 1, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
-    {'1': 'connectedDevices', '3': 2, '4': 3, '5': 14, '6': '.Device', '10': 'connectedDevices'},
-    {'1': 'gpsConnected', '3': 3, '4': 1, '5': 14, '6': '.BoolState', '10': 'gpsConnected'},
-    {'1': 'imuConnected', '3': 4, '4': 1, '5': 14, '6': '.BoolState', '10': 'imuConnected'},
+    {
+      '1': 'connectedDevices',
+      '3': 2,
+      '4': 3,
+      '5': 14,
+      '6': '.Device',
+      '10': 'connectedDevices'
+    },
+    {
+      '1': 'gpsConnected',
+      '3': 3,
+      '4': 1,
+      '5': 14,
+      '6': '.BoolState',
+      '10': 'gpsConnected'
+    },
+    {
+      '1': 'imuConnected',
+      '3': 4,
+      '4': 1,
+      '5': 14,
+      '6': '.BoolState',
+      '10': 'imuConnected'
+    },
   ],
 };
 
@@ -44,4 +67,3 @@ final $typed_data.Uint8List subsystemsDataDescriptor = $convert.base64Decode(
     'Bjb25uZWN0ZWREZXZpY2VzGAIgAygOMgcuRGV2aWNlUhBjb25uZWN0ZWREZXZpY2VzEi4KDGdw'
     'c0Nvbm5lY3RlZBgDIAEoDjIKLkJvb2xTdGF0ZVIMZ3BzQ29ubmVjdGVkEi4KDGltdUNvbm5lY3'
     'RlZBgEIAEoDjIKLkJvb2xTdGF0ZVIMaW11Q29ubmVjdGVk');
-

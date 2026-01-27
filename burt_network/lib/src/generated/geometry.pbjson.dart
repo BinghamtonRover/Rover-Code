@@ -1,13 +1,15 @@
+// This is a generated file - do not edit.
 //
-//  Generated code. Do not modify.
-//  source: geometry.proto
-//
-// @dart = 2.12
+// Generated from geometry.proto.
+
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
-// ignore_for_file: constant_identifier_names, library_prefixes
-// ignore_for_file: non_constant_identifier_names, prefer_final_fields
-// ignore_for_file: unnecessary_import, unnecessary_this, unused_import
+// ignore_for_file: constant_identifier_names
+// ignore_for_file: curly_braces_in_flow_control_structures
+// ignore_for_file: deprecated_member_use_from_same_package, library_prefixes
+// ignore_for_file: non_constant_identifier_names, prefer_relative_imports
+// ignore_for_file: unused_import
 
 import 'dart:convert' as $convert;
 import 'dart:core' as $core;
@@ -47,8 +49,22 @@ final $typed_data.Uint8List orientationDescriptor = $convert.base64Decode(
 const Pose3d$json = {
   '1': 'Pose3d',
   '2': [
-    {'1': 'translation', '3': 1, '4': 1, '5': 11, '6': '.Coordinates', '10': 'translation'},
-    {'1': 'rotation', '3': 2, '4': 1, '5': 11, '6': '.Orientation', '10': 'rotation'},
+    {
+      '1': 'translation',
+      '3': 1,
+      '4': 1,
+      '5': 11,
+      '6': '.Coordinates',
+      '10': 'translation'
+    },
+    {
+      '1': 'rotation',
+      '3': 2,
+      '4': 1,
+      '5': 11,
+      '6': '.Orientation',
+      '10': 'rotation'
+    },
   ],
 };
 
@@ -56,4 +72,3 @@ const Pose3d$json = {
 final $typed_data.Uint8List pose3dDescriptor = $convert.base64Decode(
     'CgZQb3NlM2QSLgoLdHJhbnNsYXRpb24YASABKAsyDC5Db29yZGluYXRlc1ILdHJhbnNsYXRpb2'
     '4SKAoIcm90YXRpb24YAiABKAsyDC5PcmllbnRhdGlvblIIcm90YXRpb24=');
-
