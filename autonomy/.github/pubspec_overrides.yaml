@@ -3,5 +3,5 @@ resolution:
 dependency_overrides:
   burt_network:
     git:
-      url: https://github.com/BinghamtonRover/Networking
-      ref: 2.3.1
+      url: https://github.com/BinghamtonRover/Rover-Code.git
+      path: burt_network

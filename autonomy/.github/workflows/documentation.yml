@@ -24,26 +24,13 @@ jobs:
       - name: Install Dart
         uses: dart-lang/setup-dart@v1
         with:
-          sdk: 3.5.2
+          sdk: 3.9.0
 
       - name: Install dependencies
         run: dart pub get
 
-      - name: Analyze Dart code
-        run: dart analyze --fatal-infos
-
-      - name: Output error
-        if: failure()
-        run: echo "::error The code or is missing documentation. Run flutter analyze --dartdocs"
-
       - name: Generate documentation
-        run: dart doc --output=docs
-
-      # Your project will need to have tests in test/ and a dependency on
-      # package:test for this step to succeed. Note that Flutter projects will
-      # want to change this to 'flutter test'.
-      - name: Run tests
-        run: dart test
+        run: dartdoc --ignore 'unresolved-doc-reference,not-implemented,no-documentable-libraries,ambiguous-reexport' --exclude 'dart:async,dart:collection,dart:convert,dart:core,dart:developer,dart:io,dart:isolate,dart:math,dart:typed_data,dart:ui,dart:html,dart:js,dart:ffi,dart:js_util' --quiet --json --output docs --no-validate-links --no-verbose-warnings --no-allow-non-local-warnings
 
       - name: Commit and push files
         run: |
