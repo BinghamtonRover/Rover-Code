@@ -7,6 +7,7 @@ import "package:burt_network/burt_network.dart";
 
 import "serial_utils.dart";
 
+/// Maps command names to [Device]s.
 final nameToDevice = <String, Device>{
   ArmCommand().messageName: Device.ARM,
   DriveCommand().messageName: Device.DRIVE,
