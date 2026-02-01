@@ -70,6 +70,12 @@ class CameraName extends $pb.ProtobufEnum {
       CameraName._(7, _omitEnumNames ? '' : 'BOTTOM_LEFT');
   static const CameraName BOTTOM_RIGHT =
       CameraName._(8, _omitEnumNames ? '' : 'BOTTOM_RIGHT');
+  static const CameraName ARM_LEFT =
+      CameraName._(9, _omitEnumNames ? '' : 'ARM_LEFT');
+  static const CameraName ARM_RIGHT =
+      CameraName._(10, _omitEnumNames ? '' : 'ARM_RIGHT');
+  static const CameraName GAP_CAM =
+      CameraName._(11, _omitEnumNames ? '' : 'GAP_CAM');
 
   static const $core.List<CameraName> values = <CameraName>[
     CAMERA_NAME_UNDEFINED,
@@ -81,10 +87,13 @@ class CameraName extends $pb.ProtobufEnum {
     SUBSYSTEM3,
     BOTTOM_LEFT,
     BOTTOM_RIGHT,
+    ARM_LEFT,
+    ARM_RIGHT,
+    GAP_CAM,
   ];
 
   static final $core.List<CameraName?> _byValue =
-      $pb.ProtobufEnum.$_initByValueList(values, 8);
+      $pb.ProtobufEnum.$_initByValueList(values, 11);
   static CameraName? valueOf($core.int value) =>
       value < 0 || value >= _byValue.length ? null : _byValue[value];
 

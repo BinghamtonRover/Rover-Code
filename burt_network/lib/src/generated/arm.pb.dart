@@ -29,12 +29,6 @@ class ArmData extends $pb.GeneratedMessage {
     $1.MotorData? shoulder,
     $1.MotorData? elbow,
     $2.Version? version,
-    $core.double? uSSDistance,
-    $1.MotorData? lift,
-    $1.MotorData? rotate,
-    $1.MotorData? pinch,
-    $core.int? servoAngle,
-    $3.BoolState? laserState,
   }) {
     final result = create();
     if (currentPosition != null) result.currentPosition = currentPosition;
@@ -43,12 +37,6 @@ class ArmData extends $pb.GeneratedMessage {
     if (shoulder != null) result.shoulder = shoulder;
     if (elbow != null) result.elbow = elbow;
     if (version != null) result.version = version;
-    if (uSSDistance != null) result.uSSDistance = uSSDistance;
-    if (lift != null) result.lift = lift;
-    if (rotate != null) result.rotate = rotate;
-    if (pinch != null) result.pinch = pinch;
-    if (servoAngle != null) result.servoAngle = servoAngle;
-    if (laserState != null) result.laserState = laserState;
     return result;
   }
 
@@ -76,17 +64,6 @@ class ArmData extends $pb.GeneratedMessage {
         subBuilder: $1.MotorData.create)
     ..aOM<$2.Version>(6, _omitFieldNames ? '' : 'version',
         subBuilder: $2.Version.create)
-    ..aD(7, _omitFieldNames ? '' : 'USSDistance',
-        protoName: 'USS_distance', fieldType: $pb.PbFieldType.OF)
-    ..aOM<$1.MotorData>(8, _omitFieldNames ? '' : 'lift',
-        subBuilder: $1.MotorData.create)
-    ..aOM<$1.MotorData>(9, _omitFieldNames ? '' : 'rotate',
-        subBuilder: $1.MotorData.create)
-    ..aOM<$1.MotorData>(10, _omitFieldNames ? '' : 'pinch',
-        subBuilder: $1.MotorData.create)
-    ..aI(11, _omitFieldNames ? '' : 'servoAngle', protoName: 'servoAngle')
-    ..aE<$3.BoolState>(12, _omitFieldNames ? '' : 'laserState',
-        protoName: 'laserState', enumValues: $3.BoolState.values)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -107,7 +84,6 @@ class ArmData extends $pb.GeneratedMessage {
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ArmData>(create);
   static ArmData? _defaultInstance;
 
-  /// Arm Commands
   @$pb.TagNumber(1)
   $0.Coordinates get currentPosition => $_getN(0);
   @$pb.TagNumber(1)
@@ -173,68 +149,6 @@ class ArmData extends $pb.GeneratedMessage {
   void clearVersion() => $_clearField(6);
   @$pb.TagNumber(6)
   $2.Version ensureVersion() => $_ensure(5);
-
-  /// USS data
-  @$pb.TagNumber(7)
-  $core.double get uSSDistance => $_getN(6);
-  @$pb.TagNumber(7)
-  set uSSDistance($core.double value) => $_setFloat(6, value);
-  @$pb.TagNumber(7)
-  $core.bool hasUSSDistance() => $_has(6);
-  @$pb.TagNumber(7)
-  void clearUSSDistance() => $_clearField(7);
-
-  /// Gripper Commands
-  @$pb.TagNumber(8)
-  $1.MotorData get lift => $_getN(7);
-  @$pb.TagNumber(8)
-  set lift($1.MotorData value) => $_setField(8, value);
-  @$pb.TagNumber(8)
-  $core.bool hasLift() => $_has(7);
-  @$pb.TagNumber(8)
-  void clearLift() => $_clearField(8);
-  @$pb.TagNumber(8)
-  $1.MotorData ensureLift() => $_ensure(7);
-
-  @$pb.TagNumber(9)
-  $1.MotorData get rotate => $_getN(8);
-  @$pb.TagNumber(9)
-  set rotate($1.MotorData value) => $_setField(9, value);
-  @$pb.TagNumber(9)
-  $core.bool hasRotate() => $_has(8);
-  @$pb.TagNumber(9)
-  void clearRotate() => $_clearField(9);
-  @$pb.TagNumber(9)
-  $1.MotorData ensureRotate() => $_ensure(8);
-
-  @$pb.TagNumber(10)
-  $1.MotorData get pinch => $_getN(9);
-  @$pb.TagNumber(10)
-  set pinch($1.MotorData value) => $_setField(10, value);
-  @$pb.TagNumber(10)
-  $core.bool hasPinch() => $_has(9);
-  @$pb.TagNumber(10)
-  void clearPinch() => $_clearField(10);
-  @$pb.TagNumber(10)
-  $1.MotorData ensurePinch() => $_ensure(9);
-
-  @$pb.TagNumber(11)
-  $core.int get servoAngle => $_getIZ(10);
-  @$pb.TagNumber(11)
-  set servoAngle($core.int value) => $_setSignedInt32(10, value);
-  @$pb.TagNumber(11)
-  $core.bool hasServoAngle() => $_has(10);
-  @$pb.TagNumber(11)
-  void clearServoAngle() => $_clearField(11);
-
-  @$pb.TagNumber(12)
-  $3.BoolState get laserState => $_getN(11);
-  @$pb.TagNumber(12)
-  set laserState($3.BoolState value) => $_setField(12, value);
-  @$pb.TagNumber(12)
-  $core.bool hasLaserState() => $_has(11);
-  @$pb.TagNumber(12)
-  void clearLaserState() => $_clearField(12);
 }
 
 class ArmCommand extends $pb.GeneratedMessage {
@@ -250,15 +164,6 @@ class ArmCommand extends $pb.GeneratedMessage {
     $core.double? ikZ,
     $core.bool? jab,
     $2.Version? version,
-    $3.BoolState? startUSS,
-    $1.MotorCommand? lift,
-    $1.MotorCommand? rotate,
-    $1.MotorCommand? pinch,
-    $core.bool? open,
-    $core.bool? close,
-    $core.bool? spin,
-    $core.int? servoAngle,
-    $3.BoolState? laserState,
   }) {
     final result = create();
     if (stop != null) result.stop = stop;
@@ -272,15 +177,6 @@ class ArmCommand extends $pb.GeneratedMessage {
     if (ikZ != null) result.ikZ = ikZ;
     if (jab != null) result.jab = jab;
     if (version != null) result.version = version;
-    if (startUSS != null) result.startUSS = startUSS;
-    if (lift != null) result.lift = lift;
-    if (rotate != null) result.rotate = rotate;
-    if (pinch != null) result.pinch = pinch;
-    if (open != null) result.open = open;
-    if (close != null) result.close = close;
-    if (spin != null) result.spin = spin;
-    if (servoAngle != null) result.servoAngle = servoAngle;
-    if (laserState != null) result.laserState = laserState;
     return result;
   }
 
@@ -312,20 +208,6 @@ class ArmCommand extends $pb.GeneratedMessage {
     ..aOB(10, _omitFieldNames ? '' : 'jab')
     ..aOM<$2.Version>(11, _omitFieldNames ? '' : 'version',
         subBuilder: $2.Version.create)
-    ..aE<$3.BoolState>(12, _omitFieldNames ? '' : 'startUSS',
-        protoName: 'start_USS', enumValues: $3.BoolState.values)
-    ..aOM<$1.MotorCommand>(13, _omitFieldNames ? '' : 'lift',
-        subBuilder: $1.MotorCommand.create)
-    ..aOM<$1.MotorCommand>(14, _omitFieldNames ? '' : 'rotate',
-        subBuilder: $1.MotorCommand.create)
-    ..aOM<$1.MotorCommand>(15, _omitFieldNames ? '' : 'pinch',
-        subBuilder: $1.MotorCommand.create)
-    ..aOB(16, _omitFieldNames ? '' : 'open')
-    ..aOB(17, _omitFieldNames ? '' : 'close')
-    ..aOB(18, _omitFieldNames ? '' : 'spin')
-    ..aI(19, _omitFieldNames ? '' : 'servoAngle', protoName: 'servoAngle')
-    ..aE<$3.BoolState>(20, _omitFieldNames ? '' : 'laserState',
-        protoName: 'laserState', enumValues: $3.BoolState.values)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -346,7 +228,7 @@ class ArmCommand extends $pb.GeneratedMessage {
       $pb.GeneratedMessage.$_defaultFor<ArmCommand>(create);
   static ArmCommand? _defaultInstance;
 
-  /// General commands for arm
+  /// General commands
   @$pb.TagNumber(1)
   $core.bool get stop => $_getBF(0);
   @$pb.TagNumber(1)
@@ -460,96 +342,321 @@ class ArmCommand extends $pb.GeneratedMessage {
   void clearVersion() => $_clearField(11);
   @$pb.TagNumber(11)
   $2.Version ensureVersion() => $_ensure(10);
+}
 
-  /// USS commands
-  @$pb.TagNumber(12)
-  $3.BoolState get startUSS => $_getN(11);
-  @$pb.TagNumber(12)
-  set startUSS($3.BoolState value) => $_setField(12, value);
-  @$pb.TagNumber(12)
-  $core.bool hasStartUSS() => $_has(11);
-  @$pb.TagNumber(12)
-  void clearStartUSS() => $_clearField(12);
+class GripperData extends $pb.GeneratedMessage {
+  factory GripperData({
+    $1.MotorData? lift,
+    $1.MotorData? rotate,
+    $1.MotorData? pinch,
+    $2.Version? version,
+    $core.int? servoAngle,
+    $3.BoolState? laserState,
+  }) {
+    final result = create();
+    if (lift != null) result.lift = lift;
+    if (rotate != null) result.rotate = rotate;
+    if (pinch != null) result.pinch = pinch;
+    if (version != null) result.version = version;
+    if (servoAngle != null) result.servoAngle = servoAngle;
+    if (laserState != null) result.laserState = laserState;
+    return result;
+  }
+
+  GripperData._();
+
+  factory GripperData.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory GripperData.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'GripperData',
+      createEmptyInstance: create)
+    ..aOM<$1.MotorData>(1, _omitFieldNames ? '' : 'lift',
+        subBuilder: $1.MotorData.create)
+    ..aOM<$1.MotorData>(2, _omitFieldNames ? '' : 'rotate',
+        subBuilder: $1.MotorData.create)
+    ..aOM<$1.MotorData>(3, _omitFieldNames ? '' : 'pinch',
+        subBuilder: $1.MotorData.create)
+    ..aOM<$2.Version>(4, _omitFieldNames ? '' : 'version',
+        subBuilder: $2.Version.create)
+    ..aI(5, _omitFieldNames ? '' : 'servoAngle', protoName: 'servoAngle')
+    ..aE<$3.BoolState>(6, _omitFieldNames ? '' : 'laserState',
+        protoName: 'laserState', enumValues: $3.BoolState.values)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  GripperData clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  GripperData copyWith(void Function(GripperData) updates) =>
+      super.copyWith((message) => updates(message as GripperData))
+          as GripperData;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static GripperData create() => GripperData._();
+  @$core.override
+  GripperData createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static GripperData getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<GripperData>(create);
+  static GripperData? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $1.MotorData get lift => $_getN(0);
+  @$pb.TagNumber(1)
+  set lift($1.MotorData value) => $_setField(1, value);
+  @$pb.TagNumber(1)
+  $core.bool hasLift() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearLift() => $_clearField(1);
+  @$pb.TagNumber(1)
+  $1.MotorData ensureLift() => $_ensure(0);
+
+  @$pb.TagNumber(2)
+  $1.MotorData get rotate => $_getN(1);
+  @$pb.TagNumber(2)
+  set rotate($1.MotorData value) => $_setField(2, value);
+  @$pb.TagNumber(2)
+  $core.bool hasRotate() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearRotate() => $_clearField(2);
+  @$pb.TagNumber(2)
+  $1.MotorData ensureRotate() => $_ensure(1);
+
+  @$pb.TagNumber(3)
+  $1.MotorData get pinch => $_getN(2);
+  @$pb.TagNumber(3)
+  set pinch($1.MotorData value) => $_setField(3, value);
+  @$pb.TagNumber(3)
+  $core.bool hasPinch() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearPinch() => $_clearField(3);
+  @$pb.TagNumber(3)
+  $1.MotorData ensurePinch() => $_ensure(2);
+
+  @$pb.TagNumber(4)
+  $2.Version get version => $_getN(3);
+  @$pb.TagNumber(4)
+  set version($2.Version value) => $_setField(4, value);
+  @$pb.TagNumber(4)
+  $core.bool hasVersion() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearVersion() => $_clearField(4);
+  @$pb.TagNumber(4)
+  $2.Version ensureVersion() => $_ensure(3);
+
+  @$pb.TagNumber(5)
+  $core.int get servoAngle => $_getIZ(4);
+  @$pb.TagNumber(5)
+  set servoAngle($core.int value) => $_setSignedInt32(4, value);
+  @$pb.TagNumber(5)
+  $core.bool hasServoAngle() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearServoAngle() => $_clearField(5);
+
+  @$pb.TagNumber(6)
+  $3.BoolState get laserState => $_getN(5);
+  @$pb.TagNumber(6)
+  set laserState($3.BoolState value) => $_setField(6, value);
+  @$pb.TagNumber(6)
+  $core.bool hasLaserState() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearLaserState() => $_clearField(6);
+}
+
+class GripperCommand extends $pb.GeneratedMessage {
+  factory GripperCommand({
+    $core.bool? stop,
+    $core.bool? calibrate,
+    $1.MotorCommand? lift,
+    $1.MotorCommand? rotate,
+    $1.MotorCommand? pinch,
+    $core.bool? open,
+    $core.bool? close,
+    $core.bool? spin,
+    $2.Version? version,
+    $core.int? servoAngle,
+    $3.BoolState? laserState,
+  }) {
+    final result = create();
+    if (stop != null) result.stop = stop;
+    if (calibrate != null) result.calibrate = calibrate;
+    if (lift != null) result.lift = lift;
+    if (rotate != null) result.rotate = rotate;
+    if (pinch != null) result.pinch = pinch;
+    if (open != null) result.open = open;
+    if (close != null) result.close = close;
+    if (spin != null) result.spin = spin;
+    if (version != null) result.version = version;
+    if (servoAngle != null) result.servoAngle = servoAngle;
+    if (laserState != null) result.laserState = laserState;
+    return result;
+  }
+
+  GripperCommand._();
+
+  factory GripperCommand.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory GripperCommand.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'GripperCommand',
+      createEmptyInstance: create)
+    ..aOB(1, _omitFieldNames ? '' : 'stop')
+    ..aOB(2, _omitFieldNames ? '' : 'calibrate')
+    ..aOM<$1.MotorCommand>(3, _omitFieldNames ? '' : 'lift',
+        subBuilder: $1.MotorCommand.create)
+    ..aOM<$1.MotorCommand>(4, _omitFieldNames ? '' : 'rotate',
+        subBuilder: $1.MotorCommand.create)
+    ..aOM<$1.MotorCommand>(5, _omitFieldNames ? '' : 'pinch',
+        subBuilder: $1.MotorCommand.create)
+    ..aOB(6, _omitFieldNames ? '' : 'open')
+    ..aOB(7, _omitFieldNames ? '' : 'close')
+    ..aOB(8, _omitFieldNames ? '' : 'spin')
+    ..aOM<$2.Version>(9, _omitFieldNames ? '' : 'version',
+        subBuilder: $2.Version.create)
+    ..aI(10, _omitFieldNames ? '' : 'servoAngle', protoName: 'servoAngle')
+    ..aE<$3.BoolState>(11, _omitFieldNames ? '' : 'laserState',
+        protoName: 'laserState', enumValues: $3.BoolState.values)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  GripperCommand clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  GripperCommand copyWith(void Function(GripperCommand) updates) =>
+      super.copyWith((message) => updates(message as GripperCommand))
+          as GripperCommand;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static GripperCommand create() => GripperCommand._();
+  @$core.override
+  GripperCommand createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static GripperCommand getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<GripperCommand>(create);
+  static GripperCommand? _defaultInstance;
+
+  /// General commands
+  @$pb.TagNumber(1)
+  $core.bool get stop => $_getBF(0);
+  @$pb.TagNumber(1)
+  set stop($core.bool value) => $_setBool(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasStop() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearStop() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.bool get calibrate => $_getBF(1);
+  @$pb.TagNumber(2)
+  set calibrate($core.bool value) => $_setBool(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasCalibrate() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearCalibrate() => $_clearField(2);
 
   /// Move individual motors
-  @$pb.TagNumber(13)
-  $1.MotorCommand get lift => $_getN(12);
-  @$pb.TagNumber(13)
-  set lift($1.MotorCommand value) => $_setField(13, value);
-  @$pb.TagNumber(13)
-  $core.bool hasLift() => $_has(12);
-  @$pb.TagNumber(13)
-  void clearLift() => $_clearField(13);
-  @$pb.TagNumber(13)
-  $1.MotorCommand ensureLift() => $_ensure(12);
+  @$pb.TagNumber(3)
+  $1.MotorCommand get lift => $_getN(2);
+  @$pb.TagNumber(3)
+  set lift($1.MotorCommand value) => $_setField(3, value);
+  @$pb.TagNumber(3)
+  $core.bool hasLift() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearLift() => $_clearField(3);
+  @$pb.TagNumber(3)
+  $1.MotorCommand ensureLift() => $_ensure(2);
 
-  @$pb.TagNumber(14)
-  $1.MotorCommand get rotate => $_getN(13);
-  @$pb.TagNumber(14)
-  set rotate($1.MotorCommand value) => $_setField(14, value);
-  @$pb.TagNumber(14)
-  $core.bool hasRotate() => $_has(13);
-  @$pb.TagNumber(14)
-  void clearRotate() => $_clearField(14);
-  @$pb.TagNumber(14)
-  $1.MotorCommand ensureRotate() => $_ensure(13);
+  @$pb.TagNumber(4)
+  $1.MotorCommand get rotate => $_getN(3);
+  @$pb.TagNumber(4)
+  set rotate($1.MotorCommand value) => $_setField(4, value);
+  @$pb.TagNumber(4)
+  $core.bool hasRotate() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearRotate() => $_clearField(4);
+  @$pb.TagNumber(4)
+  $1.MotorCommand ensureRotate() => $_ensure(3);
 
-  @$pb.TagNumber(15)
-  $1.MotorCommand get pinch => $_getN(14);
-  @$pb.TagNumber(15)
-  set pinch($1.MotorCommand value) => $_setField(15, value);
-  @$pb.TagNumber(15)
-  $core.bool hasPinch() => $_has(14);
-  @$pb.TagNumber(15)
-  void clearPinch() => $_clearField(15);
-  @$pb.TagNumber(15)
-  $1.MotorCommand ensurePinch() => $_ensure(14);
+  @$pb.TagNumber(5)
+  $1.MotorCommand get pinch => $_getN(4);
+  @$pb.TagNumber(5)
+  set pinch($1.MotorCommand value) => $_setField(5, value);
+  @$pb.TagNumber(5)
+  $core.bool hasPinch() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearPinch() => $_clearField(5);
+  @$pb.TagNumber(5)
+  $1.MotorCommand ensurePinch() => $_ensure(4);
 
   /// Custom actions
-  @$pb.TagNumber(16)
-  $core.bool get open => $_getBF(15);
-  @$pb.TagNumber(16)
-  set open($core.bool value) => $_setBool(15, value);
-  @$pb.TagNumber(16)
-  $core.bool hasOpen() => $_has(15);
-  @$pb.TagNumber(16)
-  void clearOpen() => $_clearField(16);
+  @$pb.TagNumber(6)
+  $core.bool get open => $_getBF(5);
+  @$pb.TagNumber(6)
+  set open($core.bool value) => $_setBool(5, value);
+  @$pb.TagNumber(6)
+  $core.bool hasOpen() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearOpen() => $_clearField(6);
 
-  @$pb.TagNumber(17)
-  $core.bool get close => $_getBF(16);
-  @$pb.TagNumber(17)
-  set close($core.bool value) => $_setBool(16, value);
-  @$pb.TagNumber(17)
-  $core.bool hasClose() => $_has(16);
-  @$pb.TagNumber(17)
-  void clearClose() => $_clearField(17);
+  @$pb.TagNumber(7)
+  $core.bool get close => $_getBF(6);
+  @$pb.TagNumber(7)
+  set close($core.bool value) => $_setBool(6, value);
+  @$pb.TagNumber(7)
+  $core.bool hasClose() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearClose() => $_clearField(7);
 
-  @$pb.TagNumber(18)
-  $core.bool get spin => $_getBF(17);
-  @$pb.TagNumber(18)
-  set spin($core.bool value) => $_setBool(17, value);
-  @$pb.TagNumber(18)
-  $core.bool hasSpin() => $_has(17);
-  @$pb.TagNumber(18)
-  void clearSpin() => $_clearField(18);
+  @$pb.TagNumber(8)
+  $core.bool get spin => $_getBF(7);
+  @$pb.TagNumber(8)
+  set spin($core.bool value) => $_setBool(7, value);
+  @$pb.TagNumber(8)
+  $core.bool hasSpin() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearSpin() => $_clearField(8);
 
-  @$pb.TagNumber(19)
-  $core.int get servoAngle => $_getIZ(18);
-  @$pb.TagNumber(19)
-  set servoAngle($core.int value) => $_setSignedInt32(18, value);
-  @$pb.TagNumber(19)
-  $core.bool hasServoAngle() => $_has(18);
-  @$pb.TagNumber(19)
-  void clearServoAngle() => $_clearField(19);
+  @$pb.TagNumber(9)
+  $2.Version get version => $_getN(8);
+  @$pb.TagNumber(9)
+  set version($2.Version value) => $_setField(9, value);
+  @$pb.TagNumber(9)
+  $core.bool hasVersion() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearVersion() => $_clearField(9);
+  @$pb.TagNumber(9)
+  $2.Version ensureVersion() => $_ensure(8);
 
-  @$pb.TagNumber(20)
-  $3.BoolState get laserState => $_getN(19);
-  @$pb.TagNumber(20)
-  set laserState($3.BoolState value) => $_setField(20, value);
-  @$pb.TagNumber(20)
-  $core.bool hasLaserState() => $_has(19);
-  @$pb.TagNumber(20)
-  void clearLaserState() => $_clearField(20);
+  @$pb.TagNumber(10)
+  $core.int get servoAngle => $_getIZ(9);
+  @$pb.TagNumber(10)
+  set servoAngle($core.int value) => $_setSignedInt32(9, value);
+  @$pb.TagNumber(10)
+  $core.bool hasServoAngle() => $_has(9);
+  @$pb.TagNumber(10)
+  void clearServoAngle() => $_clearField(10);
+
+  @$pb.TagNumber(11)
+  $3.BoolState get laserState => $_getN(10);
+  @$pb.TagNumber(11)
+  set laserState($3.BoolState value) => $_setField(11, value);
+  @$pb.TagNumber(11)
+  $core.bool hasLaserState() => $_has(10);
+  @$pb.TagNumber(11)
+  void clearLaserState() => $_clearField(11);
 }
 
 const $core.bool _omitFieldNames =
