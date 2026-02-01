@@ -53,7 +53,7 @@ class GpsCoordinates extends $pb.GeneratedMessage {
     ..aD(2, _omitFieldNames ? '' : 'longitude')
     ..aD(3, _omitFieldNames ? '' : 'altitude')
     ..aE<RTKMode>(4, _omitFieldNames ? '' : 'rtkMode',
-        protoName: 'rtkMode', enumValues: RTKMode.values)
+        enumValues: RTKMode.values)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -146,8 +146,7 @@ class RoverPosition extends $pb.GeneratedMessage {
     ..aOM<$1.Version>(3, _omitFieldNames ? '' : 'version',
         subBuilder: $1.Version.create)
     ..a<$core.List<$core.int>>(
-        4, _omitFieldNames ? '' : 'rtkMessage', $pb.PbFieldType.OY,
-        protoName: 'rtkMessage')
+        4, _omitFieldNames ? '' : 'rtkMessage', $pb.PbFieldType.OY)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')

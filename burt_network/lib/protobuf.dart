@@ -6,6 +6,7 @@ library;
 export "src/generated/arm.pb.dart";
 export "src/generated/base_station.pb.dart";
 export "src/generated/autonomy.pb.dart";
+export "src/generated/control.pb.dart";
 export "src/generated/core.pb.dart";
 export "src/generated/drive.pb.dart";
 export "src/generated/geometry.pb.dart";

@@ -223,7 +223,7 @@ void main() => group("ProtoSocket:", () {
       await socket2.init();
 
       final result = await socket1.tryHandshake(
-        message: SubsystemsCommand(zeroIMU: true),
+        message: SubsystemsCommand(zeroImu: true),
         timeout: const Duration(seconds: 1),
         constructor: SubsystemsCommand.fromBuffer,
         destination: socket2Info,
@@ -240,7 +240,7 @@ void main() => group("ProtoSocket:", () {
       await socket1.init();
 
       final result = await socket1.tryHandshake(
-        message: SubsystemsCommand(zeroIMU: true),
+        message: SubsystemsCommand(zeroImu: true),
         timeout: const Duration(seconds: 1),
         constructor: SubsystemsCommand.fromBuffer,
         destination: socket2Info,

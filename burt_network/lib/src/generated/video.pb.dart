@@ -307,9 +307,9 @@ class VideoData extends $pb.GeneratedMessage {
         3, _omitFieldNames ? '' : 'frame', $pb.PbFieldType.OY)
     ..aOM<$0.Version>(4, _omitFieldNames ? '' : 'version',
         subBuilder: $0.Version.create)
-    ..aOS(5, _omitFieldNames ? '' : 'imagePath', protoName: 'imagePath')
+    ..aOS(5, _omitFieldNames ? '' : 'imagePath')
     ..pPM<$1.DetectedObject>(6, _omitFieldNames ? '' : 'detectedObjects',
-        protoName: 'detectedObjects', subBuilder: $1.DetectedObject.create)
+        subBuilder: $1.DetectedObject.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -422,7 +422,7 @@ class VideoCommand extends $pb.GeneratedMessage {
         subBuilder: CameraDetails.create)
     ..aOM<$0.Version>(3, _omitFieldNames ? '' : 'version',
         subBuilder: $0.Version.create)
-    ..aOB(4, _omitFieldNames ? '' : 'takeSnapshot', protoName: 'takeSnapshot')
+    ..aOB(4, _omitFieldNames ? '' : 'takeSnapshot')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
