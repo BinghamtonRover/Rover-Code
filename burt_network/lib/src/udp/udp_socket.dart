@@ -1,13 +1,10 @@
+import "dart:collection";
 import "dart:io";
 import "dart:async";
 
 import "package:burt_network/burt_network.dart";
 
-extension on RawDatagramSocket {
-  Stream<Datagram> onlyData() =>
-    where((event) => event == RawSocketEvent.read)
-    .map((event) => receive()).notNull();
-}
+typedef _UDPMessage = ({List<int> data, SocketInfo destination});
 
 /// Manages a UDP socket.
 ///
@@ -85,7 +82,10 @@ class UdpSocket extends Service {
   final _controller = StreamController<Datagram>.broadcast();
 
   /// Used to forward events from [_socket] to [_controller].
-  StreamSubscription<Datagram>? _subscription;
+  StreamSubscription<RawSocketEvent>? _subscription;
+
+  /// List of messages to be sent over the socket when the socket is ready to send
+  final Queue<_UDPMessage> _sendingQueue = Queue();
 
   /// A stream containing all the data coming out of the socket.
   Stream<Datagram> get stream => _controller.stream;
@@ -98,7 +98,7 @@ class UdpSocket extends Service {
       // Using [runZonedGuarded] ensures that the error is caught no matter when it is thrown.
       () async {  // Initialize the socket
         _socket = await RawDatagramSocket.bind(InternetAddress.anyIPv4, _port ?? 0);
-        _subscription = _socket!.onlyData().listen(_controller.add);
+        _subscription = _socket!.listen(_onSocketEvent);
         if (!quiet) logger.info("Listening on port $port");
       },
       (Object error, StackTrace stack) async {  // Catch errors and restart the socket
@@ -123,6 +123,26 @@ class UdpSocket extends Service {
     if (!keepDestination) {
       destination = null;
     }
+    _sendingQueue.clear();
+  }
+
+  void _onSocketEvent(RawSocketEvent event) {
+    if (event == RawSocketEvent.write) {
+      if (_sendingQueue.isNotEmpty) {
+        final packet = _sendingQueue.removeFirst();
+        send(packet.data, destination: packet.destination);
+
+        // Still more packets to send
+        if (_sendingQueue.isNotEmpty) {
+          _socket!.writeEventsEnabled = true;
+        }
+      }
+    } else if (event == RawSocketEvent.read) {
+      final datagram = _socket!.receive();
+      if (datagram != null) {
+        _controller.add(datagram);
+      }
+    }
   }
 
   /// Sends data to the given destination.
@@ -132,8 +152,16 @@ class UdpSocket extends Service {
   void send(List<int> data, {SocketInfo? destination}) {
     final target = destination ?? this.destination;
     if (target == null) return;
-    if (_socket == null) throw StateError("Cannot use a UdpSocket on port $_port after it's been disposed");
-    _socket!.send(data, target.address, target.port);
+    if (_socket == null) {
+      throw StateError(
+        "Cannot use a UdpSocket on port $_port after it's been disposed",
+      );
+    }
+    final sent = _socket!.send(data, target.address, target.port);
+    if (sent == 0) {
+      _sendingQueue.add((data: data, destination: target));
+      _socket!.writeEventsEnabled = true;
+    }
   }
 
   /// Sends a [WrappedMessage] over the socket.
