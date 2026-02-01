@@ -198,7 +198,7 @@ class AntennaFirmwareData extends $pb.GeneratedMessage {
 /// /   GPS will cause it to re-calculate an orientation that ideally faces the rover. In this mode,
 /// /   manual commands are ignored.
 /// / - When in manual mode, all GPS data is ignored and the motor is only moved when the Dashboard
-/// /   sends a command with a [manualCommand] payload.
+/// /   sends a command with a [manual_command] payload.
 /// /
 /// / When tracking the rover, the Dashboard can override either the base station or rover's position
 /// / for testing and debugging. When a new position override is received, the base station will:
@@ -245,18 +245,16 @@ class BaseStationCommand extends $pb.GeneratedMessage {
     ..aE<AntennaControlMode>(2, _omitFieldNames ? '' : 'mode',
         enumValues: AntennaControlMode.values)
     ..aOM<$2.GpsCoordinates>(3, _omitFieldNames ? '' : 'roverCoordinates',
-        protoName: 'roverCoordinates', subBuilder: $2.GpsCoordinates.create)
+        subBuilder: $2.GpsCoordinates.create)
     ..aOM<$2.GpsCoordinates>(4, _omitFieldNames ? '' : 'baseStationCoordinates',
-        protoName: 'baseStationCoordinates',
         subBuilder: $2.GpsCoordinates.create)
     ..aOM<$2.GpsCoordinates>(
         5, _omitFieldNames ? '' : 'roverCoordinatesOverride',
-        protoName: 'roverCoordinatesOverride',
         subBuilder: $2.GpsCoordinates.create)
     ..aOM<AntennaFirmwareCommand>(6, _omitFieldNames ? '' : 'manualCommand',
-        protoName: 'manualCommand', subBuilder: AntennaFirmwareCommand.create)
+        subBuilder: AntennaFirmwareCommand.create)
     ..aD(7, _omitFieldNames ? '' : 'angleTolerance',
-        protoName: 'angleTolerance', fieldType: $pb.PbFieldType.OF)
+        fieldType: $pb.PbFieldType.OF)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -390,10 +388,9 @@ class BaseStationData extends $pb.GeneratedMessage {
     ..aOM<AntennaFirmwareData>(3, _omitFieldNames ? '' : 'antenna',
         subBuilder: AntennaFirmwareData.create)
     ..aOM<$2.GpsCoordinates>(4, _omitFieldNames ? '' : 'baseStationCoordinates',
-        protoName: 'baseStationCoordinates',
         subBuilder: $2.GpsCoordinates.create)
     ..aE<$3.BoolState>(5, _omitFieldNames ? '' : 'rtkConnected',
-        protoName: 'rtkConnected', enumValues: $3.BoolState.values)
+        enumValues: $3.BoolState.values)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')

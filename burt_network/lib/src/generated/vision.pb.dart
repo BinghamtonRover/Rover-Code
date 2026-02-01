@@ -45,9 +45,8 @@ class PnpResult extends $pb.GeneratedMessage {
       _omitMessageNames ? '' : 'PnpResult',
       createEmptyInstance: create)
     ..aOM<$0.Pose3d>(1, _omitFieldNames ? '' : 'cameraToTarget',
-        protoName: 'cameraToTarget', subBuilder: $0.Pose3d.create)
-    ..aD(2, _omitFieldNames ? '' : 'reprojectionError',
-        protoName: 'reprojectionError')
+        subBuilder: $0.Pose3d.create)
+    ..aD(2, _omitFieldNames ? '' : 'reprojectionError')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -130,20 +129,19 @@ class DetectedObject extends $pb.GeneratedMessage {
       _omitMessageNames ? '' : 'DetectedObject',
       createEmptyInstance: create)
     ..aE<DetectedObjectType>(1, _omitFieldNames ? '' : 'objectType',
-        protoName: 'objectType', enumValues: DetectedObjectType.values)
-    ..aI(2, _omitFieldNames ? '' : 'arucoTagId', protoName: 'arucoTagId')
-    ..aD(4, _omitFieldNames ? '' : 'xPosition',
-        protoName: 'xPosition', fieldType: $pb.PbFieldType.OF)
+        enumValues: DetectedObjectType.values)
+    ..aI(2, _omitFieldNames ? '' : 'arucoTagId')
+    ..aD(4, _omitFieldNames ? '' : 'xPosition', fieldType: $pb.PbFieldType.OF)
     ..aD(5, _omitFieldNames ? '' : 'relativeSize',
-        protoName: 'relativeSize', fieldType: $pb.PbFieldType.OF)
-    ..aI(6, _omitFieldNames ? '' : 'centerX', protoName: 'centerX')
-    ..aI(7, _omitFieldNames ? '' : 'centerY', protoName: 'centerY')
+        fieldType: $pb.PbFieldType.OF)
+    ..aI(6, _omitFieldNames ? '' : 'centerX')
+    ..aI(7, _omitFieldNames ? '' : 'centerY')
     ..aD(8, _omitFieldNames ? '' : 'yaw', fieldType: $pb.PbFieldType.OF)
     ..aD(9, _omitFieldNames ? '' : 'pitch', fieldType: $pb.PbFieldType.OF)
     ..aOM<PnpResult>(10, _omitFieldNames ? '' : 'bestPnpResult',
-        protoName: 'bestPnpResult', subBuilder: PnpResult.create)
+        subBuilder: PnpResult.create)
     ..aOM<PnpResult>(11, _omitFieldNames ? '' : 'alternatePnpResult',
-        protoName: 'alternatePnpResult', subBuilder: PnpResult.create)
+        subBuilder: PnpResult.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')

@@ -21,6 +21,172 @@ import 'version.pb.dart' as $2;
 
 export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
+class JointAngleData extends $pb.GeneratedMessage {
+  factory JointAngleData({
+    $core.double? swivelSingle,
+    $core.double? shoulderSingle,
+    $core.double? elbowSingle,
+    $core.double? rollSingle,
+    $core.double? wristPitchSingle,
+    $core.double? swivelMulti,
+    $core.double? shoulderMulti,
+    $core.double? elbowMulti,
+    $core.double? rollMulti,
+    $core.double? wristPitchMulti,
+  }) {
+    final result = create();
+    if (swivelSingle != null) result.swivelSingle = swivelSingle;
+    if (shoulderSingle != null) result.shoulderSingle = shoulderSingle;
+    if (elbowSingle != null) result.elbowSingle = elbowSingle;
+    if (rollSingle != null) result.rollSingle = rollSingle;
+    if (wristPitchSingle != null) result.wristPitchSingle = wristPitchSingle;
+    if (swivelMulti != null) result.swivelMulti = swivelMulti;
+    if (shoulderMulti != null) result.shoulderMulti = shoulderMulti;
+    if (elbowMulti != null) result.elbowMulti = elbowMulti;
+    if (rollMulti != null) result.rollMulti = rollMulti;
+    if (wristPitchMulti != null) result.wristPitchMulti = wristPitchMulti;
+    return result;
+  }
+
+  JointAngleData._();
+
+  factory JointAngleData.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory JointAngleData.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'JointAngleData',
+      createEmptyInstance: create)
+    ..aD(1, _omitFieldNames ? '' : 'swivelSingle',
+        fieldType: $pb.PbFieldType.OF)
+    ..aD(2, _omitFieldNames ? '' : 'shoulderSingle',
+        fieldType: $pb.PbFieldType.OF)
+    ..aD(3, _omitFieldNames ? '' : 'elbowSingle', fieldType: $pb.PbFieldType.OF)
+    ..aD(4, _omitFieldNames ? '' : 'rollSingle', fieldType: $pb.PbFieldType.OF)
+    ..aD(5, _omitFieldNames ? '' : 'wristPitchSingle',
+        fieldType: $pb.PbFieldType.OF)
+    ..aD(6, _omitFieldNames ? '' : 'swivelMulti', fieldType: $pb.PbFieldType.OF)
+    ..aD(7, _omitFieldNames ? '' : 'shoulderMulti',
+        fieldType: $pb.PbFieldType.OF)
+    ..aD(8, _omitFieldNames ? '' : 'elbowMulti', fieldType: $pb.PbFieldType.OF)
+    ..aD(9, _omitFieldNames ? '' : 'rollMulti', fieldType: $pb.PbFieldType.OF)
+    ..aD(10, _omitFieldNames ? '' : 'wristPitchMulti',
+        fieldType: $pb.PbFieldType.OF)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  JointAngleData clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  JointAngleData copyWith(void Function(JointAngleData) updates) =>
+      super.copyWith((message) => updates(message as JointAngleData))
+          as JointAngleData;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static JointAngleData create() => JointAngleData._();
+  @$core.override
+  JointAngleData createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static JointAngleData getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<JointAngleData>(create);
+  static JointAngleData? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.double get swivelSingle => $_getN(0);
+  @$pb.TagNumber(1)
+  set swivelSingle($core.double value) => $_setFloat(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasSwivelSingle() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSwivelSingle() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.double get shoulderSingle => $_getN(1);
+  @$pb.TagNumber(2)
+  set shoulderSingle($core.double value) => $_setFloat(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasShoulderSingle() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearShoulderSingle() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.double get elbowSingle => $_getN(2);
+  @$pb.TagNumber(3)
+  set elbowSingle($core.double value) => $_setFloat(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasElbowSingle() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearElbowSingle() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.double get rollSingle => $_getN(3);
+  @$pb.TagNumber(4)
+  set rollSingle($core.double value) => $_setFloat(3, value);
+  @$pb.TagNumber(4)
+  $core.bool hasRollSingle() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearRollSingle() => $_clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.double get wristPitchSingle => $_getN(4);
+  @$pb.TagNumber(5)
+  set wristPitchSingle($core.double value) => $_setFloat(4, value);
+  @$pb.TagNumber(5)
+  $core.bool hasWristPitchSingle() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearWristPitchSingle() => $_clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.double get swivelMulti => $_getN(5);
+  @$pb.TagNumber(6)
+  set swivelMulti($core.double value) => $_setFloat(5, value);
+  @$pb.TagNumber(6)
+  $core.bool hasSwivelMulti() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearSwivelMulti() => $_clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.double get shoulderMulti => $_getN(6);
+  @$pb.TagNumber(7)
+  set shoulderMulti($core.double value) => $_setFloat(6, value);
+  @$pb.TagNumber(7)
+  $core.bool hasShoulderMulti() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearShoulderMulti() => $_clearField(7);
+
+  @$pb.TagNumber(8)
+  $core.double get elbowMulti => $_getN(7);
+  @$pb.TagNumber(8)
+  set elbowMulti($core.double value) => $_setFloat(7, value);
+  @$pb.TagNumber(8)
+  $core.bool hasElbowMulti() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearElbowMulti() => $_clearField(8);
+
+  @$pb.TagNumber(9)
+  $core.double get rollMulti => $_getN(8);
+  @$pb.TagNumber(9)
+  set rollMulti($core.double value) => $_setFloat(8, value);
+  @$pb.TagNumber(9)
+  $core.bool hasRollMulti() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearRollMulti() => $_clearField(9);
+
+  @$pb.TagNumber(10)
+  $core.double get wristPitchMulti => $_getN(9);
+  @$pb.TagNumber(10)
+  set wristPitchMulti($core.double value) => $_setFloat(9, value);
+  @$pb.TagNumber(10)
+  $core.bool hasWristPitchMulti() => $_has(9);
+  @$pb.TagNumber(10)
+  void clearWristPitchMulti() => $_clearField(10);
+}
+
 class ArmData extends $pb.GeneratedMessage {
   factory ArmData({
     $0.Coordinates? currentPosition,
@@ -29,12 +195,14 @@ class ArmData extends $pb.GeneratedMessage {
     $1.MotorData? shoulder,
     $1.MotorData? elbow,
     $2.Version? version,
-    $core.double? uSSDistance,
+    $core.double? ussDistance,
     $1.MotorData? lift,
     $1.MotorData? rotate,
     $1.MotorData? pinch,
     $core.int? servoAngle,
     $3.BoolState? laserState,
+    $1.MotorData? roll,
+    JointAngleData? jointAngles,
   }) {
     final result = create();
     if (currentPosition != null) result.currentPosition = currentPosition;
@@ -43,12 +211,14 @@ class ArmData extends $pb.GeneratedMessage {
     if (shoulder != null) result.shoulder = shoulder;
     if (elbow != null) result.elbow = elbow;
     if (version != null) result.version = version;
-    if (uSSDistance != null) result.uSSDistance = uSSDistance;
+    if (ussDistance != null) result.ussDistance = ussDistance;
     if (lift != null) result.lift = lift;
     if (rotate != null) result.rotate = rotate;
     if (pinch != null) result.pinch = pinch;
     if (servoAngle != null) result.servoAngle = servoAngle;
     if (laserState != null) result.laserState = laserState;
+    if (roll != null) result.roll = roll;
+    if (jointAngles != null) result.jointAngles = jointAngles;
     return result;
   }
 
@@ -65,9 +235,9 @@ class ArmData extends $pb.GeneratedMessage {
       _omitMessageNames ? '' : 'ArmData',
       createEmptyInstance: create)
     ..aOM<$0.Coordinates>(1, _omitFieldNames ? '' : 'currentPosition',
-        protoName: 'currentPosition', subBuilder: $0.Coordinates.create)
+        subBuilder: $0.Coordinates.create)
     ..aOM<$0.Coordinates>(2, _omitFieldNames ? '' : 'targetPosition',
-        protoName: 'targetPosition', subBuilder: $0.Coordinates.create)
+        subBuilder: $0.Coordinates.create)
     ..aOM<$1.MotorData>(3, _omitFieldNames ? '' : 'base',
         subBuilder: $1.MotorData.create)
     ..aOM<$1.MotorData>(4, _omitFieldNames ? '' : 'shoulder',
@@ -76,17 +246,20 @@ class ArmData extends $pb.GeneratedMessage {
         subBuilder: $1.MotorData.create)
     ..aOM<$2.Version>(6, _omitFieldNames ? '' : 'version',
         subBuilder: $2.Version.create)
-    ..aD(7, _omitFieldNames ? '' : 'USSDistance',
-        protoName: 'USS_distance', fieldType: $pb.PbFieldType.OF)
+    ..aD(7, _omitFieldNames ? '' : 'ussDistance', fieldType: $pb.PbFieldType.OF)
     ..aOM<$1.MotorData>(8, _omitFieldNames ? '' : 'lift',
         subBuilder: $1.MotorData.create)
     ..aOM<$1.MotorData>(9, _omitFieldNames ? '' : 'rotate',
         subBuilder: $1.MotorData.create)
     ..aOM<$1.MotorData>(10, _omitFieldNames ? '' : 'pinch',
         subBuilder: $1.MotorData.create)
-    ..aI(11, _omitFieldNames ? '' : 'servoAngle', protoName: 'servoAngle')
+    ..aI(11, _omitFieldNames ? '' : 'servoAngle')
     ..aE<$3.BoolState>(12, _omitFieldNames ? '' : 'laserState',
-        protoName: 'laserState', enumValues: $3.BoolState.values)
+        enumValues: $3.BoolState.values)
+    ..aOM<$1.MotorData>(13, _omitFieldNames ? '' : 'roll',
+        subBuilder: $1.MotorData.create)
+    ..aOM<JointAngleData>(14, _omitFieldNames ? '' : 'jointAngles',
+        subBuilder: JointAngleData.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -176,13 +349,13 @@ class ArmData extends $pb.GeneratedMessage {
 
   /// USS data
   @$pb.TagNumber(7)
-  $core.double get uSSDistance => $_getN(6);
+  $core.double get ussDistance => $_getN(6);
   @$pb.TagNumber(7)
-  set uSSDistance($core.double value) => $_setFloat(6, value);
+  set ussDistance($core.double value) => $_setFloat(6, value);
   @$pb.TagNumber(7)
-  $core.bool hasUSSDistance() => $_has(6);
+  $core.bool hasUssDistance() => $_has(6);
   @$pb.TagNumber(7)
-  void clearUSSDistance() => $_clearField(7);
+  void clearUssDistance() => $_clearField(7);
 
   /// Gripper Commands
   @$pb.TagNumber(8)
@@ -235,6 +408,28 @@ class ArmData extends $pb.GeneratedMessage {
   $core.bool hasLaserState() => $_has(11);
   @$pb.TagNumber(12)
   void clearLaserState() => $_clearField(12);
+
+  @$pb.TagNumber(13)
+  $1.MotorData get roll => $_getN(12);
+  @$pb.TagNumber(13)
+  set roll($1.MotorData value) => $_setField(13, value);
+  @$pb.TagNumber(13)
+  $core.bool hasRoll() => $_has(12);
+  @$pb.TagNumber(13)
+  void clearRoll() => $_clearField(13);
+  @$pb.TagNumber(13)
+  $1.MotorData ensureRoll() => $_ensure(12);
+
+  @$pb.TagNumber(14)
+  JointAngleData get jointAngles => $_getN(13);
+  @$pb.TagNumber(14)
+  set jointAngles(JointAngleData value) => $_setField(14, value);
+  @$pb.TagNumber(14)
+  $core.bool hasJointAngles() => $_has(13);
+  @$pb.TagNumber(14)
+  void clearJointAngles() => $_clearField(14);
+  @$pb.TagNumber(14)
+  JointAngleData ensureJointAngles() => $_ensure(13);
 }
 
 class ArmCommand extends $pb.GeneratedMessage {
@@ -250,7 +445,7 @@ class ArmCommand extends $pb.GeneratedMessage {
     $core.double? ikZ,
     $core.bool? jab,
     $2.Version? version,
-    $3.BoolState? startUSS,
+    $3.BoolState? startUss,
     $1.MotorCommand? lift,
     $1.MotorCommand? rotate,
     $1.MotorCommand? pinch,
@@ -259,6 +454,7 @@ class ArmCommand extends $pb.GeneratedMessage {
     $core.bool? spin,
     $core.int? servoAngle,
     $3.BoolState? laserState,
+    $1.MotorCommand? roll,
   }) {
     final result = create();
     if (stop != null) result.stop = stop;
@@ -272,7 +468,7 @@ class ArmCommand extends $pb.GeneratedMessage {
     if (ikZ != null) result.ikZ = ikZ;
     if (jab != null) result.jab = jab;
     if (version != null) result.version = version;
-    if (startUSS != null) result.startUSS = startUSS;
+    if (startUss != null) result.startUss = startUss;
     if (lift != null) result.lift = lift;
     if (rotate != null) result.rotate = rotate;
     if (pinch != null) result.pinch = pinch;
@@ -281,6 +477,7 @@ class ArmCommand extends $pb.GeneratedMessage {
     if (spin != null) result.spin = spin;
     if (servoAngle != null) result.servoAngle = servoAngle;
     if (laserState != null) result.laserState = laserState;
+    if (roll != null) result.roll = roll;
     return result;
   }
 
@@ -312,8 +509,8 @@ class ArmCommand extends $pb.GeneratedMessage {
     ..aOB(10, _omitFieldNames ? '' : 'jab')
     ..aOM<$2.Version>(11, _omitFieldNames ? '' : 'version',
         subBuilder: $2.Version.create)
-    ..aE<$3.BoolState>(12, _omitFieldNames ? '' : 'startUSS',
-        protoName: 'start_USS', enumValues: $3.BoolState.values)
+    ..aE<$3.BoolState>(12, _omitFieldNames ? '' : 'startUss',
+        enumValues: $3.BoolState.values)
     ..aOM<$1.MotorCommand>(13, _omitFieldNames ? '' : 'lift',
         subBuilder: $1.MotorCommand.create)
     ..aOM<$1.MotorCommand>(14, _omitFieldNames ? '' : 'rotate',
@@ -323,9 +520,11 @@ class ArmCommand extends $pb.GeneratedMessage {
     ..aOB(16, _omitFieldNames ? '' : 'open')
     ..aOB(17, _omitFieldNames ? '' : 'close')
     ..aOB(18, _omitFieldNames ? '' : 'spin')
-    ..aI(19, _omitFieldNames ? '' : 'servoAngle', protoName: 'servoAngle')
+    ..aI(19, _omitFieldNames ? '' : 'servoAngle')
     ..aE<$3.BoolState>(20, _omitFieldNames ? '' : 'laserState',
-        protoName: 'laserState', enumValues: $3.BoolState.values)
+        enumValues: $3.BoolState.values)
+    ..aOM<$1.MotorCommand>(21, _omitFieldNames ? '' : 'roll',
+        subBuilder: $1.MotorCommand.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -463,13 +662,13 @@ class ArmCommand extends $pb.GeneratedMessage {
 
   /// USS commands
   @$pb.TagNumber(12)
-  $3.BoolState get startUSS => $_getN(11);
+  $3.BoolState get startUss => $_getN(11);
   @$pb.TagNumber(12)
-  set startUSS($3.BoolState value) => $_setField(12, value);
+  set startUss($3.BoolState value) => $_setField(12, value);
   @$pb.TagNumber(12)
-  $core.bool hasStartUSS() => $_has(11);
+  $core.bool hasStartUss() => $_has(11);
   @$pb.TagNumber(12)
-  void clearStartUSS() => $_clearField(12);
+  void clearStartUss() => $_clearField(12);
 
   /// Move individual motors
   @$pb.TagNumber(13)
@@ -550,6 +749,17 @@ class ArmCommand extends $pb.GeneratedMessage {
   $core.bool hasLaserState() => $_has(19);
   @$pb.TagNumber(20)
   void clearLaserState() => $_clearField(20);
+
+  @$pb.TagNumber(21)
+  $1.MotorCommand get roll => $_getN(20);
+  @$pb.TagNumber(21)
+  set roll($1.MotorCommand value) => $_setField(21, value);
+  @$pb.TagNumber(21)
+  $core.bool hasRoll() => $_has(20);
+  @$pb.TagNumber(21)
+  void clearRoll() => $_clearField(21);
+  @$pb.TagNumber(21)
+  $1.MotorCommand ensureRoll() => $_ensure(20);
 }
 
 const $core.bool _omitFieldNames =

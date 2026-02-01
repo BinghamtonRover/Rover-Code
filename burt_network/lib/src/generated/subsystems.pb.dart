@@ -22,11 +22,11 @@ export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
 class SubsystemsCommand extends $pb.GeneratedMessage {
   factory SubsystemsCommand({
-    $core.bool? zeroIMU,
+    $core.bool? zeroImu,
     $0.Version? version,
   }) {
     final result = create();
-    if (zeroIMU != null) result.zeroIMU = zeroIMU;
+    if (zeroImu != null) result.zeroImu = zeroImu;
     if (version != null) result.version = version;
     return result;
   }
@@ -43,7 +43,7 @@ class SubsystemsCommand extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'SubsystemsCommand',
       createEmptyInstance: create)
-    ..aOB(1, _omitFieldNames ? '' : 'zeroIMU', protoName: 'zeroIMU')
+    ..aOB(1, _omitFieldNames ? '' : 'zeroImu')
     ..aOM<$0.Version>(2, _omitFieldNames ? '' : 'version',
         subBuilder: $0.Version.create)
     ..hasRequiredFields = false;
@@ -68,13 +68,13 @@ class SubsystemsCommand extends $pb.GeneratedMessage {
   static SubsystemsCommand? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.bool get zeroIMU => $_getBF(0);
+  $core.bool get zeroImu => $_getBF(0);
   @$pb.TagNumber(1)
-  set zeroIMU($core.bool value) => $_setBool(0, value);
+  set zeroImu($core.bool value) => $_setBool(0, value);
   @$pb.TagNumber(1)
-  $core.bool hasZeroIMU() => $_has(0);
+  $core.bool hasZeroImu() => $_has(0);
   @$pb.TagNumber(1)
-  void clearZeroIMU() => $_clearField(1);
+  void clearZeroImu() => $_clearField(1);
 
   @$pb.TagNumber(2)
   $0.Version get version => $_getN(1);
@@ -120,14 +120,13 @@ class SubsystemsData extends $pb.GeneratedMessage {
         subBuilder: $0.Version.create)
     ..pc<$1.Device>(
         2, _omitFieldNames ? '' : 'connectedDevices', $pb.PbFieldType.KE,
-        protoName: 'connectedDevices',
         valueOf: $1.Device.valueOf,
         enumValues: $1.Device.values,
         defaultEnumValue: $1.Device.DEVICE_UNDEFINED)
     ..aE<$2.BoolState>(3, _omitFieldNames ? '' : 'gpsConnected',
-        protoName: 'gpsConnected', enumValues: $2.BoolState.values)
+        enumValues: $2.BoolState.values)
     ..aE<$2.BoolState>(4, _omitFieldNames ? '' : 'imuConnected',
-        protoName: 'imuConnected', enumValues: $2.BoolState.values)
+        enumValues: $2.BoolState.values)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')

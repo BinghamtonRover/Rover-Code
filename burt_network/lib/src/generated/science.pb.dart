@@ -25,11 +25,9 @@ export 'science.pbenum.dart';
 class ScienceCommand extends $pb.GeneratedMessage {
   factory ScienceCommand({
     $core.double? carouselMotor,
-    $core.double? scoopMotor,
     $core.double? subsurfaceMotor,
     PumpState? pumps,
     ServoState? funnel,
-    ServoState? scoop,
     CarouselCommand? carousel,
     $core.bool? calibrate,
     $core.bool? stop,
@@ -39,11 +37,9 @@ class ScienceCommand extends $pb.GeneratedMessage {
   }) {
     final result = create();
     if (carouselMotor != null) result.carouselMotor = carouselMotor;
-    if (scoopMotor != null) result.scoopMotor = scoopMotor;
     if (subsurfaceMotor != null) result.subsurfaceMotor = subsurfaceMotor;
     if (pumps != null) result.pumps = pumps;
     if (funnel != null) result.funnel = funnel;
-    if (scoop != null) result.scoop = scoop;
     if (carousel != null) result.carousel = carousel;
     if (calibrate != null) result.calibrate = calibrate;
     if (stop != null) result.stop = stop;
@@ -67,14 +63,11 @@ class ScienceCommand extends $pb.GeneratedMessage {
       createEmptyInstance: create)
     ..aD(1, _omitFieldNames ? '' : 'carouselMotor',
         fieldType: $pb.PbFieldType.OF)
-    ..aD(2, _omitFieldNames ? '' : 'scoopMotor', fieldType: $pb.PbFieldType.OF)
     ..aD(3, _omitFieldNames ? '' : 'subsurfaceMotor',
         fieldType: $pb.PbFieldType.OF)
     ..aE<PumpState>(4, _omitFieldNames ? '' : 'pumps',
         enumValues: PumpState.values)
     ..aE<ServoState>(5, _omitFieldNames ? '' : 'funnel',
-        enumValues: ServoState.values)
-    ..aE<ServoState>(6, _omitFieldNames ? '' : 'scoop',
         enumValues: ServoState.values)
     ..aE<CarouselCommand>(7, _omitFieldNames ? '' : 'carousel',
         enumValues: CarouselCommand.values)
@@ -116,108 +109,90 @@ class ScienceCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   void clearCarouselMotor() => $_clearField(1);
 
-  @$pb.TagNumber(2)
-  $core.double get scoopMotor => $_getN(1);
-  @$pb.TagNumber(2)
-  set scoopMotor($core.double value) => $_setFloat(1, value);
-  @$pb.TagNumber(2)
-  $core.bool hasScoopMotor() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearScoopMotor() => $_clearField(2);
-
   @$pb.TagNumber(3)
-  $core.double get subsurfaceMotor => $_getN(2);
+  $core.double get subsurfaceMotor => $_getN(1);
   @$pb.TagNumber(3)
-  set subsurfaceMotor($core.double value) => $_setFloat(2, value);
+  set subsurfaceMotor($core.double value) => $_setFloat(1, value);
   @$pb.TagNumber(3)
-  $core.bool hasSubsurfaceMotor() => $_has(2);
+  $core.bool hasSubsurfaceMotor() => $_has(1);
   @$pb.TagNumber(3)
   void clearSubsurfaceMotor() => $_clearField(3);
 
   /// Control over other hardware
   @$pb.TagNumber(4)
-  PumpState get pumps => $_getN(3);
+  PumpState get pumps => $_getN(2);
   @$pb.TagNumber(4)
   set pumps(PumpState value) => $_setField(4, value);
   @$pb.TagNumber(4)
-  $core.bool hasPumps() => $_has(3);
+  $core.bool hasPumps() => $_has(2);
   @$pb.TagNumber(4)
   void clearPumps() => $_clearField(4);
 
   @$pb.TagNumber(5)
-  ServoState get funnel => $_getN(4);
+  ServoState get funnel => $_getN(3);
   @$pb.TagNumber(5)
   set funnel(ServoState value) => $_setField(5, value);
   @$pb.TagNumber(5)
-  $core.bool hasFunnel() => $_has(4);
+  $core.bool hasFunnel() => $_has(3);
   @$pb.TagNumber(5)
   void clearFunnel() => $_clearField(5);
 
-  @$pb.TagNumber(6)
-  ServoState get scoop => $_getN(5);
-  @$pb.TagNumber(6)
-  set scoop(ServoState value) => $_setField(6, value);
-  @$pb.TagNumber(6)
-  $core.bool hasScoop() => $_has(5);
-  @$pb.TagNumber(6)
-  void clearScoop() => $_clearField(6);
-
   @$pb.TagNumber(7)
-  CarouselCommand get carousel => $_getN(6);
+  CarouselCommand get carousel => $_getN(4);
   @$pb.TagNumber(7)
   set carousel(CarouselCommand value) => $_setField(7, value);
   @$pb.TagNumber(7)
-  $core.bool hasCarousel() => $_has(6);
+  $core.bool hasCarousel() => $_has(4);
   @$pb.TagNumber(7)
   void clearCarousel() => $_clearField(7);
 
   /// High level commands
   @$pb.TagNumber(8)
-  $core.bool get calibrate => $_getBF(7);
+  $core.bool get calibrate => $_getBF(5);
   @$pb.TagNumber(8)
-  set calibrate($core.bool value) => $_setBool(7, value);
+  set calibrate($core.bool value) => $_setBool(5, value);
   @$pb.TagNumber(8)
-  $core.bool hasCalibrate() => $_has(7);
+  $core.bool hasCalibrate() => $_has(5);
   @$pb.TagNumber(8)
   void clearCalibrate() => $_clearField(8);
 
   @$pb.TagNumber(9)
-  $core.bool get stop => $_getBF(8);
+  $core.bool get stop => $_getBF(6);
   @$pb.TagNumber(9)
-  set stop($core.bool value) => $_setBool(8, value);
+  set stop($core.bool value) => $_setBool(6, value);
   @$pb.TagNumber(9)
-  $core.bool hasStop() => $_has(8);
+  $core.bool hasStop() => $_has(6);
   @$pb.TagNumber(9)
   void clearStop() => $_clearField(9);
 
   @$pb.TagNumber(10)
-  $core.int get sample => $_getIZ(9);
+  $core.int get sample => $_getIZ(7);
   @$pb.TagNumber(10)
-  set sample($core.int value) => $_setSignedInt32(9, value);
+  set sample($core.int value) => $_setSignedInt32(7, value);
   @$pb.TagNumber(10)
-  $core.bool hasSample() => $_has(9);
+  $core.bool hasSample() => $_has(7);
   @$pb.TagNumber(10)
   void clearSample() => $_clearField(10);
 
   @$pb.TagNumber(11)
-  ScienceState get state => $_getN(10);
+  ScienceState get state => $_getN(8);
   @$pb.TagNumber(11)
   set state(ScienceState value) => $_setField(11, value);
   @$pb.TagNumber(11)
-  $core.bool hasState() => $_has(10);
+  $core.bool hasState() => $_has(8);
   @$pb.TagNumber(11)
   void clearState() => $_clearField(11);
 
   @$pb.TagNumber(12)
-  $0.Version get version => $_getN(11);
+  $0.Version get version => $_getN(9);
   @$pb.TagNumber(12)
   set version($0.Version value) => $_setField(12, value);
   @$pb.TagNumber(12)
-  $core.bool hasVersion() => $_has(11);
+  $core.bool hasVersion() => $_has(9);
   @$pb.TagNumber(12)
   void clearVersion() => $_clearField(12);
   @$pb.TagNumber(12)
-  $0.Version ensureVersion() => $_ensure(11);
+  $0.Version ensureVersion() => $_ensure(9);
 }
 
 /// / Data coming from the science subsystem.

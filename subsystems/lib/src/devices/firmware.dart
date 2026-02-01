@@ -13,6 +13,7 @@ final nameToDevice = <String, Device>{
   DriveCommand().messageName: Device.DRIVE,
   ScienceCommand().messageName: Device.SCIENCE,
   RelaysCommand().messageName: Device.RELAY,
+  ControlCommand().messageName: Device.CONTROL_BOARD,
 };
 
 /// A service to manage all the connected firmware.
@@ -61,11 +62,29 @@ class FirmwareManager extends Service {
   ///
   /// The notes on [sendMessage] apply here as well.
   void _sendToSerial(WrappedMessage wrapper) {
-    final device = nameToDevice[wrapper.name];
+    final controlConnected = devices.any(
+      (e) => e.device == Device.CONTROL_BOARD,
+    );
+    var device = nameToDevice[wrapper.name];
     if (device == null) return;
+    var bytesToSend = wrapper.data;
+
+    if (controlConnected) {
+      if (device == Device.DRIVE) {
+        bytesToSend = ControlCommand(
+          drive: DriveCommand.fromBuffer(wrapper.data),
+        ).writeToBuffer();
+        device = Device.CONTROL_BOARD;
+      } else if (device == Device.RELAY) {
+        bytesToSend = ControlCommand(
+          relays: RelaysCommand.fromBuffer(wrapper.data),
+        ).writeToBuffer();
+        device = Device.CONTROL_BOARD;
+      }
+    }
     final serial = devices.firstWhereOrNull((s) => s.device == device);
     if (serial == null) return;
-    serial.sendBytes(wrapper.data);
+    serial.sendBytes(bytesToSend);
   }
 
   /// Sends a [Message] to the appropriate firmware device.
