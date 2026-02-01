@@ -19,15 +19,15 @@ import 'dart:typed_data' as $typed_data;
 const SubsystemsCommand$json = {
   '1': 'SubsystemsCommand',
   '2': [
-    {'1': 'zeroIMU', '3': 1, '4': 1, '5': 8, '10': 'zeroIMU'},
+    {'1': 'zero_imu', '3': 1, '4': 1, '5': 8, '10': 'zeroImu'},
     {'1': 'version', '3': 2, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
   ],
 };
 
 /// Descriptor for `SubsystemsCommand`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List subsystemsCommandDescriptor = $convert.base64Decode(
-    'ChFTdWJzeXN0ZW1zQ29tbWFuZBIYCgd6ZXJvSU1VGAEgASgIUgd6ZXJvSU1VEiIKB3ZlcnNpb2'
-    '4YAiABKAsyCC5WZXJzaW9uUgd2ZXJzaW9u');
+    'ChFTdWJzeXN0ZW1zQ29tbWFuZBIZCgh6ZXJvX2ltdRgBIAEoCFIHemVyb0ltdRIiCgd2ZXJzaW'
+    '9uGAIgASgLMgguVmVyc2lvblIHdmVyc2lvbg==');
 
 @$core.Deprecated('Use subsystemsDataDescriptor instead')
 const SubsystemsData$json = {
@@ -35,7 +35,7 @@ const SubsystemsData$json = {
   '2': [
     {'1': 'version', '3': 1, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
     {
-      '1': 'connectedDevices',
+      '1': 'connected_devices',
       '3': 2,
       '4': 3,
       '5': 14,
@@ -43,7 +43,7 @@ const SubsystemsData$json = {
       '10': 'connectedDevices'
     },
     {
-      '1': 'gpsConnected',
+      '1': 'gps_connected',
       '3': 3,
       '4': 1,
       '5': 14,
@@ -51,7 +51,7 @@ const SubsystemsData$json = {
       '10': 'gpsConnected'
     },
     {
-      '1': 'imuConnected',
+      '1': 'imu_connected',
       '3': 4,
       '4': 1,
       '5': 14,
@@ -63,7 +63,7 @@ const SubsystemsData$json = {
 
 /// Descriptor for `SubsystemsData`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List subsystemsDataDescriptor = $convert.base64Decode(
-    'Cg5TdWJzeXN0ZW1zRGF0YRIiCgd2ZXJzaW9uGAEgASgLMgguVmVyc2lvblIHdmVyc2lvbhIzCh'
-    'Bjb25uZWN0ZWREZXZpY2VzGAIgAygOMgcuRGV2aWNlUhBjb25uZWN0ZWREZXZpY2VzEi4KDGdw'
-    'c0Nvbm5lY3RlZBgDIAEoDjIKLkJvb2xTdGF0ZVIMZ3BzQ29ubmVjdGVkEi4KDGltdUNvbm5lY3'
-    'RlZBgEIAEoDjIKLkJvb2xTdGF0ZVIMaW11Q29ubmVjdGVk');
+    'Cg5TdWJzeXN0ZW1zRGF0YRIiCgd2ZXJzaW9uGAEgASgLMgguVmVyc2lvblIHdmVyc2lvbhI0Ch'
+    'Fjb25uZWN0ZWRfZGV2aWNlcxgCIAMoDjIHLkRldmljZVIQY29ubmVjdGVkRGV2aWNlcxIvCg1n'
+    'cHNfY29ubmVjdGVkGAMgASgOMgouQm9vbFN0YXRlUgxncHNDb25uZWN0ZWQSLwoNaW11X2Nvbm'
+    '5lY3RlZBgEIAEoDjIKLkJvb2xTdGF0ZVIMaW11Q29ubmVjdGVk');

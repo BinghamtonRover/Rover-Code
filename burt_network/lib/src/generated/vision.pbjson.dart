@@ -36,7 +36,7 @@ const PnpResult$json = {
   '1': 'PnpResult',
   '2': [
     {
-      '1': 'cameraToTarget',
+      '1': 'camera_to_target',
       '3': 1,
       '4': 1,
       '5': 11,
@@ -44,7 +44,7 @@ const PnpResult$json = {
       '10': 'cameraToTarget'
     },
     {
-      '1': 'reprojectionError',
+      '1': 'reprojection_error',
       '3': 2,
       '4': 1,
       '5': 1,
@@ -55,30 +55,30 @@ const PnpResult$json = {
 
 /// Descriptor for `PnpResult`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List pnpResultDescriptor = $convert.base64Decode(
-    'CglQbnBSZXN1bHQSLwoOY2FtZXJhVG9UYXJnZXQYASABKAsyBy5Qb3NlM2RSDmNhbWVyYVRvVG'
-    'FyZ2V0EiwKEXJlcHJvamVjdGlvbkVycm9yGAIgASgBUhFyZXByb2plY3Rpb25FcnJvcg==');
+    'CglQbnBSZXN1bHQSMQoQY2FtZXJhX3RvX3RhcmdldBgBIAEoCzIHLlBvc2UzZFIOY2FtZXJhVG'
+    '9UYXJnZXQSLQoScmVwcm9qZWN0aW9uX2Vycm9yGAIgASgBUhFyZXByb2plY3Rpb25FcnJvcg==');
 
 @$core.Deprecated('Use detectedObjectDescriptor instead')
 const DetectedObject$json = {
   '1': 'DetectedObject',
   '2': [
     {
-      '1': 'objectType',
+      '1': 'object_type',
       '3': 1,
       '4': 1,
       '5': 14,
       '6': '.DetectedObjectType',
       '10': 'objectType'
     },
-    {'1': 'arucoTagId', '3': 2, '4': 1, '5': 5, '10': 'arucoTagId'},
-    {'1': 'xPosition', '3': 4, '4': 1, '5': 2, '10': 'xPosition'},
-    {'1': 'relativeSize', '3': 5, '4': 1, '5': 2, '10': 'relativeSize'},
-    {'1': 'centerX', '3': 6, '4': 1, '5': 5, '10': 'centerX'},
-    {'1': 'centerY', '3': 7, '4': 1, '5': 5, '10': 'centerY'},
+    {'1': 'aruco_tag_id', '3': 2, '4': 1, '5': 5, '10': 'arucoTagId'},
+    {'1': 'x_position', '3': 4, '4': 1, '5': 2, '10': 'xPosition'},
+    {'1': 'relative_size', '3': 5, '4': 1, '5': 2, '10': 'relativeSize'},
+    {'1': 'center_x', '3': 6, '4': 1, '5': 5, '10': 'centerX'},
+    {'1': 'center_y', '3': 7, '4': 1, '5': 5, '10': 'centerY'},
     {'1': 'yaw', '3': 8, '4': 1, '5': 2, '10': 'yaw'},
     {'1': 'pitch', '3': 9, '4': 1, '5': 2, '10': 'pitch'},
     {
-      '1': 'bestPnpResult',
+      '1': 'best_pnp_result',
       '3': 10,
       '4': 1,
       '5': 11,
@@ -86,7 +86,7 @@ const DetectedObject$json = {
       '10': 'bestPnpResult'
     },
     {
-      '1': 'alternatePnpResult',
+      '1': 'alternate_pnp_result',
       '3': 11,
       '4': 1,
       '5': 11,
@@ -98,10 +98,10 @@ const DetectedObject$json = {
 
 /// Descriptor for `DetectedObject`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List detectedObjectDescriptor = $convert.base64Decode(
-    'Cg5EZXRlY3RlZE9iamVjdBIzCgpvYmplY3RUeXBlGAEgASgOMhMuRGV0ZWN0ZWRPYmplY3RUeX'
-    'BlUgpvYmplY3RUeXBlEh4KCmFydWNvVGFnSWQYAiABKAVSCmFydWNvVGFnSWQSHAoJeFBvc2l0'
-    'aW9uGAQgASgCUgl4UG9zaXRpb24SIgoMcmVsYXRpdmVTaXplGAUgASgCUgxyZWxhdGl2ZVNpem'
-    'USGAoHY2VudGVyWBgGIAEoBVIHY2VudGVyWBIYCgdjZW50ZXJZGAcgASgFUgdjZW50ZXJZEhAK'
-    'A3lhdxgIIAEoAlIDeWF3EhQKBXBpdGNoGAkgASgCUgVwaXRjaBIwCg1iZXN0UG5wUmVzdWx0GA'
-    'ogASgLMgouUG5wUmVzdWx0Ug1iZXN0UG5wUmVzdWx0EjoKEmFsdGVybmF0ZVBucFJlc3VsdBgL'
-    'IAEoCzIKLlBucFJlc3VsdFISYWx0ZXJuYXRlUG5wUmVzdWx0');
+    'Cg5EZXRlY3RlZE9iamVjdBI0CgtvYmplY3RfdHlwZRgBIAEoDjITLkRldGVjdGVkT2JqZWN0VH'
+    'lwZVIKb2JqZWN0VHlwZRIgCgxhcnVjb190YWdfaWQYAiABKAVSCmFydWNvVGFnSWQSHQoKeF9w'
+    'b3NpdGlvbhgEIAEoAlIJeFBvc2l0aW9uEiMKDXJlbGF0aXZlX3NpemUYBSABKAJSDHJlbGF0aX'
+    'ZlU2l6ZRIZCghjZW50ZXJfeBgGIAEoBVIHY2VudGVyWBIZCghjZW50ZXJfeRgHIAEoBVIHY2Vu'
+    'dGVyWRIQCgN5YXcYCCABKAJSA3lhdxIUCgVwaXRjaBgJIAEoAlIFcGl0Y2gSMgoPYmVzdF9wbn'
+    'BfcmVzdWx0GAogASgLMgouUG5wUmVzdWx0Ug1iZXN0UG5wUmVzdWx0EjwKFGFsdGVybmF0ZV9w'
+    'bnBfcmVzdWx0GAsgASgLMgouUG5wUmVzdWx0UhJhbHRlcm5hdGVQbnBSZXN1bHQ=');

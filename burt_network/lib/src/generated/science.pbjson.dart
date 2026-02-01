@@ -86,7 +86,6 @@ const ScienceCommand$json = {
   '1': 'ScienceCommand',
   '2': [
     {'1': 'carousel_motor', '3': 1, '4': 1, '5': 2, '10': 'carouselMotor'},
-    {'1': 'scoop_motor', '3': 2, '4': 1, '5': 2, '10': 'scoopMotor'},
     {'1': 'subsurface_motor', '3': 3, '4': 1, '5': 2, '10': 'subsurfaceMotor'},
     {'1': 'pumps', '3': 4, '4': 1, '5': 14, '6': '.PumpState', '10': 'pumps'},
     {
@@ -97,7 +96,6 @@ const ScienceCommand$json = {
       '6': '.ServoState',
       '10': 'funnel'
     },
-    {'1': 'scoop', '3': 6, '4': 1, '5': 14, '6': '.ServoState', '10': 'scoop'},
     {
       '1': 'carousel',
       '3': 7,
@@ -131,13 +129,12 @@ const ScienceCommand$json = {
 /// Descriptor for `ScienceCommand`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List scienceCommandDescriptor = $convert.base64Decode(
     'Cg5TY2llbmNlQ29tbWFuZBIlCg5jYXJvdXNlbF9tb3RvchgBIAEoAlINY2Fyb3VzZWxNb3Rvch'
-    'IfCgtzY29vcF9tb3RvchgCIAEoAlIKc2Nvb3BNb3RvchIpChBzdWJzdXJmYWNlX21vdG9yGAMg'
-    'ASgCUg9zdWJzdXJmYWNlTW90b3ISIAoFcHVtcHMYBCABKA4yCi5QdW1wU3RhdGVSBXB1bXBzEi'
-    'MKBmZ1bm5lbBgFIAEoDjILLlNlcnZvU3RhdGVSBmZ1bm5lbBIhCgVzY29vcBgGIAEoDjILLlNl'
-    'cnZvU3RhdGVSBXNjb29wEiwKCGNhcm91c2VsGAcgASgOMhAuQ2Fyb3VzZWxDb21tYW5kUghjYX'
-    'JvdXNlbBIcCgljYWxpYnJhdGUYCCABKAhSCWNhbGlicmF0ZRISCgRzdG9wGAkgASgIUgRzdG9w'
-    'EhYKBnNhbXBsZRgKIAEoBVIGc2FtcGxlEiMKBXN0YXRlGAsgASgOMg0uU2NpZW5jZVN0YXRlUg'
-    'VzdGF0ZRIiCgd2ZXJzaW9uGAwgASgLMgguVmVyc2lvblIHdmVyc2lvbg==');
+    'IpChBzdWJzdXJmYWNlX21vdG9yGAMgASgCUg9zdWJzdXJmYWNlTW90b3ISIAoFcHVtcHMYBCAB'
+    'KA4yCi5QdW1wU3RhdGVSBXB1bXBzEiMKBmZ1bm5lbBgFIAEoDjILLlNlcnZvU3RhdGVSBmZ1bm'
+    '5lbBIsCghjYXJvdXNlbBgHIAEoDjIQLkNhcm91c2VsQ29tbWFuZFIIY2Fyb3VzZWwSHAoJY2Fs'
+    'aWJyYXRlGAggASgIUgljYWxpYnJhdGUSEgoEc3RvcBgJIAEoCFIEc3RvcBIWCgZzYW1wbGUYCi'
+    'ABKAVSBnNhbXBsZRIjCgVzdGF0ZRgLIAEoDjINLlNjaWVuY2VTdGF0ZVIFc3RhdGUSIgoHdmVy'
+    'c2lvbhgMIAEoCzIILlZlcnNpb25SB3ZlcnNpb24=');
 
 @$core.Deprecated('Use scienceDataDescriptor instead')
 const ScienceData$json = {
