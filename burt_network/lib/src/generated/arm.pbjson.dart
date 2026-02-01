@@ -15,12 +15,52 @@ import 'dart:convert' as $convert;
 import 'dart:core' as $core;
 import 'dart:typed_data' as $typed_data;
 
+@$core.Deprecated('Use jointAngleDataDescriptor instead')
+const JointAngleData$json = {
+  '1': 'JointAngleData',
+  '2': [
+    {'1': 'swivel_single', '3': 1, '4': 1, '5': 2, '10': 'swivelSingle'},
+    {'1': 'shoulder_single', '3': 2, '4': 1, '5': 2, '10': 'shoulderSingle'},
+    {'1': 'elbow_single', '3': 3, '4': 1, '5': 2, '10': 'elbowSingle'},
+    {'1': 'roll_single', '3': 4, '4': 1, '5': 2, '10': 'rollSingle'},
+    {
+      '1': 'wrist_pitch_single',
+      '3': 5,
+      '4': 1,
+      '5': 2,
+      '10': 'wristPitchSingle'
+    },
+    {'1': 'swivel_multi', '3': 6, '4': 1, '5': 2, '10': 'swivelMulti'},
+    {'1': 'shoulder_multi', '3': 7, '4': 1, '5': 2, '10': 'shoulderMulti'},
+    {'1': 'elbow_multi', '3': 8, '4': 1, '5': 2, '10': 'elbowMulti'},
+    {'1': 'roll_multi', '3': 9, '4': 1, '5': 2, '10': 'rollMulti'},
+    {
+      '1': 'wrist_pitch_multi',
+      '3': 10,
+      '4': 1,
+      '5': 2,
+      '10': 'wristPitchMulti'
+    },
+  ],
+};
+
+/// Descriptor for `JointAngleData`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List jointAngleDataDescriptor = $convert.base64Decode(
+    'Cg5Kb2ludEFuZ2xlRGF0YRIjCg1zd2l2ZWxfc2luZ2xlGAEgASgCUgxzd2l2ZWxTaW5nbGUSJw'
+    'oPc2hvdWxkZXJfc2luZ2xlGAIgASgCUg5zaG91bGRlclNpbmdsZRIhCgxlbGJvd19zaW5nbGUY'
+    'AyABKAJSC2VsYm93U2luZ2xlEh8KC3JvbGxfc2luZ2xlGAQgASgCUgpyb2xsU2luZ2xlEiwKEn'
+    'dyaXN0X3BpdGNoX3NpbmdsZRgFIAEoAlIQd3Jpc3RQaXRjaFNpbmdsZRIhCgxzd2l2ZWxfbXVs'
+    'dGkYBiABKAJSC3N3aXZlbE11bHRpEiUKDnNob3VsZGVyX211bHRpGAcgASgCUg1zaG91bGRlck'
+    '11bHRpEh8KC2VsYm93X211bHRpGAggASgCUgplbGJvd011bHRpEh0KCnJvbGxfbXVsdGkYCSAB'
+    'KAJSCXJvbGxNdWx0aRIqChF3cmlzdF9waXRjaF9tdWx0aRgKIAEoAlIPd3Jpc3RQaXRjaE11bH'
+    'Rp');
+
 @$core.Deprecated('Use armDataDescriptor instead')
 const ArmData$json = {
   '1': 'ArmData',
   '2': [
     {
-      '1': 'currentPosition',
+      '1': 'current_position',
       '3': 1,
       '4': 1,
       '5': 11,
@@ -28,7 +68,7 @@ const ArmData$json = {
       '10': 'currentPosition'
     },
     {
-      '1': 'targetPosition',
+      '1': 'target_position',
       '3': 2,
       '4': 1,
       '5': 11,
@@ -45,17 +85,45 @@ const ArmData$json = {
       '10': 'shoulder'
     },
     {'1': 'elbow', '3': 5, '4': 1, '5': 11, '6': '.MotorData', '10': 'elbow'},
+    {'1': 'roll', '3': 13, '4': 1, '5': 11, '6': '.MotorData', '10': 'roll'},
     {'1': 'version', '3': 6, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
+    {'1': 'uss_distance', '3': 7, '4': 1, '5': 2, '10': 'ussDistance'},
+    {'1': 'lift', '3': 8, '4': 1, '5': 11, '6': '.MotorData', '10': 'lift'},
+    {'1': 'rotate', '3': 9, '4': 1, '5': 11, '6': '.MotorData', '10': 'rotate'},
+    {'1': 'pinch', '3': 10, '4': 1, '5': 11, '6': '.MotorData', '10': 'pinch'},
+    {'1': 'servo_angle', '3': 11, '4': 1, '5': 5, '10': 'servoAngle'},
+    {
+      '1': 'laser_state',
+      '3': 12,
+      '4': 1,
+      '5': 14,
+      '6': '.BoolState',
+      '10': 'laserState'
+    },
+    {
+      '1': 'joint_angles',
+      '3': 14,
+      '4': 1,
+      '5': 11,
+      '6': '.JointAngleData',
+      '10': 'jointAngles'
+    },
   ],
 };
 
 /// Descriptor for `ArmData`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List armDataDescriptor = $convert.base64Decode(
-    'CgdBcm1EYXRhEjYKD2N1cnJlbnRQb3NpdGlvbhgBIAEoCzIMLkNvb3JkaW5hdGVzUg9jdXJyZW'
-    '50UG9zaXRpb24SNAoOdGFyZ2V0UG9zaXRpb24YAiABKAsyDC5Db29yZGluYXRlc1IOdGFyZ2V0'
-    'UG9zaXRpb24SHgoEYmFzZRgDIAEoCzIKLk1vdG9yRGF0YVIEYmFzZRImCghzaG91bGRlchgEIA'
-    'EoCzIKLk1vdG9yRGF0YVIIc2hvdWxkZXISIAoFZWxib3cYBSABKAsyCi5Nb3RvckRhdGFSBWVs'
-    'Ym93EiIKB3ZlcnNpb24YBiABKAsyCC5WZXJzaW9uUgd2ZXJzaW9u');
+    'CgdBcm1EYXRhEjcKEGN1cnJlbnRfcG9zaXRpb24YASABKAsyDC5Db29yZGluYXRlc1IPY3Vycm'
+    'VudFBvc2l0aW9uEjUKD3RhcmdldF9wb3NpdGlvbhgCIAEoCzIMLkNvb3JkaW5hdGVzUg50YXJn'
+    'ZXRQb3NpdGlvbhIeCgRiYXNlGAMgASgLMgouTW90b3JEYXRhUgRiYXNlEiYKCHNob3VsZGVyGA'
+    'QgASgLMgouTW90b3JEYXRhUghzaG91bGRlchIgCgVlbGJvdxgFIAEoCzIKLk1vdG9yRGF0YVIF'
+    'ZWxib3cSHgoEcm9sbBgNIAEoCzIKLk1vdG9yRGF0YVIEcm9sbBIiCgd2ZXJzaW9uGAYgASgLMg'
+    'guVmVyc2lvblIHdmVyc2lvbhIhCgx1c3NfZGlzdGFuY2UYByABKAJSC3Vzc0Rpc3RhbmNlEh4K'
+    'BGxpZnQYCCABKAsyCi5Nb3RvckRhdGFSBGxpZnQSIgoGcm90YXRlGAkgASgLMgouTW90b3JEYX'
+    'RhUgZyb3RhdGUSIAoFcGluY2gYCiABKAsyCi5Nb3RvckRhdGFSBXBpbmNoEh8KC3NlcnZvX2Fu'
+    'Z2xlGAsgASgFUgpzZXJ2b0FuZ2xlEisKC2xhc2VyX3N0YXRlGAwgASgOMgouQm9vbFN0YXRlUg'
+    'psYXNlclN0YXRlEjIKDGpvaW50X2FuZ2xlcxgOIAEoCzIPLkpvaW50QW5nbGVEYXRhUgtqb2lu'
+    'dEFuZ2xlcw==');
 
 @$core.Deprecated('Use armCommandDescriptor instead')
 const ArmCommand$json = {
@@ -87,6 +155,7 @@ const ArmCommand$json = {
       '6': '.MotorCommand',
       '10': 'elbow'
     },
+    {'1': 'roll', '3': 21, '4': 1, '5': 11, '6': '.MotorCommand', '10': 'roll'},
     {
       '1': 'gripper_lift',
       '3': 6,
@@ -107,6 +176,43 @@ const ArmCommand$json = {
       '6': '.Version',
       '10': 'version'
     },
+    {
+      '1': 'start_uss',
+      '3': 12,
+      '4': 1,
+      '5': 14,
+      '6': '.BoolState',
+      '10': 'startUss'
+    },
+    {'1': 'lift', '3': 13, '4': 1, '5': 11, '6': '.MotorCommand', '10': 'lift'},
+    {
+      '1': 'rotate',
+      '3': 14,
+      '4': 1,
+      '5': 11,
+      '6': '.MotorCommand',
+      '10': 'rotate'
+    },
+    {
+      '1': 'pinch',
+      '3': 15,
+      '4': 1,
+      '5': 11,
+      '6': '.MotorCommand',
+      '10': 'pinch'
+    },
+    {'1': 'open', '3': 16, '4': 1, '5': 8, '10': 'open'},
+    {'1': 'close', '3': 17, '4': 1, '5': 8, '10': 'close'},
+    {'1': 'spin', '3': 18, '4': 1, '5': 8, '10': 'spin'},
+    {'1': 'servo_angle', '3': 19, '4': 1, '5': 5, '10': 'servoAngle'},
+    {
+      '1': 'laser_state',
+      '3': 20,
+      '4': 1,
+      '5': 14,
+      '6': '.BoolState',
+      '10': 'laserState'
+    },
   ],
 };
 
@@ -115,84 +221,13 @@ final $typed_data.Uint8List armCommandDescriptor = $convert.base64Decode(
     'CgpBcm1Db21tYW5kEhIKBHN0b3AYASABKAhSBHN0b3ASHAoJY2FsaWJyYXRlGAIgASgIUgljYW'
     'xpYnJhdGUSJQoGc3dpdmVsGAMgASgLMg0uTW90b3JDb21tYW5kUgZzd2l2ZWwSKQoIc2hvdWxk'
     'ZXIYBCABKAsyDS5Nb3RvckNvbW1hbmRSCHNob3VsZGVyEiMKBWVsYm93GAUgASgLMg0uTW90b3'
-    'JDb21tYW5kUgVlbGJvdxIwCgxncmlwcGVyX2xpZnQYBiABKAsyDS5Nb3RvckNvbW1hbmRSC2dy'
-    'aXBwZXJMaWZ0EhEKBGlrX3gYByABKAJSA2lrWBIRCgRpa195GAggASgCUgNpa1kSEQoEaWtfeh'
-    'gJIAEoAlIDaWtaEhAKA2phYhgKIAEoCFIDamFiEiIKB3ZlcnNpb24YCyABKAsyCC5WZXJzaW9u'
-    'Ugd2ZXJzaW9u');
-
-@$core.Deprecated('Use gripperDataDescriptor instead')
-const GripperData$json = {
-  '1': 'GripperData',
-  '2': [
-    {'1': 'lift', '3': 1, '4': 1, '5': 11, '6': '.MotorData', '10': 'lift'},
-    {'1': 'rotate', '3': 2, '4': 1, '5': 11, '6': '.MotorData', '10': 'rotate'},
-    {'1': 'pinch', '3': 3, '4': 1, '5': 11, '6': '.MotorData', '10': 'pinch'},
-    {'1': 'version', '3': 4, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
-    {'1': 'servoAngle', '3': 5, '4': 1, '5': 5, '10': 'servoAngle'},
-    {
-      '1': 'laserState',
-      '3': 6,
-      '4': 1,
-      '5': 14,
-      '6': '.BoolState',
-      '10': 'laserState'
-    },
-  ],
-};
-
-/// Descriptor for `GripperData`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List gripperDataDescriptor = $convert.base64Decode(
-    'CgtHcmlwcGVyRGF0YRIeCgRsaWZ0GAEgASgLMgouTW90b3JEYXRhUgRsaWZ0EiIKBnJvdGF0ZR'
-    'gCIAEoCzIKLk1vdG9yRGF0YVIGcm90YXRlEiAKBXBpbmNoGAMgASgLMgouTW90b3JEYXRhUgVw'
-    'aW5jaBIiCgd2ZXJzaW9uGAQgASgLMgguVmVyc2lvblIHdmVyc2lvbhIeCgpzZXJ2b0FuZ2xlGA'
-    'UgASgFUgpzZXJ2b0FuZ2xlEioKCmxhc2VyU3RhdGUYBiABKA4yCi5Cb29sU3RhdGVSCmxhc2Vy'
-    'U3RhdGU=');
-
-@$core.Deprecated('Use gripperCommandDescriptor instead')
-const GripperCommand$json = {
-  '1': 'GripperCommand',
-  '2': [
-    {'1': 'stop', '3': 1, '4': 1, '5': 8, '10': 'stop'},
-    {'1': 'calibrate', '3': 2, '4': 1, '5': 8, '10': 'calibrate'},
-    {'1': 'lift', '3': 3, '4': 1, '5': 11, '6': '.MotorCommand', '10': 'lift'},
-    {
-      '1': 'rotate',
-      '3': 4,
-      '4': 1,
-      '5': 11,
-      '6': '.MotorCommand',
-      '10': 'rotate'
-    },
-    {
-      '1': 'pinch',
-      '3': 5,
-      '4': 1,
-      '5': 11,
-      '6': '.MotorCommand',
-      '10': 'pinch'
-    },
-    {'1': 'open', '3': 6, '4': 1, '5': 8, '10': 'open'},
-    {'1': 'close', '3': 7, '4': 1, '5': 8, '10': 'close'},
-    {'1': 'spin', '3': 8, '4': 1, '5': 8, '10': 'spin'},
-    {'1': 'version', '3': 9, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
-    {'1': 'servoAngle', '3': 10, '4': 1, '5': 5, '10': 'servoAngle'},
-    {
-      '1': 'laserState',
-      '3': 11,
-      '4': 1,
-      '5': 14,
-      '6': '.BoolState',
-      '10': 'laserState'
-    },
-  ],
-};
-
-/// Descriptor for `GripperCommand`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List gripperCommandDescriptor = $convert.base64Decode(
-    'Cg5HcmlwcGVyQ29tbWFuZBISCgRzdG9wGAEgASgIUgRzdG9wEhwKCWNhbGlicmF0ZRgCIAEoCF'
-    'IJY2FsaWJyYXRlEiEKBGxpZnQYAyABKAsyDS5Nb3RvckNvbW1hbmRSBGxpZnQSJQoGcm90YXRl'
-    'GAQgASgLMg0uTW90b3JDb21tYW5kUgZyb3RhdGUSIwoFcGluY2gYBSABKAsyDS5Nb3RvckNvbW'
-    '1hbmRSBXBpbmNoEhIKBG9wZW4YBiABKAhSBG9wZW4SFAoFY2xvc2UYByABKAhSBWNsb3NlEhIK'
-    'BHNwaW4YCCABKAhSBHNwaW4SIgoHdmVyc2lvbhgJIAEoCzIILlZlcnNpb25SB3ZlcnNpb24SHg'
-    'oKc2Vydm9BbmdsZRgKIAEoBVIKc2Vydm9BbmdsZRIqCgpsYXNlclN0YXRlGAsgASgOMgouQm9v'
-    'bFN0YXRlUgpsYXNlclN0YXRl');
+    'JDb21tYW5kUgVlbGJvdxIhCgRyb2xsGBUgASgLMg0uTW90b3JDb21tYW5kUgRyb2xsEjAKDGdy'
+    'aXBwZXJfbGlmdBgGIAEoCzINLk1vdG9yQ29tbWFuZFILZ3JpcHBlckxpZnQSEQoEaWtfeBgHIA'
+    'EoAlIDaWtYEhEKBGlrX3kYCCABKAJSA2lrWRIRCgRpa196GAkgASgCUgNpa1oSEAoDamFiGAog'
+    'ASgIUgNqYWISIgoHdmVyc2lvbhgLIAEoCzIILlZlcnNpb25SB3ZlcnNpb24SJwoJc3RhcnRfdX'
+    'NzGAwgASgOMgouQm9vbFN0YXRlUghzdGFydFVzcxIhCgRsaWZ0GA0gASgLMg0uTW90b3JDb21t'
+    'YW5kUgRsaWZ0EiUKBnJvdGF0ZRgOIAEoCzINLk1vdG9yQ29tbWFuZFIGcm90YXRlEiMKBXBpbm'
+    'NoGA8gASgLMg0uTW90b3JDb21tYW5kUgVwaW5jaBISCgRvcGVuGBAgASgIUgRvcGVuEhQKBWNs'
+    'b3NlGBEgASgIUgVjbG9zZRISCgRzcGluGBIgASgIUgRzcGluEh8KC3NlcnZvX2FuZ2xlGBMgAS'
+    'gFUgpzZXJ2b0FuZ2xlEisKC2xhc2VyX3N0YXRlGBQgASgOMgouQm9vbFN0YXRlUgpsYXNlclN0'
+    'YXRl');

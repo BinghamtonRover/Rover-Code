@@ -34,6 +34,8 @@ class Device extends $pb.ProtobufEnum {
   static const Device ANTENNA = Device._(12, _omitEnumNames ? '' : 'ANTENNA');
   static const Device VISION = Device._(13, _omitEnumNames ? '' : 'VISION');
   static const Device LIDAR = Device._(14, _omitEnumNames ? '' : 'LIDAR');
+  static const Device CONTROL_BOARD =
+      Device._(15, _omitEnumNames ? '' : 'CONTROL_BOARD');
 
   static const $core.List<Device> values = <Device>[
     DEVICE_UNDEFINED,
@@ -51,10 +53,11 @@ class Device extends $pb.ProtobufEnum {
     ANTENNA,
     VISION,
     LIDAR,
+    CONTROL_BOARD,
   ];
 
   static final $core.List<Device?> _byValue =
-      $pb.ProtobufEnum.$_initByValueList(values, 14);
+      $pb.ProtobufEnum.$_initByValueList(values, 15);
   static Device? valueOf($core.int value) =>
       value < 0 || value >= _byValue.length ? null : _byValue[value];
 

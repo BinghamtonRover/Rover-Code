@@ -134,9 +134,9 @@ const VideoData$json = {
     },
     {'1': 'frame', '3': 3, '4': 1, '5': 12, '10': 'frame'},
     {'1': 'version', '3': 4, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
-    {'1': 'imagePath', '3': 5, '4': 1, '5': 9, '10': 'imagePath'},
+    {'1': 'image_path', '3': 5, '4': 1, '5': 9, '10': 'imagePath'},
     {
-      '1': 'detectedObjects',
+      '1': 'detected_objects',
       '3': 6,
       '4': 3,
       '5': 11,
@@ -150,8 +150,8 @@ const VideoData$json = {
 final $typed_data.Uint8List videoDataDescriptor = $convert.base64Decode(
     'CglWaWRlb0RhdGESDgoCaWQYASABKAlSAmlkEigKB2RldGFpbHMYAiABKAsyDi5DYW1lcmFEZX'
     'RhaWxzUgdkZXRhaWxzEhQKBWZyYW1lGAMgASgMUgVmcmFtZRIiCgd2ZXJzaW9uGAQgASgLMggu'
-    'VmVyc2lvblIHdmVyc2lvbhIcCglpbWFnZVBhdGgYBSABKAlSCWltYWdlUGF0aBI5Cg9kZXRlY3'
-    'RlZE9iamVjdHMYBiADKAsyDy5EZXRlY3RlZE9iamVjdFIPZGV0ZWN0ZWRPYmplY3Rz');
+    'VmVyc2lvblIHdmVyc2lvbhIdCgppbWFnZV9wYXRoGAUgASgJUglpbWFnZVBhdGgSOgoQZGV0ZW'
+    'N0ZWRfb2JqZWN0cxgGIAMoCzIPLkRldGVjdGVkT2JqZWN0Ug9kZXRlY3RlZE9iamVjdHM=');
 
 @$core.Deprecated('Use videoCommandDescriptor instead')
 const VideoCommand$json = {
@@ -167,12 +167,12 @@ const VideoCommand$json = {
       '10': 'details'
     },
     {'1': 'version', '3': 3, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
-    {'1': 'takeSnapshot', '3': 4, '4': 1, '5': 8, '10': 'takeSnapshot'},
+    {'1': 'take_snapshot', '3': 4, '4': 1, '5': 8, '10': 'takeSnapshot'},
   ],
 };
 
 /// Descriptor for `VideoCommand`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List videoCommandDescriptor = $convert.base64Decode(
     'CgxWaWRlb0NvbW1hbmQSDgoCaWQYASABKAlSAmlkEigKB2RldGFpbHMYAiABKAsyDi5DYW1lcm'
-    'FEZXRhaWxzUgdkZXRhaWxzEiIKB3ZlcnNpb24YAyABKAsyCC5WZXJzaW9uUgd2ZXJzaW9uEiIK'
-    'DHRha2VTbmFwc2hvdBgEIAEoCFIMdGFrZVNuYXBzaG90');
+    'FEZXRhaWxzUgdkZXRhaWxzEiIKB3ZlcnNpb24YAyABKAsyCC5WZXJzaW9uUgd2ZXJzaW9uEiMK'
+    'DXRha2Vfc25hcHNob3QYBCABKAhSDHRha2VTbmFwc2hvdA==');

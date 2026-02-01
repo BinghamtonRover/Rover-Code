@@ -82,7 +82,7 @@ const BaseStationCommand$json = {
       '10': 'mode'
     },
     {
-      '1': 'roverCoordinates',
+      '1': 'rover_coordinates',
       '3': 3,
       '4': 1,
       '5': 11,
@@ -90,7 +90,7 @@ const BaseStationCommand$json = {
       '10': 'roverCoordinates'
     },
     {
-      '1': 'baseStationCoordinates',
+      '1': 'base_station_coordinates',
       '3': 4,
       '4': 1,
       '5': 11,
@@ -98,7 +98,7 @@ const BaseStationCommand$json = {
       '10': 'baseStationCoordinates'
     },
     {
-      '1': 'roverCoordinatesOverride',
+      '1': 'rover_coordinates_override',
       '3': 5,
       '4': 1,
       '5': 11,
@@ -106,27 +106,27 @@ const BaseStationCommand$json = {
       '10': 'roverCoordinatesOverride'
     },
     {
-      '1': 'manualCommand',
+      '1': 'manual_command',
       '3': 6,
       '4': 1,
       '5': 11,
       '6': '.AntennaFirmwareCommand',
       '10': 'manualCommand'
     },
-    {'1': 'angleTolerance', '3': 7, '4': 1, '5': 2, '10': 'angleTolerance'},
+    {'1': 'angle_tolerance', '3': 7, '4': 1, '5': 2, '10': 'angleTolerance'},
   ],
 };
 
 /// Descriptor for `BaseStationCommand`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List baseStationCommandDescriptor = $convert.base64Decode(
     'ChJCYXNlU3RhdGlvbkNvbW1hbmQSIgoHdmVyc2lvbhgBIAEoCzIILlZlcnNpb25SB3ZlcnNpb2'
-    '4SJwoEbW9kZRgCIAEoDjITLkFudGVubmFDb250cm9sTW9kZVIEbW9kZRI7ChByb3ZlckNvb3Jk'
-    'aW5hdGVzGAMgASgLMg8uR3BzQ29vcmRpbmF0ZXNSEHJvdmVyQ29vcmRpbmF0ZXMSRwoWYmFzZV'
-    'N0YXRpb25Db29yZGluYXRlcxgEIAEoCzIPLkdwc0Nvb3JkaW5hdGVzUhZiYXNlU3RhdGlvbkNv'
-    'b3JkaW5hdGVzEksKGHJvdmVyQ29vcmRpbmF0ZXNPdmVycmlkZRgFIAEoCzIPLkdwc0Nvb3JkaW'
-    '5hdGVzUhhyb3ZlckNvb3JkaW5hdGVzT3ZlcnJpZGUSPQoNbWFudWFsQ29tbWFuZBgGIAEoCzIX'
-    'LkFudGVubmFGaXJtd2FyZUNvbW1hbmRSDW1hbnVhbENvbW1hbmQSJgoOYW5nbGVUb2xlcmFuY2'
-    'UYByABKAJSDmFuZ2xlVG9sZXJhbmNl');
+    '4SJwoEbW9kZRgCIAEoDjITLkFudGVubmFDb250cm9sTW9kZVIEbW9kZRI8ChFyb3Zlcl9jb29y'
+    'ZGluYXRlcxgDIAEoCzIPLkdwc0Nvb3JkaW5hdGVzUhByb3ZlckNvb3JkaW5hdGVzEkkKGGJhc2'
+    'Vfc3RhdGlvbl9jb29yZGluYXRlcxgEIAEoCzIPLkdwc0Nvb3JkaW5hdGVzUhZiYXNlU3RhdGlv'
+    'bkNvb3JkaW5hdGVzEk0KGnJvdmVyX2Nvb3JkaW5hdGVzX292ZXJyaWRlGAUgASgLMg8uR3BzQ2'
+    '9vcmRpbmF0ZXNSGHJvdmVyQ29vcmRpbmF0ZXNPdmVycmlkZRI+Cg5tYW51YWxfY29tbWFuZBgG'
+    'IAEoCzIXLkFudGVubmFGaXJtd2FyZUNvbW1hbmRSDW1hbnVhbENvbW1hbmQSJwoPYW5nbGVfdG'
+    '9sZXJhbmNlGAcgASgCUg5hbmdsZVRvbGVyYW5jZQ==');
 
 @$core.Deprecated('Use baseStationDataDescriptor instead')
 const BaseStationData$json = {
@@ -150,7 +150,7 @@ const BaseStationData$json = {
       '10': 'antenna'
     },
     {
-      '1': 'baseStationCoordinates',
+      '1': 'base_station_coordinates',
       '3': 4,
       '4': 1,
       '5': 11,
@@ -158,7 +158,7 @@ const BaseStationData$json = {
       '10': 'baseStationCoordinates'
     },
     {
-      '1': 'rtkConnected',
+      '1': 'rtk_connected',
       '3': 5,
       '4': 1,
       '5': 14,
@@ -172,6 +172,6 @@ const BaseStationData$json = {
 final $typed_data.Uint8List baseStationDataDescriptor = $convert.base64Decode(
     'Cg9CYXNlU3RhdGlvbkRhdGESIgoHdmVyc2lvbhgBIAEoCzIILlZlcnNpb25SB3ZlcnNpb24SJw'
     'oEbW9kZRgCIAEoDjITLkFudGVubmFDb250cm9sTW9kZVIEbW9kZRIuCgdhbnRlbm5hGAMgASgL'
-    'MhQuQW50ZW5uYUZpcm13YXJlRGF0YVIHYW50ZW5uYRJHChZiYXNlU3RhdGlvbkNvb3JkaW5hdG'
-    'VzGAQgASgLMg8uR3BzQ29vcmRpbmF0ZXNSFmJhc2VTdGF0aW9uQ29vcmRpbmF0ZXMSLgoMcnRr'
-    'Q29ubmVjdGVkGAUgASgOMgouQm9vbFN0YXRlUgxydGtDb25uZWN0ZWQ=');
+    'MhQuQW50ZW5uYUZpcm13YXJlRGF0YVIHYW50ZW5uYRJJChhiYXNlX3N0YXRpb25fY29vcmRpbm'
+    'F0ZXMYBCABKAsyDy5HcHNDb29yZGluYXRlc1IWYmFzZVN0YXRpb25Db29yZGluYXRlcxIvCg1y'
+    'dGtfY29ubmVjdGVkGAUgASgOMgouQm9vbFN0YXRlUgxydGtDb25uZWN0ZWQ=');
