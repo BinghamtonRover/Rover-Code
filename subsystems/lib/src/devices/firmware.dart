@@ -42,7 +42,19 @@ class FirmwareManager extends Service {
       logger.debug("Initializing device: ${device.port}");
       result &= await device.init();
       if (!device.isReady) continue;
-      final subscription = device.messages.listen(collection.server.sendWrapper);
+      final subscription = device.messages.listen((wrapper) {
+        if (wrapper.name == ControlData().messageName) {
+          final controlData = ControlData.fromBuffer(wrapper.data);
+          if (controlData.hasDrive()) {
+            collection.server.sendMessage(controlData.drive);
+            return;
+          } else if (controlData.hasRelays()) {
+            collection.server.sendMessage(controlData.relays);
+            return;
+          }
+        }
+        collection.server.sendWrapper(wrapper);
+      });
       _subscriptions.add(subscription);
     }
     return result;
