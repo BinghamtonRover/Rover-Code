@@ -3,6 +3,7 @@ import "dart:io";
 import "package:burt_network/burt_network.dart";
 
 import "src/firmware.dart";
+import "src/arm_camera_manager.dart";
 
 /// Logger for the arm auxillary program
 final logger = BurtLogger();
@@ -24,6 +25,9 @@ class ArmAuxillary extends Service {
     logger: logger,
   );
 
+  /// The camera manager for arm cameras.
+  final cameras = ArmCameraManager();
+
   /// The server for the arm auxillary program
   late final RoverSocket server = RoverSocket(
     device: Device.ARM,
@@ -42,6 +46,8 @@ class ArmAuxillary extends Service {
     // TODO(arm): arm and EA board communication
     try {
       result &= await firmware.init();
+      result &= await cameras.init();
+      cameras.setServer(server);
       if (result) {
         logger.info("Arm Auxillary software initialized");
       } else {
@@ -64,6 +70,7 @@ class ArmAuxillary extends Service {
   Future<void> dispose() async {
     logger.info("Arm Auxillary software shutting down...");
     isReady = false;
+    await cameras.dispose();
     await firmware.dispose();
     await server.dispose();
     logger.socket = null;

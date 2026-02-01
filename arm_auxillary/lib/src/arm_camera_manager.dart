@@ -27,12 +27,12 @@ class ArmCameraManager extends Service {
   @override
   Future<bool> init() async {
     logger.info("Initializing arm camera manager");
-    
+
     parent.init();
     _data = parent.stream.listen(onData);
-    
+
     await _spawnArmCameras();
-    
+
     logger.info("Arm camera manager initialized");
     return true;
   }
@@ -40,9 +40,9 @@ class ArmCameraManager extends Service {
   @override
   Future<void> dispose() async {
     logger.info("Disposing arm camera manager");
-    
+
     stopAll();
-    
+
     // Wait a bit after sending the stop command so the messages are received properly
     await Future<void>.delayed(const Duration(milliseconds: 750));
 
@@ -57,14 +57,14 @@ class ArmCameraManager extends Service {
     await Future<void>.delayed(const Duration(milliseconds: 50));
 
     await _data?.cancel();
-    
+
     logger.info("Arm camera manager disposed");
   }
 
   /// Sets the server reference for message handling
   void setServer(RoverSocket server) {
     _server = server;
-    
+
     // Set up command subscription now that server is available
     _commands = server.messages.onMessage<VideoCommand>(
       name: VideoCommand().messageName,
@@ -78,35 +78,38 @@ class ArmCameraManager extends Service {
   /// Spawns camera isolates for detected arm cameras
   Future<void> _spawnArmCameras() async {
     logger.info("Detecting arm cameras...");
-    
+
     final armCameraNames = <CameraName>[
       CameraName.ARM_LEFT,
       CameraName.ARM_RIGHT,
       CameraName.GAP_CAM,
     ];
-    
+
     for (final cameraName in armCameraNames) {
       try {
         final details = _createArmCameraDetails(cameraName);
         final isolate = OpenCVCameraIsolate(details: details);
         await parent.spawn(isolate);
-        
+
         logger.info("Spawned camera isolate for $cameraName");
       } catch (error) {
-        logger.error("Failed to spawn camera isolate for $cameraName", body: error.toString());
+        logger.error(
+          "Failed to spawn camera isolate for $cameraName",
+          body: error.toString(),
+        );
       }
     }
   }
 
   /// Creates camera details for arm cameras
   CameraDetails _createArmCameraDetails(CameraName name) => CameraDetails(
-      name: name,
-      resolutionWidth: 640,
-      resolutionHeight: 480,
-      fps: 15,
-      quality: 80,
-      status: CameraStatus.CAMERA_LOADING,
-    );
+    name: name,
+    resolutionWidth: 640,
+    resolutionHeight: 480,
+    fps: 15,
+    quality: 80,
+    status: CameraStatus.CAMERA_LOADING,
+  );
 
   /// Handles data coming from the arm camera isolates
   void onData(IsolatePayload data) {
@@ -114,7 +117,7 @@ class ArmCameraManager extends Service {
       case FramePayload(:final details, :final screenshotPath):
         final image = data.image?.toU8List();
         data.dispose();
-        
+
         if (_server != null && image != null) {
           _server!.sendMessage(
             VideoData(
@@ -125,7 +128,7 @@ class ArmCameraManager extends Service {
             destination: videoSocket,
           );
         }
-        
+
       case LogPayload():
         switch (data.level) {
           case LogLevel.all:
@@ -154,7 +157,7 @@ class ArmCameraManager extends Service {
           case LogLevel.nothing:
             break;
         }
-        
+
       case ObjectDetectionPayload(:final details, :final tags):
         if (_server != null) {
           final visionResult = VideoData(
@@ -164,7 +167,7 @@ class ArmCameraManager extends Service {
           );
           _server!.sendMessage(visionResult, destination: videoSocket);
         }
-        
+
       default:
         logger.warning("Unknown payload type from camera isolate");
     }
@@ -173,7 +176,7 @@ class ArmCameraManager extends Service {
   /// Handles commands from the video program
   void _handleCommand(VideoCommand command) {
     logger.debug("Received camera command for ${command.details.name}");
-    
+
     // Route command to correct camera isolate
     parent.sendToChild(data: command, id: command.details.name);
   }
@@ -183,18 +186,18 @@ class ArmCameraManager extends Service {
     final stopCommand = VideoCommand(
       details: CameraDetails(status: CameraStatus.CAMERA_DISABLED),
     );
-    
+
     // Send stop command to all arm camera isolates
     final armCameraNames = [
       CameraName.ARM_LEFT,
       CameraName.ARM_RIGHT,
       CameraName.GAP_CAM,
     ];
-    
+
     for (final name in armCameraNames) {
       parent.sendToChild(data: stopCommand, id: name);
     }
-    
+
     logger.info("Stopping all arm cameras");
   }
 }
