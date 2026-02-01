@@ -130,6 +130,9 @@ class ArmCameraManager extends Service {
         switch (data.level) {
           case LogLevel.all:
             logger.info("Camera isolate: ${data.message}", body: data.body);
+          // ignore: deprecated_member_use
+          case LogLevel.verbose:
+            logger.trace("Camera isolate: ${data.message}", body: data.body);
           case LogLevel.trace:
             logger.trace("Camera isolate: ${data.message}", body: data.body);
           case LogLevel.debug:
@@ -144,6 +147,12 @@ class ArmCameraManager extends Service {
             logger.critical("Camera isolate: ${data.message}", body: data.body);
           case LogLevel.off:
             logger.info("Camera isolate: ${data.message}", body: data.body);
+          // ignore: deprecated_member_use
+          case LogLevel.wtf:
+            logger.critical("Camera isolate: ${data.message}", body: data.body);
+          // ignore: deprecated_member_use
+          case LogLevel.nothing:
+            break;
         }
         
       case ObjectDetectionPayload(:final details, :final tags):
