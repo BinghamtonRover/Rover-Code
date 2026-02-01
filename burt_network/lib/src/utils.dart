@@ -48,6 +48,7 @@ String? deviceToDataName(Device device) => switch (device) {
   Device.ANTENNA => AntennaFirmwareData().messageName,
   Device.BASE_STATION => BaseStationData().messageName,
   Device.RELAY => RelaysData().messageName,
+  Device.CONTROL_BOARD => ControlData().messageName,
   _ => null,
 };
 
