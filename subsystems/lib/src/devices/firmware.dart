@@ -46,11 +46,12 @@ class FirmwareManager extends Service {
           final controlData = ControlData.fromBuffer(wrapper.data);
           if (controlData.hasDrive()) {
             collection.server.sendMessage(controlData.drive);
-            return;
-          } else if (controlData.hasRelays()) {
-            collection.server.sendMessage(controlData.relays);
-            return;
           }
+
+          if (controlData.hasRelays()) {
+            collection.server.sendMessage(controlData.relays);
+          }
+          return;
         }
         collection.server.sendWrapper(wrapper);
       });
