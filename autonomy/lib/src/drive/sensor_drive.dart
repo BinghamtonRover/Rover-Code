@@ -49,6 +49,7 @@ class SensorDrive extends DriveInterface with RoverDriveCommands {
         controller,
         drive: this,
         arucoId: arucoId,
+        desiredCamera: desiredCamera,
         collection: collection,
       );
 

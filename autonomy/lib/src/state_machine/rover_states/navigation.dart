@@ -1,3 +1,4 @@
+import "dart:async";
 import "dart:math";
 
 import "package:autonomy/constants.dart";
@@ -23,6 +24,9 @@ class NavigationState extends RoverState {
   /// The final destination to navigate to
   final GpsCoordinates destination;
 
+  // The tolerance of how to be to the destination
+  final double tolerance;
+
   /// Whether or not the state has performed pre-step correction
   bool hasCorrected = false;
 
@@ -31,6 +35,8 @@ class NavigationState extends RoverState {
 
   /// The index of the waypoint being followed
   int waypointIndex = 0;
+
+  Timer? _doneCheckTimer;
 
   /// The current step of the path being followed
   AutonomyAStarState? get currentPathState {
@@ -47,6 +53,7 @@ class NavigationState extends RoverState {
     required this.collection,
     required this.orchestrator,
     required this.destination,
+    this.tolerance = Constants.maxErrorMeters,
   });
 
   @override
@@ -56,6 +63,11 @@ class NavigationState extends RoverState {
     hasFollowed = false;
 
     orchestrator.currentState = AutonomyState.DRIVING;
+
+    _doneCheckTimer = Timer.periodic(
+      const Duration(milliseconds: 20),
+      _checkIfDone,
+    );
   }
 
   /// Checks if the rover is oriented properly before driving the [state]
@@ -110,6 +122,7 @@ class NavigationState extends RoverState {
           collection: collection,
           orchestrator: orchestrator,
           destination: destination,
+          tolerance: tolerance,
         ),
       );
       return true;
@@ -130,14 +143,18 @@ class NavigationState extends RoverState {
     }
   }
 
+  void _checkIfDone([_]) {
+    if (collection.gps.isNear(destination, tolerance)) {
+      controller.popUntil<NavigationState>();
+      controller.popState();
+      collection.drive.stop();
+      _doneCheckTimer?.cancel();
+      _doneCheckTimer = null;
+    }
+  }
+
   @override
   void update() {
-    if (collection.gps.isNear(destination, Constants.maxErrorMeters)) {
-      collection.drive.stop();
-      controller.popState();
-      return;
-    }
-
     if (currentPathState == null) {
       controller.popState();
       return;
@@ -164,6 +181,7 @@ class NavigationState extends RoverState {
           collection: collection,
           orchestrator: orchestrator,
           destination: destination,
+          tolerance: tolerance,
         ),
       );
       return;
@@ -178,6 +196,7 @@ class NavigationState extends RoverState {
           collection: collection,
           orchestrator: orchestrator,
           destination: destination,
+          tolerance: tolerance,
         ),
       );
       return;
@@ -193,5 +212,7 @@ class NavigationState extends RoverState {
     if (currentPathState != null) {
       orchestrator.traversed.add(currentPathState!.position);
     }
+    _doneCheckTimer?.cancel();
+    _doneCheckTimer = null;
   }
 }

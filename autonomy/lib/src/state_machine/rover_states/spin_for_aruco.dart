@@ -30,7 +30,7 @@ class SpinForAruco extends RoverState {
 
   @override
   void update() {
-    drive.setThrottle(config.turnThrottle);
+    drive.setThrottle(0.05);
 
     if (collection.video.getArucoDetection(
           arucoId,
@@ -43,16 +43,16 @@ class SpinForAruco extends RoverState {
 
     drive.spinLeft();
 
-    if ((collection.imu.heading - _startOrientation).clampHalfAngle().abs() >
+    if ((collection.imu.heading - _startOrientation).clampHalfAngle() >
         175) {
       _rotated180 = true;
     }
 
-    if (_rotated180 &&
-        collection.imu.isNear(Orientation(z: _startOrientation))) {
-      controller.popState();
-      return;
-    }
+    // if (_rotated180 &&
+    //     collection.imu.isNear(Orientation(z: _startOrientation))) {
+    //   controller.popState();
+    //   return;
+    // }
   }
 
   @override

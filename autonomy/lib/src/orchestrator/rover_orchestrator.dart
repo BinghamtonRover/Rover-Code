@@ -287,13 +287,14 @@ class RoverOrchestrator extends OrchestratorInterface with ValueReporter {
             collection: collection,
             orchestrator: this,
             destination: command.destination,
+            tolerance: 3,
           ),
           FunctionalState(
             controller,
             onEnter: (controller) {
               if (!collection.gps.isNear(
                 command.destination,
-                Constants.maxErrorMeters,
+                3.25,
               )) {
                 // handle error
                 driveToDestinationFailed = true;
@@ -419,6 +420,7 @@ class RoverOrchestrator extends OrchestratorInterface with ValueReporter {
             collection: collection,
             orchestrator: this,
             destination: destinationCoordinates,
+            tolerance: 2,
           );
         }),
 

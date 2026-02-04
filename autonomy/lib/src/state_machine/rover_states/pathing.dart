@@ -15,12 +15,16 @@ class PathingState extends RoverState {
   /// The destination to plan a path to
   final GpsCoordinates destination;
 
+  // The tolerance of how to be to the destination
+  final double tolerance;
+
   /// Default constructor for [PathingState]
   PathingState(
     super.controller, {
     required this.collection,
     required this.orchestrator,
     required this.destination,
+    this.tolerance = Constants.maxErrorMeters,
   });
 
   @override
@@ -58,6 +62,7 @@ class PathingState extends RoverState {
           collection: collection,
           orchestrator: orchestrator,
           destination: destination,
+          tolerance: tolerance,
         ),
       );
     }
