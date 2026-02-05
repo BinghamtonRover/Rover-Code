@@ -1,0 +1,19 @@
+# AUTO-GENERATED FILE. DO NOT EDIT.
+# To re-generate this file, edit `~/rover/lib/all_programs.dart` and run `dart run :systemd`
+#
+# This file defines a program that automatically starts on boot.
+# Place this file in /etc/systemd/system.
+#
+# For more information, see: https://bing-rover.gitbook.io/docs/v/software/onboard-computers/configuring-systemd
+
+[Unit]
+Description=Navigates the field autonomously
+After=network-online.target
+
+[Service]
+WorkingDirectory=/Users/preston/Projects/Rover-Code/autonomy
+ExecStart=/Users/preston/autonomy
+TimeoutStopSec=3
+
+[Install]
+WantedBy=multi-user.target

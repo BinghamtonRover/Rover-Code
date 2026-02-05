@@ -55,40 +55,86 @@ Future<void> compileAllPrograms(String? only) async {
     await runCommand("sudo", ["apt", "update", "-y"]);
   }
 
-  for (final program in programs) {
-    final name = program.name;
-    if (only != null && name != only) continue;
-    logger.info("Processing the $name program");
+  final programsToCompile = only != null 
+    ? programs.where((p) => p.name == only).toList()
+    : programs;
 
-    // Stop the service if it was already running
-    if (await isServiceRunning(name)) {
-      logger.debug("Stopping $name...");
-      await runCommand("sudo", ["systemctl", "stop", name]);
-      await runCommand("sudo", ["systemctl", "disable", name], hideOutput: true);  // always uses stderr
-    }
+  // Install all apt dependencies first to avoid package manager conflicts
+  if (!offline) {
+    await installAllAptDependencies(programsToCompile);
+  }
 
-    // Run any pre-requisite commands
+  logger.info("Starting parallel compilation of ${programsToCompile.length} programs...");
+
+  await Future.wait(programsToCompile.map((program) async {
+    await compileProgram(program);
+  }));
+}
+
+Future<void> installAllAptDependencies(List<RoverProgram> programsToCompile) async {
+  final aptCommands = <ExtraCommand>[];
+  
+  for (final program in programsToCompile) {
     final extraCommands = program.extraCommands;
     if (extraCommands != null) {
-      for (final extraCommand in extraCommands) {
-        if (offline && extraCommand.requiresInternet) {
-          logger.debug("Skipping '${extraCommand.task}' because it requires internet");
-          continue;
+      for (final command in extraCommands) {
+        if (command.requiresInternet && 
+            (command.command == "sudo" && command.args.isNotEmpty && 
+             (command.args[0] == "apt-get" || command.args[0] == "apt"))) {
+          aptCommands.add(command);
         }
-        logger.info("- ${extraCommand.task}...");
-        await runCommand(extraCommand.command, extraCommand.args, workingDirectory: program.sourceDir);
       }
     }
-
-    // Compile the program
-    final command = program.compileCommand;
-    if (command != null) {
-      logger.info("- Compiling. This could take a few minutes...");
-      final (cmd, args) = command;
-      await runCommand(cmd, args, workingDirectory: program.sourceDir);
-    }
-
-    // Save, enable, and start the systemd service
-    await writeSystemdFile(program);
   }
+
+  for (final aptCommand in aptCommands) {
+    logger.info("Installing dependencies: ${aptCommand.task}...");
+    await runCommand(aptCommand.command, aptCommand.args);
+  }
+}
+
+Future<void> compileProgram(RoverProgram program) async {
+  final name = program.name;
+  logger.info("Processing the $name program");
+
+  // Stop the service if it was already running
+  if (await isServiceRunning(name)) {
+    logger.debug("Stopping $name...");
+    await runCommand("sudo", ["systemctl", "stop", name]);
+    await runCommand("sudo", ["systemctl", "disable", name], hideOutput: true);  // always uses stderr
+  }
+
+  // Run any pre-requisite commands (except apt commands which were already handled)
+  final extraCommands = program.extraCommands;
+  if (extraCommands != null) {
+    for (final extraCommand in extraCommands) {
+      if (offline && extraCommand.requiresInternet) {
+        logger.debug("Skipping '${extraCommand.task}' because it requires internet");
+        continue;
+      }
+      
+      // Skip apt commands since they were already executed serially
+      if (extraCommand.requiresInternet && 
+          extraCommand.command == "sudo" && extraCommand.args.isNotEmpty && 
+          (extraCommand.args[0] == "apt-get" || extraCommand.args[0] == "apt")) {
+        logger.debug("Skipping apt command '${extraCommand.task}' (already installed)");
+        continue;
+      }
+      
+      logger.info("- $name: ${extraCommand.task}...");
+      await runCommand(extraCommand.command, extraCommand.args, workingDirectory: program.sourceDir);
+    }
+  }
+
+  // Compile the program
+  final command = program.compileCommand;
+  if (command != null) {
+    logger.info("- $name: Compiling. This could take a few minutes...");
+    final (cmd, args) = command;
+    await runCommand(cmd, args, workingDirectory: program.sourceDir);
+  }
+
+  // Save, enable, and start the systemd service
+  await writeSystemdFile(program);
+  logger.info("- $name: Compilation complete!");
 }
