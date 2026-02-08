@@ -50,6 +50,9 @@ const CameraName$json = {
     {'1': 'SUBSYSTEM3', '2': 6},
     {'1': 'BOTTOM_LEFT', '2': 7},
     {'1': 'BOTTOM_RIGHT', '2': 8},
+    {'1': 'ARM_LEFT', '2': 9},
+    {'1': 'ARM_RIGHT', '2': 10},
+    {'1': 'GAP_CAM', '2': 11},
   ],
 };
 
@@ -58,7 +61,7 @@ final $typed_data.Uint8List cameraNameDescriptor = $convert.base64Decode(
     'CgpDYW1lcmFOYW1lEhkKFUNBTUVSQV9OQU1FX1VOREVGSU5FRBAAEg8KC1JPVkVSX0ZST05UEA'
     'ESDgoKUk9WRVJfUkVBUhACEhIKDkFVVE9OT01ZX0RFUFRIEAMSDgoKU1VCU1lTVEVNMRAEEg4K'
     'ClNVQlNZU1RFTTIQBRIOCgpTVUJTWVNURU0zEAYSDwoLQk9UVE9NX0xFRlQQBxIQCgxCT1RUT0'
-    '1fUklHSFQQCA==');
+    '1fUklHSFQQCBIMCghBUk1fTEVGVBAJEg0KCUFSTV9SSUdIVBAKEgsKB0dBUF9DQU0QCw==');
 
 @$core.Deprecated('Use cameraDetailsDescriptor instead')
 const CameraDetails$json = {

@@ -9,6 +9,7 @@ import "src/devices/firmware.dart";
 export "src/devices/firmware.dart";
 export "src/devices/imu.dart";
 export "src/devices/gps.dart";
+export "src/devices/serial_utils.dart";
 
 export "src/can/ffi.dart";
 export "src/can/message.dart";

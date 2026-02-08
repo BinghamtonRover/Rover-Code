@@ -5,8 +5,6 @@ import "package:collection/collection.dart";
 import "package:subsystems/subsystems.dart";
 import "package:burt_network/burt_network.dart";
 
-import "serial_utils.dart";
-
 /// Maps command names to [Device]s.
 final nameToDevice = <String, Device>{
   ArmCommand().messageName: Device.ARM,

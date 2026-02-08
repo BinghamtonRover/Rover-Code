@@ -25,6 +25,9 @@ jobs:
       - name: Analyze code
         run: dart analyze --fatal-infos
 
+      - name: Check arm auxillary formatting
+        run: dart format --output=none --set-exit-if-changed arm_auxillary/bin/* arm_auxillary/lib/*
+
       - name: Check autonomy formatting
         run: dart format --output=none --set-exit-if-changed autonomy/bin/* autonomy/lib/* autonomy/test/*
 
