@@ -104,12 +104,28 @@ const ArmData$json = {
       '10': 'currentPosition'
     },
     {
+      '1': 'current_orientation',
+      '3': 17,
+      '4': 1,
+      '5': 11,
+      '6': '.Orientation',
+      '10': 'currentOrientation'
+    },
+    {
       '1': 'target_position',
       '3': 2,
       '4': 1,
       '5': 11,
       '6': '.Coordinates',
       '10': 'targetPosition'
+    },
+    {
+      '1': 'target_orientation',
+      '3': 18,
+      '4': 1,
+      '5': 11,
+      '6': '.Orientation',
+      '10': 'targetOrientation'
     },
     {'1': 'base', '3': 3, '4': 1, '5': 11, '6': '.MotorData', '10': 'base'},
     {
@@ -159,17 +175,19 @@ const ArmData$json = {
 /// Descriptor for `ArmData`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List armDataDescriptor = $convert.base64Decode(
     'CgdBcm1EYXRhEjcKEGN1cnJlbnRfcG9zaXRpb24YASABKAsyDC5Db29yZGluYXRlc1IPY3Vycm'
-    'VudFBvc2l0aW9uEjUKD3RhcmdldF9wb3NpdGlvbhgCIAEoCzIMLkNvb3JkaW5hdGVzUg50YXJn'
-    'ZXRQb3NpdGlvbhIeCgRiYXNlGAMgASgLMgouTW90b3JEYXRhUgRiYXNlEiYKCHNob3VsZGVyGA'
-    'QgASgLMgouTW90b3JEYXRhUghzaG91bGRlchIgCgVlbGJvdxgFIAEoCzIKLk1vdG9yRGF0YVIF'
-    'ZWxib3cSHgoEcm9sbBgNIAEoCzIKLk1vdG9yRGF0YVIEcm9sbBIiCgd2ZXJzaW9uGAYgASgLMg'
-    'guVmVyc2lvblIHdmVyc2lvbhIhCgx1c3NfZGlzdGFuY2UYByABKAJSC3Vzc0Rpc3RhbmNlEh4K'
-    'BGxpZnQYCCABKAsyCi5Nb3RvckRhdGFSBGxpZnQSIgoGcm90YXRlGAkgASgLMgouTW90b3JEYX'
-    'RhUgZyb3RhdGUSIAoFd3Jpc3QYDyABKAsyCi5XcmlzdERhdGFSBXdyaXN0EiAKBXBpbmNoGAog'
-    'ASgLMgouTW90b3JEYXRhUgVwaW5jaBIfCgtzZXJ2b19hbmdsZRgLIAEoBVIKc2Vydm9BbmdsZR'
-    'IrCgtsYXNlcl9zdGF0ZRgMIAEoDjIKLkJvb2xTdGF0ZVIKbGFzZXJTdGF0ZRIyCgxqb2ludF9h'
-    'bmdsZXMYDiABKAsyDy5Kb2ludEFuZ2xlRGF0YVILam9pbnRBbmdsZXMSJQoIdXNpbmdfaWsYEC'
-    'ABKA4yCi5Cb29sU3RhdGVSB3VzaW5nSWs=');
+    'VudFBvc2l0aW9uEj0KE2N1cnJlbnRfb3JpZW50YXRpb24YESABKAsyDC5PcmllbnRhdGlvblIS'
+    'Y3VycmVudE9yaWVudGF0aW9uEjUKD3RhcmdldF9wb3NpdGlvbhgCIAEoCzIMLkNvb3JkaW5hdG'
+    'VzUg50YXJnZXRQb3NpdGlvbhI7ChJ0YXJnZXRfb3JpZW50YXRpb24YEiABKAsyDC5PcmllbnRh'
+    'dGlvblIRdGFyZ2V0T3JpZW50YXRpb24SHgoEYmFzZRgDIAEoCzIKLk1vdG9yRGF0YVIEYmFzZR'
+    'ImCghzaG91bGRlchgEIAEoCzIKLk1vdG9yRGF0YVIIc2hvdWxkZXISIAoFZWxib3cYBSABKAsy'
+    'Ci5Nb3RvckRhdGFSBWVsYm93Eh4KBHJvbGwYDSABKAsyCi5Nb3RvckRhdGFSBHJvbGwSIgoHdm'
+    'Vyc2lvbhgGIAEoCzIILlZlcnNpb25SB3ZlcnNpb24SIQoMdXNzX2Rpc3RhbmNlGAcgASgCUgt1'
+    'c3NEaXN0YW5jZRIeCgRsaWZ0GAggASgLMgouTW90b3JEYXRhUgRsaWZ0EiIKBnJvdGF0ZRgJIA'
+    'EoCzIKLk1vdG9yRGF0YVIGcm90YXRlEiAKBXdyaXN0GA8gASgLMgouV3Jpc3REYXRhUgV3cmlz'
+    'dBIgCgVwaW5jaBgKIAEoCzIKLk1vdG9yRGF0YVIFcGluY2gSHwoLc2Vydm9fYW5nbGUYCyABKA'
+    'VSCnNlcnZvQW5nbGUSKwoLbGFzZXJfc3RhdGUYDCABKA4yCi5Cb29sU3RhdGVSCmxhc2VyU3Rh'
+    'dGUSMgoMam9pbnRfYW5nbGVzGA4gASgLMg8uSm9pbnRBbmdsZURhdGFSC2pvaW50QW5nbGVzEi'
+    'UKCHVzaW5nX2lrGBAgASgOMgouQm9vbFN0YXRlUgd1c2luZ0lr');
 
 @$core.Deprecated('Use wristCommandDescriptor instead')
 const WristCommand$json = {

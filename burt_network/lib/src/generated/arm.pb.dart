@@ -342,6 +342,8 @@ class ArmData extends $pb.GeneratedMessage {
     JointAngleData? jointAngles,
     WristData? wrist,
     $3.BoolState? usingIk,
+    $2.Orientation? currentOrientation,
+    $2.Orientation? targetOrientation,
   }) {
     final result = create();
     if (currentPosition != null) result.currentPosition = currentPosition;
@@ -360,6 +362,9 @@ class ArmData extends $pb.GeneratedMessage {
     if (jointAngles != null) result.jointAngles = jointAngles;
     if (wrist != null) result.wrist = wrist;
     if (usingIk != null) result.usingIk = usingIk;
+    if (currentOrientation != null)
+      result.currentOrientation = currentOrientation;
+    if (targetOrientation != null) result.targetOrientation = targetOrientation;
     return result;
   }
 
@@ -405,6 +410,10 @@ class ArmData extends $pb.GeneratedMessage {
         subBuilder: WristData.create)
     ..aE<$3.BoolState>(16, _omitFieldNames ? '' : 'usingIk',
         enumValues: $3.BoolState.values)
+    ..aOM<$2.Orientation>(17, _omitFieldNames ? '' : 'currentOrientation',
+        subBuilder: $2.Orientation.create)
+    ..aOM<$2.Orientation>(18, _omitFieldNames ? '' : 'targetOrientation',
+        subBuilder: $2.Orientation.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -595,6 +604,28 @@ class ArmData extends $pb.GeneratedMessage {
   $core.bool hasUsingIk() => $_has(15);
   @$pb.TagNumber(16)
   void clearUsingIk() => $_clearField(16);
+
+  @$pb.TagNumber(17)
+  $2.Orientation get currentOrientation => $_getN(16);
+  @$pb.TagNumber(17)
+  set currentOrientation($2.Orientation value) => $_setField(17, value);
+  @$pb.TagNumber(17)
+  $core.bool hasCurrentOrientation() => $_has(16);
+  @$pb.TagNumber(17)
+  void clearCurrentOrientation() => $_clearField(17);
+  @$pb.TagNumber(17)
+  $2.Orientation ensureCurrentOrientation() => $_ensure(16);
+
+  @$pb.TagNumber(18)
+  $2.Orientation get targetOrientation => $_getN(17);
+  @$pb.TagNumber(18)
+  set targetOrientation($2.Orientation value) => $_setField(18, value);
+  @$pb.TagNumber(18)
+  $core.bool hasTargetOrientation() => $_has(17);
+  @$pb.TagNumber(18)
+  void clearTargetOrientation() => $_clearField(18);
+  @$pb.TagNumber(18)
+  $2.Orientation ensureTargetOrientation() => $_ensure(17);
 }
 
 class WristCommand extends $pb.GeneratedMessage {
