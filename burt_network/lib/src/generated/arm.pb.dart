@@ -341,6 +341,7 @@ class ArmData extends $pb.GeneratedMessage {
     $0.MotorData? roll,
     JointAngleData? jointAngles,
     WristData? wrist,
+    $3.BoolState? usingIk,
   }) {
     final result = create();
     if (currentPosition != null) result.currentPosition = currentPosition;
@@ -358,6 +359,7 @@ class ArmData extends $pb.GeneratedMessage {
     if (roll != null) result.roll = roll;
     if (jointAngles != null) result.jointAngles = jointAngles;
     if (wrist != null) result.wrist = wrist;
+    if (usingIk != null) result.usingIk = usingIk;
     return result;
   }
 
@@ -401,6 +403,8 @@ class ArmData extends $pb.GeneratedMessage {
         subBuilder: JointAngleData.create)
     ..aOM<WristData>(15, _omitFieldNames ? '' : 'wrist',
         subBuilder: WristData.create)
+    ..aE<$3.BoolState>(16, _omitFieldNames ? '' : 'usingIk',
+        enumValues: $3.BoolState.values)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -582,6 +586,15 @@ class ArmData extends $pb.GeneratedMessage {
   void clearWrist() => $_clearField(15);
   @$pb.TagNumber(15)
   WristData ensureWrist() => $_ensure(14);
+
+  @$pb.TagNumber(16)
+  $3.BoolState get usingIk => $_getN(15);
+  @$pb.TagNumber(16)
+  set usingIk($3.BoolState value) => $_setField(16, value);
+  @$pb.TagNumber(16)
+  $core.bool hasUsingIk() => $_has(15);
+  @$pb.TagNumber(16)
+  void clearUsingIk() => $_clearField(16);
 }
 
 class WristCommand extends $pb.GeneratedMessage {
@@ -721,6 +734,10 @@ class ArmCommand extends $pb.GeneratedMessage {
     $3.BoolState? laserState,
     $0.MotorCommand? roll,
     WristCommand? wrist,
+    $3.BoolState? usingIk,
+    $core.double? ikPitch,
+    $core.double? ikYaw,
+    $2.Pose3d? pose,
   }) {
     final result = create();
     if (stop != null) result.stop = stop;
@@ -745,6 +762,10 @@ class ArmCommand extends $pb.GeneratedMessage {
     if (laserState != null) result.laserState = laserState;
     if (roll != null) result.roll = roll;
     if (wrist != null) result.wrist = wrist;
+    if (usingIk != null) result.usingIk = usingIk;
+    if (ikPitch != null) result.ikPitch = ikPitch;
+    if (ikYaw != null) result.ikYaw = ikYaw;
+    if (pose != null) result.pose = pose;
     return result;
   }
 
@@ -794,6 +815,12 @@ class ArmCommand extends $pb.GeneratedMessage {
         subBuilder: $0.MotorCommand.create)
     ..aOM<WristCommand>(22, _omitFieldNames ? '' : 'wrist',
         subBuilder: WristCommand.create)
+    ..aE<$3.BoolState>(23, _omitFieldNames ? '' : 'usingIk',
+        enumValues: $3.BoolState.values)
+    ..aD(24, _omitFieldNames ? '' : 'ikPitch', fieldType: $pb.PbFieldType.OF)
+    ..aD(25, _omitFieldNames ? '' : 'ikYaw', fieldType: $pb.PbFieldType.OF)
+    ..aOM<$2.Pose3d>(26, _omitFieldNames ? '' : 'pose',
+        subBuilder: $2.Pose3d.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -867,8 +894,6 @@ class ArmCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   $0.MotorCommand ensureElbow() => $_ensure(4);
 
-  /// Needed for IK: If the wrist-lift moves, we need to re-calculate IK to keep the end-effector
-  /// stationary. See /Arm/src/ik/README.md in the Arm-Firmware repository.
   @$pb.TagNumber(6)
   $0.MotorCommand get gripperLift => $_getN(5);
   @$pb.TagNumber(6)
@@ -1040,6 +1065,44 @@ class ArmCommand extends $pb.GeneratedMessage {
   void clearWrist() => $_clearField(22);
   @$pb.TagNumber(22)
   WristCommand ensureWrist() => $_ensure(21);
+
+  @$pb.TagNumber(23)
+  $3.BoolState get usingIk => $_getN(22);
+  @$pb.TagNumber(23)
+  set usingIk($3.BoolState value) => $_setField(23, value);
+  @$pb.TagNumber(23)
+  $core.bool hasUsingIk() => $_has(22);
+  @$pb.TagNumber(23)
+  void clearUsingIk() => $_clearField(23);
+
+  @$pb.TagNumber(24)
+  $core.double get ikPitch => $_getN(23);
+  @$pb.TagNumber(24)
+  set ikPitch($core.double value) => $_setFloat(23, value);
+  @$pb.TagNumber(24)
+  $core.bool hasIkPitch() => $_has(23);
+  @$pb.TagNumber(24)
+  void clearIkPitch() => $_clearField(24);
+
+  @$pb.TagNumber(25)
+  $core.double get ikYaw => $_getN(24);
+  @$pb.TagNumber(25)
+  set ikYaw($core.double value) => $_setFloat(24, value);
+  @$pb.TagNumber(25)
+  $core.bool hasIkYaw() => $_has(24);
+  @$pb.TagNumber(25)
+  void clearIkYaw() => $_clearField(25);
+
+  @$pb.TagNumber(26)
+  $2.Pose3d get pose => $_getN(25);
+  @$pb.TagNumber(26)
+  set pose($2.Pose3d value) => $_setField(26, value);
+  @$pb.TagNumber(26)
+  $core.bool hasPose() => $_has(25);
+  @$pb.TagNumber(26)
+  void clearPose() => $_clearField(26);
+  @$pb.TagNumber(26)
+  $2.Pose3d ensurePose() => $_ensure(25);
 }
 
 const $core.bool _omitFieldNames =

@@ -145,6 +145,14 @@ const ArmData$json = {
       '6': '.JointAngleData',
       '10': 'jointAngles'
     },
+    {
+      '1': 'using_ik',
+      '3': 16,
+      '4': 1,
+      '5': 14,
+      '6': '.BoolState',
+      '10': 'usingIk'
+    },
   ],
 };
 
@@ -160,7 +168,8 @@ final $typed_data.Uint8List armDataDescriptor = $convert.base64Decode(
     'RhUgZyb3RhdGUSIAoFd3Jpc3QYDyABKAsyCi5XcmlzdERhdGFSBXdyaXN0EiAKBXBpbmNoGAog'
     'ASgLMgouTW90b3JEYXRhUgVwaW5jaBIfCgtzZXJ2b19hbmdsZRgLIAEoBVIKc2Vydm9BbmdsZR'
     'IrCgtsYXNlcl9zdGF0ZRgMIAEoDjIKLkJvb2xTdGF0ZVIKbGFzZXJTdGF0ZRIyCgxqb2ludF9h'
-    'bmdsZXMYDiABKAsyDy5Kb2ludEFuZ2xlRGF0YVILam9pbnRBbmdsZXM=');
+    'bmdsZXMYDiABKAsyDy5Kb2ludEFuZ2xlRGF0YVILam9pbnRBbmdsZXMSJQoIdXNpbmdfaWsYEC'
+    'ABKA4yCi5Cb29sU3RhdGVSB3VzaW5nSWs=');
 
 @$core.Deprecated('Use wristCommandDescriptor instead')
 const WristCommand$json = {
@@ -230,6 +239,9 @@ const ArmCommand$json = {
     {'1': 'ik_x', '3': 7, '4': 1, '5': 2, '10': 'ikX'},
     {'1': 'ik_y', '3': 8, '4': 1, '5': 2, '10': 'ikY'},
     {'1': 'ik_z', '3': 9, '4': 1, '5': 2, '10': 'ikZ'},
+    {'1': 'ik_pitch', '3': 24, '4': 1, '5': 2, '10': 'ikPitch'},
+    {'1': 'ik_yaw', '3': 25, '4': 1, '5': 2, '10': 'ikYaw'},
+    {'1': 'pose', '3': 26, '4': 1, '5': 11, '6': '.Pose3d', '10': 'pose'},
     {'1': 'jab', '3': 10, '4': 1, '5': 8, '10': 'jab'},
     {
       '1': 'version',
@@ -284,6 +296,14 @@ const ArmCommand$json = {
       '6': '.BoolState',
       '10': 'laserState'
     },
+    {
+      '1': 'using_ik',
+      '3': 23,
+      '4': 1,
+      '5': 14,
+      '6': '.BoolState',
+      '10': 'usingIk'
+    },
   ],
 };
 
@@ -294,11 +314,13 @@ final $typed_data.Uint8List armCommandDescriptor = $convert.base64Decode(
     'ZXIYBCABKAsyDS5Nb3RvckNvbW1hbmRSCHNob3VsZGVyEiMKBWVsYm93GAUgASgLMg0uTW90b3'
     'JDb21tYW5kUgVlbGJvdxIhCgRyb2xsGBUgASgLMg0uTW90b3JDb21tYW5kUgRyb2xsEjAKDGdy'
     'aXBwZXJfbGlmdBgGIAEoCzINLk1vdG9yQ29tbWFuZFILZ3JpcHBlckxpZnQSEQoEaWtfeBgHIA'
-    'EoAlIDaWtYEhEKBGlrX3kYCCABKAJSA2lrWRIRCgRpa196GAkgASgCUgNpa1oSEAoDamFiGAog'
-    'ASgIUgNqYWISIgoHdmVyc2lvbhgLIAEoCzIILlZlcnNpb25SB3ZlcnNpb24SJwoJc3RhcnRfdX'
-    'NzGAwgASgOMgouQm9vbFN0YXRlUghzdGFydFVzcxIhCgRsaWZ0GA0gASgLMg0uTW90b3JDb21t'
-    'YW5kUgRsaWZ0EiUKBnJvdGF0ZRgOIAEoCzINLk1vdG9yQ29tbWFuZFIGcm90YXRlEiMKBXdyaX'
-    'N0GBYgASgLMg0uV3Jpc3RDb21tYW5kUgV3cmlzdBIjCgVwaW5jaBgPIAEoCzINLk1vdG9yQ29t'
-    'bWFuZFIFcGluY2gSEgoEb3BlbhgQIAEoCFIEb3BlbhIUCgVjbG9zZRgRIAEoCFIFY2xvc2USEg'
-    'oEc3BpbhgSIAEoCFIEc3BpbhIfCgtzZXJ2b19hbmdsZRgTIAEoBVIKc2Vydm9BbmdsZRIrCgts'
-    'YXNlcl9zdGF0ZRgUIAEoDjIKLkJvb2xTdGF0ZVIKbGFzZXJTdGF0ZQ==');
+    'EoAlIDaWtYEhEKBGlrX3kYCCABKAJSA2lrWRIRCgRpa196GAkgASgCUgNpa1oSGQoIaWtfcGl0'
+    'Y2gYGCABKAJSB2lrUGl0Y2gSFQoGaWtfeWF3GBkgASgCUgVpa1lhdxIbCgRwb3NlGBogASgLMg'
+    'cuUG9zZTNkUgRwb3NlEhAKA2phYhgKIAEoCFIDamFiEiIKB3ZlcnNpb24YCyABKAsyCC5WZXJz'
+    'aW9uUgd2ZXJzaW9uEicKCXN0YXJ0X3VzcxgMIAEoDjIKLkJvb2xTdGF0ZVIIc3RhcnRVc3MSIQ'
+    'oEbGlmdBgNIAEoCzINLk1vdG9yQ29tbWFuZFIEbGlmdBIlCgZyb3RhdGUYDiABKAsyDS5Nb3Rv'
+    'ckNvbW1hbmRSBnJvdGF0ZRIjCgV3cmlzdBgWIAEoCzINLldyaXN0Q29tbWFuZFIFd3Jpc3QSIw'
+    'oFcGluY2gYDyABKAsyDS5Nb3RvckNvbW1hbmRSBXBpbmNoEhIKBG9wZW4YECABKAhSBG9wZW4S'
+    'FAoFY2xvc2UYESABKAhSBWNsb3NlEhIKBHNwaW4YEiABKAhSBHNwaW4SHwoLc2Vydm9fYW5nbG'
+    'UYEyABKAVSCnNlcnZvQW5nbGUSKwoLbGFzZXJfc3RhdGUYFCABKA4yCi5Cb29sU3RhdGVSCmxh'
+    'c2VyU3RhdGUSJQoIdXNpbmdfaWsYFyABKA4yCi5Cb29sU3RhdGVSB3VzaW5nSWs=');
