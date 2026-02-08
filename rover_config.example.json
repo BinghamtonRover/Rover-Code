@@ -1,0 +1,58 @@
+{
+  "devices": [
+    {
+      "humanName": "Front Camera",
+      "alias": "rover_cam_front",
+      "type": "camera",
+      "port": "3-2:1.0",
+      "index": 0
+    },
+    {
+      "humanName": "Rear Camera",
+      "alias": "rover_cam_rear",
+      "type": "camera",
+      "port": "1-2.4:1.0",
+      "index": 0
+    },
+    {
+      "humanName": "Bottom Left Camera",
+      "alias": "rover_cam_bottom_left",
+      "type": "camera",
+      "port": "1-2.3:1.0",
+      "index": 0
+    },
+    {
+      "humanName": "Bottom Right Camera",
+      "alias": "rover_cam_bottom_right",
+      "type": "camera",
+      "port": "1-2.2:1.0",
+      "index": 0
+    },
+    {
+      "humanName": "RealSense RGB",
+      "alias": "rover_realsense_rgb",
+      "type": "camera",
+      "interface": "Intel(R) RealSense(TM) Depth Camera 435i RGB",
+      "index": 0
+    },
+    {
+      "humanName": "GPS",
+      "alias": "rover_gps",
+      "type": "serial",
+      "manufacturer": "u-blox AG - www.u-blox.com"
+    },
+    {
+      "humanName": "IMU",
+      "alias": "rover_imu",
+      "type": "serial",
+      "product": "CDC + MSD Demo"
+    }
+  ],
+  "programs": {
+    "video": true,
+    "subsystems": true,
+    "autonomy": true,
+    "vision": true,
+    "lidar": true
+  }
+}
