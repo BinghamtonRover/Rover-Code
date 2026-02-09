@@ -67,7 +67,10 @@ class ImuReader extends Service {
           y: message.arguments[1] as double,
           z: message.arguments[2] as double,
         );
-        final position = RoverPosition(orientation: orientation, version: positionVersion);
+        final position = RoverPosition(
+          orientation: orientation,
+          version: positionVersion,
+        );
         collection.server.sendMessage(position);
         collection.server.sendMessage(position, destination: autonomySocket);
       }
@@ -91,7 +94,10 @@ class ImuReader extends Service {
       logger.info("Reading IMU on port $imuPort");
       return true;
     } catch (error) {
-      logger.critical("Could not open IMU", body: "Port $imuPort, Error: $error");
+      logger.critical(
+        "Could not open IMU",
+        body: "Port $imuPort, Error: $error",
+      );
       return false;
     }
   }
