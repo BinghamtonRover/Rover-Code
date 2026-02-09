@@ -159,7 +159,7 @@ class GpsReader extends Service {
 
   @override
   Future<bool> init() async {
-    _messageSubscription = collection.server.messages.onMessage(
+    _messageSubscription = collection.server.messages.listenFor(
       name: RoverPosition().messageName,
       constructor: RoverPosition.fromBuffer,
       callback: _handleIncomingMessage,

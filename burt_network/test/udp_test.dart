@@ -69,7 +69,7 @@ void main() => group("ProtoSocket:", () {
     // Initialize both sockets
     await server.init();
     await client.init();
-    server.messages.onMessage(
+    server.messages.listenFor(
       name: ScienceData().messageName,
       constructor: ScienceData.fromBuffer,
       callback: (d) => data = d,
@@ -100,17 +100,17 @@ void main() => group("ProtoSocket:", () {
     final orientationTest = Orientation(x: 5);
     final server = TestServer(port: 8009);
     final client = TestClient(port: 8010, destination: withPort(8009));
-    server.messages.onMessage(
+    server.messages.listenFor(
       name: ScienceData().messageName,
       constructor: ScienceData.fromBuffer,
       callback: (x) => science1 = x,
     );
-    server.messages.onMessage(
+    server.messages.listenFor(
       name: ScienceData().messageName,
       constructor: ScienceData.fromBuffer,
       callback: (x) => science2 = x,
     );
-    server.messages.onMessage(
+    server.messages.listenFor(
       name: Orientation().messageName,
       constructor: Orientation.fromBuffer,
       callback: (x) => orientation = x,
@@ -129,10 +129,11 @@ void main() => group("ProtoSocket:", () {
   });
 
   test("Heartbeats are filtered out of the regular stream", () async {
+    final destination = withPort(8012);
     var receivedHeartbeat = false;
     final server = TestServer(port: 8011);
-    final client = UdpSocket(port: 8012, destination: withPort(8012));
-    server.messages.onMessage(
+    final client = UdpSocket(port: 8012);
+    server.messages.listenFor(
       name: Heartbeat().messageName,
       constructor: Heartbeat.fromBuffer,
       callback: (_) => receivedHeartbeat = true,
@@ -140,7 +141,10 @@ void main() => group("ProtoSocket:", () {
     await server.init();
     await client.init();
     await Future<void>.delayed(heartbeatDelay);
-    client.sendMessage(Heartbeat(sender: Device.DASHBOARD, receiver: Device.SUBSYSTEMS));
+    client.sendMessage(
+      Heartbeat(sender: Device.DASHBOARD, receiver: Device.SUBSYSTEMS),
+      destination: destination,
+    );
     await Future<void>.delayed(heartbeatDelay);
     expect(receivedHeartbeat, false);
     await server.dispose();

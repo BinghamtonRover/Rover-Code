@@ -9,7 +9,7 @@ class RoverImu extends ImuInterface {
 
   @override
   Future<bool> init() async {
-    collection.server.messages.onMessage(
+    collection.server.messages.listenFor(
       name: RoverPosition().messageName,
       constructor: RoverPosition.fromBuffer,
       callback: _internalUpdate,

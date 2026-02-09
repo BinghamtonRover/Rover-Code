@@ -40,31 +40,10 @@ class UdpSocket extends Service {
   /// the original value and will re-request the original port when [init] is called.
   final int? _port;
 
-  /// The destination port to send to.
-  ///
-  /// All the `send` functions allow you to send to a specific [SocketInfo]. This field
-  /// is the default destination if those parameters are omitted.
-  SocketInfo? destination;
-
-  /// Whether or not the default destination should be kept when the socket is dispose.
-  ///
-  /// If this is true, [destination] will not be set to null when [dispose] is called.
-  ///
-  /// This is intended to prevent scenarios where the socket automatically restarts due
-  /// to an allowed OS error (see [allowedErrors]), and the socket's destination can no
-  /// longer receive messages by this socket due to [destination] being set null.
-  ///
-  /// It only makes sense to use this when communicating with a static IP. If the destination port
-  /// can change between resets, using this may mean the socket will try to communicate with a port
-  /// that no longer exists. Practically, that means only the Dashboard should set this to be true.
-  final bool keepDestination;
-
   /// Opens a UDP socket on the given port that can send and receive data.
   UdpSocket({
     required int? port,
     this.quiet = false,
-    this.destination,
-    this.keepDestination = false,
   }) : _port = port;
 
   /// The UDP socket backed by `dart:io`.
@@ -120,9 +99,6 @@ class UdpSocket extends Service {
     if (!quiet) logger.info("Closing the socket on port $port");
     await _subscription?.cancel(); _subscription = null;
     _socket?.close(); _socket = null;
-    if (!keepDestination) {
-      destination = null;
-    }
     _sendingQueue.clear();
   }
 
@@ -149,30 +125,24 @@ class UdpSocket extends Service {
   ///
   /// Being UDP, this function does not wait for a response or even confirmation of a
   /// successful send and is therefore very quick and non-blocking.
-  void send(List<int> data, {SocketInfo? destination}) {
-    final target = destination ?? this.destination;
-    if (target == null) return;
+  void send(List<int> data, {required SocketInfo destination}) {
     if (_socket == null) {
       throw StateError(
         "Cannot use a UdpSocket on port $_port after it's been disposed",
       );
     }
-    final sent = _socket!.send(data, target.address, target.port);
+    final sent = _socket!.send(data, destination.address, destination.port);
     if (sent == 0) {
-      _sendingQueue.add((data: data, destination: target));
+      _sendingQueue.add((data: data, destination: destination));
       _socket!.writeEventsEnabled = true;
     }
   }
 
   /// Sends a [WrappedMessage] over the socket.
-  void sendWrapper(WrappedMessage wrapper, {SocketInfo? destination}) =>
+  void sendWrapper(WrappedMessage wrapper, {required SocketInfo destination}) =>
     send(wrapper.writeToBuffer(), destination: destination);
 
   /// Sends a [Message] over the socket (in a [WrappedMessage]).
-  void sendMessage(Message message, {SocketInfo? destination}) =>
+  void sendMessage(Message message, {required SocketInfo destination}) =>
     sendWrapper(message.wrap(), destination: destination);
-
-  /// Wraps all incoming data in a [WrappedMessage].
-  Stream<WrappedMessage> get messages => stream
-    .map((packet) => WrappedMessage.fromBuffer(packet.data));
 }

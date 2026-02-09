@@ -1,4 +1,3 @@
-
 import "package:burt_network/protobuf.dart";
 
 import "burt_socket.dart";
@@ -6,11 +5,21 @@ import "socket_info.dart";
 
 /// A mixin that automatically handles rover-side heartbeats.
 mixin RoverHeartbeats on BurtSocket {
+  /// The heartbeats received by the socket since the last call to [checkHeartbeats].
+  final Set<SocketInfo> receivedHeartbeats = {};
+
+  /// The maximum number of clients that can be connected to this socket.
+  ///
+  /// Once the maximum number of clients have been connected, and incoming
+  /// connection attempts will be rejected, and will not have any data sent
+  /// to them.
+  late final int maxClients;
+
   /// Whether this socket received a heartbeat since the last call to [checkHeartbeats].
-  bool didReceivedHeartbeat = false;
+  bool get didReceivedHeartbeat => receivedHeartbeats.isNotEmpty;
 
   @override
-  bool get isConnected => destination != null;
+  bool get isConnected => destinations.isNotEmpty;
 
   @override
   Duration get heartbeatInterval => const Duration(seconds: 2);
@@ -18,42 +27,66 @@ mixin RoverHeartbeats on BurtSocket {
   /// Handles incoming heartbeats.
   ///
   /// 1. If the heartbeat was meant for another device, log it and ignore it.
-  /// 2. If it came from our dashboard, respond to it with [sendHeartbeatResponse].
-  /// 3. If it came from another dashboard, log it and ignore it.
-  /// 4. If we are not connected to any dashboard, call [onConnect] and respond to it.
+  /// 2. If it came from an existing client, respond to it with [sendHeartbeatResponse].
+  /// 3. If the number of clients is less than [maxClients], call [onConnect] and respond with [sendHeartbeatResponse].
   @override
   void onHeartbeat(Heartbeat heartbeat, SocketInfo source) {
-    if (heartbeat.receiver != device) {  // (1)
-      logger.warning("Received a misaddressed heartbeat for ${heartbeat.receiver}");
-    } else if (isConnected) {
-      if (destination == source) {  // (2)
-        sendHeartbeatResponse();
-      } else {  // (3)
-        logger.warning("Port $port is connected to $destination but received a heartbeat from $source");
-      }
-    } else {  // (4)
+    // (1)
+    if (heartbeat.receiver != device) {
+      logger.warning(
+        "Received a misaddressed heartbeat for ${heartbeat.receiver}",
+      );
+      return;
+    }
+
+    // (2)
+    if (destinations.contains(source)) {
+      sendHeartbeatResponse(source);
+    } else if (destinations.length < maxClients) {
+      // (3)
       onConnect(source);
-      sendHeartbeatResponse();
+      sendHeartbeatResponse(source);
+    } else {
+      logger.warning(
+        "Too many clients connected on port $port, ignoring connection from ${source.address.address}:${source.port}",
+      );
     }
   }
 
-  /// Checks if a heartbeat has been received. If not, calls [onDisconnect].
+  /// Checks if a heartbeat has been received from any destination. If not,
+  /// sends a [Disconnect] message to any destination who has not sent any heartbeats.
+  ///
+  /// If no heartbeats have been received, calls [onDisconnect].
   ///
   /// This function runs every [heartbeatInterval].
   @override
   Future<void> checkHeartbeats() async {
-    if (didReceivedHeartbeat) {
-      didReceivedHeartbeat = false;
-    } else if (isConnected) {
-      logger.warning("Heartbeat not received. Assuming the dashboard has disconnected");
+    final wasConnected = isConnected;
+    destinations.removeWhere((address) {
+      if (!receivedHeartbeats.contains(address)) {
+        logger.warning(
+          "Heartbeat not received from ${address.address.address}:${address.port}, assuming client has disconnected",
+        );
+        sendMessage(Disconnect(sender: device), destination: address);
+        return true;
+      }
+      return false;
+    });
+
+    if (receivedHeartbeats.isNotEmpty) {
+      receivedHeartbeats.clear();
+    } else if (wasConnected) {
+      logger.warning(
+        "No heartbeats received. Assuming the dashboard has disconnected",
+      );
       await onDisconnect();
     }
   }
 
-  /// Responds to an incoming heartbeat.
-  void sendHeartbeatResponse() {
+  /// Responds to an incoming heartbeat from [source].
+  void sendHeartbeatResponse(SocketInfo source) {
     final response = Connect(sender: device, receiver: Device.DASHBOARD);
-    sendMessage(response);
-    didReceivedHeartbeat = true;
+    sendMessage(response, destination: source);
+    receivedHeartbeats.add(source);
   }
 }

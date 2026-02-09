@@ -32,12 +32,12 @@ class CameraManager extends Service {
 
   @override
   Future<bool> init() async {
-    _commands = collection.videoServer.messages.onMessage<VideoCommand>(
+    _commands = collection.videoServer.messages.listenFor<VideoCommand>(
       name: VideoCommand().messageName,
       constructor: VideoCommand.fromBuffer,
       callback: _handleCommand,
     );
-    _vision = collection.videoServer.messages.onMessage<VideoData>(
+    _vision = collection.videoServer.messages.listenFor<VideoData>(
       name: VideoData().messageName,
       constructor: VideoData.fromBuffer,
       callback: _handleVision,

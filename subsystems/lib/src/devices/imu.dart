@@ -82,7 +82,7 @@ class ImuReader extends Service {
         return false;
       }
       subscription = serial.stream.listen(handleSerial);
-      _commandSubscription = collection.server.messages.onMessage(
+      _commandSubscription = collection.server.messages.listenFor(
         name: SubsystemsCommand().messageName,
         constructor: SubsystemsCommand.fromBuffer,
         callback: handleCommand,

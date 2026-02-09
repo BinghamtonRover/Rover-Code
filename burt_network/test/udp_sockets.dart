@@ -37,7 +37,7 @@ class TestServer extends RoverSocket {
   @override
   Future<bool> init() async {
     await super.init();
-    messages.onMessage(
+    messages.listenFor(
       name: ScienceData().messageName,
       constructor: ScienceData.fromBuffer,
       callback: (x) => data = x,
@@ -59,9 +59,13 @@ class TestServer extends RoverSocket {
 }
 
 class EchoSocket extends RoverSocket {
-  EchoSocket({required super.port, required super.destination}) : super(device: Device.SUBSYSTEMS, keepDestination: true);
+  EchoSocket({
+    required super.port,
+    required super.destination,
+    super.destinations,
+  }) : super(device: Device.SUBSYSTEMS, keepDestination: true);
 
-  StreamSubscription<WrappedMessage>? _subscription;
+  StreamSubscription<WrapperDatagram>? _subscription;
 
   @override
   Future<bool> init() async {
@@ -76,14 +80,15 @@ class EchoSocket extends RoverSocket {
     await super.dispose();
   }
 
-  void echoBack(WrappedMessage wrapper) => sendWrapper(wrapper);
+  void echoBack(WrapperDatagram wrapper) => sendWrapper(wrapper.message);
 }
 
 class TestClient extends BurtSocket {
   @override
   Duration get heartbeatInterval => const Duration(milliseconds: 10);
 
-  TestClient({required super.port, super.destination}) : super(device: Device.DASHBOARD);
+  TestClient({required super.port, super.destination, super.destinations})
+    : super(device: Device.DASHBOARD);
 
   @override
   bool isConnected = false;
