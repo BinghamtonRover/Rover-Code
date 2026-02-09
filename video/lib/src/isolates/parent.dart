@@ -8,7 +8,7 @@ import "package:video/video.dart";
 
 /// The socket to send autonomy data to.
 final autonomySocket = SocketInfo(
-  address: InternetAddress("192.168.1.30"),
+  address: InternetAddress("192.168.1.20"),
   port: 8003,
 );
 

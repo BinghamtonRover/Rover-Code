@@ -103,7 +103,10 @@ class RealSenseIsolate extends CameraIsolate {
     if (colorizedJpg == null) {
       sendLog(LogLevel.debug, "Could not encode colorized frame");
     } else {
-      sendFrame(colorizedJpg);
+      sendFrame(
+        colorizedJpg,
+        detailsOverride: details.deepCopy()..name = CameraName.AUTONOMY_DEPTH,
+      );
     }
 
     colorizedImage.dispose();
