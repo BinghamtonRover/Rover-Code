@@ -7,15 +7,15 @@ import "package:subsystems/subsystems.dart";
 ///
 /// Relies on the `realpath` command line tool, and must be run on Linux.
 Future<String> getRealPath(String symlink) async =>
-  (await Process.run("realpath", [symlink])).stdout.trim();
+    (await Process.run("realpath", [symlink])).stdout.trim();
 
 /// Gets all the names of all the ports.
 Future<Iterable<String>> getPortNames() async {
   final allPorts = DelegateSerialPort.allPorts.toSet();
   if (!Platform.isLinux) return allPorts;
-  final imuPort = await getRealPath("/dev/rover-imu");
-  final gpsPort = await getRealPath("/dev/rover-gps");
-  final forbiddenPorts = {imuPort, gpsPort, "/dev/ttyAMA10"};
+  final imuPath = await getRealPath(imuPort);
+  final gpsPath = await getRealPath(gpsPort);
+  final forbiddenPorts = {imuPath, gpsPath, "/dev/ttyAMA10"};
   return allPorts.toSet().difference(forbiddenPorts);
 }
 

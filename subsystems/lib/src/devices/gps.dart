@@ -11,7 +11,7 @@ const gpsPort = "/dev/rover_gps";
 
 /// The UDP socket on the Autonomy program.
 final autonomySocket = SocketInfo(
-  address: InternetAddress("192.168.1.30"),
+  address: InternetAddress("192.168.1.20"),
   port: 8003,
 );
 
@@ -81,10 +81,7 @@ class GpsReader extends Service {
       if (parts[4] == "W") {
         longitude *= -1;
       }
-      return GpsCoordinates(
-        latitude: latitude,
-        longitude: longitude,
-      );
+      return GpsCoordinates(latitude: latitude, longitude: longitude);
     } else {
       return null;
     }
@@ -121,17 +118,19 @@ class GpsReader extends Service {
   void _handleLine(String line) {
     final coordinates = parseNMEA(line);
     if (coordinates == null) return;
-    if (coordinates.latitude == 0
-      || coordinates.longitude == 0
-      || coordinates.altitude == 0
-    ) {
+    if (coordinates.latitude == 0 ||
+        coordinates.longitude == 0 ||
+        coordinates.altitude == 0) {
       // No fix
       return;
     }
     final roverPosition = RoverPosition(gps: coordinates);
     collection.server.sendMessage(roverPosition);
     collection.server.sendMessage(roverPosition, destination: autonomySocket);
-    collection.server.sendMessage(roverPosition, destination: baseStationSocket);
+    collection.server.sendMessage(
+      roverPosition,
+      destination: baseStationSocket,
+    );
   }
 
   /// Parses a packet into several NMEA sentences and handles them.
@@ -153,7 +152,10 @@ class GpsReader extends Service {
     }
 
     final rtkMessage = Uint8List.fromList(message.rtkMessage);
-    logger.trace("Writing RTK Message", body: "Writing a ${rtkMessage.lengthInBytes}-byte RTCM packet to serial");
+    logger.trace(
+      "Writing RTK Message",
+      body: "Writing a ${rtkMessage.lengthInBytes}-byte RTCM packet to serial",
+    );
     device.write(rtkMessage);
   }
 
@@ -174,7 +176,10 @@ class GpsReader extends Service {
       logger.info("Reading GPS over port $gpsPort");
       return true;
     } catch (error) {
-      logger.critical("Could not open GPS", body: "Port $gpsPort, Error=$error");
+      logger.critical(
+        "Could not open GPS",
+        body: "Port $gpsPort, Error=$error",
+      );
       return false;
     }
   }
