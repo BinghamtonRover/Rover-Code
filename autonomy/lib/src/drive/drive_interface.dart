@@ -134,6 +134,8 @@ abstract class DriveInterface extends Service {
       blink: blink ? BoolState.YES : BoolState.NO,
     );
     sendCommand(command);
+    sendCommand(command);
+    sendCommand(command);
   }
 
   /// Spin to face an Aruco tag, returns whether or not it was able to face the tag
