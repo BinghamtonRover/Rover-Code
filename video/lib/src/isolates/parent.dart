@@ -8,7 +8,7 @@ import "package:video/video.dart";
 
 /// The socket to send autonomy data to.
 final autonomySocket = SocketInfo(
-  address: InternetAddress("192.168.1.30"),
+  address: InternetAddress("192.168.1.20"),
   port: 8003,
 );
 
@@ -69,7 +69,7 @@ class CameraManager extends Service {
     stopAll();
 
     // Wait a bit after sending the stop command so the messages are received properly
-    await Future<void>.delayed(const Duration(milliseconds: 750));
+    await Future<void>.delayed(const Duration(milliseconds: 1500));
 
     await _commands?.cancel();
     await _vision?.cancel();

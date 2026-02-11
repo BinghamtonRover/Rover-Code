@@ -44,14 +44,18 @@ class FirmwareManager extends Service {
       if (!device.isReady) continue;
       final subscription = device.messages.listen((wrapper) {
         if (wrapper.name == ControlData().messageName) {
-          final controlData = ControlData.fromBuffer(wrapper.data);
-          if (controlData.hasDrive()) {
-            collection.server.sendMessage(controlData.drive);
-            return;
-          } else if (controlData.hasRelays()) {
-            collection.server.sendMessage(controlData.relays);
-            return;
-          }
+          try {
+            final controlData = ControlData.fromBuffer(wrapper.data);
+            if (controlData.hasDrive()) {
+              collection.server.sendMessage(controlData.drive);
+            }
+
+            if (controlData.hasRelays()) {
+              collection.server.sendMessage(controlData.relays);
+            }
+          } catch (_) {}
+
+          return;
         }
         collection.server.sendWrapper(wrapper);
       });
@@ -81,7 +85,22 @@ class FirmwareManager extends Service {
     if (device == null) return;
     var bytesToSend = wrapper.data;
 
-    if (controlConnected) {
+    // Handle incoming ControlCommand messages by unwrapping them
+    if (wrapper.name == ControlCommand().messageName) {
+      final controlCommand = ControlCommand.fromBuffer(wrapper.data);
+      if (controlCommand.hasDrive()) {
+        // Send the DriveCommand directly to the drive device
+        device = Device.DRIVE;
+        bytesToSend = controlCommand.drive.writeToBuffer();
+      } else if (controlCommand.hasRelays()) {
+        // Send the RelaysCommand directly to the relay device
+        device = Device.RELAY;
+        bytesToSend = controlCommand.relays.writeToBuffer();
+      } else {
+        return;
+      }
+    } else if (controlConnected) {
+      // Wrap outgoing commands in ControlCommand if control board is connected
       if (device == Device.DRIVE) {
         bytesToSend = ControlCommand(
           drive: DriveCommand.fromBuffer(wrapper.data),

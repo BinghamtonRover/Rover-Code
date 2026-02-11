@@ -30,6 +30,9 @@ class ImuReader extends Service {
   /// Whether or not the IMU is connected
   bool get isConnected => serial.isOpen;
 
+  /// The last received reading from the IMU
+  Orientation lastValue = Orientation();
+
   /// The subscription that will be notified when a new serial packet arrives.
   StreamSubscription<List<int>>? subscription;
   StreamSubscription<SubsystemsCommand>? _commandSubscription;
@@ -67,7 +70,11 @@ class ImuReader extends Service {
           y: message.arguments[1] as double,
           z: message.arguments[2] as double,
         );
-        final position = RoverPosition(orientation: orientation, version: positionVersion);
+        lastValue = orientation;
+        final position = RoverPosition(
+          orientation: orientation,
+          version: positionVersion,
+        );
         collection.server.sendMessage(position);
         collection.server.sendMessage(position, destination: autonomySocket);
       }
@@ -91,7 +98,10 @@ class ImuReader extends Service {
       logger.info("Reading IMU on port $imuPort");
       return true;
     } catch (error) {
-      logger.critical("Could not open IMU", body: "Port $imuPort, Error: $error");
+      logger.critical(
+        "Could not open IMU",
+        body: "Port $imuPort, Error: $error",
+      );
       return false;
     }
   }
@@ -101,5 +111,6 @@ class ImuReader extends Service {
     await subscription?.cancel();
     await _commandSubscription?.cancel();
     await serial.dispose();
+    lastValue = Orientation();
   }
 }
