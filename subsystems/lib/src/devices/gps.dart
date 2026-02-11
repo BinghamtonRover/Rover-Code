@@ -1,6 +1,7 @@
 import "dart:async";
 import "dart:convert";
 import "dart:io";
+import "dart:math";
 import "dart:typed_data";
 
 import "package:burt_network/burt_network.dart";
@@ -132,10 +133,16 @@ class GpsReader extends Service {
       return;
     }
 
+    final imuAngle = (collection.imu.lastValue.z + 90) * pi / 180;
+    final xOffset =
+        antennaOffset.x * cos(imuAngle) - antennaOffset.y * sin(imuAngle);
+    final yOffset =
+        antennaOffset.x * sin(imuAngle) + antennaOffset.y * cos(imuAngle);
+
     final utmPosition = coordinates.toUTM();
     final offsetPosition = UTMCoordinates(
-      x: utmPosition.x + antennaOffset.x,
-      y: utmPosition.y + antennaOffset.y,
+      x: utmPosition.x + xOffset,
+      y: utmPosition.y + yOffset,
       zoneNumber: utmPosition.zoneNumber,
     );
     final roverPosition = RoverPosition(
