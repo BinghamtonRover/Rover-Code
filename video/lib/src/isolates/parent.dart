@@ -69,7 +69,7 @@ class CameraManager extends Service {
     stopAll();
 
     // Wait a bit after sending the stop command so the messages are received properly
-    await Future<void>.delayed(const Duration(milliseconds: 750));
+    await Future<void>.delayed(const Duration(milliseconds: 1500));
 
     await _commands?.cancel();
     await _vision?.cancel();

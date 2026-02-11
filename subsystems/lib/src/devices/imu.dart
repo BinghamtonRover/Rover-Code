@@ -30,6 +30,9 @@ class ImuReader extends Service {
   /// Whether or not the IMU is connected
   bool get isConnected => serial.isOpen;
 
+  /// The last received reading from the IMU
+  Orientation lastValue = Orientation();
+
   /// The subscription that will be notified when a new serial packet arrives.
   StreamSubscription<List<int>>? subscription;
   StreamSubscription<SubsystemsCommand>? _commandSubscription;
@@ -67,6 +70,7 @@ class ImuReader extends Service {
           y: message.arguments[1] as double,
           z: message.arguments[2] as double,
         );
+        lastValue = orientation;
         final position = RoverPosition(
           orientation: orientation,
           version: positionVersion,
@@ -107,5 +111,6 @@ class ImuReader extends Service {
     await subscription?.cancel();
     await _commandSubscription?.cancel();
     await serial.dispose();
+    lastValue = Orientation();
   }
 }

@@ -44,14 +44,17 @@ class FirmwareManager extends Service {
       if (!device.isReady) continue;
       final subscription = device.messages.listen((wrapper) {
         if (wrapper.name == ControlData().messageName) {
-          final controlData = ControlData.fromBuffer(wrapper.data);
-          if (controlData.hasDrive()) {
-            collection.server.sendMessage(controlData.drive);
-          }
+          try {
+            final controlData = ControlData.fromBuffer(wrapper.data);
+            if (controlData.hasDrive()) {
+              collection.server.sendMessage(controlData.drive);
+            }
 
-          if (controlData.hasRelays()) {
-            collection.server.sendMessage(controlData.relays);
-          }
+            if (controlData.hasRelays()) {
+              collection.server.sendMessage(controlData.relays);
+            }
+          } catch (_) {}
+
           return;
         }
         collection.server.sendWrapper(wrapper);
