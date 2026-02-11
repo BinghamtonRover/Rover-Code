@@ -64,7 +64,7 @@ class RealSenseIsolate extends CameraIsolate {
     frameProperties = FrameProperties.fromFrameDetails(
       captureWidth: camera.rgbResolution.width,
       captureHeight: camera.rgbResolution.height,
-      details: details,
+      details: details.deepCopy()..name = CameraName.ROVER_FRONT,
     );
     sendLog(LogLevel.debug, "Started streaming from RealSense");
   }

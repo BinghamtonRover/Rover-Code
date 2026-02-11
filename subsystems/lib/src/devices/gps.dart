@@ -4,6 +4,7 @@ import "dart:io";
 import "dart:typed_data";
 
 import "package:burt_network/burt_network.dart";
+import "package:coordinate_converter/coordinate_converter.dart";
 import "package:subsystems/subsystems.dart";
 
 /// The port/device file to listen to the GPS on.
@@ -19,6 +20,12 @@ final autonomySocket = SocketInfo(
 final baseStationSocket = SocketInfo(
   address: InternetAddress("192.168.1.50"),
   port: 8005,
+);
+
+/// The offset of the GPS antenna's position on the rover
+final Coordinates antennaOffset = Coordinates(
+  x: -0.18415, // 7.25 in
+  y: -0.20955, // 8.25 in
 );
 
 /// Listens to the GPS and sends its output to the Dashboard.
@@ -124,7 +131,16 @@ class GpsReader extends Service {
       // No fix
       return;
     }
-    final roverPosition = RoverPosition(gps: coordinates);
+
+    final utmPosition = coordinates.toUTM();
+    final offsetPosition = UTMCoordinates(
+      x: utmPosition.x + antennaOffset.x,
+      y: utmPosition.y + antennaOffset.y,
+      zoneNumber: utmPosition.zoneNumber,
+    );
+    final roverPosition = RoverPosition(
+      gps: offsetPosition.toGps()..altitude = coordinates.altitude,
+    );
     collection.server.sendMessage(roverPosition);
     collection.server.sendMessage(roverPosition, destination: autonomySocket);
     collection.server.sendMessage(
