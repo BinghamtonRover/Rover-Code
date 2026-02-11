@@ -53,6 +53,10 @@ class TimedDrive extends DriveInterface with RoverDriveCommands {
   }
 
   @override
+  StateInterface spinForArucoState(int arucoId, {CameraName? desiredCamera}) =>
+      throw UnsupportedError("Cannot spin for aruco using TimedDrive");
+
+  @override
   StateInterface driveForwardState(GpsCoordinates coordinates) =>
       _TimedOperationState(
         controller,

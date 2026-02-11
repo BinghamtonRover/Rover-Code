@@ -139,8 +139,8 @@ void main() => group("[Network]", tags: ["network"], () {
     expect(subsystems.throttle, 0);
     expect(subsystems.left, 0);
     expect(subsystems.right, 0);
-    expect(simulator.gps.isNear(origin), isTrue);
-    expect(simulator.gps.isNear(oneMeter), isFalse);
+    expect(simulator.gps.isNear(origin, 1), isTrue);
+    expect(simulator.gps.isNear(oneMeter, 1), isFalse);
 
     expect(subsystems.throttleFlag, isFalse);
     final forwardFuture = Future<void>.delayed(
@@ -158,8 +158,8 @@ void main() => group("[Network]", tags: ["network"], () {
     expect(subsystems.throttle, isNot(0));
     expect(subsystems.left, isNot(0));
     expect(subsystems.right, isNot(0));
-    expect(simulator.gps.isNear(origin), isTrue);
-    expect(simulator.gps.isNear(oneMeter), isFalse);
+    expect(simulator.gps.isNear(origin, 1), isTrue);
+    expect(simulator.gps.isNear(oneMeter, 1), isFalse);
 
     simulator.orchestrator.controller.update();
     simulator.orchestrator.controller.update();

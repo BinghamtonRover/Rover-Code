@@ -76,6 +76,9 @@ abstract class DriveInterface extends Service {
   StateInterface turnStateState(AutonomyAStarState state) =>
       faceOrientationState(state.orientation.orientation);
 
+  /// State to spin towards the specified aruco tag
+  StateInterface spinForArucoState(int arucoId, {CameraName? desiredCamera});
+
   /// Stop the rover
   Future<bool> stop();
 
@@ -130,6 +133,8 @@ abstract class DriveInterface extends Service {
       color: color,
       blink: blink ? BoolState.YES : BoolState.NO,
     );
+    sendCommand(command);
+    sendCommand(command);
     sendCommand(command);
   }
 
