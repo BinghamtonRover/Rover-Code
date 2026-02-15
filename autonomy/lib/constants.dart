@@ -50,4 +50,16 @@ class Constants {
 
   /// The camera that should be used to detect Aruco tags
   static const CameraName arucoDetectionCamera = CameraName.ROVER_FRONT;
+
+  /// How close (in degrees) the detected object yaw must be to center
+  static const double visionCenterYawEpsilon = 3.0;
+
+  /// How close (in pixels) the detected object center must be to frame center
+  static const int visionCenterPixelEpsilon = 20;
+
+  /// How close (normalized -1..1) the detected object x position must be
+  static const double visionCenterXPositionEpsilon = 0.1;
+
+  /// How many consecutive frames the target can be missing before we stop
+  static const int visionMissingFramesToArrive = 3;
 }

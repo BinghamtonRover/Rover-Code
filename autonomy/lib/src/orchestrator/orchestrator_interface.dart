@@ -44,6 +44,12 @@ abstract class OrchestratorInterface extends Service {
         handleGpsTask(command);
       case AutonomyTask.VISUAL_MARKER:
         handleArucoTask(command);
+      case AutonomyTask.HAMMER_TARGET:
+        handleHammerTask(command);
+      case AutonomyTask.ROCK_HAMMER_TARGET:
+        handleHammerTask(command);
+      case AutonomyTask.BOTTLE_TARGET:
+        handleBottleTask(command);
     }
   }
 

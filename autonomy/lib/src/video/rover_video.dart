@@ -21,18 +21,37 @@ class RoverVideo extends VideoInterface {
   }
 
   @override
-  DetectedObject? getArucoDetection(int id, {CameraName? desiredCamera}) {
+  DetectedObjectSnapshot? getDetection(
+    DetectedObjectType type, {
+    CameraName? desiredCamera,
+    int? arucoId,
+  }) {
     for (final result in _cachedResults.where(
       (e) => e.details.name == (desiredCamera ?? e.details.name),
     )) {
       for (final object in result.detectedObjects) {
-        if (object.objectType == DetectedObjectType.ARUCO &&
-            object.arucoTagId == id) {
-          return object;
+        if (object.objectType != type) {
+          continue;
         }
+        if (type == DetectedObjectType.ARUCO &&
+            arucoId != null &&
+            object.arucoTagId != arucoId) {
+          continue;
+        }
+        return DetectedObjectSnapshot(object: object, details: result.details);
       }
     }
     return null;
+  }
+
+  @override
+  DetectedObject? getArucoDetection(int id, {CameraName? desiredCamera}) {
+    return getDetection(
+      DetectedObjectType.ARUCO,
+      desiredCamera: desiredCamera,
+      arucoId: id,
+    )
+        ?.object;
   }
 
   @override

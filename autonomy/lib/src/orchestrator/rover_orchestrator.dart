@@ -1,8 +1,10 @@
+import "dart:async";
 import "dart:math";
 
 import "package:autonomy/constants.dart";
 import "package:autonomy/interfaces.dart";
-import "dart:async";
+import "package:autonomy/src/state_machine/rover_states/approach_visible_object.dart";
+import "package:autonomy/src/state_machine/rover_states/spin_for_object.dart";
 
 import "package:coordinate_converter/coordinate_converter.dart";
 
@@ -425,8 +427,126 @@ class RoverOrchestrator extends OrchestratorInterface with ValueReporter {
   }
 
   @override
-  Future<void> handleHammerTask(AutonomyCommand command) async {}
+  Future<void> handleHammerTask(AutonomyCommand command) async {
+    await _handleVisualObjectTask(
+      targetTypes: [
+        DetectedObjectType.HAMMER,
+        DetectedObjectType.ROCK_HAMMER,
+      ],
+      label: "hammer",
+    );
+  }
 
   @override
-  Future<void> handleBottleTask(AutonomyCommand command) async {}
+  Future<void> handleBottleTask(AutonomyCommand command) async {
+    await _handleVisualObjectTask(
+      targetTypes: [DetectedObjectType.BOTTLE],
+      label: "bottle",
+    );
+  }
+
+  Future<void> _handleVisualObjectTask({
+    required List<DetectedObjectType> targetTypes,
+    required String label,
+  }) async {
+    collection.drive.setLedStrip(ProtoColor.RED);
+
+    var searchFailed = false;
+
+    final objectTaskSequence = SequenceState(
+      controller,
+      steps: [
+        FunctionalState(
+          controller,
+          onEnter: (controller) {
+            currentState = AutonomyState.SEARCHING;
+            controller.popState();
+          },
+        ),
+        SpinForObject(
+          controller,
+          collection: collection,
+          targetTypes: targetTypes,
+          desiredCamera: Constants.arucoDetectionCamera,
+        ),
+        FunctionalState(
+          controller,
+          onEnter: (controller) {
+            final detection = _firstTargetDetection(targetTypes);
+            if (detection != null) {
+              currentState = AutonomyState.APPROACHING;
+              controller.popState();
+              return;
+            }
+            currentState = AutonomyState.NO_SOLUTION;
+            searchFailed = true;
+            controller.popState();
+          },
+        ),
+        ApproachVisibleObject(
+          controller,
+          collection: collection,
+          targetTypes: targetTypes,
+          desiredCamera: Constants.arucoDetectionCamera,
+        ),
+        FunctionalState(
+          controller,
+          onEnter: (controller) {
+            collection.logger.info("Reached target $label");
+            currentState = AutonomyState.AT_DESTINATION;
+            collection.drive.setLedStrip(ProtoColor.GREEN, blink: true);
+            controller.popState();
+          },
+        ),
+      ],
+    );
+
+    controller.pushState(objectTaskSequence);
+
+    executionTimer = PeriodicTimer(const Duration(milliseconds: 10), (
+      timer,
+    ) async {
+      if (currentCommand == null) {
+        collection.logger.warning(
+          "Execution timer running while command is null",
+          body: "Canceling timer",
+        );
+        onCommandEnd();
+        timer.cancel();
+        return;
+      }
+
+      if (searchFailed) {
+        collection.logger.error("Failed to find target $label");
+        currentState = AutonomyState.NO_SOLUTION;
+        onCommandEnd();
+        timer.cancel();
+        return;
+      }
+
+      if (!controller.hasState()) {
+        currentState = AutonomyState.NO_SOLUTION;
+        onCommandEnd();
+        timer.cancel();
+        return;
+      }
+
+      controller.update();
+    });
+  }
+
+  DetectedObjectSnapshot? _firstTargetDetection(
+    List<DetectedObjectType> targetTypes,
+  ) {
+    for (final type in targetTypes) {
+      final detection = collection.video.getDetection(
+        type,
+        desiredCamera: Constants.arucoDetectionCamera,
+      );
+      if (detection != null) {
+        return detection;
+      }
+    }
+    return null;
+  }
 }
