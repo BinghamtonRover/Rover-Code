@@ -45,14 +45,13 @@ class RoverVideo extends VideoInterface {
   }
 
   @override
-  DetectedObject? getArucoDetection(int id, {CameraName? desiredCamera}) {
-    return getDetection(
-      DetectedObjectType.ARUCO,
-      desiredCamera: desiredCamera,
-      arucoId: id,
-    )
-        ?.object;
-  }
+  DetectedObject? getArucoDetection(int id, {CameraName? desiredCamera}) =>
+      getDetection(
+        DetectedObjectType.ARUCO,
+        desiredCamera: desiredCamera,
+        arucoId: id,
+      )
+          ?.object;
 
   @override
   Future<DetectedObject?> waitForAruco(

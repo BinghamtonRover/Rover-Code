@@ -17,7 +17,7 @@ class ImageAnalyzer:
         self.model = YOLO(load_from, task="detect")
 
     def has_mallet(self, frame: cv2.Mat, confidence=0.80) -> tuple[bool, float]:
-        annotated, detections = self.analyze_frame(frame, confidence=confidence)
+        _, detections = self.analyze_frame(frame, confidence=confidence)
         for detection in detections:
             if detection.object_type == vision_pb2.HAMMER:
                 return True, confidence

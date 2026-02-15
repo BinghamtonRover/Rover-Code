@@ -52,7 +52,7 @@ class Constants {
   static const CameraName arucoDetectionCamera = CameraName.ROVER_FRONT;
 
   /// How close (in degrees) the detected object yaw must be to center
-  static const double visionCenterYawEpsilon = 3.0;
+  static const double visionCenterYawEpsilon = 3;
 
   /// How close (in pixels) the detected object center must be to frame center
   static const int visionCenterPixelEpsilon = 20;

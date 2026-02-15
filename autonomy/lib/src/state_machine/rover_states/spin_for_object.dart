@@ -1,4 +1,3 @@
-import "package:autonomy/constants.dart";
 import "package:autonomy/interfaces.dart";
 import "package:autonomy/rover.dart";
 import "package:autonomy/src/drive/drive_config.dart";
