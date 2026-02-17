@@ -23,16 +23,19 @@ class DetectedObjectType extends $pb.ProtobufEnum {
       DetectedObjectType._(2, _omitEnumNames ? '' : 'HAMMER');
   static const DetectedObjectType BOTTLE =
       DetectedObjectType._(3, _omitEnumNames ? '' : 'BOTTLE');
+  static const DetectedObjectType ROCK_HAMMER =
+      DetectedObjectType._(4, _omitEnumNames ? '' : 'ROCK_HAMMER');
 
   static const $core.List<DetectedObjectType> values = <DetectedObjectType>[
     DETECTION_TYPE_UNDEFINED,
     ARUCO,
     HAMMER,
     BOTTLE,
+    ROCK_HAMMER,
   ];
 
   static final $core.List<DetectedObjectType?> _byValue =
-      $pb.ProtobufEnum.$_initByValueList(values, 3);
+      $pb.ProtobufEnum.$_initByValueList(values, 4);
   static DetectedObjectType? valueOf($core.int value) =>
       value < 0 || value >= _byValue.length ? null : _byValue[value];
 
