@@ -132,6 +132,12 @@ class NavigationState extends RoverState {
 
   @override
   void update() {
+    if (collection.gps.isNear(destination, Constants.maxErrorMeters)) {
+      collection.drive.stop();
+      controller.popState();
+      return;
+    }
+
     if (currentPathState == null) {
       controller.popState();
       return;
