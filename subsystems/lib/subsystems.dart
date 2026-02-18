@@ -25,7 +25,7 @@ class SubsystemsCollection extends Service {
   final firmware = FirmwareManager();
 
   /// The UDP server.
-  late final server = RoverSocket(port: 8001, collection: this, device: Device.SUBSYSTEMS);
+  late final RoverSocket server;
 
   /// The GPS reader.
   final gps = GpsReader();
@@ -33,11 +33,26 @@ class SubsystemsCollection extends Service {
   /// The IMU reader.
   final imu = ImuReader();
 
+  /// Extra services added on to the program, runtime specific
+  final List<Service> extraServices = [];
+
   /// Timer for sending the subsystems status
   Timer? dataSendTimer;
 
   @override
-  Future<bool> init() async {
+  Future<bool> init({
+    int port = 8001,
+    bool useGps = true,
+    bool useImu = true,
+    SocketInfo? destination,
+  }) async {
+    server = RoverSocket(
+      port: port,
+      collection: this,
+      device: Device.SUBSYSTEMS,
+      destination: destination,
+      keepDestination: destination != null,
+    );
     await server.init();
     logger.socket = server;
     var result = true;
@@ -47,17 +62,23 @@ class SubsystemsCollection extends Service {
     );
     try {
       result &= await firmware.init();
-      result &= await gps.init();
-      result &= await imu.init();
+      if (useGps) result &= await gps.init();
+      if (useImu) result &= await imu.init();
+      for (final service in extraServices) {
+        result &= await service.init();
+      }
       if (result) {
         logger.info("Subsystems initialized");
       } else {
         logger.warning("The subsystems did not start properly");
       }
       isReady = true;
-      return true;  // The subsystems should keep running even when something goes wrong.
+      return true; // The subsystems should keep running even when something goes wrong.
     } catch (error) {
-      logger.critical("Unexpected error when initializing Subsystems", body: error.toString());
+      logger.critical(
+        "Unexpected error when initializing Subsystems",
+        body: error.toString(),
+      );
       return false;
     }
   }
@@ -70,6 +91,9 @@ class SubsystemsCollection extends Service {
     await firmware.dispose();
     await imu.dispose();
     await gps.dispose();
+    for (final service in extraServices) {
+      await service.dispose();
+    }
     await server.dispose();
     dataSendTimer?.cancel();
     logger.socket = null;
@@ -79,6 +103,9 @@ class SubsystemsCollection extends Service {
   @override
   Future<void> onDisconnect() async {
     await super.onDisconnect();
+    for (final service in extraServices) {
+      await service.onDisconnect();
+    }
     logger.info("Stopping all hardware");
     final stopDrive = DriveCommand(throttle: 0, setThrottle: true);
     final stopArm = ArmCommand(stop: true);
@@ -87,7 +114,7 @@ class SubsystemsCollection extends Service {
     firmware.sendMessage(stopArm);
     firmware.sendMessage(stopScience);
   }
-  
+
   /// Sends a [SubsystemsData] message over the network reporting the current status of subsystems
   void sendStatus([_]) {
     server.sendMessage(
