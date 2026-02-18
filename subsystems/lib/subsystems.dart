@@ -16,6 +16,29 @@ export "src/can/socket_ffi.dart";
 export "src/can/socket_interface.dart";
 export "src/can/socket_stub.dart";
 
+/// Configuration for the subsystems program
+class SubsystemsConfig {
+  /// The port to host the socket on
+  final int port;
+
+  /// Whether or not to use the GPS
+  final bool useGps;
+
+  /// Whether or not to use the IMU
+  final bool useImu;
+
+  /// The default destination for the server
+  final SocketInfo? destination;
+
+  /// Const constructor for [SubsystemsConfig]
+  const SubsystemsConfig({
+    this.port = 8001,
+    this.useGps = true,
+    this.useImu = true,
+    this.destination,
+  });
+}
+
 /// Contains all the resources needed by the subsystems program.
 class SubsystemsCollection extends Service {
   /// Whether the subsystems is fully initialized.
@@ -36,23 +59,26 @@ class SubsystemsCollection extends Service {
   /// Extra services added on to the program, runtime specific
   final List<Service> extraServices = [];
 
+  /// Internal configuration (the one used when init was first called)
+  SubsystemsConfig? _config;
+
   /// Timer for sending the subsystems status
   Timer? dataSendTimer;
 
   @override
   Future<bool> init({
-    int port = 8001,
-    bool useGps = true,
-    bool useImu = true,
-    SocketInfo? destination,
+    SubsystemsConfig config = const SubsystemsConfig(),
   }) async {
-    server = RoverSocket(
-      port: port,
-      collection: this,
-      device: Device.SUBSYSTEMS,
-      destination: destination,
-      keepDestination: destination != null,
-    );
+    if (_config == null) {
+      _config = config;
+      server = RoverSocket(
+        port: _config!.port,
+        collection: this,
+        device: Device.SUBSYSTEMS,
+        destination: _config!.destination,
+        keepDestination: _config!.destination != null,
+      );
+    }
     await server.init();
     logger.socket = server;
     var result = true;
@@ -62,8 +88,8 @@ class SubsystemsCollection extends Service {
     );
     try {
       result &= await firmware.init();
-      if (useGps) result &= await gps.init();
-      if (useImu) result &= await imu.init();
+      if (_config!.useGps) result &= await gps.init();
+      if (_config!.useImu) result &= await imu.init();
       for (final service in extraServices) {
         result &= await service.init();
       }
