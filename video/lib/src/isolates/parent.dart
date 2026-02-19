@@ -169,7 +169,6 @@ class CameraManager extends Service {
 
   /// Forwards the command to the appropriate camera.
   void _handleCommand(VideoCommand command) {
-    collection.videoServer.sendMessage(command); // echo the request
     var cameraName = command.details.name;
     if (cameraName == CameraName.ROVER_FRONT) {
       cameraName = CameraName.AUTONOMY_DEPTH;

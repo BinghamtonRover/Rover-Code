@@ -16,6 +16,9 @@ class CommandForwarder extends Service {
       name: VideoCommand().messageName,
       constructor: VideoCommand.fromBuffer,
       callback: (data) {
+        // echo the command back to the dashboard
+        collection.videoServer.sendMessage(data);
+        // forward to auxillary program
         collection.videoServer.sendMessage(
           data,
           destination: SocketInfo(
