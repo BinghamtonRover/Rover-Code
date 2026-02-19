@@ -174,6 +174,9 @@ class CameraManager extends Service {
     if (cameraName == CameraName.ROVER_FRONT) {
       cameraName = CameraName.AUTONOMY_DEPTH;
     }
+    if (!_supportedCameras!.contains(cameraName)) {
+      return;
+    }
     parent.sendToChild(data: command, id: cameraName);
   }
 
