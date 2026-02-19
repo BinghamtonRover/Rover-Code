@@ -16,8 +16,16 @@ class VideoConfig {
   /// The explicit destination for the rover's server
   final SocketInfo? destination;
 
+  /// The cameras controlled by the program
+  final List<CameraName> supportedCameras;
+
   /// Const constructor for VideoConfig
-  const VideoConfig({this.port = 8002, this.useLidar = true, this.destination});
+  const VideoConfig({
+    this.port = 8002,
+    this.useLidar = true,
+    this.destination,
+    this.supportedCameras = CameraName.values,
+  });
 }
 
 /// Class to contain all video devices
@@ -55,7 +63,7 @@ class VideoCollection extends Service {
     logger
       ..trace("Running in trace mode")
       ..debug("Running in debug mode");
-    await cameras.init();
+    await cameras.init(supportedCameras: _config!.supportedCameras);
     if (_config!.useLidar) {
       await lidar.init();
     }

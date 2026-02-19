@@ -30,8 +30,13 @@ class CameraManager extends Service {
   StreamSubscription<VideoData>? _vision;
   StreamSubscription<IsolatePayload>? _data;
 
+  List<CameraName>? _supportedCameras;
+
   @override
-  Future<bool> init() async {
+  Future<bool> init({
+    List<CameraName> supportedCameras = CameraName.values,
+  }) async {
+    _supportedCameras ??= supportedCameras;
     _commands = collection.videoServer.messages.onMessage<VideoCommand>(
       name: VideoCommand().messageName,
       constructor: VideoCommand.fromBuffer,
@@ -45,7 +50,7 @@ class CameraManager extends Service {
     parent.init();
     _data = parent.stream.listen(onData);
 
-    for (final name in CameraName.values) {
+    for (final name in _supportedCameras!) {
       switch (name) {
         case CameraName.CAMERA_NAME_UNDEFINED:
         case CameraName.ROVER_FRONT:
@@ -187,7 +192,7 @@ class CameraManager extends Service {
     final command = VideoCommand(
       details: CameraDetails(status: CameraStatus.CAMERA_DISABLED),
     );
-    for (final name in CameraName.values) {
+    for (final name in _supportedCameras!) {
       if (name == CameraName.CAMERA_NAME_UNDEFINED ||
           name == CameraName.ROVER_FRONT) {
         continue;

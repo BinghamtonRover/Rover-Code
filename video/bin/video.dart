@@ -39,5 +39,12 @@ class CommandForwarder extends Service {
 void main() async {
   Logger.level = LogLevel.all;
   collection.extraServices.add(CommandForwarder());
-  await collection.init();
+  await collection.init(
+    config: VideoConfig(
+      supportedCameras: CameraName.values.toSet().difference({
+        CameraName.BOTTOM_LEFT,
+        CameraName.BOTTOM_RIGHT,
+      }).toList(),
+    ),
+  );
 }
