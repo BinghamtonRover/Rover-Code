@@ -51,6 +51,7 @@ class VideoCollection extends Service {
       );
     }
     logger.socket = videoServer;
+    await videoServer.init();
     logger
       ..trace("Running in trace mode")
       ..debug("Running in debug mode");
@@ -61,7 +62,6 @@ class VideoCollection extends Service {
     for (final service in extraServices) {
       await service.init();
     }
-    await videoServer.init();
     logger.info("Video program initialized");
     return true;
   }
