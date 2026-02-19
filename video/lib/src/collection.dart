@@ -50,6 +50,7 @@ class VideoCollection extends Service {
         keepDestination: _config!.destination != null,
       );
     }
+    logger.socket = videoServer;
     logger
       ..trace("Running in trace mode")
       ..debug("Running in debug mode");
@@ -83,4 +84,4 @@ class VideoCollection extends Service {
 final collection = VideoCollection();
 
 /// Displays logs in the terminal and sends them to the Dashboard
-final logger = BurtLogger(socket: collection.videoServer);
+final logger = BurtLogger();
