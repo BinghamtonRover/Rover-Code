@@ -19,7 +19,8 @@ mixin RoverHeartbeats on BurtSocket {
   bool get didReceivedHeartbeat => receivedHeartbeats.isNotEmpty;
 
   @override
-  bool get isConnected => destinations.isNotEmpty;
+  bool get isConnected =>
+      destinations.difference(staticDestinations).isNotEmpty;
 
   @override
   Duration get heartbeatInterval => const Duration(seconds: 2);
@@ -63,6 +64,9 @@ mixin RoverHeartbeats on BurtSocket {
   Future<void> checkHeartbeats() async {
     final wasConnected = isConnected;
     destinations.removeWhere((address) {
+      if (staticDestinations.contains(address)) {
+        return false;
+      }
       if (!receivedHeartbeats.contains(address)) {
         logger.warning(
           "Heartbeat not received from ${address.address.address}:${address.port}, assuming client has disconnected",

@@ -74,6 +74,13 @@ abstract class BurtSocket extends UdpSocket {
   /// that no longer exists. Practically, that means only the Dashboard should set this to be true.
   final bool keepDestination;
 
+  /// Destinations that should not be removed, even if no
+  /// heartbeat is received from them
+  ///
+  /// This will be initialized on creation with the provided destinations.
+  /// See [keepDestination]
+  final Set<SocketInfo> staticDestinations = {};
+
   Timer? _heartbeatTimer;
 
   StreamSubscription<Datagram?>? _subscription;
@@ -101,6 +108,9 @@ abstract class BurtSocket extends UdpSocket {
     }
     if (destination != null) {
       this.destinations.add(destination);
+    }
+    if (keepDestination) {
+      staticDestinations.addAll(this.destinations);
     }
   }
 
@@ -235,7 +245,7 @@ abstract class BurtSocket extends UdpSocket {
   @override
   Future<void> onDisconnect() async {
     logger.info("Port $port is disconnected from all clients.");
-    destinations.clear();
+    destinations.removeWhere((e) => !staticDestinations.contains(e));
     await collection?.onDisconnect();
     await super.onDisconnect();
   }
