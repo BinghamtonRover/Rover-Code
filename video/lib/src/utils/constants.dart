@@ -72,6 +72,32 @@ CameraDetails loadCameraDetails(CameraDetails baseDetails, CameraName name) {
   return cameraDetails;
 }
 
+/// Saves camera details to a JSON file for persistence across restarts.
+///
+/// Creates the camera_details directory if it doesn't exist.
+void saveCameraDetails(CameraDetails details, CameraName name) {
+  final directory = Directory("${CameraIsolate.baseDirectory}/camera_details");
+  if (!directory.existsSync()) {
+    directory.createSync(recursive: true);
+  }
+  
+  final configFile = File("${directory.path}/${name.name}.json");
+  try {
+    final json = details.toProto3Json();
+    configFile.writeAsStringSync(
+      const JsonEncoder.withIndent("  ").convert(json),
+    );
+    collection.videoServer.logger.debug(
+      "Saved camera settings for $name",
+    );
+  } catch (e) {
+    collection.videoServer.logger.error(
+      "Error while saving config for camera $name",
+      body: e.toString(),
+    );
+  }
+}
+
 /// Default details for a camera
 ///
 /// Used when first creating the camera objects
@@ -85,6 +111,7 @@ CameraDetails getDefaultDetails(CameraName name) => CameraDetails(
   horizontalFov: 51.4074485655,
   verticalFov: 39.749374449,
   status: CameraStatus.CAMERA_ENABLED,
+  rotationQuarters: 0,
 );
 
 /// Default details for the RealSense camera.
@@ -99,6 +126,7 @@ CameraDetails getRealsenseDetails(CameraName name) => CameraDetails(
   horizontalFov: 69,
   verticalFov: 42,
   status: CameraStatus.CAMERA_ENABLED,
+  rotationQuarters: 0,
 );
 
 /// The default [RoverArucoConfig] for detecting Aruco markers

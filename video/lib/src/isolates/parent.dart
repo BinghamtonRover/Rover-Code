@@ -170,6 +170,7 @@ class CameraManager extends Service {
       cameraName = CameraName.AUTONOMY_DEPTH;
     }
     parent.sendToChild(data: command, id: cameraName);
+    saveCameraDetails(command.details, cameraName);
   }
 
   void _handleVision(VideoData data) {
