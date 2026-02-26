@@ -187,6 +187,9 @@ class CameraManager extends Service {
     // we're extremely short on time, it leaves analysis as an implementation detail of Video, and
     // it doesn't add much latency (from 24 FPS on the camera to 23 FPS on the Dashboard).
     collection.videoServer.sendMessage(data);
+    if (data.frame.isEmpty) {
+      collection.videoServer.sendMessage(data, destination: autonomySocket);
+    }
   }
 
   /// Stops all the cameras managed by this class.
