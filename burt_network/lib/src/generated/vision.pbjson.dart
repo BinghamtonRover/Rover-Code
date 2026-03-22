@@ -23,13 +23,14 @@ const DetectedObjectType$json = {
     {'1': 'ARUCO', '2': 1},
     {'1': 'HAMMER', '2': 2},
     {'1': 'BOTTLE', '2': 3},
+    {'1': 'ROCK_HAMMER', '2': 4},
   ],
 };
 
 /// Descriptor for `DetectedObjectType`. Decode as a `google.protobuf.EnumDescriptorProto`.
 final $typed_data.Uint8List detectedObjectTypeDescriptor = $convert.base64Decode(
     'ChJEZXRlY3RlZE9iamVjdFR5cGUSHAoYREVURUNUSU9OX1RZUEVfVU5ERUZJTkVEEAASCQoFQV'
-    'JVQ08QARIKCgZIQU1NRVIQAhIKCgZCT1RUTEUQAw==');
+    'JVQ08QARIKCgZIQU1NRVIQAhIKCgZCT1RUTEUQAxIPCgtST0NLX0hBTU1FUhAE');
 
 @$core.Deprecated('Use pnpResultDescriptor instead')
 const PnpResult$json = {

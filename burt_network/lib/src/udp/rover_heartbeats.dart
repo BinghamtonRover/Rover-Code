@@ -10,7 +10,7 @@ mixin RoverHeartbeats on BurtSocket {
   bool didReceivedHeartbeat = false;
 
   @override
-  bool get isConnected => destination != null;
+  bool get isConnected => destination != null && !keepDestination;
 
   @override
   Duration get heartbeatInterval => const Duration(seconds: 2);
