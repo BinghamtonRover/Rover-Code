@@ -74,10 +74,10 @@ Future<void> main() async {
     final data3 = ArmData(lift: MotorData(currentAngle: pi + -1 * 2 * motor.current), version: Version(major: 1));
     server.sendMessage(data3);
     final data4 = RoverPosition(
-      orientation: Orientation(
-        x: roll.current,
-        y: pitch.current,
-        z: yaw.current,
+      orientation: Rotation3d(
+        roll: roll.current,
+        pitch: pitch.current,
+        yaw: yaw.current,
       ),
       gps: GpsCoordinates(
         latitude: gps.current,

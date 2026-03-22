@@ -34,7 +34,7 @@ class SensorDrive extends DriveInterface with RoverDriveCommands {
       );
 
   @override
-  StateInterface faceOrientationState(Orientation orientation) =>
+  StateInterface faceOrientationState(Rotation3d orientation) =>
       SensorTurnState(
         controller,
         collection: collection,
@@ -115,7 +115,7 @@ class SensorDrive extends DriveInterface with RoverDriveCommands {
   }
 
   @override
-  Future<bool> faceOrientation(Orientation orientation) async {
+  Future<bool> faceOrientation(Rotation3d orientation) async {
     collection.logger.info("Turning to face $orientation...");
     setThrottle(config.turnThrottle);
     final result = await runFeedback(() => _tryToFace(orientation));
@@ -123,7 +123,7 @@ class SensorDrive extends DriveInterface with RoverDriveCommands {
     return result;
   }
 
-  bool _tryToFace(Orientation orientation) {
+  bool _tryToFace(Rotation3d orientation) {
     final current = collection.imu.heading;
     final target = orientation.heading;
     final error = (target - current).clampHalfAngle();

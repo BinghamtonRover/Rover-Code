@@ -63,7 +63,7 @@ const RoverPosition$json = {
       '3': 2,
       '4': 1,
       '5': 11,
-      '6': '.Orientation',
+      '6': '.Rotation3d',
       '10': 'orientation'
     },
     {'1': 'version', '3': 3, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
@@ -73,7 +73,7 @@ const RoverPosition$json = {
 
 /// Descriptor for `RoverPosition`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List roverPositionDescriptor = $convert.base64Decode(
-    'Cg1Sb3ZlclBvc2l0aW9uEiEKA2dwcxgBIAEoCzIPLkdwc0Nvb3JkaW5hdGVzUgNncHMSLgoLb3'
-    'JpZW50YXRpb24YAiABKAsyDC5PcmllbnRhdGlvblILb3JpZW50YXRpb24SIgoHdmVyc2lvbhgD'
-    'IAEoCzIILlZlcnNpb25SB3ZlcnNpb24SHwoLcnRrX21lc3NhZ2UYBCABKAxSCnJ0a01lc3NhZ2'
-    'U=');
+    'Cg1Sb3ZlclBvc2l0aW9uEiEKA2dwcxgBIAEoCzIPLkdwc0Nvb3JkaW5hdGVzUgNncHMSLQoLb3'
+    'JpZW50YXRpb24YAiABKAsyCy5Sb3RhdGlvbjNkUgtvcmllbnRhdGlvbhIiCgd2ZXJzaW9uGAMg'
+    'ASgLMgguVmVyc2lvblIHdmVyc2lvbhIfCgtydGtfbWVzc2FnZRgEIAEoDFIKcnRrTWVzc2FnZQ'
+    '==');

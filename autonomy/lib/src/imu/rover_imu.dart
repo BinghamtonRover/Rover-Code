@@ -23,32 +23,32 @@ class RoverImu extends ImuInterface {
   }
 
   @override
-  void update(Orientation newValue) {
+  void update(Rotation3d newValue) {
     // Do nothing, since this should only be internally updated
   }
 
   @override
-  void forceUpdate(Orientation newValue) =>
+  void forceUpdate(Rotation3d newValue) =>
       _internalUpdate(RoverPosition(orientation: newValue));
 
   void _internalUpdate(RoverPosition newValue) {
     if (!newValue.hasOrientation()) return;
     // Angles are always between -180 and +180
-    if (newValue.orientation.x.abs() > 180 ||
-        newValue.orientation.y.abs() > 180 ||
-        newValue.orientation.z.abs() > 180) {
+    if (newValue.orientation.pitch.abs() > 180 ||
+        newValue.orientation.roll.abs() > 180 ||
+        newValue.orientation.yaw.abs() > 180) {
       return;
     }
-    _xCorrector.addValue(newValue.orientation.x);
-    _yCorrector.addValue(newValue.orientation.y);
-    _zCorrector.addValue(newValue.orientation.z);
+    _xCorrector.addValue(newValue.orientation.pitch);
+    _yCorrector.addValue(newValue.orientation.roll);
+    _zCorrector.addValue(newValue.orientation.yaw);
     hasValue = true;
   }
 
   @override
-  Orientation get raw => Orientation(
-    x: _xCorrector.calibratedValue.clampHalfAngle(),
-    y: _yCorrector.calibratedValue.clampHalfAngle(),
-    z: _zCorrector.calibratedValue.clampHalfAngle(),
+  Rotation3d get raw => Rotation3d(
+    pitch: _xCorrector.calibratedValue.clampHalfAngle(),
+    roll: _yCorrector.calibratedValue.clampHalfAngle(),
+    yaw: _zCorrector.calibratedValue.clampHalfAngle(),
   );
 }

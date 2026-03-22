@@ -65,7 +65,7 @@ class NavigationState extends RoverState {
   /// If the rover is not facing the proper direction, a new state will be pushed
   /// to re-correct the rover's orientation
   bool checkOrientation(AutonomyAStarState state) {
-    Orientation targetOrientation;
+    Rotation3d targetOrientation;
     // if it has RTK, point towards the next coordinate
     if (collection.gps.coordinates.hasRTK) {
       final difference =
@@ -73,7 +73,7 @@ class NavigationState extends RoverState {
 
       final angle = atan2(difference.y, difference.x) * 180 / pi;
 
-      targetOrientation = Orientation(z: angle);
+      targetOrientation = Rotation3d(yaw: angle);
     } else {
       targetOrientation = state.orientation.orientation;
     }

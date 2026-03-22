@@ -46,7 +46,7 @@ class TimedDrive extends DriveInterface with RoverDriveCommands {
   TimedDrive({required super.collection, super.config});
 
   @override
-  StateInterface faceOrientationState(Orientation orientation) {
+  StateInterface faceOrientationState(Rotation3d orientation) {
     throw UnsupportedError(
       "Cannot face any arbitrary direction using TimedDrive",
     );
@@ -206,7 +206,7 @@ class TimedDrive extends DriveInterface with RoverDriveCommands {
   }
 
   @override
-  Future<bool> faceOrientation(Orientation orientation) =>
+  Future<bool> faceOrientation(Rotation3d orientation) =>
       throw UnsupportedError(
         "Cannot face any arbitrary direction using TimedDrive",
       );

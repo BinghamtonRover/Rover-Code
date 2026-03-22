@@ -19,11 +19,11 @@ extension <E> on Iterable<E> {
 
 RoverPosition fromBuffer(List<int> buffer) => RoverPosition.fromBuffer(buffer);
 bool filter(RoverPosition data) => data.hasOrientation()
-  && data.orientation.hasX() && data.orientation.hasY() && data.orientation.hasZ()
-  && data.orientation.x.abs() < 400
-  && data.orientation.y.abs() < 400
-  && data.orientation.z.abs() < 400;
-List<dynamic> expand(RoverPosition data) => [data.orientation.x, data.orientation.y, data.orientation.z];
+  && data.orientation.hasRoll() && data.orientation.hasPitch() && data.orientation.hasYaw()
+  && data.orientation.roll.abs() < 400
+  && data.orientation.pitch.abs() < 400
+  && data.orientation.yaw.abs() < 400;
+List<dynamic> expand(RoverPosition data) => [data.orientation.pitch, data.orientation.roll, data.orientation.yaw];
 
 void main() async {
   logger.info("Reading log file...");

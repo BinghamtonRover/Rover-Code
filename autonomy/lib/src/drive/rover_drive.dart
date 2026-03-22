@@ -84,7 +84,7 @@ class RoverDrive extends DriveInterface {
   Future<void> approachAruco() => sensorDrive.approachAruco();
 
   @override
-  Future<bool> faceOrientation(Orientation orientation) async {
+  Future<bool> faceOrientation(Rotation3d orientation) async {
     if (useImu) {
       return sensorDrive.faceOrientation(orientation);
     } else {
@@ -135,7 +135,7 @@ class RoverDrive extends DriveInterface {
   }
 
   @override
-  StateInterface faceOrientationState(Orientation orientation) {
+  StateInterface faceOrientationState(Rotation3d orientation) {
     if (useImu) {
       return sensorDrive.faceOrientationState(orientation);
     } else {

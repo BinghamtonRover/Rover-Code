@@ -152,7 +152,7 @@ class RoverOrchestrator extends OrchestratorInterface with ValueReporter {
         }
         // Re-align to desired start orientation if angle is too far
         if (state.instruction == DriveDirection.forward) {
-          Orientation targetOrientation;
+          Rotation3d targetOrientation;
           // if it has RTK, point towards the next coordinate
           if (collection.gps.coordinates.hasRTK) {
             final difference =
@@ -160,7 +160,7 @@ class RoverOrchestrator extends OrchestratorInterface with ValueReporter {
 
             final angle = atan2(difference.y, difference.x) * 180 / pi;
 
-            targetOrientation = Orientation(z: angle);
+            targetOrientation = Rotation3d(yaw: angle);
           } else {
             targetOrientation = state.orientation.orientation;
           }
@@ -309,8 +309,8 @@ class RoverOrchestrator extends OrchestratorInterface with ValueReporter {
 
     collection.logger.info("Found aruco");
     currentState = AutonomyState.APPROACHING;
-    final arucoOrientation = Orientation(
-      z: collection.imu.heading - detectedAruco.yaw,
+    final arucoOrientation = Rotation3d(
+      yaw: collection.imu.heading - detectedAruco.yaw,
     );
     await collection.drive.faceOrientation(arucoOrientation);
     detectedAruco = await collection.video.waitForAruco(
@@ -409,7 +409,7 @@ class RoverOrchestrator extends OrchestratorInterface with ValueReporter {
     if (detectedAruco != null) {
       collection.logger.info("Rotating towards Aruco");
       await collection.drive.faceOrientation(
-        Orientation(z: collection.imu.heading - detectedAruco!.yaw),
+        Rotation3d(yaw: collection.imu.heading - detectedAruco!.yaw),
       );
     } else {
       collection.logger.warning("Could not find Aruco after following path");

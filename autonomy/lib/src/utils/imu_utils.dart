@@ -1,25 +1,25 @@
 import "package:autonomy/autonomy.dart";
 
-extension OrientationUtils on Orientation {
+extension OrientationUtils on Rotation3d {
   /// North orientation
-  static final north = Orientation(z: CardinalDirection.north.angle);
+  static final north = Rotation3d(yaw: CardinalDirection.north.angle);
 
   /// East orientation
-  static final west = Orientation(z: CardinalDirection.west.angle);
+  static final west = Rotation3d(yaw: CardinalDirection.west.angle);
 
   /// South Orientation
-  static final south = Orientation(z: CardinalDirection.south.angle);
+  static final south = Rotation3d(yaw: CardinalDirection.south.angle);
 
   /// East orientation
-  static final east = Orientation(z: CardinalDirection.east.angle);
+  static final east = Rotation3d(yaw: CardinalDirection.east.angle);
 
   /// The heading of the orientation, or the compass direction we are facing
-  double get heading => z;
+  double get heading => yaw;
 
   /// Whether or not this orientation is within [epsilon] degrees of [value]
   bool isNear(double value, [double? epsilon]) {
     epsilon ??= Constants.turnEpsilon;
-    final error = (value - z).clampHalfAngle();
+    final error = (value - yaw).clampHalfAngle();
 
     return error.abs() <= epsilon;
     // if (value > 270 && z < 90) {

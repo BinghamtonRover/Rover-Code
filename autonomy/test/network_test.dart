@@ -86,7 +86,7 @@ void main() => group("[Network]", tags: ["network"], () {
 
   test("Rover waits for all data to arrive", () async {
     final gps = GpsCoordinates(latitude: 1, longitude: 2);
-    final imu = Orientation(z: 60);
+    final imu = Rotation3d(yaw: 60);
     final posGps = RoverPosition(gps: gps);
     final posImu = RoverPosition(orientation: imu);
     final depth = VideoData(frame: [1, 2, 3, 4, 5]);

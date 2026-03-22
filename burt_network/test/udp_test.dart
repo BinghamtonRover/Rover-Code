@@ -95,9 +95,9 @@ void main() => group("ProtoSocket:", () {
   test("Multiple handlers can be registered", () async {
     var science1 = ScienceData();
     var science2 = ScienceData();
-    var orientation = Orientation();
+    var orientation = Rotation3d();
     final scienceTest = ScienceData(co2: 5);
-    final orientationTest = Orientation(x: 5);
+    final orientationTest = Rotation3d(pitch: 5);
     final server = TestServer(port: 8009);
     final client = TestClient(port: 8010, destination: withPort(8009));
     server.messages.listenFor(
@@ -111,8 +111,8 @@ void main() => group("ProtoSocket:", () {
       callback: (x) => science2 = x,
     );
     server.messages.listenFor(
-      name: Orientation().messageName,
-      constructor: Orientation.fromBuffer,
+      name: Rotation3d().messageName,
+      constructor: Rotation3d.fromBuffer,
       callback: (x) => orientation = x,
     );
     await server.init();
