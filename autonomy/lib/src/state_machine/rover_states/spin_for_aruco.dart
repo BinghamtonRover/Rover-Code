@@ -43,16 +43,15 @@ class SpinForAruco extends RoverState {
 
     drive.spinLeft();
 
-    if ((collection.imu.heading - _startOrientation).clampHalfAngle() >
-        175) {
+    if ((collection.imu.heading - _startOrientation).clampHalfAngle() > 175) {
       _rotated180 = true;
     }
 
-    // if (_rotated180 &&
-    //     collection.imu.isNear(Orientation(z: _startOrientation))) {
-    //   controller.popState();
-    //   return;
-    // }
+    if (_rotated180 &&
+        collection.imu.isNear(Orientation(z: _startOrientation))) {
+      controller.popState();
+      return;
+    }
   }
 
   @override

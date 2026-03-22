@@ -292,10 +292,7 @@ class RoverOrchestrator extends OrchestratorInterface with ValueReporter {
           FunctionalState(
             controller,
             onEnter: (controller) {
-              if (!collection.gps.isNear(
-                command.destination,
-                3.25,
-              )) {
+              if (!collection.gps.isNear(command.destination, 3.25)) {
                 // handle error
                 driveToDestinationFailed = true;
               } else {
