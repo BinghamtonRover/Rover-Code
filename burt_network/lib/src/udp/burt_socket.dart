@@ -166,7 +166,9 @@ abstract class BurtSocket extends UdpSocket {
   Future<void> onDisconnect() async {
     logger.info("Port $port is disconnected from $destination");
     sendMessage(Disconnect(sender: device));
-    destination = null;
+    if (!keepDestination) {
+      destination = null;
+    }
     await collection?.onDisconnect();
     await super.onDisconnect();
   }

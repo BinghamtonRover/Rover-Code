@@ -53,20 +53,20 @@ const RelaysCommand$json = {
       '10': 'frontRightMotor'
     },
     {
-      '1': 'left_dampening_motor',
+      '1': 'middle_left_motor',
       '3': 6,
       '4': 1,
       '5': 14,
       '6': '.BoolState',
-      '10': 'leftDampeningMotor'
+      '10': 'middleLeftMotor'
     },
     {
-      '1': 'right_dampening_motor',
+      '1': 'middle_right_motor',
       '3': 7,
       '4': 1,
       '5': 14,
       '6': '.BoolState',
-      '10': 'rightDampeningMotor'
+      '10': 'middleRightMotor'
     },
     {'1': 'arm', '3': 8, '4': 1, '5': 14, '6': '.BoolState', '10': 'arm'},
     {
@@ -77,7 +77,6 @@ const RelaysCommand$json = {
       '6': '.BoolState',
       '10': 'science'
     },
-    {'1': 'drive', '3': 10, '4': 1, '5': 14, '6': '.BoolState', '10': 'drive'},
     {
       '1': 'bypass',
       '3': 11,
@@ -87,6 +86,9 @@ const RelaysCommand$json = {
       '10': 'bypass'
     },
   ],
+  '9': [
+    {'1': 10, '2': 11},
+  ],
 };
 
 /// Descriptor for `RelaysCommand`. Decode as a `google.protobuf.DescriptorProto`.
@@ -95,12 +97,11 @@ final $typed_data.Uint8List relaysCommandDescriptor = $convert.base64Decode(
     'JhY2tfbGVmdF9tb3RvchgCIAEoDjIKLkJvb2xTdGF0ZVINYmFja0xlZnRNb3RvchI0ChBiYWNr'
     'X3JpZ2h0X21vdG9yGAMgASgOMgouQm9vbFN0YXRlUg5iYWNrUmlnaHRNb3RvchI0ChBmcm9udF'
     '9sZWZ0X21vdG9yGAQgASgOMgouQm9vbFN0YXRlUg5mcm9udExlZnRNb3RvchI2ChFmcm9udF9y'
-    'aWdodF9tb3RvchgFIAEoDjIKLkJvb2xTdGF0ZVIPZnJvbnRSaWdodE1vdG9yEjwKFGxlZnRfZG'
-    'FtcGVuaW5nX21vdG9yGAYgASgOMgouQm9vbFN0YXRlUhJsZWZ0RGFtcGVuaW5nTW90b3ISPgoV'
-    'cmlnaHRfZGFtcGVuaW5nX21vdG9yGAcgASgOMgouQm9vbFN0YXRlUhNyaWdodERhbXBlbmluZ0'
-    '1vdG9yEhwKA2FybRgIIAEoDjIKLkJvb2xTdGF0ZVIDYXJtEiQKB3NjaWVuY2UYCSABKA4yCi5C'
-    'b29sU3RhdGVSB3NjaWVuY2USIAoFZHJpdmUYCiABKA4yCi5Cb29sU3RhdGVSBWRyaXZlEiIKBm'
-    'J5cGFzcxgLIAEoDjIKLkJvb2xTdGF0ZVIGYnlwYXNz');
+    'aWdodF9tb3RvchgFIAEoDjIKLkJvb2xTdGF0ZVIPZnJvbnRSaWdodE1vdG9yEjYKEW1pZGRsZV'
+    '9sZWZ0X21vdG9yGAYgASgOMgouQm9vbFN0YXRlUg9taWRkbGVMZWZ0TW90b3ISOAoSbWlkZGxl'
+    'X3JpZ2h0X21vdG9yGAcgASgOMgouQm9vbFN0YXRlUhBtaWRkbGVSaWdodE1vdG9yEhwKA2FybR'
+    'gIIAEoDjIKLkJvb2xTdGF0ZVIDYXJtEiQKB3NjaWVuY2UYCSABKA4yCi5Cb29sU3RhdGVSB3Nj'
+    'aWVuY2USIgoGYnlwYXNzGAsgASgOMgouQm9vbFN0YXRlUgZieXBhc3NKBAgKEAs=');
 
 @$core.Deprecated('Use relaysDataDescriptor instead')
 const RelaysData$json = {
@@ -140,20 +141,20 @@ const RelaysData$json = {
       '10': 'frontRightMotor'
     },
     {
-      '1': 'left_dampening_motor',
+      '1': 'middle_left_motor',
       '3': 6,
       '4': 1,
       '5': 14,
       '6': '.BoolState',
-      '10': 'leftDampeningMotor'
+      '10': 'middleLeftMotor'
     },
     {
-      '1': 'right_dampening_motor',
+      '1': 'middle_right_motor',
       '3': 7,
       '4': 1,
       '5': 14,
       '6': '.BoolState',
-      '10': 'rightDampeningMotor'
+      '10': 'middleRightMotor'
     },
     {'1': 'arm', '3': 8, '4': 1, '5': 14, '6': '.BoolState', '10': 'arm'},
     {
@@ -164,7 +165,6 @@ const RelaysData$json = {
       '6': '.BoolState',
       '10': 'science'
     },
-    {'1': 'drive', '3': 10, '4': 1, '5': 14, '6': '.BoolState', '10': 'drive'},
     {'1': 'battery_voltage', '3': 13, '4': 1, '5': 2, '10': 'batteryVoltage'},
     {
       '1': 'bypass',
@@ -183,6 +183,9 @@ const RelaysData$json = {
       '10': 'mechanicalOverride'
     },
   ],
+  '9': [
+    {'1': 10, '2': 11},
+  ],
 };
 
 /// Descriptor for `RelaysData`. Decode as a `google.protobuf.DescriptorProto`.
@@ -191,11 +194,10 @@ final $typed_data.Uint8List relaysDataDescriptor = $convert.base64Decode(
     'tfbGVmdF9tb3RvchgCIAEoDjIKLkJvb2xTdGF0ZVINYmFja0xlZnRNb3RvchI0ChBiYWNrX3Jp'
     'Z2h0X21vdG9yGAMgASgOMgouQm9vbFN0YXRlUg5iYWNrUmlnaHRNb3RvchI0ChBmcm9udF9sZW'
     'Z0X21vdG9yGAQgASgOMgouQm9vbFN0YXRlUg5mcm9udExlZnRNb3RvchI2ChFmcm9udF9yaWdo'
-    'dF9tb3RvchgFIAEoDjIKLkJvb2xTdGF0ZVIPZnJvbnRSaWdodE1vdG9yEjwKFGxlZnRfZGFtcG'
-    'VuaW5nX21vdG9yGAYgASgOMgouQm9vbFN0YXRlUhJsZWZ0RGFtcGVuaW5nTW90b3ISPgoVcmln'
-    'aHRfZGFtcGVuaW5nX21vdG9yGAcgASgOMgouQm9vbFN0YXRlUhNyaWdodERhbXBlbmluZ01vdG'
-    '9yEhwKA2FybRgIIAEoDjIKLkJvb2xTdGF0ZVIDYXJtEiQKB3NjaWVuY2UYCSABKA4yCi5Cb29s'
-    'U3RhdGVSB3NjaWVuY2USIAoFZHJpdmUYCiABKA4yCi5Cb29sU3RhdGVSBWRyaXZlEicKD2JhdH'
-    'Rlcnlfdm9sdGFnZRgNIAEoAlIOYmF0dGVyeVZvbHRhZ2USIgoGYnlwYXNzGAsgASgOMgouQm9v'
-    'bFN0YXRlUgZieXBhc3MSOwoTbWVjaGFuaWNhbF9vdmVycmlkZRgMIAEoDjIKLkJvb2xTdGF0ZV'
-    'ISbWVjaGFuaWNhbE92ZXJyaWRl');
+    'dF9tb3RvchgFIAEoDjIKLkJvb2xTdGF0ZVIPZnJvbnRSaWdodE1vdG9yEjYKEW1pZGRsZV9sZW'
+    'Z0X21vdG9yGAYgASgOMgouQm9vbFN0YXRlUg9taWRkbGVMZWZ0TW90b3ISOAoSbWlkZGxlX3Jp'
+    'Z2h0X21vdG9yGAcgASgOMgouQm9vbFN0YXRlUhBtaWRkbGVSaWdodE1vdG9yEhwKA2FybRgIIA'
+    'EoDjIKLkJvb2xTdGF0ZVIDYXJtEiQKB3NjaWVuY2UYCSABKA4yCi5Cb29sU3RhdGVSB3NjaWVu'
+    'Y2USJwoPYmF0dGVyeV92b2x0YWdlGA0gASgCUg5iYXR0ZXJ5Vm9sdGFnZRIiCgZieXBhc3MYCy'
+    'ABKA4yCi5Cb29sU3RhdGVSBmJ5cGFzcxI7ChNtZWNoYW5pY2FsX292ZXJyaWRlGAwgASgOMgou'
+    'Qm9vbFN0YXRlUhJtZWNoYW5pY2FsT3ZlcnJpZGVKBAgKEAs=');
