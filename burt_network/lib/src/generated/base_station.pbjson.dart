@@ -43,6 +43,14 @@ const AntennaFirmwareCommand$json = {
       '6': '.MotorCommand',
       '10': 'swivel'
     },
+    {
+      '1': 'pitch',
+      '3': 5,
+      '4': 1,
+      '5': 11,
+      '6': '.MotorCommand',
+      '10': 'pitch'
+    },
     {'1': 'stop', '3': 3, '4': 1, '5': 8, '10': 'stop'},
     {'1': 'calibrate', '3': 4, '4': 1, '5': 8, '10': 'calibrate'},
   ],
@@ -51,8 +59,9 @@ const AntennaFirmwareCommand$json = {
 /// Descriptor for `AntennaFirmwareCommand`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List antennaFirmwareCommandDescriptor = $convert.base64Decode(
     'ChZBbnRlbm5hRmlybXdhcmVDb21tYW5kEiIKB3ZlcnNpb24YASABKAsyCC5WZXJzaW9uUgd2ZX'
-    'JzaW9uEiUKBnN3aXZlbBgCIAEoCzINLk1vdG9yQ29tbWFuZFIGc3dpdmVsEhIKBHN0b3AYAyAB'
-    'KAhSBHN0b3ASHAoJY2FsaWJyYXRlGAQgASgIUgljYWxpYnJhdGU=');
+    'JzaW9uEiUKBnN3aXZlbBgCIAEoCzINLk1vdG9yQ29tbWFuZFIGc3dpdmVsEiMKBXBpdGNoGAUg'
+    'ASgLMg0uTW90b3JDb21tYW5kUgVwaXRjaBISCgRzdG9wGAMgASgIUgRzdG9wEhwKCWNhbGlicm'
+    'F0ZRgEIAEoCFIJY2FsaWJyYXRl');
 
 @$core.Deprecated('Use antennaFirmwareDataDescriptor instead')
 const AntennaFirmwareData$json = {
@@ -60,13 +69,15 @@ const AntennaFirmwareData$json = {
   '2': [
     {'1': 'version', '3': 1, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
     {'1': 'swivel', '3': 2, '4': 1, '5': 11, '6': '.MotorData', '10': 'swivel'},
+    {'1': 'pitch', '3': 3, '4': 1, '5': 11, '6': '.MotorData', '10': 'pitch'},
   ],
 };
 
 /// Descriptor for `AntennaFirmwareData`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List antennaFirmwareDataDescriptor = $convert.base64Decode(
     'ChNBbnRlbm5hRmlybXdhcmVEYXRhEiIKB3ZlcnNpb24YASABKAsyCC5WZXJzaW9uUgd2ZXJzaW'
-    '9uEiIKBnN3aXZlbBgCIAEoCzIKLk1vdG9yRGF0YVIGc3dpdmVs');
+    '9uEiIKBnN3aXZlbBgCIAEoCzIKLk1vdG9yRGF0YVIGc3dpdmVsEiAKBXBpdGNoGAMgASgLMgou'
+    'TW90b3JEYXRhUgVwaXRjaA==');
 
 @$core.Deprecated('Use baseStationCommandDescriptor instead')
 const BaseStationCommand$json = {
