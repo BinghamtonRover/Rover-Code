@@ -200,6 +200,32 @@ class RoverOrchestrator extends OrchestratorInterface with ValueReporter {
     return true;
   }
 
+  /// Generates GPS waypoints for a lawnmower search pattern centered on [center].
+  ///
+  /// Covers a [Constants.searchAreaMeters] x [Constants.searchAreaMeters] area,
+  /// sweeping back and forth in strips of [Constants.searchStripWidthMeters] width.
+  List<GpsCoordinates> generateLawnmowerWaypoints(GpsCoordinates center) {
+    final waypoints = <GpsCoordinates>[];
+    final centerUtm = center.toUTM();
+    const halfSize = Constants.searchAreaMeters / 2;
+    const stripWidth = Constants.searchStripWidthMeters;
+
+    var row = 0;
+    for (var y = -halfSize; y <= halfSize; y += stripWidth) {
+      final xStart = row.isEven ? -halfSize : halfSize;
+      final xEnd = row.isEven ? halfSize : -halfSize;
+      waypoints.add(
+        (centerUtm + UTMCoordinates(x: xStart, y: y, zoneNumber: 1)).toGps(),
+      );
+      waypoints.add(
+        (centerUtm + UTMCoordinates(x: xEnd, y: y, zoneNumber: 1)).toGps(),
+      );
+      row++;
+    }
+
+    return waypoints;
+  }
+
   @override
   void handleGpsTask(AutonomyCommand command) {
     final destination = command.destination;
@@ -293,7 +319,7 @@ class RoverOrchestrator extends OrchestratorInterface with ValueReporter {
 
     currentState = AutonomyState.SEARCHING;
     collection.logger.info("Searching for ArUco tag");
-    final didSeeAruco = await collection.drive.spinForAruco(
+    await collection.drive.spinForAruco(
       command.arucoId,
       desiredCamera: Constants.arucoDetectionCamera,
     );
@@ -302,12 +328,37 @@ class RoverOrchestrator extends OrchestratorInterface with ValueReporter {
       desiredCamera: Constants.arucoDetectionCamera,
     );
 
-    if (!didSeeAruco || detectedAruco == null) {
+    if (detectedAruco == null) {
+      collection.logger.info(
+        "ArUco not found after spin, starting lawnmower search",
+      );
+      final waypoints = generateLawnmowerWaypoints(collection.gps.coordinates);
+      for (final waypoint in waypoints) {
+        if (currentCommand == null) return;
+        await calculateAndFollowPath(
+          waypoint,
+          abortOnError: false,
+          alternateEndCondition: () =>
+              collection.video.getArucoDetection(
+                command.arucoId,
+                desiredCamera: Constants.arucoDetectionCamera,
+              ) !=
+              null,
+        );
+        detectedAruco = collection.video.getArucoDetection(
+          command.arucoId,
+          desiredCamera: Constants.arucoDetectionCamera,
+        );
+        if (detectedAruco != null) break;
+      }
+    }
+
+    if (detectedAruco == null) {
       collection.logger.error("Could not find desired Aruco tag");
       currentState = AutonomyState.NO_SOLUTION;
       currentCommand = null;
       return;
-    }
+    }    
 
     collection.logger.info("Found aruco");
     currentState = AutonomyState.APPROACHING;

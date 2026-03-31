@@ -51,6 +51,13 @@ class Constants {
   /// The camera that should be used to detect Aruco tags
   static const CameraName arucoDetectionCamera = CameraName.ROVER_FRONT;
 
+  /// The size of the search area in meters for the lawnmower pattern
+  static const double searchAreaMeters = 20;
+
+  /// The width of each strip in the lawnmower pattern in meters
+  /// TODO: calibrate based on camera detection range testing in lab
+  static const double searchStripWidthMeters = 3;
+
   /// How close (in degrees) the detected object yaw must be to center
   static const double visionCenterYawEpsilon = 3;
 
