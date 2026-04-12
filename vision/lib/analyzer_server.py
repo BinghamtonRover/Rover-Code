@@ -35,7 +35,7 @@ class AnalyzerServer:
         if self.show == "before":
             cv2.imshow("Rover Vision Server (before annotation)", matrix)
         
-        frame = self.analyzer.annotateImage(matrix)
+        frame, detections = self.analyzer.analyze_frame(matrix)
         
         if self.show == "after":
             cv2.imshow("Rover Vision Server (after annotation)", frame)
@@ -45,7 +45,11 @@ class AnalyzerServer:
         )
         if not success:
             return
-        data = VideoData(frame=bytes(jpg), details=data.details)
+        data = VideoData(
+            frame=bytes(jpg),
+            details=data.details,
+            detected_objects=detections,
+        )
 
         jpg_size = len(jpg)
         if jpg_size > self.max_packet_size:

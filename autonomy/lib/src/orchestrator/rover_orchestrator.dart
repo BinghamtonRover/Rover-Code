@@ -1,8 +1,9 @@
+import "dart:async";
 import "dart:math";
 
 import "package:autonomy/constants.dart";
 import "package:autonomy/interfaces.dart";
-import "dart:async";
+import "package:autonomy/src/state_machine/rover_states/approach_visible_object.dart";
 
 import "package:coordinate_converter/coordinate_converter.dart";
 
@@ -198,6 +199,32 @@ class RoverOrchestrator extends OrchestratorInterface with ValueReporter {
     return true;
   }
 
+  /// Generates GPS waypoints for a lawnmower search pattern centered on [center].
+  ///
+  /// Covers a [Constants.searchAreaMeters] x [Constants.searchAreaMeters] area,
+  /// sweeping back and forth in strips of [Constants.searchStripWidthMeters] width.
+  List<GpsCoordinates> generateLawnmowerWaypoints(GpsCoordinates center) {
+    final waypoints = <GpsCoordinates>[];
+    final centerUtm = center.toUTM();
+    const halfSize = Constants.searchAreaMeters / 2;
+    const stripWidth = Constants.searchStripWidthMeters;
+
+    var row = 0;
+    for (var y = -halfSize; y <= halfSize; y += stripWidth) {
+      final xStart = row.isEven ? -halfSize : halfSize;
+      final xEnd = row.isEven ? halfSize : -halfSize;
+      waypoints.add(
+        (centerUtm + UTMCoordinates(x: xStart, y: y, zoneNumber: 1)).toGps(),
+      );
+      waypoints.add(
+        (centerUtm + UTMCoordinates(x: xEnd, y: y, zoneNumber: 1)).toGps(),
+      );
+      row++;
+    }
+
+    return waypoints;
+  }
+
   @override
   void handleGpsTask(AutonomyCommand command) {
     final destination = command.destination;
@@ -291,7 +318,7 @@ class RoverOrchestrator extends OrchestratorInterface with ValueReporter {
 
     currentState = AutonomyState.SEARCHING;
     collection.logger.info("Searching for ArUco tag");
-    final didSeeAruco = await collection.drive.spinForAruco(
+    await collection.drive.spinForAruco(
       command.arucoId,
       desiredCamera: Constants.arucoDetectionCamera,
     );
@@ -300,12 +327,37 @@ class RoverOrchestrator extends OrchestratorInterface with ValueReporter {
       desiredCamera: Constants.arucoDetectionCamera,
     );
 
-    if (!didSeeAruco || detectedAruco == null) {
+    if (detectedAruco == null) {
+      collection.logger.info(
+        "ArUco not found after spin, starting lawnmower search",
+      );
+      final waypoints = generateLawnmowerWaypoints(collection.gps.coordinates);
+      for (final waypoint in waypoints) {
+        if (currentCommand == null) return;
+        await calculateAndFollowPath(
+          waypoint,
+          abortOnError: false,
+          alternateEndCondition: () =>
+              collection.video.getArucoDetection(
+                command.arucoId,
+                desiredCamera: Constants.arucoDetectionCamera,
+              ) !=
+              null,
+        );
+        detectedAruco = collection.video.getArucoDetection(
+          command.arucoId,
+          desiredCamera: Constants.arucoDetectionCamera,
+        );
+        if (detectedAruco != null) break;
+      }
+    }
+
+    if (detectedAruco == null) {
       collection.logger.error("Could not find desired Aruco tag");
       currentState = AutonomyState.NO_SOLUTION;
       currentCommand = null;
       return;
-    }
+    }    
 
     collection.logger.info("Found aruco");
     currentState = AutonomyState.APPROACHING;
@@ -425,8 +477,133 @@ class RoverOrchestrator extends OrchestratorInterface with ValueReporter {
   }
 
   @override
-  Future<void> handleHammerTask(AutonomyCommand command) async {}
+  Future<void> handleHammerTask(AutonomyCommand command) async {
+    await _handleVisualObjectTask(
+      command: command,
+      targetTypes: [
+        DetectedObjectType.HAMMER,
+        DetectedObjectType.ROCK_HAMMER,
+      ],
+      label: "hammer",
+    );
+  }
 
   @override
-  Future<void> handleBottleTask(AutonomyCommand command) async {}
+  Future<void> handleBottleTask(AutonomyCommand command) async {
+    await _handleVisualObjectTask(
+      command: command,
+      targetTypes: [DetectedObjectType.BOTTLE],
+      label: "bottle",
+    );
+  }
+
+  Future<void> _handleVisualObjectTask({
+    required AutonomyCommand command,
+    required List<DetectedObjectType> targetTypes,
+    required String label,
+  }) async {
+    collection.drive.setLedStrip(ProtoColor.RED);
+
+    if (command.destination != GpsCoordinates(latitude: 0, longitude: 0)) {
+      if (!await calculateAndFollowPath(
+        command.destination,
+        abortOnError: false,
+      )) {
+        collection.logger.error(
+          "Failed to follow path towards initial destination",
+        );
+        currentState = AutonomyState.NO_SOLUTION;
+        currentCommand = null;
+        return;
+      }
+    }
+
+    currentState = AutonomyState.SEARCHING;
+    collection.logger.info("Searching for $label");
+    await collection.drive.spinForObject(
+      targetTypes,
+      desiredCamera: Constants.arucoDetectionCamera,
+    );
+    var detection = _firstTargetDetection(targetTypes);
+
+    if (detection == null) {
+      collection.logger.info(
+        "$label not found after spin, starting lawnmower search",
+      );
+      final waypoints = generateLawnmowerWaypoints(collection.gps.coordinates);
+      for (final waypoint in waypoints) {
+        if (currentCommand == null) return;
+        final reached = await calculateAndFollowPath(
+          waypoint,
+          abortOnError: false,
+          alternateEndCondition: () => _firstTargetDetection(targetTypes) != null,
+        );
+        detection = _firstTargetDetection(targetTypes);
+        if (detection != null) break;
+        if (!reached) {
+          await collection.drive.spinForObject(
+            targetTypes,
+            desiredCamera: Constants.arucoDetectionCamera,
+          );
+          detection = _firstTargetDetection(targetTypes);
+          if (detection != null) break;
+        }
+      }
+    }
+
+    if (detection == null) {
+      collection.logger.error("Could not find $label");
+      currentState = AutonomyState.NO_SOLUTION;
+      currentCommand = null;
+      return;
+    }
+
+    collection.logger.info("Found $label, approaching");
+    currentState = AutonomyState.APPROACHING;
+
+    controller.pushState(
+      ApproachVisibleObject(
+        controller,
+        collection: collection,
+        targetTypes: targetTypes,
+        desiredCamera: Constants.arucoDetectionCamera,
+      ),
+    );
+
+    executionTimer = PeriodicTimer(const Duration(milliseconds: 10), (
+      timer,
+    ) async {
+      if (currentCommand == null) {
+        onCommandEnd();
+        timer.cancel();
+        return;
+      }
+
+      if (!controller.hasState()) {
+        collection.logger.info("Reached target $label");
+        collection.drive.setLedStrip(ProtoColor.GREEN, blink: true);
+        currentState = AutonomyState.AT_DESTINATION;
+        onCommandEnd();
+        timer.cancel();
+        return;
+      }
+
+      controller.update();
+    });
+  }
+
+  DetectedObjectSnapshot? _firstTargetDetection(
+    List<DetectedObjectType> targetTypes,
+  ) {
+    for (final type in targetTypes) {
+      final detection = collection.video.getDetection(
+        type,
+        desiredCamera: Constants.arucoDetectionCamera,
+      );
+      if (detection != null) {
+        return detection;
+      }
+    }
+    return null;
+  }
 }

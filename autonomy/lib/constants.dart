@@ -48,6 +48,28 @@ class Constants {
   /// The maximum time to spend searching for an aruco tag
   static const Duration arucoSearchTimeout = Duration(seconds: 20);
 
+  /// The maximum time to spend searching for a vision object
+  static const Duration visionSearchTimeout = Duration(seconds: 20);
+
   /// The camera that should be used to detect Aruco tags
   static const CameraName arucoDetectionCamera = CameraName.ROVER_FRONT;
+
+  /// The size of the search area in meters for the lawnmower pattern
+  static const double searchAreaMeters = 20;
+
+  /// The width of each strip in the lawnmower pattern in meters
+  /// TODO: calibrate based on camera detection range testing in lab
+  static const double searchStripWidthMeters = 3;
+
+  /// How close (in degrees) the detected object yaw must be to center
+  static const double visionCenterYawEpsilon = 3;
+
+  /// How close (in pixels) the detected object center must be to frame center
+  static const int visionCenterPixelEpsilon = 20;
+
+  /// How close (normalized -1..1) the detected object x position must be
+  static const double visionCenterXPositionEpsilon = 0.1;
+
+  /// How many consecutive frames the target can be missing before we stop
+  static const int visionMissingFramesToArrive = 3;
 }
