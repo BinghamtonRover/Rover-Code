@@ -176,6 +176,36 @@ class SensorDrive extends DriveInterface with RoverDriveCommands {
   }
 
   @override
+  Future<bool> spinForObject(
+    List<DetectedObjectType> types, {
+    CameraName? desiredCamera,
+  }) async {
+    setThrottle(config.turnThrottle);
+    var foundObject = true;
+    foundObject =
+        await runFeedback(() {
+          if (!foundObject) return true;
+          spinLeft();
+          return types.any(
+            (type) =>
+                collection.video.getDetection(
+                  type,
+                  desiredCamera: desiredCamera,
+                ) !=
+                null,
+          );
+        }).timeout(
+          Constants.visionSearchTimeout,
+          onTimeout: () {
+            foundObject = false;
+            return false;
+          },
+        );
+    await stop();
+    return foundObject;
+  }
+
+  @override
   Future<void> approachAruco() async {
     // const sizeThreshold = 0.2;
     // const epsilon = 0.00001;

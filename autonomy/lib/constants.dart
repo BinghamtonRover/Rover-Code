@@ -48,6 +48,9 @@ class Constants {
   /// The maximum time to spend searching for an aruco tag
   static const Duration arucoSearchTimeout = Duration(seconds: 20);
 
+  /// The maximum time to spend searching for a vision object
+  static const Duration visionSearchTimeout = Duration(seconds: 20);
+
   /// The camera that should be used to detect Aruco tags
   static const CameraName arucoDetectionCamera = CameraName.ROVER_FRONT;
 

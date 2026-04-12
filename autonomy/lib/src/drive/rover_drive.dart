@@ -84,6 +84,12 @@ class RoverDrive extends DriveInterface {
   Future<void> approachAruco() => sensorDrive.approachAruco();
 
   @override
+  Future<bool> spinForObject(
+    List<DetectedObjectType> types, {
+    CameraName? desiredCamera,
+  }) => sensorDrive.spinForObject(types, desiredCamera: desiredCamera);
+
+  @override
   Future<bool> faceOrientation(Orientation orientation) async {
     if (useImu) {
       return sensorDrive.faceOrientation(orientation);

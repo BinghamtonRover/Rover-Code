@@ -4,7 +4,6 @@ import "dart:math";
 import "package:autonomy/constants.dart";
 import "package:autonomy/interfaces.dart";
 import "package:autonomy/src/state_machine/rover_states/approach_visible_object.dart";
-import "package:autonomy/src/state_machine/rover_states/spin_for_object.dart";
 
 import "package:coordinate_converter/coordinate_converter.dart";
 
@@ -480,6 +479,7 @@ class RoverOrchestrator extends OrchestratorInterface with ValueReporter {
   @override
   Future<void> handleHammerTask(AutonomyCommand command) async {
     await _handleVisualObjectTask(
+      command: command,
       targetTypes: [
         DetectedObjectType.HAMMER,
         DetectedObjectType.ROCK_HAMMER,
@@ -491,92 +491,90 @@ class RoverOrchestrator extends OrchestratorInterface with ValueReporter {
   @override
   Future<void> handleBottleTask(AutonomyCommand command) async {
     await _handleVisualObjectTask(
+      command: command,
       targetTypes: [DetectedObjectType.BOTTLE],
       label: "bottle",
     );
   }
 
   Future<void> _handleVisualObjectTask({
+    required AutonomyCommand command,
     required List<DetectedObjectType> targetTypes,
     required String label,
   }) async {
     collection.drive.setLedStrip(ProtoColor.RED);
 
-    var searchFailed = false;
+    if (command.destination != GpsCoordinates(latitude: 0, longitude: 0)) {
+      if (!await calculateAndFollowPath(
+        command.destination,
+        abortOnError: false,
+      )) {
+        collection.logger.error(
+          "Failed to follow path towards initial destination",
+        );
+        currentState = AutonomyState.NO_SOLUTION;
+        currentCommand = null;
+        return;
+      }
+    }
 
-    final objectTaskSequence = SequenceState(
-      controller,
-      steps: [
-        FunctionalState(
-          controller,
-          onEnter: (controller) {
-            currentState = AutonomyState.SEARCHING;
-            controller.popState();
-          },
-        ),
-        SpinForObject(
-          controller,
-          collection: collection,
-          targetTypes: targetTypes,
-          desiredCamera: Constants.arucoDetectionCamera,
-        ),
-        FunctionalState(
-          controller,
-          onEnter: (controller) {
-            final detection = _firstTargetDetection(targetTypes);
-            if (detection != null) {
-              currentState = AutonomyState.APPROACHING;
-              controller.popState();
-              return;
-            }
-            currentState = AutonomyState.NO_SOLUTION;
-            searchFailed = true;
-            controller.popState();
-          },
-        ),
-        ApproachVisibleObject(
-          controller,
-          collection: collection,
-          targetTypes: targetTypes,
-          desiredCamera: Constants.arucoDetectionCamera,
-        ),
-        FunctionalState(
-          controller,
-          onEnter: (controller) {
-            collection.logger.info("Reached target $label");
-            currentState = AutonomyState.AT_DESTINATION;
-            collection.drive.setLedStrip(ProtoColor.GREEN, blink: true);
-            controller.popState();
-          },
-        ),
-      ],
+    currentState = AutonomyState.SEARCHING;
+    collection.logger.info("Searching for $label");
+    await collection.drive.spinForObject(
+      targetTypes,
+      desiredCamera: Constants.arucoDetectionCamera,
     );
+    var detection = _firstTargetDetection(targetTypes);
 
-    controller.pushState(objectTaskSequence);
+    if (detection == null) {
+      collection.logger.info(
+        "$label not found after spin, starting lawnmower search",
+      );
+      final waypoints = generateLawnmowerWaypoints(collection.gps.coordinates);
+      for (final waypoint in waypoints) {
+        if (currentCommand == null) return;
+        await calculateAndFollowPath(
+          waypoint,
+          abortOnError: false,
+          alternateEndCondition: () => _firstTargetDetection(targetTypes) != null,
+        );
+        detection = _firstTargetDetection(targetTypes);
+        if (detection != null) break;
+      }
+    }
+
+    if (detection == null) {
+      collection.logger.error("Could not find $label");
+      currentState = AutonomyState.NO_SOLUTION;
+      currentCommand = null;
+      return;
+    }
+
+    collection.logger.info("Found $label, approaching");
+    currentState = AutonomyState.APPROACHING;
+
+    controller.pushState(
+      ApproachVisibleObject(
+        controller,
+        collection: collection,
+        targetTypes: targetTypes,
+        desiredCamera: Constants.arucoDetectionCamera,
+      ),
+    );
 
     executionTimer = PeriodicTimer(const Duration(milliseconds: 10), (
       timer,
     ) async {
       if (currentCommand == null) {
-        collection.logger.warning(
-          "Execution timer running while command is null",
-          body: "Canceling timer",
-        );
-        onCommandEnd();
-        timer.cancel();
-        return;
-      }
-
-      if (searchFailed) {
-        collection.logger.error("Failed to find target $label");
-        currentState = AutonomyState.NO_SOLUTION;
         onCommandEnd();
         timer.cancel();
         return;
       }
 
       if (!controller.hasState()) {
-        currentState = AutonomyState.NO_SOLUTION;
+        collection.logger.info("Reached target $label");
+        collection.drive.setLedStrip(ProtoColor.GREEN, blink: true);
+        currentState = AutonomyState.AT_DESTINATION;
         onCommandEnd();
         timer.cancel();
         return;

@@ -139,4 +139,10 @@ abstract class DriveInterface extends Service {
 
   /// Drive forward to approach an Aruco tag
   Future<void> approachAruco() async {}
+
+  /// Spin to face a detected object, returns whether or not it was found
+  Future<bool> spinForObject(
+    List<DetectedObjectType> types, {
+    CameraName? desiredCamera,
+  }) async => false;
 }
