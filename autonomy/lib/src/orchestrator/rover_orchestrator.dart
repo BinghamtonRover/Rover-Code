@@ -533,13 +533,21 @@ class RoverOrchestrator extends OrchestratorInterface with ValueReporter {
       final waypoints = generateLawnmowerWaypoints(collection.gps.coordinates);
       for (final waypoint in waypoints) {
         if (currentCommand == null) return;
-        await calculateAndFollowPath(
+        final reached = await calculateAndFollowPath(
           waypoint,
           abortOnError: false,
           alternateEndCondition: () => _firstTargetDetection(targetTypes) != null,
         );
         detection = _firstTargetDetection(targetTypes);
         if (detection != null) break;
+        if (!reached) {
+          await collection.drive.spinForObject(
+            targetTypes,
+            desiredCamera: Constants.arucoDetectionCamera,
+          );
+          detection = _firstTargetDetection(targetTypes);
+          if (detection != null) break;
+        }
       }
     }
 
