@@ -81,21 +81,100 @@ final $typed_data.Uint8List carouselCommandDescriptor = $convert.base64Decode(
     'hUX1RVQkUQARINCglQUkVWX1RVQkUQAhIQCgxORVhUX1NFQ1RJT04QAxIQCgxQUkVWX1NFQ1RJ'
     'T04QBBINCglGSUxMX1RVQkUQBRIQCgxGSUxMX1NFQ1RJT04QBg==');
 
+@$core.Deprecated('Use augerCommandDescriptor instead')
+const AugerCommand$json = {
+  '1': 'AugerCommand',
+  '2': [
+    {
+      '1': 'speed_rpm',
+      '3': 1,
+      '4': 1,
+      '5': 2,
+      '9': 0,
+      '10': 'speedRpm',
+      '17': true
+    },
+    {
+      '1': 'upper_servo',
+      '3': 2,
+      '4': 1,
+      '5': 14,
+      '6': '.ServoState',
+      '10': 'upperServo'
+    },
+    {
+      '1': 'lower_servo',
+      '3': 3,
+      '4': 1,
+      '5': 14,
+      '6': '.ServoState',
+      '10': 'lowerServo'
+    },
+  ],
+  '8': [
+    {'1': '_speed_rpm'},
+  ],
+};
+
+/// Descriptor for `AugerCommand`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List augerCommandDescriptor = $convert.base64Decode(
+    'CgxBdWdlckNvbW1hbmQSIAoJc3BlZWRfcnBtGAEgASgCSABSCHNwZWVkUnBtiAEBEiwKC3VwcG'
+    'VyX3NlcnZvGAIgASgOMgsuU2Vydm9TdGF0ZVIKdXBwZXJTZXJ2bxIsCgtsb3dlcl9zZXJ2bxgD'
+    'IAEoDjILLlNlcnZvU3RhdGVSCmxvd2VyU2Vydm9CDAoKX3NwZWVkX3JwbQ==');
+
+@$core.Deprecated('Use augerDataDescriptor instead')
+const AugerData$json = {
+  '1': 'AugerData',
+  '2': [
+    {
+      '1': 'lower_servo',
+      '3': 1,
+      '4': 1,
+      '5': 14,
+      '6': '.ServoState',
+      '10': 'lowerServo'
+    },
+    {
+      '1': 'upper_servo',
+      '3': 2,
+      '4': 1,
+      '5': 14,
+      '6': '.ServoState',
+      '10': 'upperServo'
+    },
+    {
+      '1': 'distance_to_ground_cm',
+      '3': 3,
+      '4': 1,
+      '5': 2,
+      '10': 'distanceToGroundCm'
+    },
+    {'1': 'current', '3': 4, '4': 1, '5': 2, '10': 'current'},
+  ],
+};
+
+/// Descriptor for `AugerData`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List augerDataDescriptor = $convert.base64Decode(
+    'CglBdWdlckRhdGESLAoLbG93ZXJfc2Vydm8YASABKA4yCy5TZXJ2b1N0YXRlUgpsb3dlclNlcn'
+    'ZvEiwKC3VwcGVyX3NlcnZvGAIgASgOMgsuU2Vydm9TdGF0ZVIKdXBwZXJTZXJ2bxIxChVkaXN0'
+    'YW5jZV90b19ncm91bmRfY20YAyABKAJSEmRpc3RhbmNlVG9Hcm91bmRDbRIYCgdjdXJyZW50GA'
+    'QgASgCUgdjdXJyZW50');
+
 @$core.Deprecated('Use scienceCommandDescriptor instead')
 const ScienceCommand$json = {
   '1': 'ScienceCommand',
   '2': [
     {'1': 'carousel_motor', '3': 1, '4': 1, '5': 2, '10': 'carouselMotor'},
-    {'1': 'subsurface_motor', '3': 3, '4': 1, '5': 2, '10': 'subsurfaceMotor'},
-    {'1': 'pumps', '3': 4, '4': 1, '5': 14, '6': '.PumpState', '10': 'pumps'},
+    {'1': 'linear_slider', '3': 3, '4': 1, '5': 2, '10': 'linearSlider'},
     {
-      '1': 'funnel',
-      '3': 5,
+      '1': 'auger',
+      '3': 13,
       '4': 1,
-      '5': 14,
-      '6': '.ServoState',
-      '10': 'funnel'
+      '5': 11,
+      '6': '.AugerCommand',
+      '10': 'auger'
     },
+    {'1': 'pumps', '3': 4, '4': 1, '5': 14, '6': '.PumpState', '10': 'pumps'},
     {
       '1': 'carousel',
       '3': 7,
@@ -124,17 +203,21 @@ const ScienceCommand$json = {
       '10': 'version'
     },
   ],
+  '9': [
+    {'1': 2, '2': 3},
+    {'1': 5, '2': 7},
+  ],
 };
 
 /// Descriptor for `ScienceCommand`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List scienceCommandDescriptor = $convert.base64Decode(
     'Cg5TY2llbmNlQ29tbWFuZBIlCg5jYXJvdXNlbF9tb3RvchgBIAEoAlINY2Fyb3VzZWxNb3Rvch'
-    'IpChBzdWJzdXJmYWNlX21vdG9yGAMgASgCUg9zdWJzdXJmYWNlTW90b3ISIAoFcHVtcHMYBCAB'
-    'KA4yCi5QdW1wU3RhdGVSBXB1bXBzEiMKBmZ1bm5lbBgFIAEoDjILLlNlcnZvU3RhdGVSBmZ1bm'
-    '5lbBIsCghjYXJvdXNlbBgHIAEoDjIQLkNhcm91c2VsQ29tbWFuZFIIY2Fyb3VzZWwSHAoJY2Fs'
-    'aWJyYXRlGAggASgIUgljYWxpYnJhdGUSEgoEc3RvcBgJIAEoCFIEc3RvcBIWCgZzYW1wbGUYCi'
-    'ABKAVSBnNhbXBsZRIjCgVzdGF0ZRgLIAEoDjINLlNjaWVuY2VTdGF0ZVIFc3RhdGUSIgoHdmVy'
-    'c2lvbhgMIAEoCzIILlZlcnNpb25SB3ZlcnNpb24=');
+    'IjCg1saW5lYXJfc2xpZGVyGAMgASgCUgxsaW5lYXJTbGlkZXISIwoFYXVnZXIYDSABKAsyDS5B'
+    'dWdlckNvbW1hbmRSBWF1Z2VyEiAKBXB1bXBzGAQgASgOMgouUHVtcFN0YXRlUgVwdW1wcxIsCg'
+    'hjYXJvdXNlbBgHIAEoDjIQLkNhcm91c2VsQ29tbWFuZFIIY2Fyb3VzZWwSHAoJY2FsaWJyYXRl'
+    'GAggASgIUgljYWxpYnJhdGUSEgoEc3RvcBgJIAEoCFIEc3RvcBIWCgZzYW1wbGUYCiABKAVSBn'
+    'NhbXBsZRIjCgVzdGF0ZRgLIAEoDjINLlNjaWVuY2VTdGF0ZVIFc3RhdGUSIgoHdmVyc2lvbhgM'
+    'IAEoCzIILlZlcnNpb25SB3ZlcnNpb25KBAgCEANKBAgFEAc=');
 
 @$core.Deprecated('Use scienceDataDescriptor instead')
 const ScienceData$json = {
@@ -153,6 +236,7 @@ const ScienceData$json = {
     {'1': 'humidity', '3': 4, '4': 1, '5': 2, '10': 'humidity'},
     {'1': 'temperature', '3': 5, '4': 1, '5': 2, '10': 'temperature'},
     {'1': 'version', '3': 6, '4': 1, '5': 11, '6': '.Version', '10': 'version'},
+    {'1': 'auger', '3': 7, '4': 1, '5': 11, '6': '.AugerData', '10': 'auger'},
   ],
 };
 
@@ -161,4 +245,5 @@ final $typed_data.Uint8List scienceDataDescriptor = $convert.base64Decode(
     'CgtTY2llbmNlRGF0YRIWCgZzYW1wbGUYASABKAVSBnNhbXBsZRIjCgVzdGF0ZRgCIAEoDjINLl'
     'NjaWVuY2VTdGF0ZVIFc3RhdGUSEAoDY28yGAMgASgCUgNjbzISGgoIaHVtaWRpdHkYBCABKAJS'
     'CGh1bWlkaXR5EiAKC3RlbXBlcmF0dXJlGAUgASgCUgt0ZW1wZXJhdHVyZRIiCgd2ZXJzaW9uGA'
-    'YgASgLMgguVmVyc2lvblIHdmVyc2lvbg==');
+    'YgASgLMgguVmVyc2lvblIHdmVyc2lvbhIgCgVhdWdlchgHIAEoCzIKLkF1Z2VyRGF0YVIFYXVn'
+    'ZXI=');

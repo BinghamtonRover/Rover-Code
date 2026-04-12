@@ -26,11 +26,10 @@ class RelaysCommand extends $pb.GeneratedMessage {
     $1.BoolState? backRightMotor,
     $1.BoolState? frontLeftMotor,
     $1.BoolState? frontRightMotor,
-    $1.BoolState? leftDampeningMotor,
-    $1.BoolState? rightDampeningMotor,
+    $1.BoolState? middleLeftMotor,
+    $1.BoolState? middleRightMotor,
     $1.BoolState? arm,
     $1.BoolState? science,
-    $1.BoolState? drive,
     $1.BoolState? bypass,
   }) {
     final result = create();
@@ -39,13 +38,10 @@ class RelaysCommand extends $pb.GeneratedMessage {
     if (backRightMotor != null) result.backRightMotor = backRightMotor;
     if (frontLeftMotor != null) result.frontLeftMotor = frontLeftMotor;
     if (frontRightMotor != null) result.frontRightMotor = frontRightMotor;
-    if (leftDampeningMotor != null)
-      result.leftDampeningMotor = leftDampeningMotor;
-    if (rightDampeningMotor != null)
-      result.rightDampeningMotor = rightDampeningMotor;
+    if (middleLeftMotor != null) result.middleLeftMotor = middleLeftMotor;
+    if (middleRightMotor != null) result.middleRightMotor = middleRightMotor;
     if (arm != null) result.arm = arm;
     if (science != null) result.science = science;
-    if (drive != null) result.drive = drive;
     if (bypass != null) result.bypass = bypass;
     return result;
   }
@@ -72,15 +68,13 @@ class RelaysCommand extends $pb.GeneratedMessage {
         enumValues: $1.BoolState.values)
     ..aE<$1.BoolState>(5, _omitFieldNames ? '' : 'frontRightMotor',
         enumValues: $1.BoolState.values)
-    ..aE<$1.BoolState>(6, _omitFieldNames ? '' : 'leftDampeningMotor',
+    ..aE<$1.BoolState>(6, _omitFieldNames ? '' : 'middleLeftMotor',
         enumValues: $1.BoolState.values)
-    ..aE<$1.BoolState>(7, _omitFieldNames ? '' : 'rightDampeningMotor',
+    ..aE<$1.BoolState>(7, _omitFieldNames ? '' : 'middleRightMotor',
         enumValues: $1.BoolState.values)
     ..aE<$1.BoolState>(8, _omitFieldNames ? '' : 'arm',
         enumValues: $1.BoolState.values)
     ..aE<$1.BoolState>(9, _omitFieldNames ? '' : 'science',
-        enumValues: $1.BoolState.values)
-    ..aE<$1.BoolState>(10, _omitFieldNames ? '' : 'drive',
         enumValues: $1.BoolState.values)
     ..aE<$1.BoolState>(11, _omitFieldNames ? '' : 'bypass',
         enumValues: $1.BoolState.values)
@@ -154,22 +148,22 @@ class RelaysCommand extends $pb.GeneratedMessage {
   void clearFrontRightMotor() => $_clearField(5);
 
   @$pb.TagNumber(6)
-  $1.BoolState get leftDampeningMotor => $_getN(5);
+  $1.BoolState get middleLeftMotor => $_getN(5);
   @$pb.TagNumber(6)
-  set leftDampeningMotor($1.BoolState value) => $_setField(6, value);
+  set middleLeftMotor($1.BoolState value) => $_setField(6, value);
   @$pb.TagNumber(6)
-  $core.bool hasLeftDampeningMotor() => $_has(5);
+  $core.bool hasMiddleLeftMotor() => $_has(5);
   @$pb.TagNumber(6)
-  void clearLeftDampeningMotor() => $_clearField(6);
+  void clearMiddleLeftMotor() => $_clearField(6);
 
   @$pb.TagNumber(7)
-  $1.BoolState get rightDampeningMotor => $_getN(6);
+  $1.BoolState get middleRightMotor => $_getN(6);
   @$pb.TagNumber(7)
-  set rightDampeningMotor($1.BoolState value) => $_setField(7, value);
+  set middleRightMotor($1.BoolState value) => $_setField(7, value);
   @$pb.TagNumber(7)
-  $core.bool hasRightDampeningMotor() => $_has(6);
+  $core.bool hasMiddleRightMotor() => $_has(6);
   @$pb.TagNumber(7)
-  void clearRightDampeningMotor() => $_clearField(7);
+  void clearMiddleRightMotor() => $_clearField(7);
 
   @$pb.TagNumber(8)
   $1.BoolState get arm => $_getN(7);
@@ -189,22 +183,13 @@ class RelaysCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(9)
   void clearScience() => $_clearField(9);
 
-  @$pb.TagNumber(10)
-  $1.BoolState get drive => $_getN(9);
-  @$pb.TagNumber(10)
-  set drive($1.BoolState value) => $_setField(10, value);
-  @$pb.TagNumber(10)
-  $core.bool hasDrive() => $_has(9);
-  @$pb.TagNumber(10)
-  void clearDrive() => $_clearField(10);
-
   /// Special commands
   @$pb.TagNumber(11)
-  $1.BoolState get bypass => $_getN(10);
+  $1.BoolState get bypass => $_getN(9);
   @$pb.TagNumber(11)
   set bypass($1.BoolState value) => $_setField(11, value);
   @$pb.TagNumber(11)
-  $core.bool hasBypass() => $_has(10);
+  $core.bool hasBypass() => $_has(9);
   @$pb.TagNumber(11)
   void clearBypass() => $_clearField(11);
 }
@@ -216,11 +201,10 @@ class RelaysData extends $pb.GeneratedMessage {
     $1.BoolState? backRightMotor,
     $1.BoolState? frontLeftMotor,
     $1.BoolState? frontRightMotor,
-    $1.BoolState? leftDampeningMotor,
-    $1.BoolState? rightDampeningMotor,
+    $1.BoolState? middleLeftMotor,
+    $1.BoolState? middleRightMotor,
     $1.BoolState? arm,
     $1.BoolState? science,
-    $1.BoolState? drive,
     $1.BoolState? bypass,
     $1.BoolState? mechanicalOverride,
     $core.double? batteryVoltage,
@@ -231,13 +215,10 @@ class RelaysData extends $pb.GeneratedMessage {
     if (backRightMotor != null) result.backRightMotor = backRightMotor;
     if (frontLeftMotor != null) result.frontLeftMotor = frontLeftMotor;
     if (frontRightMotor != null) result.frontRightMotor = frontRightMotor;
-    if (leftDampeningMotor != null)
-      result.leftDampeningMotor = leftDampeningMotor;
-    if (rightDampeningMotor != null)
-      result.rightDampeningMotor = rightDampeningMotor;
+    if (middleLeftMotor != null) result.middleLeftMotor = middleLeftMotor;
+    if (middleRightMotor != null) result.middleRightMotor = middleRightMotor;
     if (arm != null) result.arm = arm;
     if (science != null) result.science = science;
-    if (drive != null) result.drive = drive;
     if (bypass != null) result.bypass = bypass;
     if (mechanicalOverride != null)
       result.mechanicalOverride = mechanicalOverride;
@@ -267,15 +248,13 @@ class RelaysData extends $pb.GeneratedMessage {
         enumValues: $1.BoolState.values)
     ..aE<$1.BoolState>(5, _omitFieldNames ? '' : 'frontRightMotor',
         enumValues: $1.BoolState.values)
-    ..aE<$1.BoolState>(6, _omitFieldNames ? '' : 'leftDampeningMotor',
+    ..aE<$1.BoolState>(6, _omitFieldNames ? '' : 'middleLeftMotor',
         enumValues: $1.BoolState.values)
-    ..aE<$1.BoolState>(7, _omitFieldNames ? '' : 'rightDampeningMotor',
+    ..aE<$1.BoolState>(7, _omitFieldNames ? '' : 'middleRightMotor',
         enumValues: $1.BoolState.values)
     ..aE<$1.BoolState>(8, _omitFieldNames ? '' : 'arm',
         enumValues: $1.BoolState.values)
     ..aE<$1.BoolState>(9, _omitFieldNames ? '' : 'science',
-        enumValues: $1.BoolState.values)
-    ..aE<$1.BoolState>(10, _omitFieldNames ? '' : 'drive',
         enumValues: $1.BoolState.values)
     ..aE<$1.BoolState>(11, _omitFieldNames ? '' : 'bypass',
         enumValues: $1.BoolState.values)
@@ -352,22 +331,22 @@ class RelaysData extends $pb.GeneratedMessage {
   void clearFrontRightMotor() => $_clearField(5);
 
   @$pb.TagNumber(6)
-  $1.BoolState get leftDampeningMotor => $_getN(5);
+  $1.BoolState get middleLeftMotor => $_getN(5);
   @$pb.TagNumber(6)
-  set leftDampeningMotor($1.BoolState value) => $_setField(6, value);
+  set middleLeftMotor($1.BoolState value) => $_setField(6, value);
   @$pb.TagNumber(6)
-  $core.bool hasLeftDampeningMotor() => $_has(5);
+  $core.bool hasMiddleLeftMotor() => $_has(5);
   @$pb.TagNumber(6)
-  void clearLeftDampeningMotor() => $_clearField(6);
+  void clearMiddleLeftMotor() => $_clearField(6);
 
   @$pb.TagNumber(7)
-  $1.BoolState get rightDampeningMotor => $_getN(6);
+  $1.BoolState get middleRightMotor => $_getN(6);
   @$pb.TagNumber(7)
-  set rightDampeningMotor($1.BoolState value) => $_setField(7, value);
+  set middleRightMotor($1.BoolState value) => $_setField(7, value);
   @$pb.TagNumber(7)
-  $core.bool hasRightDampeningMotor() => $_has(6);
+  $core.bool hasMiddleRightMotor() => $_has(6);
   @$pb.TagNumber(7)
-  void clearRightDampeningMotor() => $_clearField(7);
+  void clearMiddleRightMotor() => $_clearField(7);
 
   @$pb.TagNumber(8)
   $1.BoolState get arm => $_getN(7);
@@ -387,40 +366,31 @@ class RelaysData extends $pb.GeneratedMessage {
   @$pb.TagNumber(9)
   void clearScience() => $_clearField(9);
 
-  @$pb.TagNumber(10)
-  $1.BoolState get drive => $_getN(9);
-  @$pb.TagNumber(10)
-  set drive($1.BoolState value) => $_setField(10, value);
-  @$pb.TagNumber(10)
-  $core.bool hasDrive() => $_has(9);
-  @$pb.TagNumber(10)
-  void clearDrive() => $_clearField(10);
-
   @$pb.TagNumber(11)
-  $1.BoolState get bypass => $_getN(10);
+  $1.BoolState get bypass => $_getN(9);
   @$pb.TagNumber(11)
   set bypass($1.BoolState value) => $_setField(11, value);
   @$pb.TagNumber(11)
-  $core.bool hasBypass() => $_has(10);
+  $core.bool hasBypass() => $_has(9);
   @$pb.TagNumber(11)
   void clearBypass() => $_clearField(11);
 
   @$pb.TagNumber(12)
-  $1.BoolState get mechanicalOverride => $_getN(11);
+  $1.BoolState get mechanicalOverride => $_getN(10);
   @$pb.TagNumber(12)
   set mechanicalOverride($1.BoolState value) => $_setField(12, value);
   @$pb.TagNumber(12)
-  $core.bool hasMechanicalOverride() => $_has(11);
+  $core.bool hasMechanicalOverride() => $_has(10);
   @$pb.TagNumber(12)
   void clearMechanicalOverride() => $_clearField(12);
 
   /// Special data
   @$pb.TagNumber(13)
-  $core.double get batteryVoltage => $_getN(12);
+  $core.double get batteryVoltage => $_getN(11);
   @$pb.TagNumber(13)
-  set batteryVoltage($core.double value) => $_setFloat(12, value);
+  set batteryVoltage($core.double value) => $_setFloat(11, value);
   @$pb.TagNumber(13)
-  $core.bool hasBatteryVoltage() => $_has(12);
+  $core.bool hasBatteryVoltage() => $_has(11);
   @$pb.TagNumber(13)
   void clearBatteryVoltage() => $_clearField(13);
 }

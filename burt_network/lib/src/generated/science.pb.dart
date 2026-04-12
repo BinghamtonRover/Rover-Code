@@ -21,31 +21,206 @@ export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
 export 'science.pbenum.dart';
 
+/// / Command to control the auger
+class AugerCommand extends $pb.GeneratedMessage {
+  factory AugerCommand({
+    $core.double? speedRpm,
+    ServoState? upperServo,
+    ServoState? lowerServo,
+  }) {
+    final result = create();
+    if (speedRpm != null) result.speedRpm = speedRpm;
+    if (upperServo != null) result.upperServo = upperServo;
+    if (lowerServo != null) result.lowerServo = lowerServo;
+    return result;
+  }
+
+  AugerCommand._();
+
+  factory AugerCommand.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory AugerCommand.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'AugerCommand',
+      createEmptyInstance: create)
+    ..aD(1, _omitFieldNames ? '' : 'speedRpm', fieldType: $pb.PbFieldType.OF)
+    ..aE<ServoState>(2, _omitFieldNames ? '' : 'upperServo',
+        enumValues: ServoState.values)
+    ..aE<ServoState>(3, _omitFieldNames ? '' : 'lowerServo',
+        enumValues: ServoState.values)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  AugerCommand clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  AugerCommand copyWith(void Function(AugerCommand) updates) =>
+      super.copyWith((message) => updates(message as AugerCommand))
+          as AugerCommand;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static AugerCommand create() => AugerCommand._();
+  @$core.override
+  AugerCommand createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static AugerCommand getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<AugerCommand>(create);
+  static AugerCommand? _defaultInstance;
+
+  /// Speed of the auger in RPM, between 0.0 - 0.4
+  @$pb.TagNumber(1)
+  $core.double get speedRpm => $_getN(0);
+  @$pb.TagNumber(1)
+  set speedRpm($core.double value) => $_setFloat(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasSpeedRpm() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSpeedRpm() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  ServoState get upperServo => $_getN(1);
+  @$pb.TagNumber(2)
+  set upperServo(ServoState value) => $_setField(2, value);
+  @$pb.TagNumber(2)
+  $core.bool hasUpperServo() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearUpperServo() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  ServoState get lowerServo => $_getN(2);
+  @$pb.TagNumber(3)
+  set lowerServo(ServoState value) => $_setField(3, value);
+  @$pb.TagNumber(3)
+  $core.bool hasLowerServo() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearLowerServo() => $_clearField(3);
+}
+
+/// / Data from the auger
+class AugerData extends $pb.GeneratedMessage {
+  factory AugerData({
+    ServoState? lowerServo,
+    ServoState? upperServo,
+    $core.double? distanceToGroundCm,
+    $core.double? current,
+  }) {
+    final result = create();
+    if (lowerServo != null) result.lowerServo = lowerServo;
+    if (upperServo != null) result.upperServo = upperServo;
+    if (distanceToGroundCm != null)
+      result.distanceToGroundCm = distanceToGroundCm;
+    if (current != null) result.current = current;
+    return result;
+  }
+
+  AugerData._();
+
+  factory AugerData.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory AugerData.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'AugerData',
+      createEmptyInstance: create)
+    ..aE<ServoState>(1, _omitFieldNames ? '' : 'lowerServo',
+        enumValues: ServoState.values)
+    ..aE<ServoState>(2, _omitFieldNames ? '' : 'upperServo',
+        enumValues: ServoState.values)
+    ..aD(3, _omitFieldNames ? '' : 'distanceToGroundCm',
+        fieldType: $pb.PbFieldType.OF)
+    ..aD(4, _omitFieldNames ? '' : 'current', fieldType: $pb.PbFieldType.OF)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  AugerData clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  AugerData copyWith(void Function(AugerData) updates) =>
+      super.copyWith((message) => updates(message as AugerData)) as AugerData;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static AugerData create() => AugerData._();
+  @$core.override
+  AugerData createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static AugerData getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AugerData>(create);
+  static AugerData? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  ServoState get lowerServo => $_getN(0);
+  @$pb.TagNumber(1)
+  set lowerServo(ServoState value) => $_setField(1, value);
+  @$pb.TagNumber(1)
+  $core.bool hasLowerServo() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearLowerServo() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  ServoState get upperServo => $_getN(1);
+  @$pb.TagNumber(2)
+  set upperServo(ServoState value) => $_setField(2, value);
+  @$pb.TagNumber(2)
+  $core.bool hasUpperServo() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearUpperServo() => $_clearField(2);
+
+  /// Distance to ground, in centimeters
+  @$pb.TagNumber(3)
+  $core.double get distanceToGroundCm => $_getN(2);
+  @$pb.TagNumber(3)
+  set distanceToGroundCm($core.double value) => $_setFloat(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasDistanceToGroundCm() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearDistanceToGroundCm() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.double get current => $_getN(3);
+  @$pb.TagNumber(4)
+  set current($core.double value) => $_setFloat(3, value);
+  @$pb.TagNumber(4)
+  $core.bool hasCurrent() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearCurrent() => $_clearField(4);
+}
+
 /// / A command to the science subsystem.
 class ScienceCommand extends $pb.GeneratedMessage {
   factory ScienceCommand({
     $core.double? carouselMotor,
-    $core.double? subsurfaceMotor,
+    $core.double? linearSlider,
     PumpState? pumps,
-    ServoState? funnel,
     CarouselCommand? carousel,
     $core.bool? calibrate,
     $core.bool? stop,
     $core.int? sample,
     ScienceState? state,
     $0.Version? version,
+    AugerCommand? auger,
   }) {
     final result = create();
     if (carouselMotor != null) result.carouselMotor = carouselMotor;
-    if (subsurfaceMotor != null) result.subsurfaceMotor = subsurfaceMotor;
+    if (linearSlider != null) result.linearSlider = linearSlider;
     if (pumps != null) result.pumps = pumps;
-    if (funnel != null) result.funnel = funnel;
     if (carousel != null) result.carousel = carousel;
     if (calibrate != null) result.calibrate = calibrate;
     if (stop != null) result.stop = stop;
     if (sample != null) result.sample = sample;
     if (state != null) result.state = state;
     if (version != null) result.version = version;
+    if (auger != null) result.auger = auger;
     return result;
   }
 
@@ -63,12 +238,10 @@ class ScienceCommand extends $pb.GeneratedMessage {
       createEmptyInstance: create)
     ..aD(1, _omitFieldNames ? '' : 'carouselMotor',
         fieldType: $pb.PbFieldType.OF)
-    ..aD(3, _omitFieldNames ? '' : 'subsurfaceMotor',
+    ..aD(3, _omitFieldNames ? '' : 'linearSlider',
         fieldType: $pb.PbFieldType.OF)
     ..aE<PumpState>(4, _omitFieldNames ? '' : 'pumps',
         enumValues: PumpState.values)
-    ..aE<ServoState>(5, _omitFieldNames ? '' : 'funnel',
-        enumValues: ServoState.values)
     ..aE<CarouselCommand>(7, _omitFieldNames ? '' : 'carousel',
         enumValues: CarouselCommand.values)
     ..aOB(8, _omitFieldNames ? '' : 'calibrate')
@@ -78,6 +251,8 @@ class ScienceCommand extends $pb.GeneratedMessage {
         enumValues: ScienceState.values)
     ..aOM<$0.Version>(12, _omitFieldNames ? '' : 'version',
         subBuilder: $0.Version.create)
+    ..aOM<AugerCommand>(13, _omitFieldNames ? '' : 'auger',
+        subBuilder: AugerCommand.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -110,13 +285,13 @@ class ScienceCommand extends $pb.GeneratedMessage {
   void clearCarouselMotor() => $_clearField(1);
 
   @$pb.TagNumber(3)
-  $core.double get subsurfaceMotor => $_getN(1);
+  $core.double get linearSlider => $_getN(1);
   @$pb.TagNumber(3)
-  set subsurfaceMotor($core.double value) => $_setFloat(1, value);
+  set linearSlider($core.double value) => $_setFloat(1, value);
   @$pb.TagNumber(3)
-  $core.bool hasSubsurfaceMotor() => $_has(1);
+  $core.bool hasLinearSlider() => $_has(1);
   @$pb.TagNumber(3)
-  void clearSubsurfaceMotor() => $_clearField(3);
+  void clearLinearSlider() => $_clearField(3);
 
   /// Control over other hardware
   @$pb.TagNumber(4)
@@ -128,71 +303,73 @@ class ScienceCommand extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   void clearPumps() => $_clearField(4);
 
-  @$pb.TagNumber(5)
-  ServoState get funnel => $_getN(3);
-  @$pb.TagNumber(5)
-  set funnel(ServoState value) => $_setField(5, value);
-  @$pb.TagNumber(5)
-  $core.bool hasFunnel() => $_has(3);
-  @$pb.TagNumber(5)
-  void clearFunnel() => $_clearField(5);
-
   @$pb.TagNumber(7)
-  CarouselCommand get carousel => $_getN(4);
+  CarouselCommand get carousel => $_getN(3);
   @$pb.TagNumber(7)
   set carousel(CarouselCommand value) => $_setField(7, value);
   @$pb.TagNumber(7)
-  $core.bool hasCarousel() => $_has(4);
+  $core.bool hasCarousel() => $_has(3);
   @$pb.TagNumber(7)
   void clearCarousel() => $_clearField(7);
 
   /// High level commands
   @$pb.TagNumber(8)
-  $core.bool get calibrate => $_getBF(5);
+  $core.bool get calibrate => $_getBF(4);
   @$pb.TagNumber(8)
-  set calibrate($core.bool value) => $_setBool(5, value);
+  set calibrate($core.bool value) => $_setBool(4, value);
   @$pb.TagNumber(8)
-  $core.bool hasCalibrate() => $_has(5);
+  $core.bool hasCalibrate() => $_has(4);
   @$pb.TagNumber(8)
   void clearCalibrate() => $_clearField(8);
 
   @$pb.TagNumber(9)
-  $core.bool get stop => $_getBF(6);
+  $core.bool get stop => $_getBF(5);
   @$pb.TagNumber(9)
-  set stop($core.bool value) => $_setBool(6, value);
+  set stop($core.bool value) => $_setBool(5, value);
   @$pb.TagNumber(9)
-  $core.bool hasStop() => $_has(6);
+  $core.bool hasStop() => $_has(5);
   @$pb.TagNumber(9)
   void clearStop() => $_clearField(9);
 
   @$pb.TagNumber(10)
-  $core.int get sample => $_getIZ(7);
+  $core.int get sample => $_getIZ(6);
   @$pb.TagNumber(10)
-  set sample($core.int value) => $_setSignedInt32(7, value);
+  set sample($core.int value) => $_setSignedInt32(6, value);
   @$pb.TagNumber(10)
-  $core.bool hasSample() => $_has(7);
+  $core.bool hasSample() => $_has(6);
   @$pb.TagNumber(10)
   void clearSample() => $_clearField(10);
 
   @$pb.TagNumber(11)
-  ScienceState get state => $_getN(8);
+  ScienceState get state => $_getN(7);
   @$pb.TagNumber(11)
   set state(ScienceState value) => $_setField(11, value);
   @$pb.TagNumber(11)
-  $core.bool hasState() => $_has(8);
+  $core.bool hasState() => $_has(7);
   @$pb.TagNumber(11)
   void clearState() => $_clearField(11);
 
   @$pb.TagNumber(12)
-  $0.Version get version => $_getN(9);
+  $0.Version get version => $_getN(8);
   @$pb.TagNumber(12)
   set version($0.Version value) => $_setField(12, value);
   @$pb.TagNumber(12)
-  $core.bool hasVersion() => $_has(9);
+  $core.bool hasVersion() => $_has(8);
   @$pb.TagNumber(12)
   void clearVersion() => $_clearField(12);
   @$pb.TagNumber(12)
-  $0.Version ensureVersion() => $_ensure(9);
+  $0.Version ensureVersion() => $_ensure(8);
+
+  @$pb.TagNumber(13)
+  AugerCommand get auger => $_getN(9);
+  @$pb.TagNumber(13)
+  set auger(AugerCommand value) => $_setField(13, value);
+  @$pb.TagNumber(13)
+  $core.bool hasAuger() => $_has(9);
+  @$pb.TagNumber(13)
+  void clearAuger() => $_clearField(13);
+  @$pb.TagNumber(13)
+  AugerCommand ensureAuger() => $_ensure(9);
 }
 
 /// / Data coming from the science subsystem.
@@ -204,6 +381,7 @@ class ScienceData extends $pb.GeneratedMessage {
     $core.double? humidity,
     $core.double? temperature,
     $0.Version? version,
+    AugerData? auger,
   }) {
     final result = create();
     if (sample != null) result.sample = sample;
@@ -212,6 +390,7 @@ class ScienceData extends $pb.GeneratedMessage {
     if (humidity != null) result.humidity = humidity;
     if (temperature != null) result.temperature = temperature;
     if (version != null) result.version = version;
+    if (auger != null) result.auger = auger;
     return result;
   }
 
@@ -235,6 +414,8 @@ class ScienceData extends $pb.GeneratedMessage {
     ..aD(5, _omitFieldNames ? '' : 'temperature', fieldType: $pb.PbFieldType.OF)
     ..aOM<$0.Version>(6, _omitFieldNames ? '' : 'version',
         subBuilder: $0.Version.create)
+    ..aOM<AugerData>(7, _omitFieldNames ? '' : 'auger',
+        subBuilder: AugerData.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -313,6 +494,17 @@ class ScienceData extends $pb.GeneratedMessage {
   void clearVersion() => $_clearField(6);
   @$pb.TagNumber(6)
   $0.Version ensureVersion() => $_ensure(5);
+
+  @$pb.TagNumber(7)
+  AugerData get auger => $_getN(6);
+  @$pb.TagNumber(7)
+  set auger(AugerData value) => $_setField(7, value);
+  @$pb.TagNumber(7)
+  $core.bool hasAuger() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearAuger() => $_clearField(7);
+  @$pb.TagNumber(7)
+  AugerData ensureAuger() => $_ensure(6);
 }
 
 const $core.bool _omitFieldNames =
