@@ -8,7 +8,7 @@ import "package:video/video.dart";
 
 /// The socket to send autonomy data to.
 final autonomySocket = SocketInfo(
-  address: InternetAddress("192.168.1.30"),
+  address: InternetAddress("192.168.1.20"),
   port: 8003,
 );
 
@@ -30,8 +30,13 @@ class CameraManager extends Service {
   StreamSubscription<VideoData>? _vision;
   StreamSubscription<IsolatePayload>? _data;
 
+  List<CameraName>? _supportedCameras;
+
   @override
-  Future<bool> init() async {
+  Future<bool> init({
+    List<CameraName> supportedCameras = CameraName.values,
+  }) async {
+    _supportedCameras ??= supportedCameras;
     _commands = collection.videoServer.messages.onMessage<VideoCommand>(
       name: VideoCommand().messageName,
       constructor: VideoCommand.fromBuffer,
@@ -45,7 +50,7 @@ class CameraManager extends Service {
     parent.init();
     _data = parent.stream.listen(onData);
 
-    for (final name in CameraName.values) {
+    for (final name in _supportedCameras!) {
       switch (name) {
         case CameraName.CAMERA_NAME_UNDEFINED:
         case CameraName.ROVER_FRONT:
@@ -69,7 +74,7 @@ class CameraManager extends Service {
     stopAll();
 
     // Wait a bit after sending the stop command so the messages are received properly
-    await Future<void>.delayed(const Duration(milliseconds: 750));
+    await Future<void>.delayed(const Duration(milliseconds: 1500));
 
     await _commands?.cancel();
     await _vision?.cancel();
@@ -164,10 +169,12 @@ class CameraManager extends Service {
 
   /// Forwards the command to the appropriate camera.
   void _handleCommand(VideoCommand command) {
-    collection.videoServer.sendMessage(command); // echo the request
     var cameraName = command.details.name;
     if (cameraName == CameraName.ROVER_FRONT) {
       cameraName = CameraName.AUTONOMY_DEPTH;
+    }
+    if (!_supportedCameras!.contains(cameraName)) {
+      return;
     }
     parent.sendToChild(data: command, id: cameraName);
   }
@@ -180,6 +187,9 @@ class CameraManager extends Service {
     // we're extremely short on time, it leaves analysis as an implementation detail of Video, and
     // it doesn't add much latency (from 24 FPS on the camera to 23 FPS on the Dashboard).
     collection.videoServer.sendMessage(data);
+    if (data.frame.isEmpty) {
+      collection.videoServer.sendMessage(data, destination: autonomySocket);
+    }
   }
 
   /// Stops all the cameras managed by this class.
@@ -187,7 +197,7 @@ class CameraManager extends Service {
     final command = VideoCommand(
       details: CameraDetails(status: CameraStatus.CAMERA_DISABLED),
     );
-    for (final name in CameraName.values) {
+    for (final name in _supportedCameras!) {
       if (name == CameraName.CAMERA_NAME_UNDEFINED ||
           name == CameraName.ROVER_FRONT) {
         continue;

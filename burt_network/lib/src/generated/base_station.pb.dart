@@ -30,12 +30,14 @@ class AntennaFirmwareCommand extends $pb.GeneratedMessage {
     $1.MotorCommand? swivel,
     $core.bool? stop,
     $core.bool? calibrate,
+    $1.MotorCommand? pitch,
   }) {
     final result = create();
     if (version != null) result.version = version;
     if (swivel != null) result.swivel = swivel;
     if (stop != null) result.stop = stop;
     if (calibrate != null) result.calibrate = calibrate;
+    if (pitch != null) result.pitch = pitch;
     return result;
   }
 
@@ -57,6 +59,8 @@ class AntennaFirmwareCommand extends $pb.GeneratedMessage {
         subBuilder: $1.MotorCommand.create)
     ..aOB(3, _omitFieldNames ? '' : 'stop')
     ..aOB(4, _omitFieldNames ? '' : 'calibrate')
+    ..aOM<$1.MotorCommand>(5, _omitFieldNames ? '' : 'pitch',
+        subBuilder: $1.MotorCommand.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -118,16 +122,29 @@ class AntennaFirmwareCommand extends $pb.GeneratedMessage {
   $core.bool hasCalibrate() => $_has(3);
   @$pb.TagNumber(4)
   void clearCalibrate() => $_clearField(4);
+
+  @$pb.TagNumber(5)
+  $1.MotorCommand get pitch => $_getN(4);
+  @$pb.TagNumber(5)
+  set pitch($1.MotorCommand value) => $_setField(5, value);
+  @$pb.TagNumber(5)
+  $core.bool hasPitch() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearPitch() => $_clearField(5);
+  @$pb.TagNumber(5)
+  $1.MotorCommand ensurePitch() => $_ensure(4);
 }
 
 class AntennaFirmwareData extends $pb.GeneratedMessage {
   factory AntennaFirmwareData({
     $0.Version? version,
     $1.MotorData? swivel,
+    $1.MotorData? pitch,
   }) {
     final result = create();
     if (version != null) result.version = version;
     if (swivel != null) result.swivel = swivel;
+    if (pitch != null) result.pitch = pitch;
     return result;
   }
 
@@ -146,6 +163,8 @@ class AntennaFirmwareData extends $pb.GeneratedMessage {
     ..aOM<$0.Version>(1, _omitFieldNames ? '' : 'version',
         subBuilder: $0.Version.create)
     ..aOM<$1.MotorData>(2, _omitFieldNames ? '' : 'swivel',
+        subBuilder: $1.MotorData.create)
+    ..aOM<$1.MotorData>(3, _omitFieldNames ? '' : 'pitch',
         subBuilder: $1.MotorData.create)
     ..hasRequiredFields = false;
 
@@ -189,6 +208,17 @@ class AntennaFirmwareData extends $pb.GeneratedMessage {
   void clearSwivel() => $_clearField(2);
   @$pb.TagNumber(2)
   $1.MotorData ensureSwivel() => $_ensure(1);
+
+  @$pb.TagNumber(3)
+  $1.MotorData get pitch => $_getN(2);
+  @$pb.TagNumber(3)
+  set pitch($1.MotorData value) => $_setField(3, value);
+  @$pb.TagNumber(3)
+  $core.bool hasPitch() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearPitch() => $_clearField(3);
+  @$pb.TagNumber(3)
+  $1.MotorData ensurePitch() => $_ensure(2);
 }
 
 /// / Command to control the movement of the MARS antenna.
