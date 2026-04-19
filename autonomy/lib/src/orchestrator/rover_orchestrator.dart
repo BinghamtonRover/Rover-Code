@@ -6,6 +6,7 @@ import "package:autonomy/interfaces.dart";
 import "package:autonomy/src/state_machine/rover_states/approach_visible_object.dart";
 import "package:autonomy/src/state_machine/rover_states/deferred_state.dart";
 import "package:autonomy/src/state_machine/rover_states/spin_for_object.dart";
+import "package:autonomy/src/state_machine/rover_states/lawnmower_search.dart";
 import "package:coordinate_converter/coordinate_converter.dart";
 
 class RoverOrchestrator extends OrchestratorInterface with ValueReporter {
@@ -337,10 +338,13 @@ class RoverOrchestrator extends OrchestratorInterface with ValueReporter {
             controller.popState();
           },
         ),
-        collection.drive.spinForArucoState(
-          command.arucoId,
-          desiredCamera: Constants.arucoDetectionCamera,
-        ),
+	LawnmowerSearch(
+	  controller,
+	  collection: collection,
+	  orchestrator: this,
+	  arucoId: command.arucoId,
+	  desiredCamera: Constants.arucoDetectionCamera,
+	),
         // Check if tag was found and face it
         DeferredState(controller, (controller) {
           final detectedAruco = collection.video.getArucoDetection(
