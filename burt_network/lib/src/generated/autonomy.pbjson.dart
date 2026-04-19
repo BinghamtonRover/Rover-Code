@@ -44,13 +44,17 @@ const AutonomyTask$json = {
     {'1': 'GPS_ONLY', '2': 1},
     {'1': 'VISUAL_MARKER', '2': 2},
     {'1': 'BETWEEN_GATES', '2': 3},
+    {'1': 'HAMMER_TARGET', '2': 4},
+    {'1': 'ROCK_HAMMER_TARGET', '2': 5},
+    {'1': 'BOTTLE_TARGET', '2': 6},
   ],
 };
 
 /// Descriptor for `AutonomyTask`. Decode as a `google.protobuf.EnumDescriptorProto`.
 final $typed_data.Uint8List autonomyTaskDescriptor = $convert.base64Decode(
     'CgxBdXRvbm9teVRhc2sSGwoXQVVUT05PTVlfVEFTS19VTkRFRklORUQQABIMCghHUFNfT05MWR'
-    'ABEhEKDVZJU1VBTF9NQVJLRVIQAhIRCg1CRVRXRUVOX0dBVEVTEAM=');
+    'ABEhEKDVZJU1VBTF9NQVJLRVIQAhIRCg1CRVRXRUVOX0dBVEVTEAMSEQoNSEFNTUVSX1RBUkdF'
+    'VBAEEhYKElJPQ0tfSEFNTUVSX1RBUkdFVBAFEhEKDUJPVFRMRV9UQVJHRVQQBg==');
 
 @$core.Deprecated('Use autonomyDataDescriptor instead')
 const AutonomyData$json = {

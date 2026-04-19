@@ -13,7 +13,8 @@ class BurtFirmwareSerial extends Service {
   /// The interval to read serial data at.
   static const readInterval = Duration(milliseconds: 10);
   /// How long it should take for a firmware device to respond to a handshake.
-  static const handshakeDelay = Duration(milliseconds: 200);
+  static const handshakeDelay = Duration(milliseconds: 1200);
+  static const handshakeTimeout = Duration(milliseconds: 1500);
   /// The reset code to send to a firmware device.
   static final resetCode = Uint8List.fromList([0, 0, 0, 0]);
 
@@ -67,7 +68,18 @@ class BurtFirmwareSerial extends Service {
 
     // Execute the handshake
     if (!(await _reset() || await _reset())) logger.warning("The Teensy on port $port failed to reset");
-    if (!await _sendHandshake()) {
+    
+    // Retry handshake up to 3 times with brief backoff
+    var handshakeSuccess = false;
+    for (var attempt = 0; attempt < 3; attempt++) {
+      if (await _sendHandshake()) {
+        handshakeSuccess = true;
+        break;
+      }
+      await Future<void>.delayed(const Duration(milliseconds: 200));
+    }
+
+    if (!handshakeSuccess) {
       logger.warning("Could not connect to Teensy", body: "Device on port $port failed the handshake");
       return false;
     }
@@ -82,12 +94,32 @@ class BurtFirmwareSerial extends Service {
     logger.debug("Sending handshake to port $port...");
     final handshake = Connect(sender: Device.SUBSYSTEMS, receiver: Device.FIRMWARE);
     _serial.write(handshake.writeToBuffer());
+
+    // Wait for MCU boot, then poll for response
     await Future<void>.delayed(handshakeDelay);
-    final response = _serial.readBytes(4);
+    
+    final deadline = DateTime.now().add(handshakeTimeout);
+    final response = <int>[];
+    
+    while (DateTime.now().isBefore(deadline) && response.length < 4) {
+      final chunk = _serial.readBytes(4 - response.length);
+      if (chunk.isNotEmpty) {
+        response.addAll(chunk);
+      } else {
+        await Future<void>.delayed(const Duration(milliseconds: 20));
+      }
+    }
+
     if (response.isEmpty) {
       logger.trace("Device did not respond");
       return false;
     }
+
+    if (response.length < 4) {
+      logger.trace("Device responded with incomplete handshake: $response");
+      return false;
+    }
+
     try {
       final message = Connect.fromBuffer(response);
       logger.trace("Device responded with: ${message.toProto3Json()}");

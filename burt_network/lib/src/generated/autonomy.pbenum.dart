@@ -60,16 +60,25 @@ class AutonomyTask extends $pb.ProtobufEnum {
       AutonomyTask._(2, _omitEnumNames ? '' : 'VISUAL_MARKER');
   static const AutonomyTask BETWEEN_GATES =
       AutonomyTask._(3, _omitEnumNames ? '' : 'BETWEEN_GATES');
+  static const AutonomyTask HAMMER_TARGET =
+      AutonomyTask._(4, _omitEnumNames ? '' : 'HAMMER_TARGET');
+  static const AutonomyTask ROCK_HAMMER_TARGET =
+      AutonomyTask._(5, _omitEnumNames ? '' : 'ROCK_HAMMER_TARGET');
+  static const AutonomyTask BOTTLE_TARGET =
+      AutonomyTask._(6, _omitEnumNames ? '' : 'BOTTLE_TARGET');
 
   static const $core.List<AutonomyTask> values = <AutonomyTask>[
     AUTONOMY_TASK_UNDEFINED,
     GPS_ONLY,
     VISUAL_MARKER,
     BETWEEN_GATES,
+    HAMMER_TARGET,
+    ROCK_HAMMER_TARGET,
+    BOTTLE_TARGET,
   ];
 
   static final $core.List<AutonomyTask?> _byValue =
-      $pb.ProtobufEnum.$_initByValueList(values, 3);
+      $pb.ProtobufEnum.$_initByValueList(values, 6);
   static AutonomyTask? valueOf($core.int value) =>
       value < 0 || value >= _byValue.length ? null : _byValue[value];
 
