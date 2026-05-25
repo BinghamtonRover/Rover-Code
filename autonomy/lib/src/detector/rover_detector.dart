@@ -115,7 +115,7 @@ class RoverDetector extends DetectorInterface {
 
   @override
   Future<bool> init() async {
-    _subscription = collection.server.messages.onMessage(
+    _subscription = collection.server.messages.listenFor(
       name: LidarPointCloud().messageName,
       constructor: LidarPointCloud.fromBuffer,
       callback: _handleLidarCloud,

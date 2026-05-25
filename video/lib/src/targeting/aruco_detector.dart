@@ -143,15 +143,15 @@ class RoverArucoDetector {
         final bestRotation = pnpResult.rvecs[0].at<Vec3d>(0, 0);
 
         bestCameraToTarget = Pose3d(
-          translation: Coordinates(
+          translation: Translation3d(
             x: bestTranslation.val1,
             y: -bestTranslation.val2,
             z: bestTranslation.val3,
           ),
-          rotation: Orientation(
-            x: bestRotation.val1 * (180 / pi),
-            y: bestRotation.val2 * (180 / pi),
-            z: bestRotation.val3 * (180 / pi),
+          rotation: Rotation3d(
+            pitch: bestRotation.val1 * (180 / pi),
+            roll: bestRotation.val2 * (180 / pi),
+            yaw: bestRotation.val3 * (180 / pi),
           ),
         );
         bestReprojectionError = pnpResult.reprojectionError.at<double>(0, 0);

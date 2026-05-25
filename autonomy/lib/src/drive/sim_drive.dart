@@ -46,7 +46,7 @@ class DriveSimulator extends DriveInterface {
       );
 
   @override
-  StateInterface faceOrientationState(Orientation orientation) =>
+  StateInterface faceOrientationState(Rotation3d orientation) =>
       SimulationDriveTurn(
         controller,
         collection: collection,
@@ -68,7 +68,7 @@ class DriveSimulator extends DriveInterface {
   }
 
   @override
-  Future<bool> faceOrientation(Orientation orientation) async {
+  Future<bool> faceOrientation(Rotation3d orientation) async {
     if (shouldDelay) {
       await Future<void>.delayed(const Duration(milliseconds: 500));
     }

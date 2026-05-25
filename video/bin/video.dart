@@ -9,7 +9,7 @@ class CommandForwarder extends Service {
 
   @override
   Future<bool> init() async {
-    _commandSubscription = collection.videoServer.messages.onMessage(
+    _commandSubscription = collection.videoServer.messages.listenFor(
       name: VideoCommand().messageName,
       constructor: VideoCommand.fromBuffer,
       callback: (data) {

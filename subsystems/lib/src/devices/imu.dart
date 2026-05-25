@@ -31,7 +31,7 @@ class ImuReader extends Service {
   bool get isConnected => serial.isOpen;
 
   /// The last received reading from the IMU
-  Orientation lastValue = Orientation();
+  Rotation3d lastValue = Rotation3d();
 
   /// The subscription that will be notified when a new serial packet arrives.
   StreamSubscription<List<int>>? subscription;
@@ -65,10 +65,10 @@ class ImuReader extends Service {
         collection.server.sendMessage(SubsystemsCommand(zeroImu: true));
       }
       if (message.address == "/euler") {
-        final orientation = Orientation(
-          x: message.arguments[0] as double,
-          y: message.arguments[1] as double,
-          z: message.arguments[2] as double,
+        final orientation = Rotation3d(
+          pitch: message.arguments[0] as double,
+          roll: message.arguments[1] as double,
+          yaw: message.arguments[2] as double,
         );
         lastValue = orientation;
         final position = RoverPosition(
@@ -89,7 +89,7 @@ class ImuReader extends Service {
         return false;
       }
       subscription = serial.stream.listen(handleSerial);
-      _commandSubscription = collection.server.messages.onMessage(
+      _commandSubscription = collection.server.messages.listenFor(
         name: SubsystemsCommand().messageName,
         constructor: SubsystemsCommand.fromBuffer,
         callback: handleCommand,
@@ -111,6 +111,6 @@ class ImuReader extends Service {
     await subscription?.cancel();
     await _commandSubscription?.cancel();
     await serial.dispose();
-    lastValue = Orientation();
+    lastValue = Rotation3d();
   }
 }

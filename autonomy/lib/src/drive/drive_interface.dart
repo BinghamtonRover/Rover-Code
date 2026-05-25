@@ -70,7 +70,7 @@ abstract class DriveInterface extends Service {
       faceOrientationState(direction.orientation);
 
   /// State to face the rover towards [orientation]
-  StateInterface faceOrientationState(Orientation orientation);
+  StateInterface faceOrientationState(Rotation3d orientation);
 
   /// State to execute actions relating to the turning of an [AutonomyAStarState]
   StateInterface turnStateState(AutonomyAStarState state) =>
@@ -83,7 +83,7 @@ abstract class DriveInterface extends Service {
   Future<bool> driveForward(GpsCoordinates position);
 
   /// Turn to face [orientation], returns whether or not it was able to turn
-  Future<bool> faceOrientation(Orientation orientation);
+  Future<bool> faceOrientation(Rotation3d orientation);
 
   /// Turn to face the orientation of [direction], returns whether or not it was able to turn
   Future<bool> faceDirection(CardinalDirection direction) =>

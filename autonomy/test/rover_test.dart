@@ -18,7 +18,7 @@ void main() => group("[Rover]", tags: ["rover"], () {
 
   test("Waits for sensor data", () async {
     final rover = RoverAutonomy();
-    final orientation = Orientation();
+    final orientation = Rotation3d();
     final data = VideoData();
 
     await rover.init();

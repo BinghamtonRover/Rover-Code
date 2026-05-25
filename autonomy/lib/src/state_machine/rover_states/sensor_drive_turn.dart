@@ -4,7 +4,7 @@ import "package:autonomy/src/drive/drive_config.dart";
 
 class SensorTurnState extends RoverState {
   final AutonomyInterface collection;
-  final Orientation orientation;
+  final Rotation3d orientation;
 
   final RoverDriveCommands drive;
 

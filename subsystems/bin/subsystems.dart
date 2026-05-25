@@ -6,8 +6,8 @@ import "package:subsystems/subsystems.dart";
 
 /// Extra service to forward science data and commands to/from the auxillary board
 class AuxillaryForwarder extends Service {
-  StreamSubscription<WrappedMessage>? _commandSubscription;
-  StreamSubscription<WrappedMessage>? _dataSubscription;
+  StreamSubscription<WrapperDatagram>? _commandSubscription;
+  StreamSubscription<WrapperDatagram>? _dataSubscription;
 
   @override
   Future<bool> init() async {
@@ -19,7 +19,7 @@ class AuxillaryForwarder extends Service {
         )
         .listen(
           (wrapper) => collection.server.sendWrapper(
-            wrapper,
+            wrapper.message,
             destination: SocketInfo(
               address: InternetAddress("192.168.1.60"),
               port: 8010,
@@ -32,7 +32,7 @@ class AuxillaryForwarder extends Service {
               e.name == ArmData().messageName ||
               e.name == ScienceData().messageName,
         )
-        .listen(collection.server.sendWrapper);
+        .listen((wrapper) => collection.server.sendWrapper(wrapper.message));
     return true;
   }
 
