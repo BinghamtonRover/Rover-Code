@@ -16,8 +16,8 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
-class Coordinates extends $pb.GeneratedMessage {
-  factory Coordinates({
+class Translation3d extends $pb.GeneratedMessage {
+  factory Translation3d({
     $core.double? x,
     $core.double? y,
     $core.double? z,
@@ -29,17 +29,17 @@ class Coordinates extends $pb.GeneratedMessage {
     return result;
   }
 
-  Coordinates._();
+  Translation3d._();
 
-  factory Coordinates.fromBuffer($core.List<$core.int> data,
+  factory Translation3d.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(data, registry);
-  factory Coordinates.fromJson($core.String json,
+  factory Translation3d.fromJson($core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(json, registry);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'Coordinates',
+      _omitMessageNames ? '' : 'Translation3d',
       createEmptyInstance: create)
     ..aD(1, _omitFieldNames ? '' : 'x', fieldType: $pb.PbFieldType.OF)
     ..aD(2, _omitFieldNames ? '' : 'y', fieldType: $pb.PbFieldType.OF)
@@ -47,23 +47,23 @@ class Coordinates extends $pb.GeneratedMessage {
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  Coordinates clone() => deepCopy();
+  Translation3d clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  Coordinates copyWith(void Function(Coordinates) updates) =>
-      super.copyWith((message) => updates(message as Coordinates))
-          as Coordinates;
+  Translation3d copyWith(void Function(Translation3d) updates) =>
+      super.copyWith((message) => updates(message as Translation3d))
+          as Translation3d;
 
   @$core.override
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
-  static Coordinates create() => Coordinates._();
+  static Translation3d create() => Translation3d._();
   @$core.override
-  Coordinates createEmptyInstance() => create();
+  Translation3d createEmptyInstance() => create();
   @$core.pragma('dart2js:noInline')
-  static Coordinates getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<Coordinates>(create);
-  static Coordinates? _defaultInstance;
+  static Translation3d getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<Translation3d>(create);
+  static Translation3d? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.double get x => $_getN(0);
@@ -93,87 +93,86 @@ class Coordinates extends $pb.GeneratedMessage {
   void clearZ() => $_clearField(3);
 }
 
-class Orientation extends $pb.GeneratedMessage {
-  factory Orientation({
-    $core.double? x,
-    $core.double? y,
-    $core.double? z,
+class Rotation3d extends $pb.GeneratedMessage {
+  factory Rotation3d({
+    $core.double? pitch,
+    $core.double? roll,
+    $core.double? yaw,
   }) {
     final result = create();
-    if (x != null) result.x = x;
-    if (y != null) result.y = y;
-    if (z != null) result.z = z;
+    if (pitch != null) result.pitch = pitch;
+    if (roll != null) result.roll = roll;
+    if (yaw != null) result.yaw = yaw;
     return result;
   }
 
-  Orientation._();
+  Rotation3d._();
 
-  factory Orientation.fromBuffer($core.List<$core.int> data,
+  factory Rotation3d.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(data, registry);
-  factory Orientation.fromJson($core.String json,
+  factory Rotation3d.fromJson($core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(json, registry);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'Orientation',
+      _omitMessageNames ? '' : 'Rotation3d',
       createEmptyInstance: create)
-    ..aD(1, _omitFieldNames ? '' : 'x', fieldType: $pb.PbFieldType.OF)
-    ..aD(2, _omitFieldNames ? '' : 'y', fieldType: $pb.PbFieldType.OF)
-    ..aD(3, _omitFieldNames ? '' : 'z', fieldType: $pb.PbFieldType.OF)
+    ..aD(1, _omitFieldNames ? '' : 'pitch', fieldType: $pb.PbFieldType.OF)
+    ..aD(2, _omitFieldNames ? '' : 'roll', fieldType: $pb.PbFieldType.OF)
+    ..aD(3, _omitFieldNames ? '' : 'yaw', fieldType: $pb.PbFieldType.OF)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  Orientation clone() => deepCopy();
+  Rotation3d clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  Orientation copyWith(void Function(Orientation) updates) =>
-      super.copyWith((message) => updates(message as Orientation))
-          as Orientation;
+  Rotation3d copyWith(void Function(Rotation3d) updates) =>
+      super.copyWith((message) => updates(message as Rotation3d)) as Rotation3d;
 
   @$core.override
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
-  static Orientation create() => Orientation._();
+  static Rotation3d create() => Rotation3d._();
   @$core.override
-  Orientation createEmptyInstance() => create();
+  Rotation3d createEmptyInstance() => create();
   @$core.pragma('dart2js:noInline')
-  static Orientation getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<Orientation>(create);
-  static Orientation? _defaultInstance;
+  static Rotation3d getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<Rotation3d>(create);
+  static Rotation3d? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.double get x => $_getN(0);
+  $core.double get pitch => $_getN(0);
   @$pb.TagNumber(1)
-  set x($core.double value) => $_setFloat(0, value);
+  set pitch($core.double value) => $_setFloat(0, value);
   @$pb.TagNumber(1)
-  $core.bool hasX() => $_has(0);
+  $core.bool hasPitch() => $_has(0);
   @$pb.TagNumber(1)
-  void clearX() => $_clearField(1);
+  void clearPitch() => $_clearField(1);
 
   @$pb.TagNumber(2)
-  $core.double get y => $_getN(1);
+  $core.double get roll => $_getN(1);
   @$pb.TagNumber(2)
-  set y($core.double value) => $_setFloat(1, value);
+  set roll($core.double value) => $_setFloat(1, value);
   @$pb.TagNumber(2)
-  $core.bool hasY() => $_has(1);
+  $core.bool hasRoll() => $_has(1);
   @$pb.TagNumber(2)
-  void clearY() => $_clearField(2);
+  void clearRoll() => $_clearField(2);
 
   @$pb.TagNumber(3)
-  $core.double get z => $_getN(2);
+  $core.double get yaw => $_getN(2);
   @$pb.TagNumber(3)
-  set z($core.double value) => $_setFloat(2, value);
+  set yaw($core.double value) => $_setFloat(2, value);
   @$pb.TagNumber(3)
-  $core.bool hasZ() => $_has(2);
+  $core.bool hasYaw() => $_has(2);
   @$pb.TagNumber(3)
-  void clearZ() => $_clearField(3);
+  void clearYaw() => $_clearField(3);
 }
 
 class Pose3d extends $pb.GeneratedMessage {
   factory Pose3d({
-    Coordinates? translation,
-    Orientation? rotation,
+    Translation3d? translation,
+    Rotation3d? rotation,
   }) {
     final result = create();
     if (translation != null) result.translation = translation;
@@ -193,10 +192,10 @@ class Pose3d extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'Pose3d',
       createEmptyInstance: create)
-    ..aOM<Coordinates>(1, _omitFieldNames ? '' : 'translation',
-        subBuilder: Coordinates.create)
-    ..aOM<Orientation>(2, _omitFieldNames ? '' : 'rotation',
-        subBuilder: Orientation.create)
+    ..aOM<Translation3d>(1, _omitFieldNames ? '' : 'translation',
+        subBuilder: Translation3d.create)
+    ..aOM<Rotation3d>(2, _omitFieldNames ? '' : 'rotation',
+        subBuilder: Rotation3d.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -218,26 +217,26 @@ class Pose3d extends $pb.GeneratedMessage {
   static Pose3d? _defaultInstance;
 
   @$pb.TagNumber(1)
-  Coordinates get translation => $_getN(0);
+  Translation3d get translation => $_getN(0);
   @$pb.TagNumber(1)
-  set translation(Coordinates value) => $_setField(1, value);
+  set translation(Translation3d value) => $_setField(1, value);
   @$pb.TagNumber(1)
   $core.bool hasTranslation() => $_has(0);
   @$pb.TagNumber(1)
   void clearTranslation() => $_clearField(1);
   @$pb.TagNumber(1)
-  Coordinates ensureTranslation() => $_ensure(0);
+  Translation3d ensureTranslation() => $_ensure(0);
 
   @$pb.TagNumber(2)
-  Orientation get rotation => $_getN(1);
+  Rotation3d get rotation => $_getN(1);
   @$pb.TagNumber(2)
-  set rotation(Orientation value) => $_setField(2, value);
+  set rotation(Rotation3d value) => $_setField(2, value);
   @$pb.TagNumber(2)
   $core.bool hasRotation() => $_has(1);
   @$pb.TagNumber(2)
   void clearRotation() => $_clearField(2);
   @$pb.TagNumber(2)
-  Orientation ensureRotation() => $_ensure(1);
+  Rotation3d ensureRotation() => $_ensure(1);
 }
 
 const $core.bool _omitFieldNames =

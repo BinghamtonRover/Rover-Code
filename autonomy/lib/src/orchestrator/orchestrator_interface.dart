@@ -49,7 +49,7 @@ abstract class OrchestratorInterface extends Service {
 
   @override
   Future<bool> init() async {
-    collection.server.messages.onMessage(
+    collection.server.messages.listenFor(
       name: AutonomyCommand().messageName,
       constructor: AutonomyCommand.fromBuffer,
       callback: onCommand,

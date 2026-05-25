@@ -9,17 +9,17 @@ class ImuSimulator extends ImuInterface with ValueReporter {
   @override
   RoverPosition getMessage() => RoverPosition(orientation: raw);
 
-  Orientation _orientation = Orientation();
+  Rotation3d _orientation = Rotation3d();
 
   @override
-  Orientation get raw => Orientation(
-    x: _orientation.x + _error.value,
-    y: _orientation.y + _error.value,
-    z: _orientation.z + _error.value,
+  Rotation3d get raw => Rotation3d(
+    pitch: _orientation.pitch + _error.value,
+    roll: _orientation.roll + _error.value,
+    yaw: _orientation.yaw + _error.value,
   );
 
   @override
-  void update(Orientation newValue) => _orientation = newValue;
+  void update(Rotation3d newValue) => _orientation = newValue;
 
   @override
   Future<bool> init() async {
@@ -29,7 +29,7 @@ class ImuSimulator extends ImuInterface with ValueReporter {
 
   @override
   Future<void> dispose() async {
-    _orientation = Orientation();
+    _orientation = Rotation3d();
     await super.dispose();
   }
 }

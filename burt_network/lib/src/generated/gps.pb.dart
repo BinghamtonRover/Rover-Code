@@ -115,7 +115,7 @@ class GpsCoordinates extends $pb.GeneratedMessage {
 class RoverPosition extends $pb.GeneratedMessage {
   factory RoverPosition({
     GpsCoordinates? gps,
-    $0.Orientation? orientation,
+    $0.Rotation3d? orientation,
     $1.Version? version,
     $core.List<$core.int>? rtkMessage,
   }) {
@@ -141,8 +141,8 @@ class RoverPosition extends $pb.GeneratedMessage {
       createEmptyInstance: create)
     ..aOM<GpsCoordinates>(1, _omitFieldNames ? '' : 'gps',
         subBuilder: GpsCoordinates.create)
-    ..aOM<$0.Orientation>(2, _omitFieldNames ? '' : 'orientation',
-        subBuilder: $0.Orientation.create)
+    ..aOM<$0.Rotation3d>(2, _omitFieldNames ? '' : 'orientation',
+        subBuilder: $0.Rotation3d.create)
     ..aOM<$1.Version>(3, _omitFieldNames ? '' : 'version',
         subBuilder: $1.Version.create)
     ..a<$core.List<$core.int>>(
@@ -180,15 +180,15 @@ class RoverPosition extends $pb.GeneratedMessage {
   GpsCoordinates ensureGps() => $_ensure(0);
 
   @$pb.TagNumber(2)
-  $0.Orientation get orientation => $_getN(1);
+  $0.Rotation3d get orientation => $_getN(1);
   @$pb.TagNumber(2)
-  set orientation($0.Orientation value) => $_setField(2, value);
+  set orientation($0.Rotation3d value) => $_setField(2, value);
   @$pb.TagNumber(2)
   $core.bool hasOrientation() => $_has(1);
   @$pb.TagNumber(2)
   void clearOrientation() => $_clearField(2);
   @$pb.TagNumber(2)
-  $0.Orientation ensureOrientation() => $_ensure(1);
+  $0.Rotation3d ensureOrientation() => $_ensure(1);
 
   @$pb.TagNumber(3)
   $1.Version get version => $_getN(2);

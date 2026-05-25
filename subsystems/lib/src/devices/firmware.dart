@@ -36,7 +36,7 @@ class FirmwareManager extends Service {
   @override
   Future<bool> init() async {
     devices = await getFirmwareDevices();
-    collection.server.messages.listen(_sendToSerial);
+    collection.server.messages.map((e) => e.message).listen(_sendToSerial);
     var result = true;
     for (final device in devices) {
       logger.debug("Initializing device: ${device.port}");

@@ -13,14 +13,14 @@ enum CardinalDirection {
   final double angle;
   const CardinalDirection(this.angle);
 
-  Orientation get orientation => Orientation(z: angle);
+  Rotation3d get orientation => Rotation3d(yaw: angle);
 
-  static CardinalDirection nearest(Orientation orientation) {
+  static CardinalDirection nearest(Rotation3d orientation) {
     var smallestDiff = double.infinity;
     var closestOrientation = CardinalDirection.north;
 
     for (final value in values) {
-      final diff = (value.angle - orientation.z).clampHalfAngle();
+      final diff = (value.angle - orientation.yaw).clampHalfAngle();
       if (diff.abs() < smallestDiff) {
         smallestDiff = diff.abs();
         closestOrientation = value;

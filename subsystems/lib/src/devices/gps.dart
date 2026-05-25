@@ -24,7 +24,7 @@ final baseStationSocket = SocketInfo(
 );
 
 /// The offset of the GPS antenna's position on the rover
-final Coordinates antennaOffset = Coordinates(
+final Translation3d antennaOffset = Translation3d(
   x: -0.18415, // 7.25 in
   y: -0.20955, // 8.25 in
 );
@@ -133,7 +133,7 @@ class GpsReader extends Service {
       return;
     }
 
-    final imuAngle = (collection.imu.lastValue.z + 90) * pi / 180;
+    final imuAngle = (collection.imu.lastValue.yaw + 90) * pi / 180;
     final xOffset =
         antennaOffset.x * cos(imuAngle) - antennaOffset.y * sin(imuAngle);
     final yOffset =
@@ -184,7 +184,7 @@ class GpsReader extends Service {
 
   @override
   Future<bool> init() async {
-    _messageSubscription = collection.server.messages.onMessage(
+    _messageSubscription = collection.server.messages.listenFor(
       name: RoverPosition().messageName,
       constructor: RoverPosition.fromBuffer,
       callback: _handleIncomingMessage,

@@ -45,7 +45,7 @@ class RoverVideo extends VideoInterface {
 
     late final StreamSubscription<VideoData> resultSubscription;
 
-    resultSubscription = collection.server.messages.onMessage(
+    resultSubscription = collection.server.messages.listenFor(
       name: VideoData().messageName,
       constructor: VideoData.fromBuffer,
       callback: (result) async {
