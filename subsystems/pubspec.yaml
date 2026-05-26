@@ -10,7 +10,7 @@ environment:
 # Add regular dependencies here.
 dependencies:
   args: ^2.6.0
-  burt_network: ^2.7.0
+  burt_network: ^3.0.0
   collection: ^1.19.0
   coordinate_converter: ^1.2.3
   csv: ^6.0.0
