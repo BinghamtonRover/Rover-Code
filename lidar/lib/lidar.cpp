@@ -111,6 +111,9 @@ void cartesianCallback(SickScanApiHandle apiHandle, const SickScanPointCloudMsg*
   memset(coordinateData, 0, 543 * sizeof(double));
   coordinateData[0] = 1;
   angleData[0] = 2;
+
+  bool degree_filled[271] = {false};
+
   /// Plot all points in pointcloud
   int count = 1;
   for (int row = 0; row < pointCloudMsg->height; row++) {
@@ -126,18 +129,28 @@ void cartesianCallback(SickScanApiHandle apiHandle, const SickScanPointCloudMsg*
       int xPixel = 250.0 * (-y + 2.0);
       int yPixel = 250.0 * (-x + 2.0);
       if (xPixel >= 0 && xPixel < 1000 && yPixel >= 0 && yPixel < 1000) {
-        std::cout << xPixel << " " << yPixel << std::endl;
-        coordinateData[count] = x;
-        coordinateData[count+1] = y;
-        count += 2;
-
         // Record the angle data for this point (TODO: Move this logic to the polar callback)
         angle = std::atan2(y,  x);  // the angle from the origin to the x, y coordinate
-        angle = angle * 180 / pi;   // ...converted to radians
+        angle = angle * 180 / pi;   // ...converted to degrees
         angle += 135;               // ...offset to the [-135, +135] range of the lidar
-        if (angle >=0 && angle <= 270){
+
+        if (angle >= 0 && angle <= 270) {
+          int deg = static_cast<int>(angle);
+          if (deg > 270) deg = 270;
+
           auto distance = sqrt(pow(x, 2) + pow(y, 2));
-          angleData[static_cast<int>(angle)+1] = distance;
+          angleData[deg + 1] = distance;
+
+          // To keep the payload size the same as a 1-degree sensor,
+          // we only store one point for each 1-degree bin in the coordinate data.
+          if (!degree_filled[deg]) {
+            if (count + 1 < 543) {
+              coordinateData[count] = x;
+              coordinateData[count + 1] = y;
+              count += 2;
+              degree_filled[deg] = true;
+            }
+          }
         }
       }
     }
