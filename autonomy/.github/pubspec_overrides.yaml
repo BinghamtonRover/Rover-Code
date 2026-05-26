@@ -1,0 +1,7 @@
+resolution:
+
+dependency_overrides:
+  burt_network:
+    git:
+      url: https://github.com/BinghamtonRover/Networking
+      ref: 2.3.1
