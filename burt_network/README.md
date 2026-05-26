@@ -1,6 +1,6 @@
 # BURT Networking (Dart)
 
-A Dart library for UDP communication, featuring our Protobuf data and our heartbeat + handshake protocol.
+A Dart library for UDP communication, featuring our Protobuf data and our awesome heartbeat + handshake protocol.
 
 See the [docs](https://binghamtonrover.github.io/Dart-Networking/burt_network/burt_network-library.html) for details.
 
