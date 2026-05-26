@@ -48,7 +48,7 @@ class SpinForAruco extends RoverState {
     }
 
     if (_rotated180 &&
-        collection.imu.isNear(Orientation(z: _startOrientation))) {
+        collection.imu.isNear(Rotation3d(yaw: _startOrientation))) {
       controller.popState();
       return;
     }
