@@ -1,3 +1,5 @@
+import "package:burt_network/burt_network.dart";
+
 /// The type of USB-device, which determines what subsystem it is.
 enum DeviceType {
   /// A camera.
@@ -59,4 +61,30 @@ class Device {
     this.interface,
     this.serialNumber,
   });
+
+  /// Creates a USB device from a JSON configuration.
+  factory Device.fromJson(Json json) => Device(
+    humanName: json["humanName"] as String,
+    alias: json["alias"] as String,
+    type: DeviceType.values.byName(json["type"] as String),
+    manufacturer: json["manufacturer"] as String?,
+    product: json["product"] as String?,
+    index: json["index"] as int?,
+    port: json["port"] as String?,
+    interface: json["interface"] as String?,
+    serialNumber: json["serialNumber"] as String?,
+  );
+
+  /// Converts this device to a JSON map.
+  Json toJson() => {
+    "humanName": humanName,
+    "alias": alias,
+    "type": type.name,
+    if (manufacturer != null) "manufacturer": manufacturer,
+    if (product != null) "product": product,
+    if (index != null) "index": index,
+    if (port != null) "port": port,
+    if (interface != null) "interface": interface,
+    if (serialNumber != null) "serialNumber": serialNumber,
+  };
 }

@@ -1,6 +1,7 @@
+import "dart:convert";
 import "dart:io";
 
-import "package:burt_network/logging.dart";
+import "package:burt_network/burt_network.dart" hide Device;
 import "package:rover/rover.dart";
 
 /// The logger for all scripts.
@@ -65,10 +66,41 @@ Future<void> writeSystemdFile(RoverProgram program) async {
 }
 
 /// Writes a udev rules file to `/etc/udev/rules.d` with all devices at once.
-Future<void> writeUdevFile() async {
+Future<void> writeUdevFile({String? configPath}) async {
+  // Load devices from config or use defaults
+  var deviceList = devices;
+  
+  if (configPath != null) {
+    logger.info("Loading device config from $configPath");
+    final configFile = File(configPath);
+    if (!configFile.existsSync()) {
+      logger.error("Config file not found: $configPath");
+      exit(1);
+    }
+    
+    try {
+      final configContent = await configFile.readAsString();
+      final configJson = jsonDecode(configContent) as Json;
+      final devicesJson = configJson["devices"] as List<dynamic>;
+      
+      deviceList = [
+        for (final json in devicesJson)
+          Device.fromJson(json as Json),
+      ];
+      
+      logger.info("Loaded ${deviceList.length} devices from config");
+    } on FormatException catch (error) {
+      logger.error("Invalid JSON in config file: $error");
+      exit(1);
+    } catch (error) {
+      logger.error("Failed to parse config file: $error");
+      exit(1);
+    }
+  }
+
   final buffer = StringBuffer();
   buffer.writeln(udevHeader);
-  for (final device in devices) {
+  for (final device in deviceList) {
     logger.debug("Generating udev rules for ${device.humanName}");
     final rule = device.udevRule;
     logger.trace(rule);
@@ -84,5 +116,5 @@ Future<void> writeUdevFile() async {
   await runCommand("sudo", ["udevadm", "control", "--reload-rules"]);
   await runCommand("sudo", ["udevadm", "trigger"]);
   await udevFile.delete();
-  logger.debug("Generated udev rules with ${devices.length} devices");
+  logger.debug("Generated udev rules with ${deviceList.length} devices");
 }
