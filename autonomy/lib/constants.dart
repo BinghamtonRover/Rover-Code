@@ -13,7 +13,7 @@ class Constants {
   static const gpsError = 0.00003;
 
   /// The maximum error or "tolerance" for reaching the end goal
-  static const double maxErrorMeters = 1;
+  static const double maxErrorMeters = 1.5;
 
   /// The closest distance the pathfinding algorithm will allow
   /// the rover to go near an obstacle
@@ -30,11 +30,11 @@ class Constants {
   static const double replanErrorMeters = 3;
 
   /// The IMU angle tolerance for a turn during autonomy
-  static const double turnEpsilon = 3;
+  static const double turnEpsilon = 1;
 
   /// The IMU angle tolerance when turning to re-correct to the
   /// proper orientation before driving forward
-  static const double driveRealignmentEpsilon = 5;
+  static const double driveRealignmentEpsilon = 3;
 
   /// The maximum time to spend waiting for the drive to reach a desired GPS coordinate.
   ///
@@ -46,7 +46,7 @@ class Constants {
   );
 
   /// The maximum time to spend searching for an aruco tag
-  static const Duration arucoSearchTimeout = Duration(seconds: 20);
+  static const Duration arucoSearchTimeout = Duration(seconds: 30);
 
   /// The camera that should be used to detect Aruco tags
   static const CameraName arucoDetectionCamera = CameraName.ROVER_FRONT;

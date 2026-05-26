@@ -142,4 +142,16 @@ class RoverDrive extends DriveInterface {
       return simDrive.faceOrientationState(orientation);
     }
   }
+
+  @override
+  StateInterface spinForArucoState(int arucoId, {CameraName? desiredCamera}) {
+    if (useImu) {
+      return sensorDrive.spinForArucoState(
+        arucoId,
+        desiredCamera: desiredCamera,
+      );
+    } else {
+      return simDrive.spinForArucoState(arucoId, desiredCamera: desiredCamera);
+    }
+  }
 }
