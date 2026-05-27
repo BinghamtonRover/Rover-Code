@@ -136,7 +136,7 @@ class OpenCVCameraIsolate extends CameraIsolate {
     }
 
     if (details.name == CameraName.ROVER_REAR) {
-      await rotateAsync(matrix, ROTATE_180);
+      await rotateAsync(matrix, ROTATE_180, dst: matrix);
     }
 
     VecUChar? frame;
