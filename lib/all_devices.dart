@@ -16,7 +16,7 @@ const devices = <Device>[
     humanName: "Rear Camera",
     alias: "rover_cam_rear",
     type: DeviceType.camera,
-    port: "1-1.1:1.0",
+    port: "1-2.4.3:1.0",
     index: 0,
   ),
   Device(

@@ -135,6 +135,10 @@ class OpenCVCameraIsolate extends CameraIsolate {
       );
     }
 
+    if (details.name == CameraName.ROVER_REAR) {
+      await rotateAsync(matrix, ROTATE_180);
+    }
+
     VecUChar? frame;
     // don't resize unless if the stream is different from the capture
     if (streamWidth < matrix.width || streamHeight < matrix.height) {
