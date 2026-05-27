@@ -174,22 +174,39 @@ class NavigationState extends RoverState {
 
     orchestrator.traversed.add(currentPathState!.position);
 
-    if (orchestrator.replanPath) {
-      controller.transitionTo(
-        PathingState(
-          controller,
-          collection: collection,
-          orchestrator: orchestrator,
-          destination: destination,
-          tolerance: tolerance,
-        ),
-      );
-      return;
-    }
-
-    if (waypointIndex >= orchestrator.currentPath!.length - 1 ||
+    final shouldReplan =
+        orchestrator.replanPath ||
+        waypointIndex >= orchestrator.currentPath!.length - 1 ||
         waypointIndex >= 5 ||
-        orchestrator.findAndLockObstacles()) {
+        orchestrator.findAndLockObstacles();
+
+    if (shouldReplan) {
+      if (collection.gps.coordinates.distanceTo(destination) < 3) {
+        final difference =
+            destination.toUTM() - collection.gps.coordinates.toUTM();
+        final angle = atan2(difference.y, difference.x) * 180 / pi;
+        final targetOrientation = Rotation3d(yaw: angle);
+        orchestrator.replanPath = false;
+        controller.transitionTo(
+          PathingState(
+            controller,
+            collection: collection,
+            orchestrator: orchestrator,
+            destination: destination,
+            tolerance: tolerance,
+          ),
+        );
+        controller.pushState(
+          SequenceState(
+            controller,
+            steps: [
+              collection.drive.faceOrientationState(targetOrientation),
+              collection.drive.driveForwardState(destination),
+            ],
+          ),
+        );
+        return;
+      }
       controller.transitionTo(
         PathingState(
           controller,
