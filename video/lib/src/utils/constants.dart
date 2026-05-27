@@ -19,6 +19,9 @@ Map<CameraName, String> cameraNames = {
   CameraName.SUBSYSTEM3: "/dev/rover_cam_subsystem_3",
   CameraName.BOTTOM_LEFT: "/dev/rover_cam_bottom_left",
   CameraName.BOTTOM_RIGHT: "/dev/rover_cam_bottom_right",
+  CameraName.GAP_CAM: "/dev/rover_cam_gap_cam",
+  CameraName.ARM_LEFT: "/dev/rover_cam_arm_left",
+  CameraName.ARM_RIGHT: "/dev/rover_cam_arm_right",
 };
 
 /// Map for WINDOWS devices
@@ -31,6 +34,9 @@ Map<CameraName, int> cameraIndexes = {
   CameraName.SUBSYSTEM3: 3,
   CameraName.BOTTOM_LEFT: 6,
   CameraName.BOTTOM_RIGHT: 7,
+  CameraName.GAP_CAM: 8,
+  CameraName.ARM_LEFT: 9,
+  CameraName.ARM_RIGHT: 10,
 };
 
 /// Frames from this camera will be send to the vision program for further analysis.

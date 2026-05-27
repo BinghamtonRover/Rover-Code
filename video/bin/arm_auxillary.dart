@@ -12,7 +12,7 @@ void main() async {
         address: InternetAddress("192.168.1.20"),
         port: 8002,
       ),
-      supportedCameras: [CameraName.BOTTOM_LEFT, CameraName.BOTTOM_RIGHT],
+      supportedCameras: [CameraName.ARM_LEFT, CameraName.ARM_RIGHT],
     ),
   )) {
     await collection.dispose();

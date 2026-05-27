@@ -42,8 +42,8 @@ void main() async {
   await collection.init(
     config: VideoConfig(
       supportedCameras: CameraName.values.toSet().difference({
-        CameraName.BOTTOM_LEFT,
-        CameraName.BOTTOM_RIGHT,
+        CameraName.ARM_LEFT,
+        CameraName.ARM_RIGHT,
       }).toList(),
     ),
   );
