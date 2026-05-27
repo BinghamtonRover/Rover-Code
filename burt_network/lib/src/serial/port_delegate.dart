@@ -82,10 +82,10 @@ class DelegateSerialPort extends SerialPortInterface {
   @override
   Future<void> dispose({bool isSafe = true}) async {
     if (!isOpen) return;
-    if (isSafe) {
-      _delegate?.close();
-      _delegate?.dispose();
-    }
+    // if (isSafe) {
+    _delegate?.close();
+    _delegate?.dispose();
+    // }
     _delegate = null;
   }
 }
