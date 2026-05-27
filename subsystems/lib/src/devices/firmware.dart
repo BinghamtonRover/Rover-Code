@@ -48,6 +48,10 @@ class FirmwareManager extends Service {
             final controlData = ControlData.fromBuffer(wrapper.data);
             if (controlData.hasDrive()) {
               collection.server.sendMessage(controlData.drive);
+              collection.server.sendMessage(
+                controlData.drive,
+                destination: autonomySocket,
+              );
             }
 
             if (controlData.hasRelays()) {

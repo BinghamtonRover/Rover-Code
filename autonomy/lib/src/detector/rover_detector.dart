@@ -5,7 +5,8 @@ import "package:autonomy/interfaces.dart";
 import "package:coordinate_converter/coordinate_converter.dart";
 
 class RoverDetector extends DetectorInterface {
-  StreamSubscription<LidarPointCloud>? _subscription;
+  StreamSubscription<LidarPointCloud>? _lidarSubscription;
+  StreamSubscription<DriveData>? _driveSubscription;
 
   LidarPointCloud cloudCache = LidarPointCloud();
 
@@ -25,6 +26,23 @@ class RoverDetector extends DetectorInterface {
     }
 
     _queueObstacles();
+  }
+
+  void _handleDriveData(DriveData data) {
+    // Placeholder for now
+    const distanceMeters = 0;
+
+    final imuAngleRad = collection.imu.heading * pi / 180 + pi / 2;
+
+    final roverToPoint = UTMCoordinates(
+      x: -distanceMeters * sin(imuAngleRad),
+      y: distanceMeters * cos(imuAngleRad),
+      zoneNumber: 1,
+    );
+
+    queuedObstacles.add(
+      (collection.gps.coordinates.toUTM() + roverToPoint).toGps(),
+    );
   }
 
   void _queueObstacles() {
@@ -115,7 +133,12 @@ class RoverDetector extends DetectorInterface {
 
   @override
   Future<bool> init() async {
-    _subscription = collection.server.messages.listenFor(
+    _driveSubscription = collection.server.messages.listenFor(
+      name: DriveData().messageName,
+      constructor: DriveData.fromBuffer,
+      callback: _handleDriveData,
+    );
+    _lidarSubscription = collection.server.messages.listenFor(
       name: LidarPointCloud().messageName,
       constructor: LidarPointCloud.fromBuffer,
       callback: _handleLidarCloud,
@@ -125,6 +148,7 @@ class RoverDetector extends DetectorInterface {
 
   @override
   Future<void> dispose() async {
-    await _subscription?.cancel();
+    await _driveSubscription?.cancel();
+    await _lidarSubscription?.cancel();
   }
 }
