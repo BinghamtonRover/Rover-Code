@@ -154,19 +154,32 @@ abstract class CameraIsolate
 
   /// Updates the camera's [details], which will take effect on the next [sendFrame] call.
   void updateDetails(CameraDetails newDetails, {bool save = true}) {
-    final shouldRestart =
+    final statusChanged =
+        newDetails.hasStatus() && newDetails.status != details.status;
+    final settingsChanged =
         (newDetails.hasFps() && newDetails.fps != details.fps) ||
         (newDetails.hasResolutionHeight() &&
             newDetails.resolutionHeight != details.resolutionHeight) ||
         (newDetails.hasResolutionWidth() &&
-            newDetails.resolutionWidth != details.resolutionWidth) ||
-        newDetails.status == CameraStatus.CAMERA_DISABLED;
+            newDetails.resolutionWidth != details.resolutionWidth);
+
     details.mergeFromMessage(newDetails);
-    if (shouldRestart) {
+
+    if (statusChanged) {
+      if (details.status == CameraStatus.CAMERA_ENABLED) {
+        start();
+      } else if (details.status == CameraStatus.CAMERA_SHUTDOWN) {
+        dispose();
+      } else if (details.status == CameraStatus.CAMERA_DISABLED) {
+        stop();
+      }
+    } else if (settingsChanged &&
+        details.status == CameraStatus.CAMERA_ENABLED) {
       stop();
-      if (details.status == CameraStatus.CAMERA_ENABLED) start();
+      start();
     }
-    if (save) {
+
+    if (save && details.status != CameraStatus.CAMERA_SHUTDOWN) {
       saveDetails();
     }
   }
@@ -251,6 +264,10 @@ abstract class CameraIsolate
   /// Starts the camera and timers.
   void start() {
     if (details.status != CameraStatus.CAMERA_ENABLED) return;
+    if (statusTimer == null || !statusTimer!.isActive) {
+      statusTimer?.cancel();
+      statusTimer = Timer.periodic(const Duration(seconds: 5), sendStatus);
+    }
     sendLog(LogLevel.debug, "Starting camera $name. Status=${details.status}");
     final interval = details.fps == 0
         ? Duration.zero

@@ -195,7 +195,7 @@ class CameraManager extends Service {
   /// Stops all the cameras managed by this class.
   void stopAll() {
     final command = VideoCommand(
-      details: CameraDetails(status: CameraStatus.CAMERA_DISABLED),
+      details: CameraDetails(status: CameraStatus.CAMERA_SHUTDOWN),
     );
     for (final name in _supportedCameras!) {
       if (name == CameraName.CAMERA_NAME_UNDEFINED ||

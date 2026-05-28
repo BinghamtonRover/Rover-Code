@@ -17,6 +17,8 @@ import 'package:protobuf/protobuf.dart' as $pb;
 class CameraStatus extends $pb.ProtobufEnum {
   static const CameraStatus CAMERA_STATUS_UNDEFINED =
       CameraStatus._(0, _omitEnumNames ? '' : 'CAMERA_STATUS_UNDEFINED');
+  static const CameraStatus CAMERA_SHUTDOWN =
+      CameraStatus._(8, _omitEnumNames ? '' : 'CAMERA_SHUTDOWN');
   static const CameraStatus CAMERA_DISCONNECTED =
       CameraStatus._(1, _omitEnumNames ? '' : 'CAMERA_DISCONNECTED');
   static const CameraStatus CAMERA_ENABLED =
@@ -34,6 +36,7 @@ class CameraStatus extends $pb.ProtobufEnum {
 
   static const $core.List<CameraStatus> values = <CameraStatus>[
     CAMERA_STATUS_UNDEFINED,
+    CAMERA_SHUTDOWN,
     CAMERA_DISCONNECTED,
     CAMERA_ENABLED,
     CAMERA_DISABLED,
@@ -44,7 +47,7 @@ class CameraStatus extends $pb.ProtobufEnum {
   ];
 
   static final $core.List<CameraStatus?> _byValue =
-      $pb.ProtobufEnum.$_initByValueList(values, 7);
+      $pb.ProtobufEnum.$_initByValueList(values, 8);
   static CameraStatus? valueOf($core.int value) =>
       value < 0 || value >= _byValue.length ? null : _byValue[value];
 

@@ -72,8 +72,11 @@ CameraDetails loadCameraDetails(CameraDetails baseDetails, CameraName name) {
     );
   }
 
-  // Ignore the status specified in the json
-  cameraDetails.status = CameraStatus.CAMERA_ENABLED;
+  // Only use the json status if it was manually disabled
+  // Otherwise, default to ENABLED to attempt to connect to the camera
+  if (cameraDetails.status != CameraStatus.CAMERA_DISABLED) {
+    cameraDetails.status = CameraStatus.CAMERA_ENABLED;
+  }
 
   return cameraDetails;
 }
