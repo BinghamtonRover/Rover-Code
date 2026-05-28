@@ -62,6 +62,20 @@ const devices = <Device>[
     port: "1-2.1:1.0",
     index: 0,
   ),
+  Device(
+    humanName: "Arm Left",
+    alias: "rover_cam_arm_left",
+    type: DeviceType.camera,
+    port: "1-2.1:1.1",
+    index: 0,
+  ),
+  Device(
+    humanName: "Arm Right",
+    alias: "rover_cam_arm_right",
+    type: DeviceType.camera,
+    port: "1-2.1:1.2",
+    index: 0,
+  ),
   // ==================== Sensors ====================
   Device(
     humanName: "RealSense RGB",
