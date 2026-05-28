@@ -358,6 +358,7 @@ class DriveData extends $pb.GeneratedMessage {
     DriveMotorData? frontRightMotor,
     DriveMotorData? middleRightMotor,
     DriveMotorData? backRightMotor,
+    $core.int? lidarDist,
   }) {
     final result = create();
     if (throttle != null) result.throttle = throttle;
@@ -383,6 +384,7 @@ class DriveData extends $pb.GeneratedMessage {
     if (frontRightMotor != null) result.frontRightMotor = frontRightMotor;
     if (middleRightMotor != null) result.middleRightMotor = middleRightMotor;
     if (backRightMotor != null) result.backRightMotor = backRightMotor;
+    if (lidarDist != null) result.lidarDist = lidarDist;
     return result;
   }
 
@@ -432,6 +434,7 @@ class DriveData extends $pb.GeneratedMessage {
         subBuilder: DriveMotorData.create)
     ..aOM<DriveMotorData>(28, _omitFieldNames ? '' : 'backRightMotor',
         subBuilder: DriveMotorData.create)
+    ..aI(29, _omitFieldNames ? '' : 'lidarDist', fieldType: $pb.PbFieldType.OU3)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -671,6 +674,15 @@ class DriveData extends $pb.GeneratedMessage {
   void clearBackRightMotor() => $_clearField(28);
   @$pb.TagNumber(28)
   DriveMotorData ensureBackRightMotor() => $_ensure(21);
+
+  @$pb.TagNumber(29)
+  $core.int get lidarDist => $_getIZ(22);
+  @$pb.TagNumber(29)
+  set lidarDist($core.int value) => $_setUnsignedInt32(22, value);
+  @$pb.TagNumber(29)
+  $core.bool hasLidarDist() => $_has(22);
+  @$pb.TagNumber(29)
+  void clearLidarDist() => $_clearField(29);
 }
 
 const $core.bool _omitFieldNames =

@@ -29,8 +29,10 @@ class RoverDetector extends DetectorInterface {
   }
 
   void _handleDriveData(DriveData data) {
-    // Placeholder for now
-    const distanceMeters = 0;
+    if (data.lidarDist == 0xFFFF || data.lidarDist == 0) {
+      return;
+    }
+    final distanceMeters = data.lidarDist / 100;
 
     final imuAngleRad = collection.imu.heading * pi / 180 + pi / 2;
 

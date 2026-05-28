@@ -230,6 +230,7 @@ const DriveData$json = {
       '6': '.DriveMotorData',
       '10': 'backRightMotor'
     },
+    {'1': 'lidar_dist', '3': 29, '4': 1, '5': 13, '10': 'lidarDist'},
   ],
   '9': [
     {'1': 15, '2': 21},
@@ -254,4 +255,4 @@ final $typed_data.Uint8List driveDataDescriptor = $convert.base64Decode(
     'Zyb250X3JpZ2h0X21vdG9yGBogASgLMg8uRHJpdmVNb3RvckRhdGFSD2Zyb250UmlnaHRNb3Rv'
     'chI9ChJtaWRkbGVfcmlnaHRfbW90b3IYGyABKAsyDy5Ecml2ZU1vdG9yRGF0YVIQbWlkZGxlUm'
     'lnaHRNb3RvchI5ChBiYWNrX3JpZ2h0X21vdG9yGBwgASgLMg8uRHJpdmVNb3RvckRhdGFSDmJh'
-    'Y2tSaWdodE1vdG9ySgQIDxAV');
+    'Y2tSaWdodE1vdG9yEh0KCmxpZGFyX2Rpc3QYHSABKA1SCWxpZGFyRGlzdEoECA8QFQ==');
