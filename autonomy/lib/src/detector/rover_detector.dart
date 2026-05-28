@@ -34,6 +34,10 @@ class RoverDetector extends DetectorInterface {
     }
     final distanceMeters = data.lidarDist / 100;
 
+    if (distanceMeters > 3) {
+      return;
+    }
+
     final imuAngleRad = collection.imu.heading * pi / 180 + pi / 2;
 
     final roverToPoint = UTMCoordinates(

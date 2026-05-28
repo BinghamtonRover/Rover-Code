@@ -181,32 +181,32 @@ class NavigationState extends RoverState {
         orchestrator.findAndLockObstacles();
 
     if (shouldReplan) {
-      if (collection.gps.coordinates.distanceTo(destination) < 3) {
-        final difference =
-            destination.toUTM() - collection.gps.coordinates.toUTM();
-        final angle = atan2(difference.y, difference.x) * 180 / pi;
-        final targetOrientation = Rotation3d(yaw: angle);
-        orchestrator.replanPath = false;
-        controller.transitionTo(
-          PathingState(
-            controller,
-            collection: collection,
-            orchestrator: orchestrator,
-            destination: destination,
-            tolerance: tolerance,
-          ),
-        );
-        controller.pushState(
-          SequenceState(
-            controller,
-            steps: [
-              collection.drive.faceOrientationState(targetOrientation),
-              collection.drive.driveForwardState(destination),
-            ],
-          ),
-        );
-        return;
-      }
+      // if (collection.gps.coordinates.distanceTo(destination) < 3) {
+      //   final difference =
+      //       destination.toUTM() - collection.gps.coordinates.toUTM();
+      //   final angle = atan2(difference.y, difference.x) * 180 / pi;
+      //   final targetOrientation = Rotation3d(yaw: angle);
+      //   orchestrator.replanPath = false;
+      //   controller.transitionTo(
+      //     PathingState(
+      //       controller,
+      //       collection: collection,
+      //       orchestrator: orchestrator,
+      //       destination: destination,
+      //       tolerance: tolerance,
+      //     ),
+      //   );
+      //   controller.pushState(
+      //     SequenceState(
+      //       controller,
+      //       steps: [
+      //         collection.drive.faceOrientationState(targetOrientation),
+      //         collection.drive.driveForwardState(destination),
+      //       ],
+      //     ),
+      //   );
+      //   return;
+      // }
       controller.transitionTo(
         PathingState(
           controller,
