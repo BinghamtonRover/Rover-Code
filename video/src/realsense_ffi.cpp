@@ -46,7 +46,7 @@ void RealSense_stopStream(NativeRealSense* ptr) {
 }
 
 NativeFrames* RealSense_getDepthFrame(NativeRealSense* ptr) {
-  if (!ptr) return;
+  if (!ptr) return nullptr;
   return reinterpret_cast<burt_rs::RealSense*>(ptr)->getDepthFrame();
 }
 
