@@ -179,6 +179,22 @@ class CameraManager extends Service {
       }
       parent.sendToChild(data: command, id: name);
     }
+    for (final name in CameraName.values.toSet().difference(
+      _supportedCameras!.toSet(),
+    )) {
+      collection.videoServer.sendMessage(
+        VideoCommand(
+          details: CameraDetails(
+            name: name,
+            status: CameraStatus.CAMERA_DISABLED,
+          ),
+        ),
+        destination: SocketInfo(
+          address: InternetAddress("192.168.1.60"),
+          port: 8011,
+        ),
+      );
+    }
     return super.onDisconnect();
   }
 
