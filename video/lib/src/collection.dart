@@ -56,6 +56,7 @@ class VideoCollection extends Service {
         collection: this,
         destination: _config!.destination,
         keepDestination: _config!.destination != null,
+        timeout: const Duration(seconds: 20),
       );
     }
     logger.socket = videoServer;
@@ -85,6 +86,12 @@ class VideoCollection extends Service {
       await service.dispose();
     }
     await videoServer.dispose();
+  }
+
+  @override
+  Future<void> onDisconnect() async {
+    await cameras.onDisconnect();
+    return super.onDisconnect();
   }
 }
 

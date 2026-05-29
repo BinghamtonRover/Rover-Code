@@ -167,6 +167,21 @@ class CameraManager extends Service {
     }
   }
 
+  @override
+  Future<void> onDisconnect() async {
+    final command = VideoCommand(
+      details: CameraDetails(status: CameraStatus.CAMERA_DISABLED),
+    );
+    for (final name in _supportedCameras!) {
+      if (name == CameraName.CAMERA_NAME_UNDEFINED ||
+          name == CameraName.ROVER_FRONT) {
+        continue;
+      }
+      parent.sendToChild(data: command, id: name);
+    }
+    return super.onDisconnect();
+  }
+
   /// Forwards the command to the appropriate camera.
   void _handleCommand(VideoCommand command) {
     var cameraName = command.details.name;

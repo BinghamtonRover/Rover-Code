@@ -37,9 +37,7 @@ class RealSenseIsolate extends CameraIsolate {
 
   @override
   void onData(VideoCommand data) {
-    if (data.details.status == CameraStatus.CAMERA_DISABLED) {
-      stop();
-    } else if (data.details.interferesWithAutonomy(details)) {
+    if (data.details.interferesWithAutonomy(details)) {
       sendLog(LogLevel.error, "That would break autonomy");
     } else {
       super.onData(data);

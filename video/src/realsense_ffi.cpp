@@ -18,6 +18,7 @@ NativeRealSense* RealSense_create() {
 }
 
 void RealSense_free(NativeRealSense* ptr) {
+  if (!ptr) return;
   cout << "Trying to delete..." << endl;
   delete reinterpret_cast<burt_rs::RealSense*>(ptr);
   cout << "Deleted" << endl;
@@ -40,10 +41,12 @@ BurtRsStatus RealSense_startStream(NativeRealSense* ptr) {
 }
 
 void RealSense_stopStream(NativeRealSense* ptr) {
+  if (!ptr) return;
   reinterpret_cast<burt_rs::RealSense*>(ptr)->stopStream();
 }
 
 NativeFrames* RealSense_getDepthFrame(NativeRealSense* ptr) {
+  if (!ptr) return;
   return reinterpret_cast<burt_rs::RealSense*>(ptr)->getDepthFrame();
 }
 
