@@ -16,7 +16,7 @@ const devices = <Device>[
     humanName: "Rear Camera",
     alias: "rover_cam_rear",
     type: DeviceType.camera,
-    port: "1-2.4.3:1.0",
+    port: "1-2.3.1:1.0",
     index: 0,
   ),
   Device(
@@ -45,21 +45,21 @@ const devices = <Device>[
     humanName: "Subsystems Camera 2",
     alias: "rover_cam_subsystem_2",
     type: DeviceType.camera,
-    port: "2-2.3:1.0",
+    port: "1-1.3:1.0",
     index: 0,
   ),
   Device(
     humanName: "Subsystems Camera 3",
     alias: "rover_cam_subsystem_3",
     type: DeviceType.camera,
-    port: "2-2.2:1.0",
+    port: "1-1.2:1.0",
     index: 0,
   ),
   Device(
     humanName: "Gap Camera",
     alias: "rover_cam_gap_cam",
     type: DeviceType.camera,
-    port: "1-2.1:1.0",
+    port: "2-2.1:1.0",
     index: 0,
   ),
   Device(
