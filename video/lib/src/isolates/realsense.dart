@@ -30,7 +30,8 @@ extension on CameraDetails {
 /// autonomy program are not allowed to be changed, even for the RGB camera.
 class RealSenseIsolate extends CameraIsolate {
   /// The native RealSense object. MUST be `late` so it isn't initialized on the parent isolate.
-  late final RealSenseInterface camera = RealSenseInterface.forPlatform();
+  late RealSenseInterface camera = RealSenseInterface.forPlatform();
+  bool _disposed = false;
 
   /// Creates an isolate to read from the RealSense camera.
   RealSenseIsolate({required super.details});
@@ -46,6 +47,10 @@ class RealSenseIsolate extends CameraIsolate {
 
   @override
   void initCamera() {
+    if (_disposed) {
+      camera = RealSenseInterface.forPlatform();
+      _disposed = false;
+    }
     if (!camera.init()) {
       final details = CameraDetails(status: CameraStatus.CAMERA_DISCONNECTED);
       updateDetails(details, save: false);
@@ -71,6 +76,7 @@ class RealSenseIsolate extends CameraIsolate {
   void disposeCamera() {
     camera.stopStream();
     camera.dispose();
+    _disposed = true;
   }
 
   @override
