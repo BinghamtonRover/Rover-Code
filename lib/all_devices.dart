@@ -38,7 +38,7 @@ const devices = <Device>[
     humanName: "Subsystems Camera 1",
     alias: "rover_cam_subsystem_1",
     type: DeviceType.camera,
-    port: "1-2.2.3:1.0",
+    port: "3-1:1.0",
     index: 0,
   ),
   Device(

@@ -44,6 +44,7 @@ void main() async {
       supportedCameras: CameraName.values.toSet().difference({
         CameraName.ARM_LEFT,
         CameraName.ARM_RIGHT,
+        CameraName.SUBSYSTEM1,
       }).toList(),
     ),
   );
