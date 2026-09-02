@@ -1,0 +1,65 @@
+name: Build and Test video_ros2
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - 'video_ros2/**'
+      - 'subsystems_ros2/**'
+      - '.github/workflows/video_ros2.yaml'
+  pull_request:
+    paths:
+      - 'video_ros2/**'
+      - 'subsystems_ros2/**'
+      - '.github/workflows/video_ros2.yaml'
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-22.04
+    container:
+      image: ros:humble-ros-base-jammy
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      # librealsense2-dev is optional; video_ros2 compiles RealSense support out
+      # when the SDK is absent.
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y \
+            build-essential \
+            cmake \
+            libopencv-dev \
+            libprotobuf-dev \
+            protobuf-compiler \
+            libjpeg-turbo8-dev \
+            libgtest-dev \
+            python3-colcon-common-extensions \
+            ros-humble-ament-cmake-gtest \
+            ros-humble-gtest-vendor
+
+      - name: Build workspace
+        run: |
+          mkdir -p /tmp/ros2_ws/src
+          ln -s ${{ github.workspace }}/subsystems_ros2 /tmp/ros2_ws/src/subsystems_ros2
+          ln -s ${{ github.workspace }}/video_ros2 /tmp/ros2_ws/src/video_ros2
+          cd /tmp/ros2_ws
+          source /opt/ros/humble/setup.bash
+          # Build without RealSense; the package compiles it out when librealsense2 is absent.
+          colcon build --packages-select subsystems_ros2 video_ros2
+
+      - name: Run tests
+        run: |
+          cd /tmp/ros2_ws
+          source /opt/ros/humble/setup.bash
+          source install/setup.bash
+          colcon test --packages-select subsystems_ros2 video_ros2
+
+      - name: Show test results
+        if: always()
+        run: |
+          cd /tmp/ros2_ws
+          colcon test-result --verbose
