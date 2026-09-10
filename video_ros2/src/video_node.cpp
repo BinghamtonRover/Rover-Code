@@ -1,17 +1,37 @@
 #include "video_ros2/video_node.hpp"
 
+#include <cinttypes>
+#include <cstddef>
 #include <memory>
 #include <string>
 
 #include "rclcpp/rclcpp.hpp"
 
+#include "subsystems_ros2/generated/wrapper.pb.h"
+
 #include "video_ros2/aruco_detector.hpp"
+#include "video_ros2/gstreamer_camera.hpp"
 #include "video_ros2/opencv_camera.hpp"
 #include "video_ros2/realsense_camera.hpp"
 #include "video_ros2/virtual_camera.hpp"
 
 namespace video_ros2
 {
+
+namespace
+{
+
+// The largest VideoData message put on the wire, in bytes. The legacy Dart
+// video program used the same cap (video/lib/src/isolates/child.dart,
+// maxPacketLength): UDP datagrams larger than this cannot reach the Dashboard,
+// so sending them only wastes CPU and bandwidth on the Pi Zero 2 W.
+constexpr size_t kMaxPacketSize = 60000;
+
+// The legacy program lowers JPEG quality one point per oversized frame until
+// the frame fits; below this floor it reports FRAME_TOO_LARGE instead.
+constexpr int kMinJpegQuality = 25;
+
+}  // namespace
 
 VideoNode::VideoNode()
 : Node("video_node")
@@ -20,6 +40,12 @@ VideoNode::VideoNode()
   this->declare_parameter<std::vector<std::string>>("camera_devices", std::vector<std::string>{});
   this->declare_parameter<std::vector<int64_t>>("camera_types", std::vector<int64_t>{});
   this->declare_parameter<std::string>("screenshot_dir", "/home/rover/shared/screenshots");
+
+  // Defaults applied to cameras that do not set an explicit resolution/fps.
+  // Useful for CSI cameras, where an unsupported mode makes libcamera fail.
+  this->declare_parameter<int>("default_width", 0);
+  this->declare_parameter<int>("default_height", 0);
+  this->declare_parameter<int>("default_fps", 0);
   this->declare_parameter<std::string>("aux_address", "");
   this->declare_parameter<int>("aux_port", 8011);
   this->declare_parameter<bool>("echo_commands", true);
@@ -34,6 +60,14 @@ VideoNode::VideoNode()
   this->declare_parameter<int>("virtual_quality", 75);
   this->declare_parameter<std::string>("virtual_label", "");
   this->declare_parameter<std::vector<std::string>>("vision_camera_names", std::vector<std::string>{});
+
+  // Standalone dashboard server: when enabled, the node impersonates the video
+  // program on UDP (port 8002 by default) so a single-board computer like the
+  // Raspberry Pi Zero 2 W can stream straight to the Dashboard without the
+  // udp_bridge on the main rover. Several boards can do this at once.
+  this->declare_parameter<bool>("udp_server_enabled", false);
+  this->declare_parameter<int>("udp_server_port", 8002);
+  this->declare_parameter<int>("udp_server_max_clients", 5);
 
   // ArUco detector parameters.
   this->declare_parameter<std::string>("aruco_dictionary", "DICT_4X4_50");
@@ -63,6 +97,26 @@ VideoNode::VideoNode()
   vision_port_ = static_cast<uint16_t>(this->get_parameter("vision_port").as_int());
   vision_camera_names_ = this->get_parameter("vision_camera_names").as_string_array();
 
+  udp_server_enabled_ = this->get_parameter("udp_server_enabled").as_bool();
+  udp_server_port_ = static_cast<uint16_t>(this->get_parameter("udp_server_port").as_int());
+  udp_server_max_clients_ =
+    static_cast<int>(this->get_parameter("udp_server_max_clients").as_int());
+
+  if (udp_server_enabled_) {
+    dashboard_server_ = std::make_unique<DashboardServer>(
+      udp_server_port_, udp_server_max_clients_, this->get_logger());
+    dashboard_server_->setMessageCallback(
+      [this](const WrappedMessage & wrapper, const std::string & address, uint16_t port) {
+        onDashboardMessage(wrapper, address, port);
+      });
+    if (!dashboard_server_->start()) {
+      RCLCPP_ERROR(
+        this->get_logger(), "Failed to start the standalone dashboard server on port %u",
+        static_cast<unsigned>(udp_server_port_));
+      dashboard_server_.reset();
+    }
+  }
+
   if (!aux_address_.empty()) {
     command_forwarder_ = std::make_unique<UdpSocket>();
     if (!command_forwarder_->setDestination(aux_address_, aux_port_)) {
@@ -83,11 +137,83 @@ VideoNode::VideoNode()
 
 VideoNode::~VideoNode()
 {
-  std::lock_guard<std::mutex> lock(cameras_mutex_);
-  for (auto & pair : cameras_) {
-    pair.second->stop();
+  if (dashboard_server_) {
+    dashboard_server_->stop();
   }
-  cameras_.clear();
+  std::unordered_map<int, std::unique_ptr<Camera>> cameras;
+  {
+    std::lock_guard<std::mutex> lock(cameras_mutex_);
+    cameras.swap(cameras_);
+  }
+  // Stop the cameras (joining their threads) without holding cameras_mutex_:
+  // the camera threads take that mutex when they publish a frame.
+  cameras.clear();
+}
+
+void VideoNode::onDashboardMessage(
+  const WrappedMessage & wrapper, const std::string & address, uint16_t port)
+{
+  // The only dashboard message the video program cares about is VideoCommand.
+  if (wrapper.name() != VideoCommand::descriptor()->full_name()) {
+    RCLCPP_DEBUG(
+      this->get_logger(), "Ignoring dashboard message '%s' from %s:%u",
+      wrapper.name().c_str(), address.c_str(), static_cast<unsigned>(port));
+    return;
+  }
+
+  VideoCommand command;
+  if (!command.ParseFromString(wrapper.data())) {
+    RCLCPP_WARN(this->get_logger(), "Received malformed VideoCommand");
+    return;
+  }
+
+  // Echo the command back to the dashboard, like the Dart video program does.
+  if (echo_commands_ && command_echo_pub_) {
+    WrappedProtobuf echo;
+    echo.name = wrapper.name();
+    echo.data.assign(wrapper.data().begin(), wrapper.data().end());
+    command_echo_pub_->publish(echo);
+  }
+
+  // The echo above reaches dashboards over the ROS graph (udp_bridge), but the
+  // standalone dashboard server is a separate transport: echo to that client
+  // directly as well.
+  if (echo_commands_ && dashboard_server_) {
+    dashboard_server_->sendTo(wrapper, address, port);
+  }
+
+  // Forward the raw command to the auxiliary program (e.g. arm auxillary).
+  if (command_forwarder_) {
+    command_forwarder_->send(wrapper.data().data(), wrapper.data().size());
+  }
+
+  int name_value = command.details().name();
+  Camera * camera = nullptr;
+  bool restart_requested = false;
+  {
+    std::lock_guard<std::mutex> lock(cameras_mutex_);
+    auto it = cameras_.find(name_value);
+    if (it == cameras_.end()) {
+      RCLCPP_WARN(this->get_logger(), "Camera %d not found", name_value);
+      return;
+    }
+    camera = it->second.get();
+    if (command.take_snapshot()) {
+      camera->takeSnapshot();
+    } else {
+      // Disabling a camera stops its streaming thread; re-enabling it starts
+      // a new one. Both match the behavior of the Dart video program.
+      restart_requested =
+        command.details().status() == CameraStatus::CAMERA_ENABLED &&
+        camera->status() == CameraStatus::CAMERA_DISABLED;
+      camera->updateDetails(command.details());
+    }
+  }
+  // Restart (which joins the camera thread) outside the mutex: the camera
+  // thread takes cameras_mutex_ when it publishes a frame.
+  if (restart_requested) {
+    camera->restart();
+  }
 }
 
 void VideoNode::initializeCameras()
@@ -96,6 +222,9 @@ void VideoNode::initializeCameras()
   std::vector<std::string> devices = this->get_parameter("camera_devices").as_string_array();
   std::vector<int64_t> types = this->get_parameter("camera_types").as_integer_array();
   std::string screenshot_dir = this->get_parameter("screenshot_dir").as_string();
+  const int default_width = static_cast<int>(this->get_parameter("default_width").as_int());
+  const int default_height = static_cast<int>(this->get_parameter("default_height").as_int());
+  const int default_fps = static_cast<int>(this->get_parameter("default_fps").as_int());
 
   if (names.empty()) {
     RCLCPP_WARN(this->get_logger(), "No cameras configured. Set camera_names, camera_devices, and camera_types parameters.");
@@ -136,7 +265,8 @@ void VideoNode::initializeCameras()
 
     for (size_t i = 0; i < names.size(); ++i) {
       if (!CameraName_IsValid(static_cast<int>(types[i]))) {
-        RCLCPP_ERROR(this->get_logger(), "Invalid camera_type value: %ld", types[i]);
+        RCLCPP_ERROR(
+          this->get_logger(), "Invalid camera_type value: %" PRId64, types[i]);
         continue;
       }
       CameraName name = static_cast<CameraName>(types[i]);
@@ -166,7 +296,8 @@ void VideoNode::initializeCameras()
 
   for (size_t i = 0; i < names.size(); ++i) {
     if (!CameraName_IsValid(static_cast<int>(types[i]))) {
-      RCLCPP_ERROR(this->get_logger(), "Invalid camera_type value: %ld", types[i]);
+      RCLCPP_ERROR(
+        this->get_logger(), "Invalid camera_type value: %" PRId64, types[i]);
       continue;
     }
     CameraName name = static_cast<CameraName>(types[i]);
@@ -174,17 +305,15 @@ void VideoNode::initializeCameras()
     details.set_name(name);
     details.set_status(CameraStatus::CAMERA_ENABLED);
     details.set_quality(75);
-    details.set_fps(30);
-
-    // A "virtual" device path selects the synthetic camera for this entry only.
-    std::unique_ptr<Camera> camera;
-    if (devices[i] == "virtual") {
-      camera = std::make_unique<VirtualCamera>(name, details, screenshot_dir);
-    } else if (name == CameraName::AUTONOMY_DEPTH || name == CameraName::ROVER_FRONT) {
-      camera = std::make_unique<RealSenseCamera>(name, details);
-    } else {
-      camera = std::make_unique<OpenCvCamera>(devices[i], name, details, screenshot_dir);
+    if (default_fps > 0) {
+      details.set_fps(default_fps);
     }
+    if (default_width > 0 && default_height > 0) {
+      details.set_resolution_width(default_width);
+      details.set_resolution_height(default_height);
+    }
+
+    auto camera = createCamera(devices[i], name, details, screenshot_dir, aruco_detector);
 
     camera->setArucoDetector(aruco_detector);
     camera->start([this](const VideoData & data) { onVideoData(data); });
@@ -193,6 +322,42 @@ void VideoNode::initializeCameras()
       cameras_[static_cast<int>(name)] = std::move(camera);
     }
   }
+}
+
+std::unique_ptr<Camera> VideoNode::createCamera(
+  const std::string & device, CameraName name, const CameraDetails & details,
+  const std::string & screenshot_dir, const std::shared_ptr<ArucoDetector> & aruco_detector)
+{
+  (void)aruco_detector;
+
+  // A "virtual" device path selects the synthetic camera for this entry only.
+  if (device == "virtual") {
+    return std::make_unique<VirtualCamera>(name, details, screenshot_dir);
+  }
+
+  // Explicit GStreamer selections: "csi"/"libcamera" for the Raspberry Pi
+  // camera connector, "v4l2:/dev/videoN" for a V4L2 device through GStreamer,
+  // or "test" for a GStreamer test source.
+  if (device == "csi" || device == "libcamera" || device == "test" ||
+    device.rfind("v4l2:", 0) == 0)
+  {
+    return std::make_unique<GStreamerCamera>(device, name, details, screenshot_dir);
+  }
+
+  // RealSense remains the default for the depth/rover-front logical cameras
+  // when no explicit device path is configured.
+  if (name == CameraName::AUTONOMY_DEPTH || name == CameraName::ROVER_FRONT) {
+#ifdef HAS_REALSENSE
+    return std::make_unique<RealSenseCamera>(name, details);
+#else
+    RCLCPP_WARN(
+      rclcpp::get_logger("video_ros2"),
+      "No RealSense support compiled in; treating %s as a regular device camera",
+      device.c_str());
+#endif
+  }
+
+  return std::make_unique<OpenCvCamera>(device, name, details, screenshot_dir);
 }
 
 void VideoNode::onCommand(const WrappedProtobuf::SharedPtr msg)
@@ -214,27 +379,59 @@ void VideoNode::onCommand(const WrappedProtobuf::SharedPtr msg)
   }
 
   int name_value = command.details().name();
-  std::lock_guard<std::mutex> lock(cameras_mutex_);
-  auto it = cameras_.find(name_value);
-  if (it == cameras_.end()) {
-    RCLCPP_WARN(this->get_logger(), "Camera %d not found", name_value);
-    return;
+  Camera * camera = nullptr;
+  bool restart_requested = false;
+  {
+    std::lock_guard<std::mutex> lock(cameras_mutex_);
+    auto it = cameras_.find(name_value);
+    if (it == cameras_.end()) {
+      RCLCPP_WARN(this->get_logger(), "Camera %d not found", name_value);
+      return;
+    }
+    camera = it->second.get();
+    if (command.take_snapshot()) {
+      camera->takeSnapshot();
+    } else {
+      // Disabling a camera stops its streaming thread; re-enabling it starts
+      // a new one. Both match the behavior of the Dart video program.
+      restart_requested =
+        command.details().status() == CameraStatus::CAMERA_ENABLED &&
+        camera->status() == CameraStatus::CAMERA_DISABLED;
+      camera->updateDetails(command.details());
+    }
   }
-
-  if (command.take_snapshot()) {
-    it->second->takeSnapshot();
-  } else {
-    it->second->updateDetails(command.details());
+  // Restart (which joins the camera thread) outside the mutex: the camera
+  // thread takes cameras_mutex_ when it publishes a frame.
+  if (restart_requested) {
+    camera->restart();
   }
 }
 
 void VideoNode::onVideoData(const VideoData & data)
 {
+  // Frames larger than a UDP datagram can never reach the Dashboard. Mirroring
+  // the Dart video program (CameraIsolate.sendFrame), drop them and lower the
+  // JPEG quality for the next frame instead of wasting bandwidth on traffic no
+  // one can receive.
+  if (data.frame().size() >= kMaxPacketSize) {
+    handleOversizedFrame(data);
+    return;
+  }
+
   WrappedProtobuf msg;
   msg.name = VideoData::descriptor()->full_name();
   std::string serialized = data.SerializeAsString();
   msg.data.assign(serialized.begin(), serialized.end());
   video_pub_->publish(msg);
+
+  // When running standalone, stream the frame straight to every dashboard.
+  // With no dashboard connected there is nothing to send, so skip the work.
+  if (dashboard_server_ && dashboard_server_->connectedClients() > 0) {
+    WrappedMessage wrapper;
+    wrapper.set_name(VideoData::descriptor()->full_name());
+    wrapper.set_data(serialized);
+    dashboard_server_->broadcast(wrapper);
+  }
 
   // Forward frames from selected cameras to the vision/object-detection program.
   if (vision_forwarder_ && !vision_camera_names_.empty()) {
@@ -268,6 +465,40 @@ void VideoNode::publishStatus()
     std::string serialized = data.SerializeAsString();
     msg.data.assign(serialized.begin(), serialized.end());
     video_pub_->publish(msg);
+
+    if (dashboard_server_ && dashboard_server_->connectedClients() > 0) {
+      WrappedMessage wrapper;
+      wrapper.set_name(VideoData::descriptor()->full_name());
+      wrapper.set_data(serialized);
+      dashboard_server_->broadcast(wrapper);
+    }
+  }
+}
+
+void VideoNode::handleOversizedFrame(const VideoData & data)
+{
+  CameraDetails details = data.details();
+  const int quality = details.quality() > 0 ? details.quality() : 75;
+  if (quality > kMinJpegQuality) {
+    details.set_status(CameraStatus::CAMERA_ENABLED);
+    details.set_quality(quality - 1);
+    RCLCPP_DEBUG(
+      this->get_logger(), "Frame from %s too large (%zu bytes); lowering quality to %d",
+      data.id().c_str(), data.frame().size(), quality - 1);
+  } else {
+    // Quality cannot be lowered any further; tell the Dashboard.
+    details.set_status(CameraStatus::FRAME_TOO_LARGE);
+    RCLCPP_WARN(
+      this->get_logger(), "Frame from %s too large (%zu bytes) at minimum quality",
+      data.id().c_str(), data.frame().size());
+  }
+
+  // Apply the change to the camera so the next frame is smaller. The cameras
+  // re-read quality (and the encoder picks it up) every frame.
+  std::lock_guard<std::mutex> lock(cameras_mutex_);
+  auto it = cameras_.find(static_cast<int>(details.name()));
+  if (it != cameras_.end()) {
+    it->second->updateDetails(details);
   }
 }
 

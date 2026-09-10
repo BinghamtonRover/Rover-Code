@@ -30,6 +30,10 @@ public:
   /// Start the camera capture thread.
   void start(VideoDataCallback callback);
 
+  /// Restart the camera capture thread (e.g. after the Dashboard disabled and
+  /// later re-enabled this camera via a VideoCommand).
+  void restart();
+
   /// Stop the camera capture thread.
   void stop();
 

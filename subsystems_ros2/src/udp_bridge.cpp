@@ -1,7 +1,9 @@
 #include <atomic>
+#include <chrono>
 #include <memory>
 #include <mutex>
 #include <string>
+#include <thread>
 #include <unordered_map>
 #include <vector>
 
@@ -22,6 +24,7 @@ namespace subsystems_ros2
 // impersonates them over UDP: it answers handshakes addressed to each device and relays data
 // between the UDP socket and the corresponding ROS topics.
 constexpr int VIDEO_PORT = 8002;
+constexpr int AUTONOMY_PORT = 8003;
 
 class UdpBridge : public rclcpp::Node
 {
@@ -32,6 +35,7 @@ public:
   {
     this->declare_parameter<int>("port", DEFAULT_PORT);
     this->declare_parameter<int>("video_port", VIDEO_PORT);
+    this->declare_parameter<int>("autonomy_port", AUTONOMY_PORT);
     this->declare_parameter<int>("max_clients", 5);
     stopped_.store(false);
 
@@ -50,20 +54,30 @@ public:
       "/burt/video_command_echo", 100,
       std::bind(&UdpBridge::onVideoData, this, std::placeholders::_1));
 
+    autonomy_incoming_pub_ = this->create_publisher<WrappedProtobuf>("/burt/autonomy_incoming", 100);
+    autonomy_outgoing_sub_ = this->create_subscription<WrappedProtobuf>(
+      "/burt/autonomy_outgoing", 100,
+      std::bind(&UdpBridge::onAutonomyData, this, std::placeholders::_1));
+
     this->get_parameter("video_port", video_port_);
     video_socket_.open(boost::asio::ip::udp::v4());
     video_socket_.bind(boost::asio::ip::udp::endpoint(boost::asio::ip::udp::v4(), video_port_));
+    this->get_parameter("autonomy_port", autonomy_port_);
+    autonomy_socket_.open(boost::asio::ip::udp::v4());
+    autonomy_socket_.bind(boost::asio::ip::udp::endpoint(boost::asio::ip::udp::v4(), autonomy_port_));
 
     startReceive();
     startVideoReceive();
+    startAutonomyReceive();
     io_thread_ = std::thread([this]() { io_context_.run(); });
     video_io_thread_ = std::thread([this]() { video_io_context_.run(); });
+    autonomy_io_thread_ = std::thread([this]() { autonomy_io_context_.run(); });
 
     heartbeat_timer_ = this->create_wall_timer(
       std::chrono::seconds(1), std::bind(&UdpBridge::checkHeartbeats, this));
 
-    RCLCPP_INFO(this->get_logger(), "UDP bridge listening on port %d (video on port %d)",
-      DEFAULT_PORT, video_port_);
+    RCLCPP_INFO(this->get_logger(), "UDP bridge listening on port %d (video on port %d, autonomy on port %d)",
+      DEFAULT_PORT, video_port_, autonomy_port_);
   }
 
   ~UdpBridge()
@@ -72,8 +86,10 @@ public:
     boost::system::error_code ec;
     socket_.close(ec);
     video_socket_.close(ec);
+    autonomy_socket_.close(ec);
     io_context_.stop();
     video_io_context_.stop();
+    autonomy_io_context_.stop();
     if (io_thread_.joinable()) {
       io_thread_.join();
     }
@@ -246,9 +262,112 @@ private:
         }
       }
     }
+    checkAutonomyHeartbeats();
+    bool any_autonomy_destinations = false;
+    {
+      std::lock_guard<std::mutex> lock(autonomy_destinations_mutex_);
+      any_autonomy_destinations = !autonomy_destinations_.empty();
+    }
+    if (any_autonomy_destinations) {
+      Connect heartbeat;
+      heartbeat.set_sender(AUTONOMY);
+      heartbeat.set_receiver(DASHBOARD);
+      const std::string data = wrapMessage(heartbeat).SerializeAsString();
+      std::lock_guard<std::mutex> lock(autonomy_destinations_mutex_);
+      for (const auto & [dest, last_seen] : autonomy_destinations_) {
+        try {
+          boost::asio::ip::udp::endpoint endpoint(
+            boost::asio::ip::address::from_string(dest.first), dest.second);
+          autonomy_socket_.send_to(boost::asio::buffer(data), endpoint);
+        } catch (const std::exception & e) {
+          RCLCPP_WARN(this->get_logger(), "Failed to send autonomy heartbeat: %s", e.what());
+        }
+      }
+    }
   }
 
-  // ----- Video program bridge (impersonates Device.VIDEO on its own port) -----
+  void startAutonomyReceive()
+  {
+    if (stopped_.load()) return;
+    autonomy_recv_buffer_.resize(65535);
+    autonomy_socket_.async_receive_from(
+      boost::asio::buffer(autonomy_recv_buffer_), autonomy_sender_endpoint_,
+      [this](const boost::system::error_code & error, std::size_t bytes_transferred)
+      {
+        if (!error && bytes_transferred > 0) handleAutonomyPacket(bytes_transferred);
+        if (!stopped_.load()) startAutonomyReceive();
+      });
+  }
+
+  void handleAutonomyPacket(std::size_t size)
+  {
+    WrappedMessage wrapper;
+    if (!wrapper.ParseFromArray(autonomy_recv_buffer_.data(), static_cast<int>(size))) {
+      RCLCPP_WARN(this->get_logger(), "Received malformed UDP packet on the autonomy port");
+      return;
+    }
+    if (wrapper.name() == Connect::descriptor()->full_name()) {
+      Connect heartbeat;
+      heartbeat.ParseFromString(wrapper.data());
+      if (heartbeat.receiver() != AUTONOMY) return;
+      auto source = std::make_pair(
+        autonomy_sender_endpoint_.address().to_string(), autonomy_sender_endpoint_.port());
+      {
+        std::lock_guard<std::mutex> lock(autonomy_destinations_mutex_);
+        autonomy_destinations_[source] = std::chrono::steady_clock::now();
+      }
+      Connect response;
+      response.set_sender(AUTONOMY);
+      response.set_receiver(heartbeat.sender());
+      sendAutonomyMessage(wrapMessage(response), source);
+      return;
+    }
+    WrappedProtobuf msg;
+    msg.name = wrapper.name();
+    msg.data.assign(wrapper.data().begin(), wrapper.data().end());
+    autonomy_incoming_pub_->publish(msg);
+  }
+
+  void sendAutonomyMessage(const WrappedMessage & wrapper, const std::pair<std::string, int> & destination)
+  {
+    try {
+      const std::string data = wrapper.SerializeAsString();
+      boost::asio::ip::udp::endpoint endpoint(
+        boost::asio::ip::address::from_string(destination.first), destination.second);
+      autonomy_socket_.send_to(boost::asio::buffer(data), endpoint);
+    } catch (const std::exception & e) {
+      RCLCPP_WARN(this->get_logger(), "Failed to send autonomy packet: %s", e.what());
+    }
+  }
+
+  void onAutonomyData(const WrappedProtobuf::SharedPtr msg)
+  {
+    WrappedMessage wrapper;
+    wrapper.set_name(msg->name);
+    wrapper.set_data(std::string(msg->data.begin(), msg->data.end()));
+    std::vector<std::pair<std::string, int>> destinations;
+    {
+      std::lock_guard<std::mutex> lock(autonomy_destinations_mutex_);
+      for (const auto & entry : autonomy_destinations_) destinations.push_back(entry.first);
+    }
+    for (const auto & destination : destinations) sendAutonomyMessage(wrapper, destination);
+  }
+
+  void checkAutonomyHeartbeats()
+  {
+    std::lock_guard<std::mutex> lock(autonomy_destinations_mutex_);
+    const auto now = std::chrono::steady_clock::now();
+    for (auto it = autonomy_destinations_.begin(); it != autonomy_destinations_.end();) {
+      if (std::chrono::duration_cast<std::chrono::seconds>(now - it->second).count() > 3) {
+        it = autonomy_destinations_.erase(it);
+      } else {
+        ++it;
+      }
+    }
+  }
+
+  // ----- Autonomy program bridge (impersonates Device.AUTONOMY on port 8003) -----
+
 
   void startVideoReceive()
   {
@@ -337,16 +456,22 @@ private:
 
   boost::asio::io_context io_context_;
   boost::asio::io_context video_io_context_;
+  boost::asio::io_context autonomy_io_context_;
   boost::asio::ip::udp::socket socket_;
   boost::asio::ip::udp::socket video_socket_{video_io_context_};
+  boost::asio::ip::udp::socket autonomy_socket_{autonomy_io_context_};
   boost::asio::ip::udp::endpoint sender_endpoint_;
   boost::asio::ip::udp::endpoint video_sender_endpoint_;
+  boost::asio::ip::udp::endpoint autonomy_sender_endpoint_;
   std::thread io_thread_;
   std::thread video_io_thread_;
+  std::thread autonomy_io_thread_;
   std::vector<uint8_t> recv_buffer_;
   std::vector<uint8_t> video_recv_buffer_;
+  std::vector<uint8_t> autonomy_recv_buffer_;
   std::atomic<bool> stopped_{false};
   int video_port_ = VIDEO_PORT;
+  int autonomy_port_ = AUTONOMY_PORT;
 
   rclcpp::Publisher<WrappedProtobuf>::SharedPtr incoming_pub_;
   rclcpp::Subscription<WrappedProtobuf>::SharedPtr outgoing_sub_;
@@ -355,6 +480,8 @@ private:
   rclcpp::Publisher<WrappedProtobuf>::SharedPtr video_command_pub_;
   rclcpp::Subscription<WrappedProtobuf>::SharedPtr video_data_sub_;
   rclcpp::Subscription<WrappedProtobuf>::SharedPtr video_echo_sub_;
+  rclcpp::Publisher<WrappedProtobuf>::SharedPtr autonomy_incoming_pub_;
+  rclcpp::Subscription<WrappedProtobuf>::SharedPtr autonomy_outgoing_sub_;
 
   struct PairHash
   {
@@ -369,6 +496,9 @@ private:
 
   std::mutex video_destinations_mutex_;
   std::unordered_map<std::pair<std::string, int>, std::chrono::steady_clock::time_point, PairHash> video_destinations_;
+
+  std::mutex autonomy_destinations_mutex_;
+  std::unordered_map<std::pair<std::string, int>, std::chrono::steady_clock::time_point, PairHash> autonomy_destinations_;
 };
 
 }  // namespace subsystems_ros2

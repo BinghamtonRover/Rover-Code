@@ -13,32 +13,65 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(subsystems_ros2 REQUIRED)
-find_package(Boost REQUIRED COMPONENTS system thread)
+# Boost is optional: no source file includes Boost headers, but it is linked
+# when present for backwards compatibility (e.g. Ubuntu CI). On the Raspberry
+# Pi the dependency is skipped entirely.
+find_package(Boost QUIET COMPONENTS system thread)
 find_package(OpenCV REQUIRED)
 find_package(Threads REQUIRED)
 
-# Find Protobuf C++ library. Allow user overrides; otherwise search common system paths.
+# Find Protobuf C++ library. Allow user overrides; otherwise search common
+# system paths. The multiarch library path is resolved via the GNU install
+# dirs so this also works on arm64/aarch64 (Raspberry Pi OS, Ubuntu arm64).
 if(NOT Protobuf_LIBRARIES OR NOT Protobuf_INCLUDE_DIRS)
+  include(GNUInstallDirs)
+  get_filename_component(_multiarch_libdir
+    "${CMAKE_INSTALL_FULL_LIBDIR}/../lib/${CMAKE_LIBRARY_ARCHITECTURE}"
+    ABSOLUTE)
   find_library(Protobuf_LIBRARIES
-    NAMES protobuf protobufd libprotobuf.so.23
-    PATHS /usr/lib/x86_64-linux-gnu /usr/lib /usr/local/lib
+    NAMES protobuf protobufd
+    PATHS
+      ${CMAKE_INSTALL_FULL_LIBDIR}
+      ${_multiarch_libdir}
+      /usr/lib
+      /usr/local/lib
   )
   find_path(Protobuf_INCLUDE_DIRS
     google/protobuf/message.h
-    PATHS /usr/include /usr/local/include /tmp/protobuf_dev/usr/include
+    PATHS /usr/include /usr/local/include
   )
   if(NOT Protobuf_LIBRARIES OR NOT Protobuf_INCLUDE_DIRS)
     message(FATAL_ERROR "Could not find Protobuf C++ library. Install libprotobuf-dev or set Protobuf_LIBRARIES and Protobuf_INCLUDE_DIRS.")
   endif()
 endif()
 
-# Optional RealSense SDK
-find_package(realsense2 QUIET)
+# Optional RealSense SDK. Disabled by default; use -DVIDEO_ROS2_ENABLE_REALSENSE=ON
+# to opt in. The Pi Zero 2 W build turns this off explicitly (the librealsense
+# pipeline is far too heavy for it, and the SDK is not available for armv8 in
+# Raspberry Pi OS Bullseye anyway).
+option(VIDEO_ROS2_ENABLE_REALSENSE "Enable Intel RealSense camera support" OFF)
+if(VIDEO_ROS2_ENABLE_REALSENSE)
+  find_package(realsense2 REQUIRED)
+else()
+  set(realsense2_FOUND FALSE)
+endif()
 
 # Optional libjpeg-turbo
 find_package(PkgConfig QUIET)
 if(PkgConfig_FOUND)
   pkg_check_modules(TURBOJPEG QUIET libturbojpeg)
+  # Optional GStreamer (appsrc) support for CSI cameras via libcamera. The
+  # Raspberry Pi camera connector does not expose a V4L2 /dev/video device by
+  # default on Raspberry Pi OS Bullseye/Bullseye+; frames are only reachable
+  # through the libcamera/GStreamer stack.
+  pkg_check_modules(GSTREAMER QUIET
+    gstreamer-1.0 gstreamer-app-1.0 gstreamer-video-1.0)
+endif()
+
+if(GSTREAMER_FOUND)
+  message(STATUS "GStreamer found - CSI/libcamera camera support enabled")
+else()
+  message(STATUS "GStreamer not found - CSI/libcamera camera support disabled")
 endif()
 
 # Optional OpenCV ArUco module (older OpenCV 4.x ships it in opencv2/aruco.hpp)
@@ -50,15 +83,40 @@ if(OPENCV_ARUCO_HEADER)
   message(STATUS "OpenCV ArUco module found at ${OPENCV_ARUCO_HEADER}")
 endif()
 
+# Helper: apply the optional-feature compile definitions to a target.
+# HAS_REALSENSE must also reach main.cpp because VideoNode unconditionally
+# references RealSenseCamera::make().
+function(video_ros2_apply_features TARGET)
+  if(realsense2_FOUND)
+    target_compile_definitions(${TARGET} PRIVATE HAS_REALSENSE)
+    target_link_libraries(${TARGET} realsense2::realsense2)
+  endif()
+  if(TURBOJPEG_FOUND)
+    target_compile_definitions(${TARGET} PRIVATE HAS_TURBOJPEG)
+    target_include_directories(${TARGET} PRIVATE ${TURBOJPEG_INCLUDE_DIRS})
+    target_link_libraries(${TARGET} ${TURBOJPEG_LIBRARIES})
+  endif()
+  if(GSTREAMER_FOUND)
+    target_compile_definitions(${TARGET} PRIVATE HAS_GSTREAMER)
+    target_include_directories(${TARGET} SYSTEM PRIVATE ${GSTREAMER_INCLUDE_DIRS})
+    target_link_libraries(${TARGET} ${GSTREAMER_LIBRARIES})
+  endif()
+  if(OPENCV_ARUCO_HEADER)
+    target_compile_definitions(${TARGET} PRIVATE HAVE_OPENCV_ARUCO)
+  endif()
+endfunction()
+
 # Shared utility library. Reuses the generated protobufs linked through subsystems_ros2_utils.
 add_library(${PROJECT_NAME}_utils SHARED
   src/camera.cpp
   src/opencv_camera.cpp
+  src/gstreamer_camera.cpp
   src/realsense_camera.cpp
   src/virtual_camera.cpp
   src/jpeg_encoder.cpp
   src/aruco_detector.cpp
   src/udp_socket.cpp
+  src/dashboard_server.cpp
   src/video_node.cpp
 )
 target_include_directories(${PROJECT_NAME}_utils PUBLIC
@@ -74,18 +132,7 @@ target_link_libraries(${PROJECT_NAME}_utils
   ${Protobuf_LIBRARIES}
   Threads::Threads
 )
-if(realsense2_FOUND)
-  target_compile_definitions(${PROJECT_NAME}_utils PRIVATE HAS_REALSENSE)
-  target_link_libraries(${PROJECT_NAME}_utils realsense2::realsense2)
-endif()
-if(TURBOJPEG_FOUND)
-  target_compile_definitions(${PROJECT_NAME}_utils PRIVATE HAS_TURBOJPEG)
-  target_include_directories(${PROJECT_NAME}_utils PRIVATE ${TURBOJPEG_INCLUDE_DIRS})
-  target_link_libraries(${PROJECT_NAME}_utils ${TURBOJPEG_LIBRARIES})
-endif()
-if(OPENCV_ARUCO_HEADER)
-  target_compile_definitions(${PROJECT_NAME}_utils PRIVATE HAVE_OPENCV_ARUCO)
-endif()
+video_ros2_apply_features(${PROJECT_NAME}_utils)
 
 # Main executable
 add_executable(video_node src/main.cpp)
@@ -102,6 +149,7 @@ target_link_libraries(video_node
   ${Protobuf_LIBRARIES}
   Threads::Threads
 )
+video_ros2_apply_features(video_node)
 
 install(TARGETS video_node
   DESTINATION lib/${PROJECT_NAME}
@@ -137,6 +185,7 @@ if(BUILD_TESTING)
       ${OpenCV_LIBS}
       ${Protobuf_LIBRARIES}
     )
+    video_ros2_apply_features(test_performance)
   endif()
 
   ament_add_gtest(test_udp_socket test/test_udp_socket.cpp)
@@ -147,6 +196,19 @@ if(BUILD_TESTING)
     target_link_libraries(test_udp_socket
       ${PROJECT_NAME}_utils
     )
+  endif()
+
+  ament_add_gtest(test_dashboard_server test/test_dashboard_server.cpp)
+  if(TARGET test_dashboard_server)
+    target_include_directories(test_dashboard_server PRIVATE
+      ${CMAKE_CURRENT_SOURCE_DIR}/include
+      ${Protobuf_INCLUDE_DIRS}
+    )
+    target_link_libraries(test_dashboard_server
+      ${PROJECT_NAME}_utils
+      ${Protobuf_LIBRARIES}
+    )
+    video_ros2_apply_features(test_dashboard_server)
   endif()
 endif()
 

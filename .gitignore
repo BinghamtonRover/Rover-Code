@@ -4,3 +4,15 @@ linux/
 scripts/compile.sh
 docs/
 pubspec.lock
+
+# colcon build/install artifacts and logs
+.ros_build/
+.ros_build_ros2/
+.ros_install/
+.ros_install_ros2/
+build_ros2/
+build/
+install/
+log/
+logs/
+__pycache__/

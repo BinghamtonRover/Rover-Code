@@ -27,6 +27,24 @@ void Camera::start(VideoDataCallback callback)
   thread_ = std::thread(&Camera::runLoop, this);
 }
 
+void Camera::restart()
+{
+  // Re-enable a camera that was disabled by a VideoCommand. Called from the
+  // ROS executor thread while the camera thread is exiting or has exited.
+  {
+    std::lock_guard<std::mutex> lock(details_mutex_);
+    if (details_.status() == CameraStatus::CAMERA_DISABLED) {
+      details_.set_status(CameraStatus::CAMERA_ENABLED);
+    }
+  }
+  if (thread_.joinable()) {
+    thread_.join();
+  }
+  running_.store(true);
+  status_.store(CameraStatus::CAMERA_LOADING);
+  thread_ = std::thread(&Camera::runLoop, this);
+}
+
 void Camera::stop()
 {
   running_.store(false);
@@ -39,6 +57,14 @@ void Camera::updateDetails(const CameraDetails & details)
 {
   std::lock_guard<std::mutex> lock(details_mutex_);
   details_.MergeFrom(details);
+
+  // The Dashboard can disable a camera to free CPU and bandwidth (e.g. on the
+  // Pi Zero 2 W). This mirrors CameraIsolate.updateDetails in the Dart video
+  // program: stop streaming, and stay stopped until re-enabled.
+  if (details_.status() == CameraStatus::CAMERA_DISABLED) {
+    status_.store(CameraStatus::CAMERA_DISABLED);
+    running_.store(false);
+  }
 }
 
 void Camera::takeSnapshot()

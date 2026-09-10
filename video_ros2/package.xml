@@ -15,9 +15,20 @@
   <depend>subsystems_ros2</depend>
   <depend>protobuf</depend>
   <depend>libopencv-dev</depend>
-  <!-- librealsense2-dev is optional; RealSense support is compiled out when absent. -->
-  <depend>librealsense2-dev</depend>
-  <depend>libjpeg-turbo8-dev</depend>
+  <!-- RealSense support is compiled in only when librealsense2-dev is found at
+       build time; the package is intentionally not a rosdep dependency so the
+       Raspberry Pi (which cannot use a RealSense) does not need it.
+       GStreamer enables the CSI/libcamera camera backend used on the Pi; on the
+       Pi also install gstreamer1.0-libcamera (see README). -->
+  <depend>libgstreamer1.0-dev</depend>
+  <depend>libgstreamer-plugins-base1.0-dev</depend>
+  <exec_depend>gstreamer1.0-plugins-base</exec_depend>
+  <exec_depend>gstreamer1.0-plugins-good</exec_depend>
+  <!-- libjpeg-turbo is an optional build-time acceleration (see
+       HAS_TURBOJPEG in CMakeLists.txt): OpenCV's JPEG encoder is the fallback.
+       There is no single rosdep key for it across distros (Ubuntu ships
+       libjpeg-turbo8-dev, Raspberry Pi OS ships libjpeg62-turbo-dev), so it is
+       intentionally not listed here. -->
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
