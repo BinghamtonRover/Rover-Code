@@ -15,6 +15,50 @@ import 'dart:convert' as $convert;
 import 'dart:core' as $core;
 import 'dart:typed_data' as $typed_data;
 
+@$core.Deprecated('Use armMotorDataDescriptor instead')
+const ArmMotorData$json = {
+  '1': 'ArmMotorData',
+  '2': [
+    {'1': 'speed', '3': 1, '4': 1, '5': 2, '10': 'speed'},
+    {'1': 'current', '3': 2, '4': 1, '5': 2, '10': 'current'},
+    {'1': 'temperature', '3': 3, '4': 1, '5': 5, '10': 'temperature'},
+    {
+      '1': 'error',
+      '3': 4,
+      '4': 1,
+      '5': 14,
+      '6': '.ArmMotorData.ErrorCode',
+      '10': 'error'
+    },
+    {'1': 'position', '3': 5, '4': 1, '5': 5, '10': 'position'},
+  ],
+  '4': [ArmMotorData_ErrorCode$json],
+};
+
+@$core.Deprecated('Use armMotorDataDescriptor instead')
+const ArmMotorData_ErrorCode$json = {
+  '1': 'ErrorCode',
+  '2': [
+    {'1': 'NO_FAULT', '2': 0},
+    {'1': 'OVER_TEMP', '2': 1},
+    {'1': 'OVER_CURRENT', '2': 2},
+    {'1': 'OVER_VOLTAGE', '2': 3},
+    {'1': 'UNDER_VOLTAGE', '2': 4},
+    {'1': 'ENCODER_FAULT', '2': 5},
+    {'1': 'MOSFET_OVER_TEMP', '2': 6},
+    {'1': 'UNKNOWN_ERROR', '2': 7},
+  ],
+};
+
+/// Descriptor for `ArmMotorData`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List armMotorDataDescriptor = $convert.base64Decode(
+    'CgxBcm1Nb3RvckRhdGESFAoFc3BlZWQYASABKAJSBXNwZWVkEhgKB2N1cnJlbnQYAiABKAJSB2'
+    'N1cnJlbnQSIAoLdGVtcGVyYXR1cmUYAyABKAVSC3RlbXBlcmF0dXJlEi0KBWVycm9yGAQgASgO'
+    'MhcuQXJtTW90b3JEYXRhLkVycm9yQ29kZVIFZXJyb3ISGgoIcG9zaXRpb24YBSABKAVSCHBvc2'
+    'l0aW9uIpsBCglFcnJvckNvZGUSDAoITk9fRkFVTFQQABINCglPVkVSX1RFTVAQARIQCgxPVkVS'
+    'X0NVUlJFTlQQAhIQCgxPVkVSX1ZPTFRBR0UQAxIRCg1VTkRFUl9WT0xUQUdFEAQSEQoNRU5DT0'
+    'RFUl9GQVVMVBAFEhQKEE1PU0ZFVF9PVkVSX1RFTVAQBhIRCg1VTktOT1dOX0VSUk9SEAc=');
+
 @$core.Deprecated('Use jointAngleDataDescriptor instead')
 const JointAngleData$json = {
   '1': 'JointAngleData',
@@ -153,6 +197,62 @@ const ArmData$json = {
       '6': '.BoolState',
       '10': 'usingIk'
     },
+    {
+      '1': 'base_motor',
+      '3': 19,
+      '4': 1,
+      '5': 11,
+      '6': '.ArmMotorData',
+      '10': 'baseMotor'
+    },
+    {
+      '1': 'shoulder_motor',
+      '3': 20,
+      '4': 1,
+      '5': 11,
+      '6': '.ArmMotorData',
+      '10': 'shoulderMotor'
+    },
+    {
+      '1': 'elbow_motor',
+      '3': 21,
+      '4': 1,
+      '5': 11,
+      '6': '.ArmMotorData',
+      '10': 'elbowMotor'
+    },
+    {
+      '1': 'roll_motor',
+      '3': 22,
+      '4': 1,
+      '5': 11,
+      '6': '.ArmMotorData',
+      '10': 'rollMotor'
+    },
+    {
+      '1': 'left_diff_motor',
+      '3': 23,
+      '4': 1,
+      '5': 11,
+      '6': '.ArmMotorData',
+      '10': 'leftDiffMotor'
+    },
+    {
+      '1': 'right_diff_motor',
+      '3': 24,
+      '4': 1,
+      '5': 11,
+      '6': '.ArmMotorData',
+      '10': 'rightDiffMotor'
+    },
+    {
+      '1': 'pinch_motor',
+      '3': 25,
+      '4': 1,
+      '5': 11,
+      '6': '.ArmMotorData',
+      '10': 'pinchMotor'
+    },
   ],
   '9': [
     {'1': 1, '2': 2},
@@ -172,8 +272,14 @@ final $typed_data.Uint8List armDataDescriptor = $convert.base64Decode(
     'ouV3Jpc3REYXRhUgV3cmlzdBIgCgVwaW5jaBgKIAEoCzIKLk1vdG9yRGF0YVIFcGluY2gSHwoL'
     'c2Vydm9fYW5nbGUYCyABKAVSCnNlcnZvQW5nbGUSKwoLbGFzZXJfc3RhdGUYDCABKA4yCi5Cb2'
     '9sU3RhdGVSCmxhc2VyU3RhdGUSMgoMam9pbnRfYW5nbGVzGA4gASgLMg8uSm9pbnRBbmdsZURh'
-    'dGFSC2pvaW50QW5nbGVzEiUKCHVzaW5nX2lrGBAgASgOMgouQm9vbFN0YXRlUgd1c2luZ0lrSg'
-    'QIARACSgQIAhAD');
+    'dGFSC2pvaW50QW5nbGVzEiUKCHVzaW5nX2lrGBAgASgOMgouQm9vbFN0YXRlUgd1c2luZ0lrEi'
+    'wKCmJhc2VfbW90b3IYEyABKAsyDS5Bcm1Nb3RvckRhdGFSCWJhc2VNb3RvchI0Cg5zaG91bGRl'
+    'cl9tb3RvchgUIAEoCzINLkFybU1vdG9yRGF0YVINc2hvdWxkZXJNb3RvchIuCgtlbGJvd19tb3'
+    'RvchgVIAEoCzINLkFybU1vdG9yRGF0YVIKZWxib3dNb3RvchIsCgpyb2xsX21vdG9yGBYgASgL'
+    'Mg0uQXJtTW90b3JEYXRhUglyb2xsTW90b3ISNQoPbGVmdF9kaWZmX21vdG9yGBcgASgLMg0uQX'
+    'JtTW90b3JEYXRhUg1sZWZ0RGlmZk1vdG9yEjcKEHJpZ2h0X2RpZmZfbW90b3IYGCABKAsyDS5B'
+    'cm1Nb3RvckRhdGFSDnJpZ2h0RGlmZk1vdG9yEi4KC3BpbmNoX21vdG9yGBkgASgLMg0uQXJtTW'
+    '90b3JEYXRhUgpwaW5jaE1vdG9ySgQIARACSgQIAhAD');
 
 @$core.Deprecated('Use wristCommandDescriptor instead')
 const WristCommand$json = {
@@ -205,6 +311,7 @@ final $typed_data.Uint8List wristCommandDescriptor = $convert.base64Decode(
 const ArmCommand$json = {
   '1': 'ArmCommand',
   '2': [
+    {'1': 'hold_motor_mask', '3': 25, '4': 1, '5': 13, '10': 'holdMotorMask'},
     {'1': 'stop', '3': 1, '4': 1, '5': 8, '10': 'stop'},
     {'1': 'calibrate', '3': 2, '4': 1, '5': 8, '10': 'calibrate'},
     {
@@ -303,15 +410,16 @@ const ArmCommand$json = {
 
 /// Descriptor for `ArmCommand`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List armCommandDescriptor = $convert.base64Decode(
-    'CgpBcm1Db21tYW5kEhIKBHN0b3AYASABKAhSBHN0b3ASHAoJY2FsaWJyYXRlGAIgASgIUgljYW'
-    'xpYnJhdGUSJQoGc3dpdmVsGAMgASgLMg0uTW90b3JDb21tYW5kUgZzd2l2ZWwSKQoIc2hvdWxk'
-    'ZXIYBCABKAsyDS5Nb3RvckNvbW1hbmRSCHNob3VsZGVyEiMKBWVsYm93GAUgASgLMg0uTW90b3'
-    'JDb21tYW5kUgVlbGJvdxIhCgRyb2xsGBUgASgLMg0uTW90b3JDb21tYW5kUgRyb2xsEiAKB2lr'
-    'X3Bvc2UYGCABKAsyBy5Qb3NlM2RSBmlrUG9zZRIQCgNqYWIYCiABKAhSA2phYhIiCgd2ZXJzaW'
-    '9uGAsgASgLMgguVmVyc2lvblIHdmVyc2lvbhInCglzdGFydF91c3MYDCABKA4yCi5Cb29sU3Rh'
-    'dGVSCHN0YXJ0VXNzEiUKBnJvdGF0ZRgOIAEoCzINLk1vdG9yQ29tbWFuZFIGcm90YXRlEiMKBX'
-    'dyaXN0GBYgASgLMg0uV3Jpc3RDb21tYW5kUgV3cmlzdBIjCgVwaW5jaBgPIAEoCzINLk1vdG9y'
-    'Q29tbWFuZFIFcGluY2gSEgoEb3BlbhgQIAEoCFIEb3BlbhIUCgVjbG9zZRgRIAEoCFIFY2xvc2'
-    'USEgoEc3BpbhgSIAEoCFIEc3BpbhIfCgtzZXJ2b19hbmdsZRgTIAEoBVIKc2Vydm9BbmdsZRIr'
-    'CgtsYXNlcl9zdGF0ZRgUIAEoDjIKLkJvb2xTdGF0ZVIKbGFzZXJTdGF0ZRIlCgh1c2luZ19pax'
-    'gXIAEoDjIKLkJvb2xTdGF0ZVIHdXNpbmdJa0oECAYQCkoECA0QDg==');
+    'CgpBcm1Db21tYW5kEiYKD2hvbGRfbW90b3JfbWFzaxgZIAEoDVINaG9sZE1vdG9yTWFzaxISCg'
+    'RzdG9wGAEgASgIUgRzdG9wEhwKCWNhbGlicmF0ZRgCIAEoCFIJY2FsaWJyYXRlEiUKBnN3aXZl'
+    'bBgDIAEoCzINLk1vdG9yQ29tbWFuZFIGc3dpdmVsEikKCHNob3VsZGVyGAQgASgLMg0uTW90b3'
+    'JDb21tYW5kUghzaG91bGRlchIjCgVlbGJvdxgFIAEoCzINLk1vdG9yQ29tbWFuZFIFZWxib3cS'
+    'IQoEcm9sbBgVIAEoCzINLk1vdG9yQ29tbWFuZFIEcm9sbBIgCgdpa19wb3NlGBggASgLMgcuUG'
+    '9zZTNkUgZpa1Bvc2USEAoDamFiGAogASgIUgNqYWISIgoHdmVyc2lvbhgLIAEoCzIILlZlcnNp'
+    'b25SB3ZlcnNpb24SJwoJc3RhcnRfdXNzGAwgASgOMgouQm9vbFN0YXRlUghzdGFydFVzcxIlCg'
+    'Zyb3RhdGUYDiABKAsyDS5Nb3RvckNvbW1hbmRSBnJvdGF0ZRIjCgV3cmlzdBgWIAEoCzINLldy'
+    'aXN0Q29tbWFuZFIFd3Jpc3QSIwoFcGluY2gYDyABKAsyDS5Nb3RvckNvbW1hbmRSBXBpbmNoEh'
+    'IKBG9wZW4YECABKAhSBG9wZW4SFAoFY2xvc2UYESABKAhSBWNsb3NlEhIKBHNwaW4YEiABKAhS'
+    'BHNwaW4SHwoLc2Vydm9fYW5nbGUYEyABKAVSCnNlcnZvQW5nbGUSKwoLbGFzZXJfc3RhdGUYFC'
+    'ABKA4yCi5Cb29sU3RhdGVSCmxhc2VyU3RhdGUSJQoIdXNpbmdfaWsYFyABKA4yCi5Cb29sU3Rh'
+    'dGVSB3VzaW5nSWtKBAgGEApKBAgNEA4=');

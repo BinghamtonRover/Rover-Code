@@ -155,11 +155,16 @@ class MotorCommand extends $pb.GeneratedMessage {
     $core.int? moveSteps,
     $core.double? moveRadians,
     $core.double? angle,
+    $core.double? speedErpm,
+    $core.double? accelerationErpmPerSecond,
   }) {
     final result = create();
     if (moveSteps != null) result.moveSteps = moveSteps;
     if (moveRadians != null) result.moveRadians = moveRadians;
     if (angle != null) result.angle = angle;
+    if (speedErpm != null) result.speedErpm = speedErpm;
+    if (accelerationErpmPerSecond != null)
+      result.accelerationErpmPerSecond = accelerationErpmPerSecond;
     return result;
   }
 
@@ -178,6 +183,9 @@ class MotorCommand extends $pb.GeneratedMessage {
     ..aI(1, _omitFieldNames ? '' : 'moveSteps')
     ..aD(2, _omitFieldNames ? '' : 'moveRadians', fieldType: $pb.PbFieldType.OF)
     ..aD(3, _omitFieldNames ? '' : 'angle', fieldType: $pb.PbFieldType.OF)
+    ..aD(4, _omitFieldNames ? '' : 'speedErpm', fieldType: $pb.PbFieldType.OF)
+    ..aD(5, _omitFieldNames ? '' : 'accelerationErpmPerSecond',
+        fieldType: $pb.PbFieldType.OF)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -228,6 +236,26 @@ class MotorCommand extends $pb.GeneratedMessage {
   $core.bool hasAngle() => $_has(2);
   @$pb.TagNumber(3)
   void clearAngle() => $_clearField(3);
+
+  /// Optional motion limits for position commands. Omitted fields use firmware defaults.
+  /// Electrical RPM and electrical RPM/s; wire values have resolution 10.
+  @$pb.TagNumber(4)
+  $core.double get speedErpm => $_getN(3);
+  @$pb.TagNumber(4)
+  set speedErpm($core.double value) => $_setFloat(3, value);
+  @$pb.TagNumber(4)
+  $core.bool hasSpeedErpm() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearSpeedErpm() => $_clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.double get accelerationErpmPerSecond => $_getN(4);
+  @$pb.TagNumber(5)
+  set accelerationErpmPerSecond($core.double value) => $_setFloat(4, value);
+  @$pb.TagNumber(5)
+  $core.bool hasAccelerationErpmPerSecond() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearAccelerationErpmPerSecond() => $_clearField(5);
 }
 
 const $core.bool _omitFieldNames =

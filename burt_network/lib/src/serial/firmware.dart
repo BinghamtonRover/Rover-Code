@@ -1,4 +1,5 @@
 import "dart:typed_data";
+import "framing.dart";
 
 import "package:protobuf/protobuf.dart";
 
@@ -19,6 +20,7 @@ class BurtFirmwareSerial extends Service {
 
   /// The underlying serial connection.
   final SerialDevice _serial;
+  final _frames = FirmwareFrameDecoder();
 
   /// The logger to use.
   final BurtLogger logger;
@@ -51,6 +53,7 @@ class BurtFirmwareSerial extends Service {
 
   /// The stream of incoming messages, wrapped into [WrappedMessage]s.
   Stream<WrappedMessage> get messages => _serial.stream
+    .expand((packet) => device == Device.ARM ? _frames.add(packet) : [packet])
     .map((packet) => WrappedMessage(data: packet, name: deviceToDataName(device)));
 
   /// Whether this device has passed the handshake.
@@ -58,6 +61,7 @@ class BurtFirmwareSerial extends Service {
 
   @override
   Future<bool> init() async {
+    _frames.reset();
     // Open the port
     logger.debug("Opening $port");
     if (!await _serial.init()) {
@@ -118,7 +122,10 @@ class BurtFirmwareSerial extends Service {
   void sendBytes(List<int> bytes) => _serial.write(Uint8List.fromList(bytes));
 
   /// Sends a Protobuf message to the device.
-  void sendMessage(Message message) => _serial.write(message.writeToBuffer());
+  void sendMessage(Message message) {
+    final bytes = message.writeToBuffer();
+    _serial.write(device == Device.ARM ? frameFirmwareMessage(bytes) : bytes);
+  }
 
   /// Resets the device and closes the port.
   @override

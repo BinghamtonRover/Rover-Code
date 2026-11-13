@@ -90,10 +90,35 @@ const MotorCommand$json = {
     {'1': 'move_steps', '3': 1, '4': 1, '5': 5, '10': 'moveSteps'},
     {'1': 'move_radians', '3': 2, '4': 1, '5': 2, '10': 'moveRadians'},
     {'1': 'angle', '3': 3, '4': 1, '5': 2, '10': 'angle'},
+    {
+      '1': 'speed_erpm',
+      '3': 4,
+      '4': 1,
+      '5': 2,
+      '9': 0,
+      '10': 'speedErpm',
+      '17': true
+    },
+    {
+      '1': 'acceleration_erpm_per_second',
+      '3': 5,
+      '4': 1,
+      '5': 2,
+      '9': 1,
+      '10': 'accelerationErpmPerSecond',
+      '17': true
+    },
+  ],
+  '8': [
+    {'1': '_speed_erpm'},
+    {'1': '_acceleration_erpm_per_second'},
   ],
 };
 
 /// Descriptor for `MotorCommand`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List motorCommandDescriptor = $convert.base64Decode(
     'CgxNb3RvckNvbW1hbmQSHQoKbW92ZV9zdGVwcxgBIAEoBVIJbW92ZVN0ZXBzEiEKDG1vdmVfcm'
-    'FkaWFucxgCIAEoAlILbW92ZVJhZGlhbnMSFAoFYW5nbGUYAyABKAJSBWFuZ2xl');
+    'FkaWFucxgCIAEoAlILbW92ZVJhZGlhbnMSFAoFYW5nbGUYAyABKAJSBWFuZ2xlEiIKCnNwZWVk'
+    'X2VycG0YBCABKAJIAFIJc3BlZWRFcnBtiAEBEkQKHGFjY2VsZXJhdGlvbl9lcnBtX3Blcl9zZW'
+    'NvbmQYBSABKAJIAVIZYWNjZWxlcmF0aW9uRXJwbVBlclNlY29uZIgBAUINCgtfc3BlZWRfZXJw'
+    'bUIfCh1fYWNjZWxlcmF0aW9uX2VycG1fcGVyX3NlY29uZA==');

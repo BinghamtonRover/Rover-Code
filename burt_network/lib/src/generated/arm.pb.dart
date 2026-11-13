@@ -14,12 +14,117 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
+import 'arm.pbenum.dart';
 import 'geometry.pb.dart' as $2;
 import 'motor.pb.dart' as $0;
 import 'utils.pbenum.dart' as $3;
 import 'version.pb.dart' as $1;
 
 export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
+
+export 'arm.pbenum.dart';
+
+class ArmMotorData extends $pb.GeneratedMessage {
+  factory ArmMotorData({
+    $core.double? speed,
+    $core.double? current,
+    $core.int? temperature,
+    ArmMotorData_ErrorCode? error,
+    $core.int? position,
+  }) {
+    final result = create();
+    if (speed != null) result.speed = speed;
+    if (current != null) result.current = current;
+    if (temperature != null) result.temperature = temperature;
+    if (error != null) result.error = error;
+    if (position != null) result.position = position;
+    return result;
+  }
+
+  ArmMotorData._();
+
+  factory ArmMotorData.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory ArmMotorData.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'ArmMotorData',
+      createEmptyInstance: create)
+    ..aD(1, _omitFieldNames ? '' : 'speed', fieldType: $pb.PbFieldType.OF)
+    ..aD(2, _omitFieldNames ? '' : 'current', fieldType: $pb.PbFieldType.OF)
+    ..aI(3, _omitFieldNames ? '' : 'temperature')
+    ..aE<ArmMotorData_ErrorCode>(4, _omitFieldNames ? '' : 'error',
+        enumValues: ArmMotorData_ErrorCode.values)
+    ..aI(5, _omitFieldNames ? '' : 'position')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  ArmMotorData clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  ArmMotorData copyWith(void Function(ArmMotorData) updates) =>
+      super.copyWith((message) => updates(message as ArmMotorData))
+          as ArmMotorData;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static ArmMotorData create() => ArmMotorData._();
+  @$core.override
+  ArmMotorData createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static ArmMotorData getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<ArmMotorData>(create);
+  static ArmMotorData? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.double get speed => $_getN(0);
+  @$pb.TagNumber(1)
+  set speed($core.double value) => $_setFloat(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasSpeed() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSpeed() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.double get current => $_getN(1);
+  @$pb.TagNumber(2)
+  set current($core.double value) => $_setFloat(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasCurrent() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearCurrent() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.int get temperature => $_getIZ(2);
+  @$pb.TagNumber(3)
+  set temperature($core.int value) => $_setSignedInt32(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasTemperature() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearTemperature() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  ArmMotorData_ErrorCode get error => $_getN(3);
+  @$pb.TagNumber(4)
+  set error(ArmMotorData_ErrorCode value) => $_setField(4, value);
+  @$pb.TagNumber(4)
+  $core.bool hasError() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearError() => $_clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.int get position => $_getIZ(4);
+  @$pb.TagNumber(5)
+  set position($core.int value) => $_setSignedInt32(4, value);
+  @$pb.TagNumber(5)
+  $core.bool hasPosition() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearPosition() => $_clearField(5);
+}
 
 class JointAngleData extends $pb.GeneratedMessage {
   factory JointAngleData({
@@ -342,6 +447,13 @@ class ArmData extends $pb.GeneratedMessage {
     $3.BoolState? usingIk,
     $2.Pose3d? currentPose,
     $2.Pose3d? targetPose,
+    ArmMotorData? baseMotor,
+    ArmMotorData? shoulderMotor,
+    ArmMotorData? elbowMotor,
+    ArmMotorData? rollMotor,
+    ArmMotorData? leftDiffMotor,
+    ArmMotorData? rightDiffMotor,
+    ArmMotorData? pinchMotor,
   }) {
     final result = create();
     if (base != null) result.base = base;
@@ -360,6 +472,13 @@ class ArmData extends $pb.GeneratedMessage {
     if (usingIk != null) result.usingIk = usingIk;
     if (currentPose != null) result.currentPose = currentPose;
     if (targetPose != null) result.targetPose = targetPose;
+    if (baseMotor != null) result.baseMotor = baseMotor;
+    if (shoulderMotor != null) result.shoulderMotor = shoulderMotor;
+    if (elbowMotor != null) result.elbowMotor = elbowMotor;
+    if (rollMotor != null) result.rollMotor = rollMotor;
+    if (leftDiffMotor != null) result.leftDiffMotor = leftDiffMotor;
+    if (rightDiffMotor != null) result.rightDiffMotor = rightDiffMotor;
+    if (pinchMotor != null) result.pinchMotor = pinchMotor;
     return result;
   }
 
@@ -405,6 +524,20 @@ class ArmData extends $pb.GeneratedMessage {
         subBuilder: $2.Pose3d.create)
     ..aOM<$2.Pose3d>(18, _omitFieldNames ? '' : 'targetPose',
         subBuilder: $2.Pose3d.create)
+    ..aOM<ArmMotorData>(19, _omitFieldNames ? '' : 'baseMotor',
+        subBuilder: ArmMotorData.create)
+    ..aOM<ArmMotorData>(20, _omitFieldNames ? '' : 'shoulderMotor',
+        subBuilder: ArmMotorData.create)
+    ..aOM<ArmMotorData>(21, _omitFieldNames ? '' : 'elbowMotor',
+        subBuilder: ArmMotorData.create)
+    ..aOM<ArmMotorData>(22, _omitFieldNames ? '' : 'rollMotor',
+        subBuilder: ArmMotorData.create)
+    ..aOM<ArmMotorData>(23, _omitFieldNames ? '' : 'leftDiffMotor',
+        subBuilder: ArmMotorData.create)
+    ..aOM<ArmMotorData>(24, _omitFieldNames ? '' : 'rightDiffMotor',
+        subBuilder: ArmMotorData.create)
+    ..aOM<ArmMotorData>(25, _omitFieldNames ? '' : 'pinchMotor',
+        subBuilder: ArmMotorData.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -594,6 +727,84 @@ class ArmData extends $pb.GeneratedMessage {
   void clearTargetPose() => $_clearField(18);
   @$pb.TagNumber(18)
   $2.Pose3d ensureTargetPose() => $_ensure(15);
+
+  /// CubeMars direct-drive telemetry for the new arm motor implementation.
+  @$pb.TagNumber(19)
+  ArmMotorData get baseMotor => $_getN(16);
+  @$pb.TagNumber(19)
+  set baseMotor(ArmMotorData value) => $_setField(19, value);
+  @$pb.TagNumber(19)
+  $core.bool hasBaseMotor() => $_has(16);
+  @$pb.TagNumber(19)
+  void clearBaseMotor() => $_clearField(19);
+  @$pb.TagNumber(19)
+  ArmMotorData ensureBaseMotor() => $_ensure(16);
+
+  @$pb.TagNumber(20)
+  ArmMotorData get shoulderMotor => $_getN(17);
+  @$pb.TagNumber(20)
+  set shoulderMotor(ArmMotorData value) => $_setField(20, value);
+  @$pb.TagNumber(20)
+  $core.bool hasShoulderMotor() => $_has(17);
+  @$pb.TagNumber(20)
+  void clearShoulderMotor() => $_clearField(20);
+  @$pb.TagNumber(20)
+  ArmMotorData ensureShoulderMotor() => $_ensure(17);
+
+  @$pb.TagNumber(21)
+  ArmMotorData get elbowMotor => $_getN(18);
+  @$pb.TagNumber(21)
+  set elbowMotor(ArmMotorData value) => $_setField(21, value);
+  @$pb.TagNumber(21)
+  $core.bool hasElbowMotor() => $_has(18);
+  @$pb.TagNumber(21)
+  void clearElbowMotor() => $_clearField(21);
+  @$pb.TagNumber(21)
+  ArmMotorData ensureElbowMotor() => $_ensure(18);
+
+  @$pb.TagNumber(22)
+  ArmMotorData get rollMotor => $_getN(19);
+  @$pb.TagNumber(22)
+  set rollMotor(ArmMotorData value) => $_setField(22, value);
+  @$pb.TagNumber(22)
+  $core.bool hasRollMotor() => $_has(19);
+  @$pb.TagNumber(22)
+  void clearRollMotor() => $_clearField(22);
+  @$pb.TagNumber(22)
+  ArmMotorData ensureRollMotor() => $_ensure(19);
+
+  @$pb.TagNumber(23)
+  ArmMotorData get leftDiffMotor => $_getN(20);
+  @$pb.TagNumber(23)
+  set leftDiffMotor(ArmMotorData value) => $_setField(23, value);
+  @$pb.TagNumber(23)
+  $core.bool hasLeftDiffMotor() => $_has(20);
+  @$pb.TagNumber(23)
+  void clearLeftDiffMotor() => $_clearField(23);
+  @$pb.TagNumber(23)
+  ArmMotorData ensureLeftDiffMotor() => $_ensure(20);
+
+  @$pb.TagNumber(24)
+  ArmMotorData get rightDiffMotor => $_getN(21);
+  @$pb.TagNumber(24)
+  set rightDiffMotor(ArmMotorData value) => $_setField(24, value);
+  @$pb.TagNumber(24)
+  $core.bool hasRightDiffMotor() => $_has(21);
+  @$pb.TagNumber(24)
+  void clearRightDiffMotor() => $_clearField(24);
+  @$pb.TagNumber(24)
+  ArmMotorData ensureRightDiffMotor() => $_ensure(21);
+
+  @$pb.TagNumber(25)
+  ArmMotorData get pinchMotor => $_getN(22);
+  @$pb.TagNumber(25)
+  set pinchMotor(ArmMotorData value) => $_setField(25, value);
+  @$pb.TagNumber(25)
+  $core.bool hasPinchMotor() => $_has(22);
+  @$pb.TagNumber(25)
+  void clearPinchMotor() => $_clearField(25);
+  @$pb.TagNumber(25)
+  ArmMotorData ensurePinchMotor() => $_ensure(22);
 }
 
 class WristCommand extends $pb.GeneratedMessage {
@@ -730,6 +941,7 @@ class ArmCommand extends $pb.GeneratedMessage {
     WristCommand? wrist,
     $3.BoolState? usingIk,
     $2.Pose3d? ikPose,
+    $core.int? holdMotorMask,
   }) {
     final result = create();
     if (stop != null) result.stop = stop;
@@ -751,6 +963,7 @@ class ArmCommand extends $pb.GeneratedMessage {
     if (wrist != null) result.wrist = wrist;
     if (usingIk != null) result.usingIk = usingIk;
     if (ikPose != null) result.ikPose = ikPose;
+    if (holdMotorMask != null) result.holdMotorMask = holdMotorMask;
     return result;
   }
 
@@ -797,6 +1010,8 @@ class ArmCommand extends $pb.GeneratedMessage {
         enumValues: $3.BoolState.values)
     ..aOM<$2.Pose3d>(24, _omitFieldNames ? '' : 'ikPose',
         subBuilder: $2.Pose3d.create)
+    ..aI(25, _omitFieldNames ? '' : 'holdMotorMask',
+        fieldType: $pb.PbFieldType.OU3)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -1010,6 +1225,17 @@ class ArmCommand extends $pb.GeneratedMessage {
   void clearIkPose() => $_clearField(24);
   @$pb.TagNumber(24)
   $2.Pose3d ensureIkPose() => $_ensure(18);
+
+  /// Hold selected motor groups without stopping unrelated axes.
+  /// Bit N selects CAN motor ID N (IDs 2..8); either member selects its whole coupled pair.
+  @$pb.TagNumber(25)
+  $core.int get holdMotorMask => $_getIZ(19);
+  @$pb.TagNumber(25)
+  set holdMotorMask($core.int value) => $_setUnsignedInt32(19, value);
+  @$pb.TagNumber(25)
+  $core.bool hasHoldMotorMask() => $_has(19);
+  @$pb.TagNumber(25)
+  void clearHoldMotorMask() => $_clearField(25);
 }
 
 const $core.bool _omitFieldNames =
